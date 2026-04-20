@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School Year 2026–2027 — Shoonya Dance Centre</title>
+<style>
+  :root {
+    --ink:       #1a1a1a;
+    --warm:      #c8521a;
+    --warm-soft: #fdf3ec;
+    --teal:      #1a7a6e;
+    --teal-soft: #edf7f5;
+    --gold:      #b8860b;
+    --muted:     #666;
+    --border:    #e4e0db;
+    --bg:        #faf9f7;
+    --white:     #ffffff;
+    --radius:    10px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+  }
+
+  /* ── Language toggle ── */
+  .lang-toggle {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 100;
+    display: flex;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    overflow: hidden;
+    box-shadow: 0 1px 6px rgba(0,0,0,.1);
+  }
+  .lang-btn {
+    padding: .35rem .85rem;
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: var(--muted);
+    transition: background .15s, color .15s;
+  }
+  .lang-btn.active {
+    background: var(--ink);
+    color: var(--white);
+    border-radius: 99px;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    background: var(--ink);
+    color: var(--white);
+    padding: 3rem 1.5rem 2.5rem;
+    text-align: center;
+  }
+  .hero-label {
+    display: inline-block;
+    background: var(--warm);
+    color: var(--white);
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .3rem .9rem;
+    border-radius: 99px;
+    margin-bottom: 1rem;
+  }
+  .hero h1 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 800;
+    letter-spacing: -.02em;
+    margin-bottom: .5rem;
+  }
+  .hero p {
+    color: #aaa;
+    font-size: 1rem;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* ── Layout ── */
+  .page { max-width: 860px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+
+  /* ── Key dates strip ── */
+  .key-dates {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: .75rem;
+    margin-bottom: 2.5rem;
+  }
+  .key-date {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem 1.1rem;
+  }
+  .key-date .label {
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: .3rem;
+  }
+  .key-date .date { font-size: 1rem; font-weight: 700; color: var(--ink); }
+  .key-date .sub  { font-size: .8rem; color: var(--muted); margin-top: .15rem; }
+  .key-date.highlight { border-color: var(--warm); background: var(--warm-soft); }
+  .key-date.highlight .label { color: var(--warm); }
+
+  /* ── Section heading ── */
+  .section-heading {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    margin: 2.5rem 0 1.25rem;
+  }
+  .section-heading .badge {
+    background: var(--teal);
+    color: var(--white);
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: .3rem .8rem;
+    border-radius: 99px;
+    white-space: nowrap;
+  }
+  .section-heading .badge.warm { background: var(--warm); }
+  .section-heading h2 { font-size: 1.25rem; font-weight: 700; letter-spacing: -.01em; }
+
+  /* ── Card ── */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 1rem;
+  }
+  .card-header {
+    background: var(--teal-soft);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 1.3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .card-header.warm-header { background: var(--warm-soft); }
+  .card-header h3 { font-size: 1.05rem; font-weight: 700; }
+  .card-header .date-range { font-size: .85rem; color: var(--muted); font-weight: 500; }
+  .card-body { padding: 1.2rem 1.3rem; }
+
+  /* ── Info rows ── */
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding: .45rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: .9rem;
+  }
+  .info-row:last-child { border-bottom: none; }
+  .info-row .key { color: var(--muted); flex-shrink: 0; }
+  .info-row .val { font-weight: 600; text-align: right; }
+  .info-row .val.warm { color: var(--warm); }
+
+  /* ── Pill tags ── */
+  .pill {
+    display: inline-block;
+    padding: .2rem .65rem;
+    border-radius: 99px;
+    font-size: .75rem;
+    font-weight: 600;
+  }
+  .pill.free    { background: #e8f5e9; color: #2e7d32; }
+  .pill.holiday { background: #f3e5f5; color: #6a1b9a; }
+
+  /* ── Holiday list ── */
+  .holiday-list { list-style: none; }
+  .holiday-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: .4rem 0;
+    font-size: .88rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .holiday-list li:last-child { border-bottom: none; }
+  .holiday-list .name  { color: var(--muted); }
+  .holiday-list .dates { font-weight: 600; }
+
+  /* ── Special events ── */
+  .special-event {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--warm);
+    border-radius: var(--radius);
+    padding: 1rem 1.3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .special-event .event-name { font-weight: 700; font-size: 1rem; }
+  .special-event .event-date { font-size: .9rem; color: var(--muted); margin-top: .2rem; }
+  .special-event .badge-event {
+    background: var(--warm-soft);
+    color: var(--warm);
+    font-size: .75rem;
+    font-weight: 700;
+    padding: .3rem .8rem;
+    border-radius: 99px;
+    white-space: nowrap;
+  }
+
+  /* ── Footer ── */
+  .footnote {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: .82rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .footnote a { color: var(--teal); text-decoration: none; }
+  .footnote a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<!-- ── Language toggle ── -->
+<div class="lang-toggle" role="group" aria-label="Language">
+  <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+  <button class="lang-btn"        id="btn-nl" onclick="setLang('nl')">NL</button>
+</div>
+
+<!-- ── Hero ── -->
+<div class="hero">
+  <div class="hero-label" data-i18n="hero-label">School Year 2026–2027</div>
+  <h1>Shoonya Dance Centre</h1>
+  <p data-i18n="hero-sub">All key dates and holidays for the coming school year — in one place.</p>
+</div>
+
+<div class="page">
+
+  <!-- ── Key dates ── -->
+  <div class="key-dates">
+    <div class="key-date highlight">
+      <div class="label" data-i18n="reg-label">Registration opens</div>
+      <div class="date">15 May 2026</div>
+    </div>
+    <div class="key-date highlight">
+      <div class="label" data-i18n="odd-label">Open Door Day</div>
+      <div class="date">13 September 2026</div>
+      <div class="sub" data-i18n="odd1-sub">Free — no registration needed</div>
+    </div>
+    <div class="key-date highlight">
+      <div class="label" data-i18n="s1-starts-label">Semester 1 starts</div>
+      <div class="date">14 September 2026</div>
+      <div class="sub" data-i18n="s1-starts-sub">Free trial week → 19 Sep</div>
+    </div>
+    <div class="key-date">
+      <div class="label" data-i18n="s1-ends-label">Semester 1 ends</div>
+      <div class="date">30 January 2027</div>
+    </div>
+    <div class="key-date">
+      <div class="label" data-i18n="odd-label">Open Door Day</div>
+      <div class="date">31 January 2027</div>
+      <div class="sub" data-i18n="odd2-sub">Preview Semester 2 classes</div>
+    </div>
+    <div class="key-date">
+      <div class="label" data-i18n="s2-starts-label">Semester 2 starts</div>
+      <div class="date">15 February 2027</div>
+      <div class="sub" data-i18n="s2-starts-sub">Free trial week → 20 Feb</div>
+    </div>
+    <div class="key-date">
+      <div class="label" data-i18n="s2-ends-label">Semester 2 ends</div>
+      <div class="date">12 June 2027</div>
+    </div>
+    <div class="key-date">
+      <div class="label" data-i18n="odd-year-label">End-of-year Open Door</div>
+      <div class="date">13 June 2027</div>
+    </div>
+  </div>
+
+  <!-- ── Semester 1 ── -->
+  <div class="section-heading">
+    <span class="badge warm">Semester 1</span>
+    <h2 data-i18n="s1-heading">September 2026 – January 2027</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-header warm-header">
+      <div>
+        <h3 data-i18n="calendar">Calendar</h3>
+        <div class="date-range" data-i18n="s1-range">14 Sep 2026 — 30 Jan 2027 · 16 sessions</div>
+      </div>
+      <span class="pill free" data-i18n="s1-trial-pill">Free trial week: 14–19 Sep</span>
+    </div>
+    <div class="card-body">
+      <div class="info-row">
+        <span class="key" data-i18n="odd-key">Open Door Day</span>
+        <span class="val warm" data-i18n="s1-odd-date">Sunday 13 September 2026</span>
+      </div>
+      <div class="info-row">
+        <span class="key" data-i18n="first-class-key">First class (free trial)</span>
+        <span class="val" data-i18n="s1-first-date">Monday 14 September 2026</span>
+      </div>
+      <div class="info-row">
+        <span class="key" data-i18n="trial-ends-key">Free trial week ends</span>
+        <span class="val" data-i18n="s1-trial-end-date">Saturday 19 September 2026</span>
+      </div>
+      <div class="info-row">
+        <span class="key" data-i18n="last-class-key">Last class</span>
+        <span class="val" data-i18n="s1-last-date">Friday 30 January 2027</span>
+      </div>
+      <div class="info-row">
+        <span class="key" data-i18n="catchup-key">Catch-up week</span>
+        <span class="val" data-i18n="s1-catchup-date">1–7 February 2027</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h3 data-i18n="holidays-title">School Holidays</h3>
+    </div>
+    <div class="card-body">
+      <ul class="holiday-list">
+        <li>
+          <span class="name"><span class="pill holiday">Herfstvakantie</span></span>
+          <span class="dates" data-i18n="herfst-dates">1–8 Nov 2026</span>
+        </li>
+        <li>
+          <span class="name"><span class="pill holiday">Kerstvakantie</span></span>
+          <span class="dates" data-i18n="kerst-dates">20 Dec 2026 – 10 Jan 2027</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ── Semester 2 ── -->
+  <div class="section-heading">
+    <span class="badge">Semester 2</span>
+    <h2 data-i18n="s2-heading">February – June 2027</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <h3 data-i18n="calendar">Calendar</h3>
+        <div class="date-range" data-i18n="s2-range">15 Feb 2027 — 12 Jun 2027 · 15 sessions</div>
+      </div>
+      <span class="pill free" data-i18n="s2-trial-pill">Free trial week: 15–20 Feb</span>
+    </div>
+    <div class="card-body">
+      <div class="info-row">
+        <span class="key" data-i18n="odd-preview-key">Open Door Day (preview)</span>
+        <span class="val warm" data-i18n="s2-odd-date">Saturday 31 January 2027</span>
+      </div>
+      <div class="info-row">
+        <span class="key" data-i18n="first-class-key">First class (free trial)</span>
+        <span class="val" data-i18n="s2-first-date">Monday 15 February 2027</span>
+      </div>
+      <div class="info-row">
+        <span class="key" data-i18n="trial-ends-key">Free trial week ends</span>
+        <span class="val" data-i18n="s2-trial-end-date">Saturday 20 February 2027</span>
+      </div>
+      <div class="info-row">
+        <span class="key" data-i18n="last-class-key">Last class</span>
+        <span class="val" data-i18n="s2-last-date">Friday 12 June 2027</span>
+      </div>
+      <div class="info-row">
+        <span class="key" data-i18n="odd-year-label">End-of-year Open Door</span>
+        <span class="val warm" data-i18n="s2-yearend-date">Sunday 13 June 2027</span>
+      </div>
+      <div class="info-row">
+        <span class="key" data-i18n="catchup-key">Catch-up week</span>
+        <span class="val" data-i18n="s2-catchup-date">14–19 June 2027</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h3 data-i18n="holidays-title">School Holidays</h3>
+    </div>
+    <div class="card-body">
+      <ul class="holiday-list">
+        <li>
+          <span class="name"><span class="pill holiday">Krokusvakantie</span></span>
+          <span class="dates" data-i18n="krocus-dates">8–14 Feb 2027</span>
+        </li>
+        <li>
+          <span class="name"><span class="pill holiday">Paasvakantie</span></span>
+          <span class="dates" data-i18n="paas-dates">28 Mar – 11 Apr 2027</span>
+        </li>
+      </ul>
+      <div style="margin-top: .75rem; font-size: .78rem; color: var(--muted);" data-i18n="krocus-note">
+        Krokusvakantie ends the day before semester starts — no classes are skipped.
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Special events ── -->
+  <div class="section-heading">
+    <span class="badge warm" data-i18n="special-badge">Special Events</span>
+    <h2 data-i18n="special-heading">Summer</h2>
+  </div>
+
+  <div class="special-event">
+    <div>
+      <div class="event-name">Zomerstage 2027</div>
+      <div class="event-date" data-i18n="zomerstage-date">3–9 July 2027</div>
+    </div>
+    <span class="badge-event" data-i18n="zomerstage-badge">Summer intensive</span>
+  </div>
+
+  <!-- ── Footer ── -->
+  <div class="footnote">
+    <p data-i18n="footer-shoes">Dance shoes policy: only clean dance shoes are allowed on the floor — no street shoes. 👟</p>
+    <p style="margin-top: .5rem;"><span data-i18n="footer-questions">Questions?</span> <a href="mailto:info@shoonyadance.com">info@shoonyadance.com</a> · <a href="https://shoonyadance.com">shoonyadance.com</a></p>
+  </div>
+
+</div><!-- /page -->
+
+<script>
+  const translations = {
+    en: {
+      'hero-label':        'School Year 2026–2027',
+      'hero-sub':          'All key dates and holidays for the coming school year — in one place.',
+      'reg-label':         'Registration opens',
+      'odd-label':         'Open Door Day',
+      'odd1-sub':          'Free — no registration needed',
+      's1-starts-label':   'Semester 1 starts',
+      's1-starts-sub':     'Free trial week → 19 Sep',
+      's1-ends-label':     'Semester 1 ends',
+      'odd2-sub':          'Preview Semester 2 classes',
+      's2-starts-label':   'Semester 2 starts',
+      's2-starts-sub':     'Free trial week → 20 Feb',
+      's2-ends-label':     'Semester 2 ends',
+      'odd-year-label':    'End-of-year Open Door',
+      's1-heading':        'September 2026 – January 2027',
+      'calendar':          'Calendar',
+      's1-range':          '14 Sep 2026 — 30 Jan 2027 · 16 sessions',
+      's1-trial-pill':     'Free trial week: 14–19 Sep',
+      'odd-key':           'Open Door Day',
+      's1-odd-date':       'Sunday 13 September 2026',
+      'first-class-key':   'First class (free trial)',
+      's1-first-date':     'Monday 14 September 2026',
+      'trial-ends-key':    'Free trial week ends',
+      's1-trial-end-date': 'Saturday 19 September 2026',
+      'last-class-key':    'Last class',
+      's1-last-date':      'Friday 30 January 2027',
+      'catchup-key':       'Catch-up week',
+      's1-catchup-date':   '1–7 February 2027',
+      'holidays-title':    'School Holidays',
+      'herfst-dates':      '1–8 Nov 2026',
+      'kerst-dates':       '20 Dec 2026 – 10 Jan 2027',
+      's2-heading':        'February – June 2027',
+      's2-range':          '15 Feb 2027 — 12 Jun 2027 · 15 sessions',
+      's2-trial-pill':     'Free trial week: 15–20 Feb',
+      'odd-preview-key':   'Open Door Day (preview)',
+      's2-odd-date':       'Saturday 31 January 2027',
+      's2-first-date':     'Monday 15 February 2027',
+      's2-trial-end-date': 'Saturday 20 February 2027',
+      's2-last-date':      'Friday 12 June 2027',
+      's2-yearend-date':   'Sunday 13 June 2027',
+      's2-catchup-date':   '14–19 June 2027',
+      'krocus-dates':      '8–14 Feb 2027',
+      'paas-dates':        '28 Mar – 11 Apr 2027',
+      'krocus-note':       'Krokusvakantie ends the day before semester starts — no classes are skipped.',
+      'special-badge':     'Special Events',
+      'special-heading':   'Summer',
+      'zomerstage-date':   '3–9 July 2027',
+      'zomerstage-badge':  'Summer intensive',
+      'footer-shoes':      'Dance shoes policy: only clean dance shoes are allowed on the floor — no street shoes. 👟',
+      'footer-questions':  'Questions?',
+    },
+    nl: {
+      'hero-label':        'Schooljaar 2026–2027',
+      'hero-sub':          'Alle belangrijke data en vakanties voor het komende schooljaar — op één plek.',
+      'reg-label':         'Inschrijvingen open',
+      'odd-label':         'Opendeurdag',
+      'odd1-sub':          'Gratis — geen inschrijving vereist',
+      's1-starts-label':   'Semester 1 begint',
+      's1-starts-sub':     'Gratis proefweek → 19 sep',
+      's1-ends-label':     'Semester 1 eindigt',
+      'odd2-sub':          'Voorproefje semester 2',
+      's2-starts-label':   'Semester 2 begint',
+      's2-starts-sub':     'Gratis proefweek → 20 feb',
+      's2-ends-label':     'Semester 2 eindigt',
+      'odd-year-label':    'Opendeurdag einde schooljaar',
+      's1-heading':        'September 2026 – januari 2027',
+      'calendar':          'Kalender',
+      's1-range':          '14 sep 2026 — 30 jan 2027 · 16 lessen',
+      's1-trial-pill':     'Gratis proefweek: 14–19 sep',
+      'odd-key':           'Opendeurdag',
+      's1-odd-date':       'Zondag 13 september 2026',
+      'first-class-key':   'Eerste les (gratis proef)',
+      's1-first-date':     'Maandag 14 september 2026',
+      'trial-ends-key':    'Gratis proefweek eindigt',
+      's1-trial-end-date': 'Zaterdag 19 september 2026',
+      'last-class-key':    'Laatste les',
+      's1-last-date':      'Vrijdag 30 januari 2027',
+      'catchup-key':       'Inhaalweek',
+      's1-catchup-date':   '1–7 februari 2027',
+      'holidays-title':    'Schoolvakanties',
+      'herfst-dates':      '1–8 nov 2026',
+      'kerst-dates':       '20 dec 2026 – 10 jan 2027',
+      's2-heading':        'Februari – juni 2027',
+      's2-range':          '15 feb 2027 — 12 jun 2027 · 15 lessen',
+      's2-trial-pill':     'Gratis proefweek: 15–20 feb',
+      'odd-preview-key':   'Opendeurdag (voorproefje)',
+      's2-odd-date':       'Zaterdag 31 januari 2027',
+      's2-first-date':     'Maandag 15 februari 2027',
+      's2-trial-end-date': 'Zaterdag 20 februari 2027',
+      's2-last-date':      'Vrijdag 12 juni 2027',
+      's2-yearend-date':   'Zondag 13 juni 2027',
+      's2-catchup-date':   '14–19 juni 2027',
+      'krocus-dates':      '8–14 feb 2027',
+      'paas-dates':        '28 mrt – 11 apr 2027',
+      'krocus-note':       'De krokusvakantie eindigt de dag voor het semester begint — er worden geen lessen overgeslagen.',
+      'special-badge':     'Speciale evenementen',
+      'special-heading':   'Zomer',
+      'zomerstage-date':   '3–9 juli 2027',
+      'zomerstage-badge':  'Zomerstage',
+      'footer-shoes':      'Dansschoenenbeleid: alleen schone dansschoenen zijn toegestaan op de vloer — geen straatschoenen. 👟',
+      'footer-questions':  'Vragen?',
+    }
+  };
+
+  let currentLang = 'en';
+
+  function setLang(lang) {
+    currentLang = lang;
+    const t = translations[lang];
+
+    // Swap all translated elements
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (t[key] !== undefined) el.textContent = t[key];
+    });
+
+    // Update html lang attribute and page title
+    document.documentElement.lang = lang;
+    document.title = lang === 'nl'
+      ? 'Schooljaar 2026–2027 — Shoonya Dance Centre'
+      : 'School Year 2026–2027 — Shoonya Dance Centre';
+
+    // Update toggle buttons
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.getElementById('btn-nl').classList.toggle('active', lang === 'nl');
+  }
+
+  // Auto-detect browser language on load
+  const browserLang = navigator.language?.startsWith('nl') ? 'nl' : 'en';
+  if (browserLang === 'nl') setLang('nl');
+</script>
+
+</body>
+</html>
