@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Partner & Social Dance — Shoonya Dance Centre Ghent</title>
+<meta name="description" content="Partner dance classes in Ghent: Cuban Salsa, Bachata, Argentine Tango, Kizomba, Lindy Hop, Rueda de Casino. All levels at Shoonya Dance Centre.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:       #1a1a1a;
+    --warm:      #c8521a;
+    --warm-soft: #fdf3ec;
+    --muted:     #666;
+    --border:    #e4e0db;
+    --bg:        #faf9f7;
+    --white:     #ffffff;
+    --radius:    10px;
+    --cat-color: #c8521a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; }
+
+  /* ── Lang toggle ── */
+  .lang-toggle { position: fixed; top: 1rem; right: 1rem; z-index: 100; display: flex; background: var(--white); border: 1px solid var(--border); border-radius: 99px; overflow: hidden; box-shadow: 0 1px 6px rgba(0,0,0,.1); }
+  .lang-btn { padding: .35rem .85rem; font-size: .75rem; font-weight: 700; letter-spacing: .06em; border: none; background: none; cursor: pointer; color: var(--muted); transition: background .15s, color .15s; }
+  .lang-btn.active { background: var(--ink); color: var(--white); border-radius: 99px; }
+
+  /* ── Breadcrumb ── */
+  .breadcrumb { padding: 1rem 1.5rem; font-size: .82rem; color: var(--muted); max-width: 960px; margin: 0 auto; }
+  .breadcrumb a { color: var(--muted); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--ink); }
+  .breadcrumb span { margin: 0 .4rem; }
+
+  /* ── Hero ── */
+  .hero { background: var(--ink); color: var(--white); padding: 4rem 1.5rem 3.5rem; text-align: center; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 30%, rgba(200,82,26,.2) 0%, transparent 65%); pointer-events: none; }
+  .hero-label { display: inline-block; background: var(--warm); color: var(--white); font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: .3rem 1rem; border-radius: 99px; margin-bottom: 1rem; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 900; line-height: 1.1; margin-bottom: .75rem; }
+  .hero p { font-size: 1rem; color: rgba(255,255,255,.7); max-width: 500px; margin: 0 auto 2rem; }
+
+  /* ── Partner warning ── */
+  .partner-alert { background: #fff8e1; border: 1px solid #ffe082; border-left: 4px solid #f9a825; border-radius: var(--radius); padding: 1.1rem 1.4rem; margin-bottom: 2rem; display: flex; gap: 1rem; align-items: flex-start; }
+  .partner-alert .icon { font-size: 1.3rem; flex-shrink: 0; margin-top: .1rem; }
+  .partner-alert strong { display: block; font-size: .95rem; margin-bottom: .25rem; }
+  .partner-alert p { font-size: .88rem; color: #555; line-height: 1.5; }
+
+  /* ── Content wrapper ── */
+  .content { max-width: 960px; margin: 0 auto; padding: 3rem 1.5rem; }
+  .section-intro { margin-bottom: 2rem; }
+  .section-intro h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; margin-bottom: .4rem; }
+  .section-intro p { color: var(--muted); font-size: .95rem; }
+
+  /* ── Style cards grid ── */
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
+  .style-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; border-left: 4px solid var(--card-accent, var(--border)); transition: box-shadow .2s, transform .2s; display: flex; flex-direction: column; }
+  .style-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,.09); transform: translateY(-2px); }
+  .card-badges { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .75rem; }
+  .badge { display: inline-block; font-size: .68rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; padding: .2rem .6rem; border-radius: 99px; }
+  .badge-beginner  { background: #e8f5e9; color: #2a7a3a; }
+  .badge-experience{ background: #fff3e0; color: #e65100; }
+  .badge-partner   { background: #e3f0ff; color: #1a5fa8; }
+  .badge-solo      { background: #f0faf0; color: #2a7a3a; }
+  .badge-advanced  { background: #fce4ec; color: #c62828; }
+  .style-card h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; margin-bottom: .5rem; line-height: 1.2; }
+  .teacher { font-size: .78rem; color: var(--muted); margin-bottom: .6rem; font-weight: 500; }
+  .style-card p { font-size: .88rem; color: #444; line-height: 1.6; flex: 1; margin-bottom: 1rem; }
+  .card-cta { display: inline-block; font-size: .82rem; font-weight: 700; color: var(--warm); text-decoration: none; margin-top: auto; }
+  .card-cta:hover { text-decoration: underline; }
+  .age-note { font-size: .75rem; color: var(--muted); margin-top: .4rem; }
+
+  /* ── CTA band ── */
+  .cta-band { background: var(--ink); color: var(--white); text-align: center; padding: 3.5rem 1.5rem; margin-top: 3rem; }
+  .cta-band h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700; margin-bottom: .6rem; }
+  .cta-band p { font-size: .95rem; color: rgba(255,255,255,.7); margin-bottom: 1.75rem; }
+  .btn-warm { display: inline-block; background: var(--warm); color: var(--white); padding: .8rem 1.8rem; border-radius: 6px; font-weight: 700; font-size: .9rem; text-decoration: none; margin: .3rem; transition: opacity .15s; }
+  .btn-warm:hover { opacity: .88; }
+  .btn-outline-white { display: inline-block; background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,.4); padding: .8rem 1.8rem; border-radius: 6px; font-weight: 600; font-size: .9rem; text-decoration: none; margin: .3rem; }
+  .btn-outline-white:hover { border-color: white; }
+
+  /* ── Footer ── */
+  .footer { text-align: center; padding: 1.5rem; font-size: .8rem; color: var(--muted); }
+  .footer a { color: var(--muted); }
+
+  /* ── Lang ── */
+  [data-lang="nl"] { display: none; }
+  body.nl [data-lang="en"] { display: none; }
+  body.nl [data-lang="nl"] { display: unset; }
+
+  @media (max-width: 600px) { .cards-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="lang-toggle">
+  <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+  <button class="lang-btn" id="btn-nl" onclick="setLang('nl')">NL</button>
+</div>
+
+<!-- Breadcrumb -->
+<div class="breadcrumb">
+  <a href="../new-to-shoonya/">
+    <span data-lang="en">← New to Shoonya?</span>
+    <span data-lang="nl">← Nieuw bij Shoonya?</span>
+  </a>
+  <span>·</span>
+  <span data-lang="en">Partner & Social Dance</span>
+  <span data-lang="nl">Partner- & Sociaal Dansen</span>
+</div>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-label">
+    <span data-lang="en">Courses</span>
+    <span data-lang="nl">Lessen</span>
+  </div>
+  <h1>
+    <span data-lang="en">Partner & Social Dance</span>
+    <span data-lang="nl">Partner- & Sociaal Dansen</span>
+  </h1>
+  <p data-lang="en">Six styles built around connection, rhythm, and dancing with someone else. From Cuban Salsa to Argentine Tango.</p>
+  <p data-lang="nl">Zes stijlen gebaseerd op verbinding, ritme en dansen met iemand anders. Van Cuban Salsa tot Argentine Tango.</p>
+</div>
+
+<!-- Content -->
+<div class="content">
+
+  <!-- Partner warning -->
+  <div class="partner-alert">
+    <div class="icon">⚠️</div>
+    <div>
+      <strong data-lang="en">Most partner dances require you to register with a partner</strong>
+      <strong data-lang="nl">De meeste partnerdansen vereisen inschrijving met een partner</strong>
+      <p data-lang="en">Cuban Salsa, Bachata, Argentine Tango, Kizomba, and Rueda de Casino require partner registration — we don't match solo registrants. Lindy Hop is the exception: solo registration is fine. Can't find a partner? Post in the <a href="https://shoonyadance.com" style="color:#555">Shoonya Dance Forum</a>.</p>
+      <p data-lang="nl">Cuban Salsa, Bachata, Argentine Tango, Kizomba en Rueda de Casino vereisen partnerinschrijving — we koppelen geen solo-deelnemers. Lindy Hop is de uitzondering: solo inschrijven is prima. Geen partner gevonden? Post in het <a href="https://shoonyadance.com" style="color:#555">Shoonya Dance Forum</a>.</p>
+    </div>
+  </div>
+
+  <!-- Cards -->
+  <div class="cards-grid">
+
+    <!-- Cuban Salsa -->
+    <div class="style-card" style="--card-accent: #c8521a;">
+      <div class="card-badges">
+        <span class="badge badge-beginner" data-lang="en">Beginner friendly</span>
+        <span class="badge badge-beginner" data-lang="nl">Beginnersvriendelijk</span>
+        <span class="badge badge-partner" data-lang="en">Partner required</span>
+        <span class="badge badge-partner" data-lang="nl">Partner vereist</span>
+      </div>
+      <h3>Cuban Salsa</h3>
+      <div class="teacher" data-lang="en">👤 Alex & Ioanna · Age 12+</div>
+      <div class="teacher" data-lang="nl">👤 Alex & Ioanna · Vanaf 12 jaar</div>
+      <p data-lang="en">Lively and dynamic, rooted in Afro-Cuban rhythms. Circular movement, improvisation, and playful partner interaction. Level 1 starts from scratch — no experience needed.</p>
+      <p data-lang="nl">Levendig en dynamisch, geworteld in Afro-Cubaanse ritmes. Cirkelvormige beweging, improvisatie en speelse partnerinteractie. Level 1 begint van nul — geen ervaring nodig.</p>
+      <a class="card-cta" href="https://shoonyadance.com/cuban-salsa-in-gent" data-lang="en">View Cuban Salsa →</a>
+      <a class="card-cta" href="https://shoonyadance.com/cuban-salsa-in-gent" data-lang="nl">Bekijk Cuban Salsa →</a>
+    </div>
+
+    <!-- Bachata -->
+    <div class="style-card" style="--card-accent: #c8521a;">
+      <div class="card-badges">
+        <span class="badge badge-beginner" data-lang="en">Beginner friendly</span>
+        <span class="badge badge-beginner" data-lang="nl">Beginnersvriendelijk</span>
+        <span class="badge badge-partner" data-lang="en">Partner required</span>
+        <span class="badge badge-partner" data-lang="nl">Partner vereist</span>
+      </div>
+      <h3>Bachata</h3>
+      <div class="teacher" data-lang="en">👤 Alex, Badriyah & Ioanna · Age 12+</div>
+      <div class="teacher" data-lang="nl">👤 Alex, Badriyah & Ioanna · Vanaf 12 jaar</div>
+      <p data-lang="en">Dominican partner dance in a four-beat rhythm — side step, together, side step, tap. Level 1 starts from zero. Three levels available up to advanced choreography.</p>
+      <p data-lang="nl">Dominicaanse partnerdans in een viertellermaat. Level 1 begint van nul. Drie niveaus beschikbaar tot en met gevorderde choreografie.</p>
+      <a class="card-cta" href="https://shoonyadance.com/bachata-dance-classes-in-ghent" data-lang="en">View Bachata →</a>
+      <a class="card-cta" href="https://shoonyadance.com/bachata-dance-classes-in-ghent" data-lang="nl">Bekijk Bachata →</a>
+    </div>
+
+    <!-- Argentine Tango -->
+    <div class="style-card" style="--card-accent: #c8521a;">
+      <div class="card-badges">
+        <span class="badge badge-beginner" data-lang="en">Beginner friendly</span>
+        <span class="badge badge-beginner" data-lang="nl">Beginnersvriendelijk</span>
+        <span class="badge badge-partner" data-lang="en">Partner required</span>
+        <span class="badge badge-partner" data-lang="nl">Partner vereist</span>
+      </div>
+      <h3>Argentine Tango</h3>
+      <div class="teacher" data-lang="en">👤 Gisela & Sergio · Age 16+</div>
+      <div class="teacher" data-lang="nl">👤 Gisela & Sergio · Vanaf 16 jaar</div>
+      <p data-lang="en">A floating, intense, and timeless dance where two bodies unite in space. Level 1 welcomes complete beginners — no prior dance experience needed. Taught in EN/FR/NL.</p>
+      <p data-lang="nl">Een zwevende, intense en tijdloze dans waarbij twee lichamen samenkomen. Level 1 verwelkomt absolute beginners. Les in EN/FR/NL.</p>
+      <a class="card-cta" href="https://shoonyadance.com/argentijnse-tango-danslessen-gent" data-lang="en">View Argentine Tango →</a>
+      <a class="card-cta" href="https://shoonyadance.com/argentijnse-tango-danslessen-gent" data-lang="nl">Bekijk Argentine Tango →</a>
+    </div>
+
+    <!-- Kizomba -->
+    <div class="style-card" style="--card-accent: #888;">
+      <div class="card-badges">
+        <span class="badge badge-experience" data-lang="en">Some experience needed</span>
+        <span class="badge badge-experience" data-lang="nl">Enige ervaring vereist</span>
+        <span class="badge badge-partner" data-lang="en">Partner required</span>
+        <span class="badge badge-partner" data-lang="nl">Partner vereist</span>
+      </div>
+      <h3>Kizomba</h3>
+      <div class="teacher" data-lang="en">👤 Sonja KikiZomba · Age 12+</div>
+      <div class="teacher" data-lang="nl">👤 Sonja KikiZomba · Vanaf 12 jaar</div>
+      <p data-lang="en">Smooth, close partner dance from Angola — often called the African Tango. Characterized by flowing Ginga movements and deep partner connection. Level 2 and up (prior experience needed).</p>
+      <p data-lang="nl">Vloeiende, close partnerdans uit Angola — ook wel de Afrikaanse Tango genoemd. Gekenmerkt door vloeiende Ginga-bewegingen. Niveau 2 en hoger (enige ervaring vereist).</p>
+      <a class="card-cta" href="https://shoonyadance.com/kizomba-danslessen-in-gent" data-lang="en">View Kizomba →</a>
+      <a class="card-cta" href="https://shoonyadance.com/kizomba-danslessen-in-gent" data-lang="nl">Bekijk Kizomba →</a>
+    </div>
+
+    <!-- Lindy Hop -->
+    <div class="style-card" style="--card-accent: #888;">
+      <div class="card-badges">
+        <span class="badge badge-experience" data-lang="en">Some experience needed</span>
+        <span class="badge badge-experience" data-lang="nl">Enige ervaring vereist</span>
+        <span class="badge badge-solo" data-lang="en">Solo registration OK</span>
+        <span class="badge badge-solo" data-lang="nl">Solo inschrijven OK</span>
+      </div>
+      <h3>Lindy Hop</h3>
+      <div class="teacher" data-lang="en">👤 Upside Down · Age 12+</div>
+      <div class="teacher" data-lang="nl">👤 Upside Down · Vanaf 12 jaar</div>
+      <p data-lang="en">Energetic swing partner dance from 1930s jazz culture. "Everybody leads, everybody follows." Requires a few months of prior social dancing experience — not for absolute beginners.</p>
+      <p data-lang="nl">Energieke swing partnerdans uit de jazzscene van de jaren 30. "Iedereen leidt, iedereen volgt." Vereist enige maanden sociaal dansen — niet voor absolute beginners.</p>
+      <a class="card-cta" href="https://shoonyadance.com/lindy-hop-danslessen-in-gent" data-lang="en">View Lindy Hop →</a>
+      <a class="card-cta" href="https://shoonyadance.com/lindy-hop-danslessen-in-gent" data-lang="nl">Bekijk Lindy Hop →</a>
+    </div>
+
+    <!-- Rueda de Casino -->
+    <div class="style-card" style="--card-accent: #c62828;">
+      <div class="card-badges">
+        <span class="badge badge-advanced" data-lang="en">Prior salsa required</span>
+        <span class="badge badge-advanced" data-lang="nl">Salsa-ervaring vereist</span>
+        <span class="badge badge-partner" data-lang="en">Partner required</span>
+        <span class="badge badge-partner" data-lang="nl">Partner vereist</span>
+      </div>
+      <h3>Rueda de Casino</h3>
+      <div class="teacher" data-lang="en">👤 Alex & Ioanna · Age 12+</div>
+      <div class="teacher" data-lang="nl">👤 Alex & Ioanna · Vanaf 12 jaar</div>
+      <p data-lang="en">Cuban salsa danced in a circle — one caller, shifting partners, synchronized combinations. Requires at least 2 seasons of prior Cuban Salsa. Closed group, no mid-season joining.</p>
+      <p data-lang="nl">Cuban salsa in een cirkel — één caller, wisselende partners, gesynchroniseerde combinaties. Minimaal 2 seizoenen Cuban Salsa vereist. Gesloten groep.</p>
+      <a class="card-cta" href="https://shoonyadance.com/rueda-de-casino-danslessen-gent" data-lang="en">View Rueda de Casino →</a>
+      <a class="card-cta" href="https://shoonyadance.com/rueda-de-casino-danslessen-gent" data-lang="nl">Bekijk Rueda de Casino →</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- CTA Band -->
+<div class="cta-band">
+  <h2 data-lang="en">Try before you commit</h2>
+  <h2 data-lang="nl">Probeer voor je inschrijft</h2>
+  <p data-lang="en">Come to our Open House — free, no sign-up. Try any class with your partner and see what fits.</p>
+  <p data-lang="nl">Kom naar onze Open Deur — gratis, geen inschrijving. Probeer elke les met je partner en ontdek wat bij jullie past.</p>
+  <a href="https://shoonyadance.com/calendar" class="btn-warm" data-lang="en">Open House — 14 June 2026</a>
+  <a href="https://shoonyadance.com/calendar" class="btn-warm" data-lang="nl">Open Deur — 14 juni 2026</a>
+  <a href="../new-to-shoonya/" class="btn-outline-white" data-lang="en">← Back to overview</a>
+  <a href="../new-to-shoonya/" class="btn-outline-white" data-lang="nl">← Terug naar overzicht</a>
+</div>
+
+<div class="footer">
+  <p>Shoonya Dance Centre · Stapelplein 41, 9000 Gent · <a href="https://shoonyadance.com">shoonyadance.com</a></p>
+</div>
+
+<script>
+  function setLang(lang) {
+    document.body.classList.toggle('nl', lang === 'nl');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.getElementById('btn-nl').classList.toggle('active', lang === 'nl');
+    localStorage.setItem('shoonya-lang', lang);
+  }
+  (function() {
+    const saved = localStorage.getItem('shoonya-lang');
+    const browserLang = navigator.language || '';
+    const lang = saved || (browserLang.toLowerCase().startsWith('nl') ? 'nl' : 'en');
+    if (lang === 'nl') setLang('nl');
+  })();
+</script>
+</body>
+</html>

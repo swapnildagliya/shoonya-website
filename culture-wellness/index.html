@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Culture & Wellness — Shoonya Dance Centre Ghent</title>
+<meta name="description" content="Cultural and wellness dance classes in Ghent: Bollywood, Bollyfolk, African Dance, Burlesque, Yoga, Cissy Ball, Jazzy Workout and more at Shoonya Dance Centre.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:       #1a1a1a;
+    --warm:      #c8521a;
+    --purple:    #6b2fa0;
+    --purple-soft: #f3e8ff;
+    --muted:     #666;
+    --border:    #e4e0db;
+    --bg:        #faf9f7;
+    --white:     #ffffff;
+    --radius:    10px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; }
+
+  .lang-toggle { position: fixed; top: 1rem; right: 1rem; z-index: 100; display: flex; background: var(--white); border: 1px solid var(--border); border-radius: 99px; overflow: hidden; box-shadow: 0 1px 6px rgba(0,0,0,.1); }
+  .lang-btn { padding: .35rem .85rem; font-size: .75rem; font-weight: 700; letter-spacing: .06em; border: none; background: none; cursor: pointer; color: var(--muted); transition: background .15s, color .15s; }
+  .lang-btn.active { background: var(--ink); color: var(--white); border-radius: 99px; }
+
+  .breadcrumb { padding: 1rem 1.5rem; font-size: .82rem; color: var(--muted); max-width: 960px; margin: 0 auto; }
+  .breadcrumb a { color: var(--muted); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--ink); }
+  .breadcrumb span { margin: 0 .4rem; }
+
+  .hero { background: var(--ink); color: var(--white); padding: 4rem 1.5rem 3.5rem; text-align: center; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 70%, rgba(107,47,160,.2) 0%, transparent 65%); pointer-events: none; }
+  .hero-label { display: inline-block; background: var(--purple); color: var(--white); font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: .3rem 1rem; border-radius: 99px; margin-bottom: 1rem; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 900; line-height: 1.1; margin-bottom: .75rem; }
+  .hero p { font-size: 1rem; color: rgba(255,255,255,.7); max-width: 500px; margin: 0 auto 2rem; }
+
+  .content { max-width: 960px; margin: 0 auto; padding: 3rem 1.5rem; }
+
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
+  .style-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; border-left: 4px solid var(--card-accent, var(--border)); transition: box-shadow .2s, transform .2s; display: flex; flex-direction: column; }
+  .style-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,.09); transform: translateY(-2px); }
+  .card-badges { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .75rem; }
+  .badge { display: inline-block; font-size: .68rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; padding: .2rem .6rem; border-radius: 99px; }
+  .badge-beginner   { background: #e8f5e9; color: #2a7a3a; }
+  .badge-experience { background: #fff3e0; color: #e65100; }
+  .badge-open       { background: #f3e8ff; color: #6b2fa0; }
+  .style-card h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; margin-bottom: .5rem; line-height: 1.2; }
+  .teacher { font-size: .78rem; color: var(--muted); margin-bottom: .6rem; font-weight: 500; }
+  .style-card p { font-size: .88rem; color: #444; line-height: 1.6; flex: 1; margin-bottom: 1rem; }
+  .card-cta { display: inline-block; font-size: .82rem; font-weight: 700; color: var(--purple); text-decoration: none; margin-top: auto; }
+  .card-cta:hover { text-decoration: underline; }
+
+  .cta-band { background: var(--ink); color: var(--white); text-align: center; padding: 3.5rem 1.5rem; margin-top: 3rem; }
+  .cta-band h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700; margin-bottom: .6rem; }
+  .cta-band p { font-size: .95rem; color: rgba(255,255,255,.7); margin-bottom: 1.75rem; }
+  .btn-purple { display: inline-block; background: var(--purple); color: var(--white); padding: .8rem 1.8rem; border-radius: 6px; font-weight: 700; font-size: .9rem; text-decoration: none; margin: .3rem; transition: opacity .15s; }
+  .btn-purple:hover { opacity: .88; }
+  .btn-outline-white { display: inline-block; background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,.4); padding: .8rem 1.8rem; border-radius: 6px; font-weight: 600; font-size: .9rem; text-decoration: none; margin: .3rem; }
+  .btn-outline-white:hover { border-color: white; }
+
+  .footer { text-align: center; padding: 1.5rem; font-size: .8rem; color: var(--muted); }
+  .footer a { color: var(--muted); }
+
+  [data-lang="nl"] { display: none; }
+  body.nl [data-lang="en"] { display: none; }
+  body.nl [data-lang="nl"] { display: unset; }
+
+  @media (max-width: 600px) { .cards-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="lang-toggle">
+  <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+  <button class="lang-btn" id="btn-nl" onclick="setLang('nl')">NL</button>
+</div>
+
+<div class="breadcrumb">
+  <a href="../new-to-shoonya/">
+    <span data-lang="en">← New to Shoonya?</span>
+    <span data-lang="nl">← Nieuw bij Shoonya?</span>
+  </a>
+  <span>·</span>
+  <span data-lang="en">Culture & Wellness</span>
+  <span data-lang="nl">Cultuur & Welzijn</span>
+</div>
+
+<div class="hero">
+  <div class="hero-label">
+    <span data-lang="en">Courses</span>
+    <span data-lang="nl">Lessen</span>
+  </div>
+  <h1>
+    <span data-lang="en">Culture & Wellness</span>
+    <span data-lang="nl">Cultuur & Welzijn</span>
+  </h1>
+  <p data-lang="en">Nine solo styles celebrating movement from around the world. Expressive, joyful, and open to everyone. Come alone.</p>
+  <p data-lang="nl">Negen solo-stijlen die beweging van over de hele wereld vieren. Expressief, vrolijk en open voor iedereen. Kom alleen.</p>
+</div>
+
+<div class="content">
+  <div class="cards-grid">
+
+    <!-- Bollywood & Bollyfolk -->
+    <div class="style-card" style="--card-accent: #6b2fa0;">
+      <div class="card-badges">
+        <span class="badge badge-open" data-lang="en">Open level available</span>
+        <span class="badge badge-open" data-lang="nl">Open niveau beschikbaar</span>
+      </div>
+      <h3>Bollywood & Bollyfolk</h3>
+      <div class="teacher" data-lang="en">👤 Swapnil Dagliya · Age 12+</div>
+      <div class="teacher" data-lang="nl">👤 Swapnil Dagliya · Vanaf 12 jaar</div>
+      <p data-lang="en">Bollyfolk is open level — complete beginners welcome. Indian folk traditions each semester (this semester: Ghoomar & Dalkhai). Bollywood Level 2 is a structured starting point for those with some experience.</p>
+      <p data-lang="nl">Bollyfolk is open niveau — absolute beginners welkom. Indiase volkstradities elk semester (dit semester: Ghoomar & Dalkhai). Bollywood Level 2 is een gestructureerd startpunt voor wie enige ervaring heeft.</p>
+      <a class="card-cta" href="https://shoonyadance.com/bollywood-danslessen-in-gent" data-lang="en">View Bollywood & Bollyfolk →</a>
+      <a class="card-cta" href="https://shoonyadance.com/bollywood-danslessen-in-gent" data-lang="nl">Bekijk Bollywood & Bollyfolk →</a>
+    </div>
+
+    <!-- Garba & Kalbeliya -->
+    <div class="style-card" style="--card-accent: #6b2fa0;">
+      <div class="card-badges">
+        <span class="badge badge-beginner" data-lang="en">Beginner friendly</span>
+        <span class="badge badge-beginner" data-lang="nl">Beginnersvriendelijk</span>
+      </div>
+      <h3>Garba & Kalbeliya</h3>
+      <div class="teacher" data-lang="en">👤 Swapnil Dagliya · Age 12+</div>
+      <div class="teacher" data-lang="nl">👤 Swapnil Dagliya · Vanaf 12 jaar</div>
+      <p data-lang="en">Two rich Indian folk traditions in one semester. First half: Garba from Gujarat — rhythmic steps and group formations. Second half: Kalbeliya from Rajasthan — fluid spins and graceful sweeping lines. Open level, no experience needed.</p>
+      <p data-lang="nl">Twee rijke Indiase volkstradities in één semester. Eerste helft: Garba uit Gujarat. Tweede helft: Kalbeliya uit Rajasthan. Open niveau, geen ervaring nodig.</p>
+      <a class="card-cta" href="https://shoonyadance.com/garba-kalbeliya-danslessen-in-gent" data-lang="en">View Garba & Kalbeliya →</a>
+      <a class="card-cta" href="https://shoonyadance.com/garba-kalbeliya-danslessen-in-gent" data-lang="nl">Bekijk Garba & Kalbeliya →</a>
+    </div>
+
+    <!-- African Congolese Dance -->
+    <div class="style-card" style="--card-accent: #6b2fa0;">
+      <div class="card-badges">
+        <span class="badge badge-beginner" data-lang="en">Beginner friendly</span>
+        <span class="badge badge-beginner" data-lang="nl">Beginnersvriendelijk</span>
+      </div>
+      <h3>African Congolese Dance</h3>
+      <div class="teacher" data-lang="en">👤 Joseph Saidi Simako · Age 12+</div>
+      <div class="teacher" data-lang="nl">👤 Joseph Saidi Simako · Vanaf 12 jaar</div>
+      <p data-lang="en">Vibrant, high-energy sessions blending traditional and contemporary Afro and Congolese styles. Open level — beginners and intermediate dancers welcome. Occasional live percussion. Taught in French/Dutch.</p>
+      <p data-lang="nl">Levendige, energieke sessies die traditionele en hedendaagse Afro- en Congolese stijlen combineren. Open niveau — beginners en gevorderden welkom. Soms live percussie. Les in Frans/Nederlands.</p>
+      <a class="card-cta" href="https://shoonyadance.com/afrikaanse-congolese-dans-gent" data-lang="en">View African Dance →</a>
+      <a class="card-cta" href="https://shoonyadance.com/afrikaanse-congolese-dans-gent" data-lang="nl">Bekijk Afrikaanse Dans →</a>
+    </div>
+
+    <!-- Burlesque -->
+    <div class="style-card" style="--card-accent: #6b2fa0;">
+      <div class="card-badges">
+        <span class="badge badge-beginner" data-lang="en">Beginner friendly</span>
+        <span class="badge badge-beginner" data-lang="nl">Beginnersvriendelijk</span>
+      </div>
+      <h3>Burlesque</h3>
+      <div class="teacher" data-lang="en">👤 Zoe Bizoe, Hendrik Lebon & Tine De Pauw · Age 12+</div>
+      <div class="teacher" data-lang="nl">👤 Zoe Bizoe, Hendrik Lebon & Tine De Pauw · Vanaf 12 jaar</div>
+      <p data-lang="en">Performance art blending movement, character, teasing, and self-confidence. Level 1 is designed for complete beginners — everyone has a body that deserves to be seen. Three levels available.</p>
+      <p data-lang="nl">Performancekunst die beweging, karakter, plagen en zelfvertrouwen combineert. Level 1 is ontworpen voor absolute beginners — iedereen heeft een lichaam dat gezien mag worden. Drie niveaus beschikbaar.</p>
+      <a class="card-cta" href="https://shoonyadance.com/burlesque-lessen-in-gent" data-lang="en">View Burlesque →</a>
+      <a class="card-cta" href="https://shoonyadance.com/burlesque-lessen-in-gent" data-lang="nl">Bekijk Burlesque →</a>
+    </div>
+
+    <!-- Cissy Ball -->
+    <div class="style-card" style="--card-accent: #6b2fa0;">
+      <div class="card-badges">
+        <span class="badge badge-beginner" data-lang="en">Beginner friendly</span>
+        <span class="badge badge-beginner" data-lang="nl">Beginnersvriendelijk</span>
+      </div>
+      <h3>Cissy Ball</h3>
+      <div class="teacher" data-lang="en">👤 Hendrik Lebon · Age 12+</div>
+      <div class="teacher" data-lang="nl">👤 Hendrik Lebon · Vanaf 12 jaar</div>
+      <p data-lang="en">Dance theatre through games, improvisation, and shared choreography — inspired by Pina Bausch and Alain Platel. No memorized steps, just movement from within. Each session ends with a performance moment. Open level.</p>
+      <p data-lang="nl">Danstheater door spel, improvisatie en gedeelde choreografie — geïnspireerd door Pina Bausch. Geen gememoriseerde stappen, gewoon beweging van binnenuit. Elke sessie eindigt met een performancemoment. Open niveau.</p>
+      <a class="card-cta" href="https://shoonyadance.com/cissy-ball-danslessen-in-gent" data-lang="en">View Cissy Ball →</a>
+      <a class="card-cta" href="https://shoonyadance.com/cissy-ball-danslessen-in-gent" data-lang="nl">Bekijk Cissy Ball →</a>
+    </div>
+
+    <!-- Jazzy Workout -->
+    <div class="style-card" style="--card-accent: #6b2fa0;">
+      <div class="card-badges">
+        <span class="badge badge-beginner" data-lang="en">Beginner friendly</span>
+        <span class="badge badge-beginner" data-lang="nl">Beginnersvriendelijk</span>
+      </div>
+      <h3>Jazzy Workout</h3>
+      <div class="teacher" data-lang="en">👤 Upside Down · Age 12+</div>
+      <div class="teacher" data-lang="nl">👤 Upside Down · Vanaf 12 jaar</div>
+      <p data-lang="en">"Swing, sweat, and smile." Jazz music, Afro-grooves, funk and soul — movement that builds endurance and makes you happy. No experience required. For every body.</p>
+      <p data-lang="nl">"Swing, zweet en glimlach." Jazzmuziek, Afro-grooves, funk en soul — beweging die conditie opbouwt en blij maakt. Geen ervaring nodig. Voor elk lichaam.</p>
+      <a class="card-cta" href="https://shoonyadance.com/jazzy-workout-danslessen-in-gent" data-lang="en">View Jazzy Workout →</a>
+      <a class="card-cta" href="https://shoonyadance.com/jazzy-workout-danslessen-in-gent" data-lang="nl">Bekijk Jazzy Workout →</a>
+    </div>
+
+    <!-- Yoga -->
+    <div class="style-card" style="--card-accent: #6b2fa0;">
+      <div class="card-badges">
+        <span class="badge badge-beginner" data-lang="en">Beginner friendly</span>
+        <span class="badge badge-beginner" data-lang="nl">Beginnersvriendelijk</span>
+      </div>
+      <h3>Yoga</h3>
+      <div class="teacher" data-lang="en">👤 Swapnil Dagliya · Age 12+</div>
+      <div class="teacher" data-lang="nl">👤 Swapnil Dagliya · Vanaf 12 jaar</div>
+      <p data-lang="en">Hatha × Vinyasa flow — breathing exercises, meditation, alignment, and cool-down. All levels welcome, from complete beginners to experienced yogis. A grounded, mindful 60-minute session.</p>
+      <p data-lang="nl">Hatha × Vinyasa flow — ademhalingsoefeningen, meditatie, uitlijning en afkoelen. Alle niveaus welkom, van absolute beginners tot ervaren yogi's. Een rustige, bewuste sessie van 60 minuten.</p>
+      <a class="card-cta" href="https://shoonyadance.com/yoga-lessen-in-gent" data-lang="en">View Yoga →</a>
+      <a class="card-cta" href="https://shoonyadance.com/yoga-lessen-in-gent" data-lang="nl">Bekijk Yoga →</a>
+    </div>
+
+    <!-- Bhangra -->
+    <div class="style-card" style="--card-accent: #888;">
+      <div class="card-badges">
+        <span class="badge badge-experience" data-lang="en">Some experience needed</span>
+        <span class="badge badge-experience" data-lang="nl">Enige ervaring vereist</span>
+      </div>
+      <h3>Bhangra</h3>
+      <div class="teacher" data-lang="en">👤 Swapnil Dagliya · Age 12+</div>
+      <div class="teacher" data-lang="nl">👤 Swapnil Dagliya · Vanaf 12 jaar</div>
+      <p data-lang="en">High-energy Punjabi folk dance originally performed at harvest celebrations — now a global phenomenon. Level 2/3. New students should start with a seasonal Bhangra intensive first.</p>
+      <p data-lang="nl">Energieke Punjabi volksdans oorspronkelijk bij oogstfeesten — nu een wereldfenomeen. Niveau 2/3. Nieuwe leerlingen starten best met een seizoensintensief.</p>
+      <a class="card-cta" href="https://shoonyadance.com/bhangra-danslessen-in-gent" data-lang="en">View Bhangra →</a>
+      <a class="card-cta" href="https://shoonyadance.com/bhangra-danslessen-in-gent" data-lang="nl">Bekijk Bhangra →</a>
+    </div>
+
+  </div>
+</div>
+
+<div class="cta-band">
+  <h2 data-lang="en">Try before you commit</h2>
+  <h2 data-lang="nl">Probeer voor je inschrijft</h2>
+  <p data-lang="en">Come to our Open House — free, no sign-up. Try any class and find what feels right for you.</p>
+  <p data-lang="nl">Kom naar onze Open Deur — gratis, geen inschrijving. Probeer elke les en ontdek wat bij jou past.</p>
+  <a href="https://shoonyadance.com/calendar" class="btn-purple" data-lang="en">Open House — 14 June 2026</a>
+  <a href="https://shoonyadance.com/calendar" class="btn-purple" data-lang="nl">Open Deur — 14 juni 2026</a>
+  <a href="../new-to-shoonya/" class="btn-outline-white" data-lang="en">← Back to overview</a>
+  <a href="../new-to-shoonya/" class="btn-outline-white" data-lang="nl">← Terug naar overzicht</a>
+</div>
+
+<div class="footer">
+  <p>Shoonya Dance Centre · Stapelplein 41, 9000 Gent · <a href="https://shoonyadance.com">shoonyadance.com</a></p>
+</div>
+
+<script>
+  function setLang(lang) {
+    document.body.classList.toggle('nl', lang === 'nl');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.getElementById('btn-nl').classList.toggle('active', lang === 'nl');
+    localStorage.setItem('shoonya-lang', lang);
+  }
+  (function() {
+    const saved = localStorage.getItem('shoonya-lang');
+    const browserLang = navigator.language || '';
+    const lang = saved || (browserLang.toLowerCase().startsWith('nl') ? 'nl' : 'en');
+    if (lang === 'nl') setLang('nl');
+  })();
+</script>
+</body>
+</html>
