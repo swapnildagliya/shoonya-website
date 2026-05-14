@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bollyfolk Dance Classes in Ghent — Shoonya Dance Centre</title>
+<meta name="description" content="Bollyfolk at Shoonya Dance Centre Ghent. Indian folk dance explored each semester. Sep 2026: Garba Choreography & Khoriya (Open), Cheraw & Lavani (Level 2). Tuesday & Wednesday evenings.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:         #1a1a1a;
+    --purple:      #B564F7;
+    --purple-soft: #F5ECFF;
+    --yellow:      #FBC70F;
+    --muted:       #666;
+    --border:      #e4e0db;
+    --bg:          #ffffff;
+    --radius:      10px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'PT Serif', serif; background: var(--bg); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  /* Lang toggle */
+  .lang-toggle { position: fixed; top: 1rem; right: 1rem; z-index: 100; display: flex; background: #fff; border: 1px solid var(--border); border-radius: 99px; overflow: hidden; box-shadow: 0 1px 6px rgba(0,0,0,.1); }
+  .lang-btn { padding: .35rem .85rem; font-size: .75rem; font-weight: 700; letter-spacing: .06em; border: none; background: none; cursor: pointer; color: var(--muted); font-family: 'PT Serif', serif; transition: background .15s, color .15s; }
+  .lang-btn.active { background: #000; color: #fff; border-radius: 99px; }
+
+  /* Breadcrumb */
+  .breadcrumb { padding: 1rem 1.5rem; font-size: .82rem; color: var(--muted); max-width: 860px; margin: 0 auto; }
+  .breadcrumb a { color: var(--muted); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--ink); }
+  .breadcrumb span { margin: 0 .4rem; }
+
+  /* Hero */
+  .hero { background: #000; color: #fff; padding: 4rem 1.5rem 3.5rem; text-align: center; }
+  .hero-label { display: inline-block; background: var(--purple); color: #fff; font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: .3rem 1rem; border-radius: 99px; margin-bottom: 1rem; }
+  .hero h1 { font-family: 'Marcellus', serif; font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 400; line-height: 1.05; margin-bottom: .5rem; }
+  .hero-facts { font-size: .75rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: rgba(255,255,255,.5); margin-bottom: .75rem; }
+  .hero p { font-size: 1rem; color: rgba(255,255,255,.72); max-width: 520px; margin: 0 auto 1.75rem; line-height: 1.65; }
+  .hero-cta { display: inline-block; background: var(--purple); color: #fff; font-family: 'PT Serif', serif; font-size: .82rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: .75rem 1.75rem; border-radius: 6px; text-decoration: none; transition: opacity .15s; }
+  .hero-cta:hover { opacity: .88; }
+
+  /* Content */
+  .content { max-width: 860px; margin: 0 auto; padding: 0 1.5rem 5rem; }
+
+  /* Section */
+  .section { padding: 2.5rem 0; border-top: 1px solid var(--border); }
+  .section:first-child { border-top: none; padding-top: 2.5rem; }
+  .section-label { font-size: .65rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--purple); margin-bottom: .6rem; }
+  .section h2 { font-family: 'Marcellus', serif; font-weight: 400; font-size: 1.6rem; margin-bottom: 1rem; }
+  .section p { font-size: .95rem; color: #444; line-height: 1.7; }
+
+  /* Semester tag */
+  .semester-tag { display: inline-block; background: #FFFCE0; color: #7a5c00; font-size: .7rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; padding: .25rem .85rem; border-radius: 99px; border: 1px solid var(--yellow); margin-bottom: 1.25rem; }
+
+  /* Level cards */
+  .level-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: .5rem; }
+  @media (max-width: 600px) { .level-cards { grid-template-columns: 1fr; } }
+  .level-card { border: 1px solid var(--border); border-radius: var(--radius); padding: 1.4rem; display: flex; flex-direction: column; }
+  .level-card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: .5rem; margin-bottom: 1rem; }
+  .level-title { font-family: 'Marcellus', serif; font-weight: 400; font-size: 1.15rem; }
+  .level-who { font-size: .8rem; color: var(--muted); margin-top: .2rem; }
+  .level-badge { background: var(--purple-soft); color: var(--purple); font-size: .62rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: .2rem .65rem; border-radius: 99px; white-space: nowrap; flex-shrink: 0; }
+  .level-badge.l2 { background: #000; color: #fff; }
+  .level-style-tag { display: inline-block; font-size: .75rem; color: var(--muted); background: #f5f5f5; border-radius: 4px; padding: .2rem .6rem; margin-bottom: .85rem; font-style: italic; }
+  .level-meta { display: grid; grid-template-columns: 1fr 1fr; gap: .4rem .75rem; margin-bottom: 1rem; }
+  .meta-item { font-size: .8rem; color: var(--muted); }
+  .meta-item strong { display: block; font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: #aaa; margin-bottom: .1rem; }
+  .pricing-row { display: flex; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; margin-bottom: 1rem; text-align: center; }
+  .price-col { flex: 1; padding: .65rem .4rem; }
+  .price-col + .price-col { border-left: 1px solid var(--border); }
+  .price-amount { font-family: 'Marcellus', serif; font-size: 1.1rem; }
+  .price-label { font-size: .62rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-top: .15rem; }
+  .register-link { display: block; text-align: center; background: #000; color: #fff; font-family: 'PT Serif', serif; font-size: .78rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: .65rem; border-radius: 6px; text-decoration: none; transition: background .15s; margin-top: auto; }
+  .register-link:hover { background: var(--purple); }
+
+  /* Teacher */
+  .teacher-block { display: flex; align-items: flex-start; gap: 1rem; }
+  .teacher-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--purple-soft); color: var(--purple); font-family: 'Marcellus', serif; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .teacher-name { font-weight: 700; font-size: .95rem; margin-bottom: .3rem; }
+  .teacher-bio { font-size: .88rem; color: #444; line-height: 1.65; }
+
+  /* Know grid */
+  .know-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem 2rem; margin-top: .5rem; }
+  @media (max-width: 500px) { .know-grid { grid-template-columns: 1fr; } }
+  .know-item { font-size: .88rem; color: #444; display: flex; gap: .5rem; align-items: flex-start; }
+  .know-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--purple); flex-shrink: 0; margin-top: .45rem; }
+
+  /* Also grid */
+  .also-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .85rem; }
+  @media (max-width: 500px) { .also-grid { grid-template-columns: 1fr; } }
+  .also-card { border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.1rem; text-decoration: none; color: inherit; display: block; transition: border-color .15s; }
+  .also-card:hover { border-color: var(--purple); }
+  .also-card h3 { font-family: 'Marcellus', serif; font-weight: 400; font-size: 1rem; margin-bottom: .3rem; }
+  .also-card-meta { font-size: .78rem; color: var(--muted); margin-bottom: .65rem; }
+  .also-card-cta { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--purple); }
+
+  /* Date accordion */
+  .date-list { margin-bottom: .85rem; }
+  .date-list summary { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--purple); cursor: pointer; list-style: none; margin-bottom: .5rem; }
+  .date-list summary::-webkit-details-marker { display: none; }
+  .date-list summary::after { content: ' ▾'; }
+  details[open] summary::after { content: ' ▴'; }
+  .date-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .3rem .5rem; font-size: .75rem; color: #555; }
+  .date-skip { color: #bbb; font-style: italic; }
+
+  /* Level description */
+  .level-desc { font-size: .8rem; color: #555; line-height: 1.6; margin-bottom: .85rem; }
+
+  /* Events */
+  .events-list { display: flex; flex-direction: column; gap: .75rem; margin-bottom: 1rem; }
+  .event-item { display: flex; align-items: center; gap: 1rem; border: 1px solid var(--border); border-radius: var(--radius); padding: .9rem 1.1rem; }
+  .event-date { text-align: center; flex-shrink: 0; width: 36px; }
+  .event-day { font-family: 'Marcellus', serif; font-size: 1.4rem; line-height: 1; }
+  .event-month { font-size: .6rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--purple); }
+  .event-info { flex: 1; }
+  .event-title { font-size: .88rem; font-weight: 700; margin-bottom: .15rem; }
+  .event-meta { font-size: .78rem; color: var(--muted); }
+  .event-link { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; white-space: nowrap; color: var(--ink); text-decoration: none; border: 1px solid var(--border); border-radius: 4px; padding: .35rem .75rem; }
+  .event-link:hover { border-color: var(--purple); color: var(--purple); }
+  .events-note { font-size: .82rem; color: var(--muted); }
+  .events-note a { color: var(--ink); }
+
+  /* Footer band */
+  .footer-band { background: #000; color: #fff; padding: 3rem 2rem; text-align: center; border-radius: var(--radius); margin-top: 1rem; }
+  .footer-band h2 { font-family: 'Marcellus', serif; font-weight: 400; font-size: 1.6rem; margin-bottom: .6rem; }
+  .footer-band p { font-size: .9rem; color: rgba(255,255,255,.65); max-width: 460px; margin: 0 auto 1.5rem; }
+  .footer-band a { display: inline-block; background: var(--purple); color: #fff; font-family: 'PT Serif', serif; font-size: .78rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: .7rem 1.5rem; border-radius: 6px; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<div class="lang-toggle" role="group" aria-label="Language">
+  <button class="lang-btn active" data-lang="en">EN</button>
+  <button class="lang-btn" data-lang="nl">NL</button>
+</div>
+
+<nav class="breadcrumb">
+  <a href="/dance-styles-overview" data-i18n="bc_overview">All dance styles</a>
+  <span>›</span>
+  <a href="/culture-wellness" data-i18n="bc_cat">Culture &amp; Wellness</a>
+  <span>›</span>
+  <span>Bollyfolk</span>
+</nav>
+
+<header class="hero">
+  <div class="hero-label" data-i18n="hero_label">Culture &amp; Wellness</div>
+  <h1>Bollyfolk</h1>
+  <div class="hero-facts" data-i18n="hero_facts">Tue &amp; Wed · Studio Aakash · <a href="#swapnil" style="color:inherit;text-decoration:underline;text-underline-offset:3px">Swapnil</a></div>
+  <p data-i18n="hero_hook">Circle dances, colour, and folk rhythms from across India. A different tradition every semester — explored from scratch, together.</p>
+  <a class="hero-cta" href="#register" data-i18n="hero_cta">Register for Sep 2026 ↓</a>
+</header>
+
+<div class="content">
+
+  <!-- About -->
+  <div class="section">
+    <div class="section-label" data-i18n="about_label">About</div>
+    <h2 data-i18n="about_h">What is Bollyfolk?</h2>
+    <p data-i18n="about_p">Each semester we go deep into one Indian folk tradition — the footwork, the rhythm, and the story behind it. Folk dance in India is rooted in celebration: harvests, weddings, festivals, seasons. Every edition is different. No prior experience needed for the Open level; Level 2 builds on the previous semester. You don't need to know anything coming in — just show up.</p>
+  </div>
+
+  <!-- Current semester (auto-hidden after Jun 13, 2026) -->
+  <div class="section" id="current-sem">
+    <div class="section-label" data-i18n="curr_label">Currently running</div>
+    <h2 data-i18n="curr_h">Feb – Jun 2026</h2>
+    <div class="semester-tag" style="background:#f0fff4;color:#276749;border-color:#9ae6b4;" data-i18n="curr_tag">Spring 2026 · Tue 18:30–19:30 · Studio Aakash</div>
+    <details class="date-list">
+      <summary><span data-i18n="curr_dates_summary">14 sessions · Feb–Jun · see all dates</span></summary>
+      <div class="date-grid">
+        <span>Tue 10 Feb</span><span>Tue 24 Feb</span>
+        <span class="date-skip" style="grid-column:1/-1">— Krokusvakantie (Feb 16–22) —</span>
+        <span>Tue 3 Mar</span><span>Tue 10 Mar</span><span>Tue 17 Mar</span><span>Tue 24 Mar</span><span>Tue 31 Mar</span>
+        <span class="date-skip" style="grid-column:1/-1">— Paasvakantie (Apr 6–19) —</span>
+        <span>Tue 21 Apr</span><span>Tue 28 Apr</span>
+        <span>Tue 12 May</span><span>Tue 19 May</span><span>Tue 26 May</span>
+        <span>Tue 2 Jun</span><span>Tue 9 Jun</span>
+      </div>
+    </details>
+    <p style="font-size:.82rem;color:var(--muted);margin-top:.25rem;" data-i18n="curr_note">This semester is still running. Registration for Sep 2026 opens 20 May.</p>
+  </div>
+
+  <!-- Teacher -->
+  <div class="section" id="swapnil">
+    <div class="section-label" data-i18n="teacher_label">Teacher</div>
+    <h2 data-i18n="teacher_h">Your teacher</h2>
+    <div class="teacher-block">
+      <div class="teacher-avatar">S</div>
+      <div>
+        <div class="teacher-name">Swapnil</div>
+        <div class="teacher-bio" data-i18n="teacher_bio">Swapnil brings a deep curiosity for Indian folk traditions to every semester of Bollyfolk. Each edition is a genuine exploration — he researches each tradition thoroughly and teaches it from the inside out, connecting movement to its cultural roots.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Register -->
+  <div class="section" id="register">
+    <div class="section-label" data-i18n="reg_label">Sep 2026</div>
+    <h2 data-i18n="reg_h">Levels &amp; registration</h2>
+    <div class="semester-tag" data-i18n="semester_tag">Sep 2026 · Two traditions per level</div>
+
+    <div class="level-cards">
+
+      <!-- Open Level -->
+      <div class="level-card">
+        <div class="level-card-top">
+          <div>
+            <div class="level-title" data-i18n="l_open_title">Open Level</div>
+            <div class="level-who" data-i18n="l_open_who">No experience needed. Start here.</div>
+          </div>
+          <span class="level-badge" data-i18n="l_open_badge">Beginners welcome</span>
+        </div>
+        <div class="level-style-tag" data-i18n="l_open_style">Garba Choreography &amp; Khoriya</div>
+        <div class="level-desc" data-i18n="l_open_desc">Garba from Gujarat: a Navratri circle dance with light footwork, gentle claps, and community built into the rhythm. Khoriya from Haryana: strong, grounded footwork and swinging arms from the village harvest square.</div>
+        <div class="level-meta">
+          <div class="meta-item"><strong data-i18n="meta_when">When</strong><span data-i18n="l_open_when">Wed 18:30–19:30</span></div>
+          <div class="meta-item"><strong data-i18n="meta_where">Where</strong>Studio Aakash</div>
+          <div class="meta-item"><strong data-i18n="meta_teacher">Teacher</strong><a href="#swapnil" style="color:inherit;text-decoration:underline;text-underline-offset:3px">Swapnil</a></div>
+        </div>
+        <details class="date-list">
+          <summary><span data-i18n="dates_summary_open">14 sessions · Sep–Jan · see all dates</span></summary>
+          <div class="date-grid">
+            <span>Wed 16 Sep</span><span>Wed 23 Sep</span><span>Wed 30 Sep</span>
+            <span>Wed 7 Oct</span><span>Wed 14 Oct</span><span>Wed 21 Oct</span><span>Wed 28 Oct</span>
+            <span class="date-skip" style="grid-column:1/-1">— Herfstvakantie (Nov 1–8) —</span>
+            <span>Wed 11 Nov</span><span>Wed 18 Nov</span><span>Wed 25 Nov</span>
+            <span>Wed 2 Dec</span>
+            <span class="date-skip" style="grid-column:1/-1">— Kerstvakantie (Dec 20 – Jan 10) —</span>
+            <span>Wed 13 Jan</span><span>Wed 20 Jan</span><span>Wed 27 Jan</span>
+          </div>
+        </details>
+        <div class="pricing-row">
+          <div class="price-col"><div class="price-amount">€173</div><div class="price-label" data-i18n="price_full">Full</div></div>
+          <div class="price-col"><div class="price-amount">€154</div><div class="price-label" data-i18n="price_student">Student −12%</div></div>
+          <div class="price-col"><div class="price-amount">€34.60</div><div class="price-label">UiTPAS −80%</div></div>
+        </div>
+        <a class="register-link" href="/register/" data-i18n="register_btn">Register →</a>
+      </div>
+
+      <!-- Level 2 -->
+      <div class="level-card">
+        <div class="level-card-top">
+          <div>
+            <div class="level-title">Level 2</div>
+            <div class="level-who" data-i18n="l2_who">Some dance experience, or danced Bollyfolk before.</div>
+          </div>
+          <span class="level-badge l2">Level 2</span>
+        </div>
+        <div class="level-style-tag" data-i18n="l2_style">Cheraw &amp; Lavani</div>
+        <div class="level-desc" data-i18n="l2_desc">Cheraw from Mizoram: the bamboo dance — dancers step in and out of clapping poles, light feet and sharp timing. Lavani from Maharashtra: bold, theatrical, full of hip work and strong eye expression.</div>
+        <div class="level-meta">
+          <div class="meta-item"><strong data-i18n="meta_when">When</strong><span data-i18n="l2_when">Tue 18:30–19:30</span></div>
+          <div class="meta-item"><strong data-i18n="meta_where">Where</strong>Studio Aakash</div>
+          <div class="meta-item"><strong data-i18n="meta_teacher">Teacher</strong><a href="#swapnil" style="color:inherit;text-decoration:underline;text-underline-offset:3px">Swapnil</a></div>
+        </div>
+        <details class="date-list">
+          <summary><span data-i18n="dates_summary_l2">14 sessions · Sep–Jan · see all dates</span></summary>
+          <div class="date-grid">
+            <span>Tue 15 Sep</span><span>Tue 22 Sep</span><span>Tue 29 Sep</span>
+            <span>Tue 6 Oct</span><span>Tue 13 Oct</span><span>Tue 20 Oct</span><span>Tue 27 Oct</span>
+            <span class="date-skip" style="grid-column:1/-1">— Herfstvakantie (Nov 1–8) —</span>
+            <span>Tue 10 Nov</span><span>Tue 17 Nov</span><span>Tue 24 Nov</span>
+            <span>Tue 1 Dec</span>
+            <span class="date-skip" style="grid-column:1/-1">— Kerstvakantie (Dec 20 – Jan 10) —</span>
+            <span>Tue 12 Jan</span><span>Tue 19 Jan</span><span>Tue 26 Jan</span>
+          </div>
+        </details>
+        <div class="pricing-row">
+          <div class="price-col"><div class="price-amount">€173</div><div class="price-label" data-i18n="price_full">Full</div></div>
+          <div class="price-col"><div class="price-amount">€154</div><div class="price-label" data-i18n="price_student">Student −12%</div></div>
+          <div class="price-col"><div class="price-amount">€34.60</div><div class="price-label">UiTPAS −80%</div></div>
+        </div>
+        <a class="register-link" href="/register/" data-i18n="register_btn">Register →</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Upcoming events -->
+  <div class="section">
+    <div class="section-label" data-i18n="events_label">Coming up</div>
+    <h2 data-i18n="events_h">Upcoming events</h2>
+    <div class="events-list">
+      <div class="event-item">
+        <div class="event-date">
+          <div class="event-day">14</div>
+          <div class="event-month" data-i18n="month_sep">Sep</div>
+        </div>
+        <div class="event-info">
+          <div class="event-title" data-i18n="event1_title">Free trial week — try Bollyfolk for free</div>
+          <div class="event-meta" data-i18n="event1_meta">Sep 14–19 · No registration needed · Both levels open</div>
+        </div>
+        <a class="event-link" href="/register/" data-i18n="event_register">Register →</a>
+      </div>
+    </div>
+    <p class="events-note" data-i18n="events_note">More events — workshops, social nights, open doors — are announced on <a href="https://shoonyadance.com/agenda">our agenda</a>.</p>
+  </div>
+
+  <!-- Good to know -->
+  <div class="section">
+    <div class="section-label" data-i18n="know_label">Practical</div>
+    <h2 data-i18n="know_h">Good to know</h2>
+    <div class="know-grid">
+      <div class="know-item"><div class="know-dot"></div><span data-i18n="know_1">Come barefoot — no shoes in Studio Aakash</span></div>
+      <div class="know-item"><div class="know-dot"></div><span data-i18n="know_2">Comfortable clothing you can move in freely</span></div>
+      <div class="know-item"><div class="know-dot"></div><span data-i18n="know_3">Solo registration — no partner needed</span></div>
+      <div class="know-item"><div class="know-dot"></div><span data-i18n="know_4">Open to ages 12 and up</span></div>
+      <div class="know-item"><div class="know-dot"></div><span data-i18n="know_5">Classes in Dutch and English</span></div>
+      <div class="know-item"><div class="know-dot"></div><span data-i18n="know_6">Bring a water bottle</span></div>
+      <div class="know-item"><div class="know-dot"></div><span data-i18n="know_7">Maximum 25 students per class</span></div>
+    </div>
+  </div>
+
+  <!-- Also at Shoonya -->
+  <div class="section">
+    <div class="section-label" data-i18n="also_label">Also at Shoonya</div>
+    <h2 data-i18n="also_h">You might also like</h2>
+    <div class="also-grid">
+      <a class="also-card" href="/bollywood-danslessen-in-gent">
+        <h3>Bollywood</h3>
+        <div class="also-card-meta" data-i18n="also_bollywood_meta">Thu · Levels 2 &amp; 3</div>
+        <span class="also-card-cta" data-i18n="also_cta">View →</span>
+      </a>
+      <a class="also-card" href="/indian-dance-in-belgium">
+        <h3 data-i18n="also_idt_h">Indian Dance Technique</h3>
+        <div class="also-card-meta" data-i18n="also_idt_meta">Tue · Open level</div>
+        <span class="also-card-cta" data-i18n="also_cta">View →</span>
+      </a>
+      <a class="also-card" href="/bhangra-danslessen-in-gent">
+        <h3>Bhangra</h3>
+        <div class="also-card-meta" data-i18n="also_bhangra_meta">Wed · Level 2</div>
+        <span class="also-card-cta" data-i18n="also_cta">View →</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Footer band -->
+  <div class="footer-band">
+    <h2 data-i18n="footer_h">Ready to join?</h2>
+    <p data-i18n="footer_p">Free trial week Sep 14–19, 2026 — try any class for free, no registration needed. After that, register for the full semester.</p>
+    <a href="#register" data-i18n="footer_btn">See the levels →</a>
+  </div>
+
+</div>
+
+<script>
+const T = {
+  en: {
+    bc_overview:"All dance styles", bc_cat:"Culture & Wellness",
+    hero_label:"Culture & Wellness",
+    hero_facts:"Tue & Wed · Studio Aakash · Swapnil",
+    hero_hook:"Circle dances, colour, and folk rhythms from across India. A different tradition every semester — explored from scratch, together.",
+    hero_cta:"Register for Sep 2026 ↓",
+    about_label:"About", about_h:"What is Bollyfolk?",
+    about_p:"Each semester we go deep into one Indian folk tradition — the footwork, the rhythm, and the story behind it. Folk dance in India is rooted in celebration: harvests, weddings, festivals, seasons. Every edition is different. No prior experience needed for the Open level; Level 2 builds on the previous semester. You don't need to know anything coming in — just show up.",
+    reg_label:"Sep 2026", reg_h:"Levels & registration",
+    semester_tag:"Sep 2026 · Two traditions per level",
+    l_open_title:"Open Level", l_open_who:"No experience needed. Start here.",
+    l_open_badge:"Beginners welcome",
+    l_open_style:"Garba Choreography & Khoriya",
+    l_open_desc:"Garba from Gujarat: a Navratri circle dance with light footwork, gentle claps, and community built into the rhythm. Khoriya from Haryana: strong, grounded footwork and swinging arms from the village harvest square.",
+    l_open_when:"Wed 18:30–19:30", l_open_sessions:"14 · Sep–Jan", l_open_skips:"Dec 9 & 16",
+    l2_who:"Some dance experience, or danced Bollyfolk before.",
+    l2_style:"Cheraw & Lavani",
+    l2_desc:"Cheraw from Mizoram: the bamboo dance — dancers step in and out of clapping poles, light feet and sharp timing. Lavani from Maharashtra: bold, theatrical, full of hip work and strong eye expression.",
+    l2_when:"Tue 18:30–19:30", l2_sessions:"14 · Sep–Jan", l2_skips:"Dec 8 & 15",
+    meta_when:"When", meta_where:"Where", meta_sessions:"Sessions", meta_skips:"Skips",
+    price_full:"Full", price_student:"Student −12%",
+    register_btn:"Register →",
+    teacher_label:"Teacher", teacher_h:"Your teacher",
+    teacher_bio:"Swapnil brings a deep curiosity for Indian folk traditions to every semester of Bollyfolk. Each edition is a genuine exploration — he researches each tradition thoroughly and teaches it from the inside out, connecting movement to its cultural roots.",
+    know_label:"Practical", know_h:"Good to know",
+    know_1:"Come barefoot — no shoes in Studio Aakash",
+    know_2:"Comfortable clothing you can move in freely",
+    know_3:"Solo registration — no partner needed",
+    know_4:"Open to ages 12 and up",
+    know_5:"Classes in Dutch and English",
+    know_6:"Bring a water bottle",
+    know_7:"Maximum 25 students per class",
+    also_label:"Also at Shoonya", also_h:"You might also like",
+    events_label:"Coming up", events_h:"Upcoming events",
+    event1_title:"Free trial week — try Bollyfolk for free",
+    event1_meta:"Sep 14–19 · No registration needed · Both levels open",
+    event_register:"Register →", month_sep:"Sep",
+    events_note:"More events — workshops, social nights, open doors — are announced on our agenda.",
+    also_bollywood_meta:"Thu · Levels 2 & 3",
+    also_idt_h:"Indian Dance Technique", also_idt_meta:"Tue · Open level",
+    also_bhangra_meta:"Wed · Level 2",
+    also_cta:"View →",
+    curr_label:"Currently running", curr_h:"Feb – Jun 2026",
+    curr_tag:"Spring 2026 · Tue 18:30–19:30 · Studio Aakash",
+    curr_dates_summary:"14 sessions · Feb–Jun · see all dates",
+    curr_note:"This semester is still running. Registration for Sep 2026 opens 20 May.",
+    footer_h:"Ready to join?",
+    footer_p:"Free trial week Sep 14–19, 2026 — try any class for free, no registration needed. After that, register for the full semester.",
+    footer_btn:"See the levels →"
+  },
+  nl: {
+    bc_overview:"Alle dansstijlen", bc_cat:"Cultuur & Wellness",
+    hero_label:"Cultuur & Wellness",
+    hero_facts:"Di & Wo · Studio Aakash · Swapnil",
+    hero_hook:"Cirkeldansen, kleur en folkritmes uit heel India. Elke semester een andere traditie — samen van nul opgebouwd.",
+    hero_cta:"Inschrijven voor sep 2026 ↓",
+    about_label:"Over", about_h:"Wat is Bollyfolk?",
+    about_p:"Elk semester duiken we diep in één Indiase volkstraditie — het voetenwerk, het ritme en het verhaal erachter. Volksdans in India is geworteld in feest: oogsten, bruiloften, festivals, seizoenen. Elke editie is anders. Voor het open niveau is geen voorkennis nodig; niveau 2 bouwt voort op het vorige semester. Je hoeft niets te weten — gewoon komen.",
+    reg_label:"Sep 2026", reg_h:"Niveaus & inschrijving",
+    semester_tag:"Sep 2026 · Twee tradities per niveau",
+    l_open_title:"Open Niveau", l_open_who:"Geen ervaring nodig. Begin hier.",
+    l_open_badge:"Beginners welkom",
+    l_open_style:"Garba-choreografie & Khoriya",
+    l_open_desc:"Garba uit Gujarat: een Navratri-cirkeldans met licht voetenwerk, zachte klappen en gemeenschapsgevoel in het ritme. Khoriya uit Haryana: stevig, gegrond voetenwerk en zwaaiende armen van het dorpsfeest.",
+    l_open_when:"Wo 18:30–19:30", l_open_sessions:"14 · sep–jan", l_open_skips:"9 & 16 dec",
+    l2_who:"Enige danservaring, of eerder Bollyfolk gedanst.",
+    l2_style:"Cheraw & Lavani",
+    l2_desc:"Cheraw uit Mizoram: de bamboedans — dansers stappen in en uit klappende bamboepalen, lichte voeten en scherpe timing. Lavani uit Maharashtra: gedurfd, theatraal, vol heupenwerk en sterke oogexpressie.",
+    l2_when:"Di 18:30–19:30", l2_sessions:"14 · sep–jan", l2_skips:"8 & 15 dec",
+    meta_when:"Wanneer", meta_where:"Waar", meta_sessions:"Lessen", meta_skips:"Geen les",
+    price_full:"Volle prijs", price_student:"Student −12%",
+    register_btn:"Inschrijven →",
+    teacher_label:"Leraar", teacher_h:"Jouw leraar",
+    teacher_bio:"Swapnil brengt een diepe nieuwsgierigheid voor Indiase volkstradities naar elk semester Bollyfolk. Elke editie is een echte verkenning — hij onderzoekt de traditie grondig en brengt ze van binnenuit, met aandacht voor de culturele wortels.",
+    know_label:"Praktisch", know_h:"Goed om te weten",
+    know_1:"Kom op blote voeten — geen schoenen in Studio Aakash",
+    know_2:"Comfortabele kleding waarin je vrij kunt bewegen",
+    know_3:"Solo inschrijven — geen partner nodig",
+    know_4:"Toegankelijk vanaf 12 jaar",
+    know_5:"Lessen in het Nederlands en Engels",
+    know_6:"Neem een drinkfles mee",
+    know_7:"Maximum 25 studenten per les",
+    also_label:"Ook bij Shoonya", also_h:"Misschien ook interessant",
+    events_label:"Binnenkort", events_h:"Aankomende evenementen",
+    event1_title:"Gratis proefweek — probeer Bollyfolk gratis",
+    event1_meta:"14–19 sep · Geen inschrijving nodig · Beide niveaus open",
+    event_register:"Inschrijven →", month_sep:"Sep",
+    events_note:"Meer evenementen — workshops, social nights, open deuren — worden aangekondigd op onze agenda.",
+    also_bollywood_meta:"Do · Niveaus 2 & 3",
+    also_idt_h:"Indiase Danstechniek", also_idt_meta:"Di · Open niveau",
+    also_bhangra_meta:"Wo · Niveau 2",
+    also_cta:"Bekijk →",
+    curr_label:"Nu bezig", curr_h:"Feb – jun 2026",
+    curr_tag:"Lente 2026 · Di 18:30–19:30 · Studio Aakash",
+    curr_dates_summary:"14 lessen · feb–jun · bekijk alle data",
+    curr_note:"Dit semester loopt nog. Inschrijven voor sep 2026 kan vanaf 20 mei.",
+    footer_h:"Klaar om mee te doen?",
+    footer_p:"Gratis proefweek 14–19 sep 2026 — probeer elke les gratis, geen inschrijving nodig. Daarna inschrijven voor het volledige semester.",
+    footer_btn:"Bekijk de niveaus →"
+  }
+};
+
+function applyLang(lang) {
+  const t = T[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.getAttribute('data-i18n');
+    if (t[k] !== undefined) el.textContent = t[k];
+  });
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  document.documentElement.lang = lang;
+  localStorage.setItem('shoonya-lang', lang);
+}
+document.querySelectorAll('.lang-btn').forEach(b => b.addEventListener('click', () => applyLang(b.dataset.lang)));
+// Hide current semester block after Jun 13, 2026 (Brussels midnight)
+const CURR_SEM_END = new Date('2026-06-14T00:00:00+02:00');
+if (new Date() >= CURR_SEM_END) {
+  const cs = document.getElementById('current-sem');
+  if (cs) cs.style.display = 'none';
+}
+
+const saved = localStorage.getItem('shoonya-lang');
+applyLang(saved || (navigator.language.startsWith('nl') ? 'nl' : 'en'));
+</script>
+</body>
+</html>
