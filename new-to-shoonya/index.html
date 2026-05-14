@@ -487,6 +487,10 @@
   body.nl .block-nl { display: block; }
   body.nl .block-en { display: none; }
   .block-nl { display: none; }
+  .breadcrumb { padding: .85rem 1.5rem; font-size: .82rem; color: #666; max-width: 960px; margin: 0 auto; font-family: 'PT Serif', serif; }
+  .breadcrumb a { color: #666; text-decoration: none; }
+  .breadcrumb a:hover { color: #1a1a1a; }
+  .breadcrumb span { margin: 0 .4rem; }
 </style>
 </head>
 <body>
@@ -495,6 +499,17 @@
 <div class="lang-toggle">
   <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
   <button class="lang-btn" id="btn-nl" onclick="setLang('nl')">NL</button>
+</div>
+
+<!-- Breadcrumb -->
+<div class="breadcrumb">
+  <a href="../dance-styles-overview.html">
+    <span data-lang="en">← All dance styles</span>
+    <span data-lang="nl">← Alle dansstijlen</span>
+  </a>
+  <span>·</span>
+  <span data-lang="en">New to Shoonya</span>
+  <span data-lang="nl">Nieuw bij Shoonya</span>
 </div>
 
 <!-- ═══════════════════════════════════════

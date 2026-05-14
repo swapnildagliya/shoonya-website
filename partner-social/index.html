@@ -55,8 +55,8 @@
 
   /* ── Style cards grid ── */
   .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
-  .style-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; border-left: 4px solid var(--card-accent, var(--border)); transition: box-shadow .2s, transform .2s; display: flex; flex-direction: column; }
-  .style-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,.09); transform: translateY(-2px); }
+  .style-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; transition: border-color .15s, transform .15s; display: flex; flex-direction: column; }
+  .style-card:hover { border-color: var(--purple); transform: translateY(-2px); }
   .card-badges { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .75rem; }
   .badge { display: inline-block; font-size: .68rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; padding: .2rem .6rem; border-radius: 99px; }
   .badge-beginner  { background: #e8f5e9; color: #2a7a3a; }
@@ -70,8 +70,8 @@
   .style-card h3 { font-family: 'Marcellus', serif; font-size: 1.15rem; font-weight: 400; margin-bottom: .5rem; line-height: 1.2; }
   .teacher { font-size: .78rem; color: var(--muted); margin-bottom: .6rem; font-weight: 500; }
   .style-card p { font-size: .88rem; color: #444; line-height: 1.6; flex: 1; margin-bottom: 1rem; }
-  .card-cta { display: inline-block; font-size: .82rem; font-weight: 700; color: var(--purple); text-decoration: none; margin-top: auto; }
-  .card-cta:hover { text-decoration: underline; }
+  .card-cta { display: inline-block; font-size: .78rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: #000; text-decoration: none; padding: .55rem 1rem; border: 1.5px solid #000; border-radius: 6px; margin-top: auto; transition: background .15s, color .15s, border-color .15s; }
+  .style-card:hover .card-cta { background: var(--purple); border-color: var(--purple); color: #fff; }
   .age-note { font-size: .75rem; color: var(--muted); margin-top: .4rem; }
 
   /* ── CTA band ── */
@@ -104,9 +104,9 @@
 
 <!-- Breadcrumb -->
 <div class="breadcrumb">
-  <a href="../new-to-shoonya/">
-    <span data-lang="en">← New to Shoonya?</span>
-    <span data-lang="nl">← Nieuw bij Shoonya?</span>
+  <a href="../dance-styles-overview.html">
+    <span data-lang="en">← All dance styles</span>
+    <span data-lang="nl">← Alle dansstijlen</span>
   </a>
   <span>·</span>
   <span data-lang="en">Partner & Social Dance</span>
@@ -145,7 +145,7 @@
   <div class="cards-grid">
 
     <!-- Cuban Salsa -->
-    <div class="style-card" style="--card-accent: #B564F7;">
+    <div class="style-card">
       <div class="card-badges">
         <span class="badge badge-beginner" data-lang="en">Beginner friendly</span>
         <span class="badge badge-beginner" data-lang="nl">Beginnersvriendelijk</span>
@@ -162,7 +162,7 @@
     </div>
 
     <!-- Bachata -->
-    <div class="style-card" style="--card-accent: #B564F7;">
+    <div class="style-card">
       <div class="card-badges">
         <span class="badge badge-beginner" data-lang="en">Beginner friendly</span>
         <span class="badge badge-beginner" data-lang="nl">Beginnersvriendelijk</span>
@@ -179,7 +179,7 @@
     </div>
 
     <!-- Bachata Lady Style -->
-    <div class="style-card" style="--card-accent: #B564F7;">
+    <div class="style-card">
       <div class="card-badges">
         <span class="badge badge-mini" data-lang="en">10-week miniseries</span>
         <span class="badge badge-mini" data-lang="nl">10-weken miniserie</span>
@@ -196,7 +196,7 @@
     </div>
 
     <!-- Argentine Tango -->
-    <div class="style-card" style="--card-accent: #B564F7;">
+    <div class="style-card">
       <div class="card-badges">
         <span class="badge badge-beginner" data-lang="en">Beginner friendly</span>
         <span class="badge badge-beginner" data-lang="nl">Beginnersvriendelijk</span>
@@ -213,7 +213,7 @@
     </div>
 
     <!-- Kizomba -->
-    <div class="style-card" style="--card-accent: #B564F7;">
+    <div class="style-card">
       <div class="card-badges">
         <span class="badge badge-beginner" data-lang="en">Beginner friendly</span>
         <span class="badge badge-beginner" data-lang="nl">Beginnersvriendelijk</span>
@@ -230,7 +230,7 @@
     </div>
 
     <!-- Lindy Hop -->
-    <div class="style-card" style="--card-accent: #B564F7;">
+    <div class="style-card">
       <div class="card-badges">
         <span class="badge badge-beginner" data-lang="en">Beginner friendly</span>
         <span class="badge badge-beginner" data-lang="nl">Beginnersvriendelijk</span>
@@ -247,7 +247,7 @@
     </div>
 
     <!-- Rueda de Casino -->
-    <div class="style-card" style="--card-accent: #B564F7;">
+    <div class="style-card">
       <div class="card-badges">
         <span class="badge badge-advanced" data-lang="en">Prior salsa required</span>
         <span class="badge badge-advanced" data-lang="nl">Salsa-ervaring vereist</span>
@@ -264,7 +264,7 @@
     </div>
 
     <!-- Solo Jazz -->
-    <div class="style-card" style="--card-accent: #B564F7;">
+    <div class="style-card">
       <div class="card-badges">
         <span class="badge badge-beginner" data-lang="en">Beginner friendly</span>
         <span class="badge badge-beginner" data-lang="nl">Beginnersvriendelijk</span>
@@ -291,8 +291,8 @@
   <p data-lang="nl">Kom naar onze Open Deur — gratis, geen inschrijving. Probeer elke les met je partner en ontdek wat bij jullie past.</p>
   <a href="https://shoonyadance.com/calendar" class="btn-warm" data-lang="en">Open House — 14 June 2026</a>
   <a href="https://shoonyadance.com/calendar" class="btn-warm" data-lang="nl">Open Deur — 14 juni 2026</a>
-  <a href="../new-to-shoonya/" class="btn-outline-white" data-lang="en">← Back to overview</a>
-  <a href="../new-to-shoonya/" class="btn-outline-white" data-lang="nl">← Terug naar overzicht</a>
+  <a href="../dance-styles-overview.html" class="btn-outline-white" data-lang="en">← Back to overview</a>
+  <a href="../dance-styles-overview.html" class="btn-outline-white" data-lang="nl">← Terug naar overzicht</a>
 </div>
 
 <div class="footer">
