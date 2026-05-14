@@ -7,26 +7,26 @@
 <meta name="description" content="Partner dance classes in Ghent: Cuban Salsa, Bachata, Argentine Tango, Kizomba, Lindy Hop, Rueda de Casino. All levels at Shoonya Dance Centre.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
     --ink:       #1a1a1a;
-    --warm:      #c8521a;
-    --warm-soft: #fdf3ec;
+    --purple:    #B564F7;
+    --purple-soft: #F5ECFF;
     --muted:     #666;
     --border:    #e4e0db;
-    --bg:        #faf9f7;
+    --bg:        #ffffff;
     --white:     #ffffff;
     --radius:    10px;
-    --cat-color: #c8521a;
+    --cat-color: #B564F7;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; }
+  body { font-family: 'PT Serif', serif; background: var(--bg); color: var(--ink); line-height: 1.6; }
 
   /* ── Lang toggle ── */
   .lang-toggle { position: fixed; top: 1rem; right: 1rem; z-index: 100; display: flex; background: var(--white); border: 1px solid var(--border); border-radius: 99px; overflow: hidden; box-shadow: 0 1px 6px rgba(0,0,0,.1); }
   .lang-btn { padding: .35rem .85rem; font-size: .75rem; font-weight: 700; letter-spacing: .06em; border: none; background: none; cursor: pointer; color: var(--muted); transition: background .15s, color .15s; }
-  .lang-btn.active { background: var(--ink); color: var(--white); border-radius: 99px; }
+  .lang-btn.active { background: #000000; color: var(--white); border-radius: 99px; }
 
   /* ── Breadcrumb ── */
   .breadcrumb { padding: 1rem 1.5rem; font-size: .82rem; color: var(--muted); max-width: 960px; margin: 0 auto; }
@@ -35,10 +35,10 @@
   .breadcrumb span { margin: 0 .4rem; }
 
   /* ── Hero ── */
-  .hero { background: var(--ink); color: var(--white); padding: 4rem 1.5rem 3.5rem; text-align: center; position: relative; overflow: hidden; }
-  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 30%, rgba(200,82,26,.2) 0%, transparent 65%); pointer-events: none; }
-  .hero-label { display: inline-block; background: var(--warm); color: var(--white); font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: .3rem 1rem; border-radius: 99px; margin-bottom: 1rem; }
-  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 900; line-height: 1.1; margin-bottom: .75rem; }
+  .hero { background: #000000; color: var(--white); padding: 4rem 1.5rem 3.5rem; text-align: center; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: none; pointer-events: none; }
+  .hero-label { display: inline-block; background: var(--purple); color: var(--white); font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: .3rem 1rem; border-radius: 99px; margin-bottom: 1rem; }
+  .hero h1 { font-family: 'Marcellus', serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 400; line-height: 1.1; margin-bottom: .75rem; }
   .hero p { font-size: 1rem; color: rgba(255,255,255,.7); max-width: 500px; margin: 0 auto 2rem; }
 
   /* ── Partner warning ── */
@@ -50,7 +50,7 @@
   /* ── Content wrapper ── */
   .content { max-width: 960px; margin: 0 auto; padding: 3rem 1.5rem; }
   .section-intro { margin-bottom: 2rem; }
-  .section-intro h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; margin-bottom: .4rem; }
+  .section-intro h2 { font-family: 'Marcellus', serif; font-size: 1.6rem; font-weight: 400; margin-bottom: .4rem; }
   .section-intro p { color: var(--muted); font-size: .95rem; }
 
   /* ── Style cards grid ── */
@@ -67,18 +67,18 @@
   .badge-mini      { background: #f3e8ff; color: #6b2fa0; }
   .badge-paused    { background: #f3eee2; color: #968b7d; border: 1px solid #968b7d; }
   .style-card.paused { opacity: .8; background: #faf7f0; }
-  .style-card h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; margin-bottom: .5rem; line-height: 1.2; }
+  .style-card h3 { font-family: 'Marcellus', serif; font-size: 1.15rem; font-weight: 400; margin-bottom: .5rem; line-height: 1.2; }
   .teacher { font-size: .78rem; color: var(--muted); margin-bottom: .6rem; font-weight: 500; }
   .style-card p { font-size: .88rem; color: #444; line-height: 1.6; flex: 1; margin-bottom: 1rem; }
-  .card-cta { display: inline-block; font-size: .82rem; font-weight: 700; color: var(--warm); text-decoration: none; margin-top: auto; }
+  .card-cta { display: inline-block; font-size: .82rem; font-weight: 700; color: var(--purple); text-decoration: none; margin-top: auto; }
   .card-cta:hover { text-decoration: underline; }
   .age-note { font-size: .75rem; color: var(--muted); margin-top: .4rem; }
 
   /* ── CTA band ── */
-  .cta-band { background: var(--ink); color: var(--white); text-align: center; padding: 3.5rem 1.5rem; margin-top: 3rem; }
-  .cta-band h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700; margin-bottom: .6rem; }
+  .cta-band { background: #000000; color: var(--white); text-align: center; padding: 3.5rem 1.5rem; margin-top: 3rem; }
+  .cta-band h2 { font-family: 'Marcellus', serif; font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 400; margin-bottom: .6rem; }
   .cta-band p { font-size: .95rem; color: rgba(255,255,255,.7); margin-bottom: 1.75rem; }
-  .btn-warm { display: inline-block; background: var(--warm); color: var(--white); padding: .8rem 1.8rem; border-radius: 6px; font-weight: 700; font-size: .9rem; text-decoration: none; margin: .3rem; transition: opacity .15s; }
+  .btn-warm { display: inline-block; background: var(--purple); color: var(--white); padding: .8rem 1.8rem; border-radius: 6px; font-weight: 700; font-size: .9rem; text-decoration: none; margin: .3rem; transition: opacity .15s; }
   .btn-warm:hover { opacity: .88; }
   .btn-outline-white { display: inline-block; background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,.4); padding: .8rem 1.8rem; border-radius: 6px; font-weight: 600; font-size: .9rem; text-decoration: none; margin: .3rem; }
   .btn-outline-white:hover { border-color: white; }
@@ -145,7 +145,7 @@
   <div class="cards-grid">
 
     <!-- Cuban Salsa -->
-    <div class="style-card" style="--card-accent: #c8521a;">
+    <div class="style-card" style="--card-accent: #B564F7;">
       <div class="card-badges">
         <span class="badge badge-beginner" data-lang="en">Beginner friendly</span>
         <span class="badge badge-beginner" data-lang="nl">Beginnersvriendelijk</span>
@@ -162,7 +162,7 @@
     </div>
 
     <!-- Bachata -->
-    <div class="style-card" style="--card-accent: #c8521a;">
+    <div class="style-card" style="--card-accent: #B564F7;">
       <div class="card-badges">
         <span class="badge badge-beginner" data-lang="en">Beginner friendly</span>
         <span class="badge badge-beginner" data-lang="nl">Beginnersvriendelijk</span>
@@ -179,7 +179,7 @@
     </div>
 
     <!-- Bachata Lady Style -->
-    <div class="style-card" style="--card-accent: #6b2fa0;">
+    <div class="style-card" style="--card-accent: #B564F7;">
       <div class="card-badges">
         <span class="badge badge-mini" data-lang="en">10-week miniseries</span>
         <span class="badge badge-mini" data-lang="nl">10-weken miniserie</span>
@@ -196,7 +196,7 @@
     </div>
 
     <!-- Argentine Tango -->
-    <div class="style-card" style="--card-accent: #c8521a;">
+    <div class="style-card" style="--card-accent: #B564F7;">
       <div class="card-badges">
         <span class="badge badge-beginner" data-lang="en">Beginner friendly</span>
         <span class="badge badge-beginner" data-lang="nl">Beginnersvriendelijk</span>
@@ -213,7 +213,7 @@
     </div>
 
     <!-- Kizomba -->
-    <div class="style-card" style="--card-accent: #c8521a;">
+    <div class="style-card" style="--card-accent: #B564F7;">
       <div class="card-badges">
         <span class="badge badge-beginner" data-lang="en">Beginner friendly</span>
         <span class="badge badge-beginner" data-lang="nl">Beginnersvriendelijk</span>
@@ -230,7 +230,7 @@
     </div>
 
     <!-- Lindy Hop -->
-    <div class="style-card" style="--card-accent: #c8521a;">
+    <div class="style-card" style="--card-accent: #B564F7;">
       <div class="card-badges">
         <span class="badge badge-beginner" data-lang="en">Beginner friendly</span>
         <span class="badge badge-beginner" data-lang="nl">Beginnersvriendelijk</span>
@@ -247,7 +247,7 @@
     </div>
 
     <!-- Rueda de Casino -->
-    <div class="style-card" style="--card-accent: #c62828;">
+    <div class="style-card" style="--card-accent: #B564F7;">
       <div class="card-badges">
         <span class="badge badge-advanced" data-lang="en">Prior salsa required</span>
         <span class="badge badge-advanced" data-lang="nl">Salsa-ervaring vereist</span>
@@ -264,7 +264,7 @@
     </div>
 
     <!-- Solo Jazz -->
-    <div class="style-card" style="--card-accent: #c8521a;">
+    <div class="style-card" style="--card-accent: #B564F7;">
       <div class="card-badges">
         <span class="badge badge-beginner" data-lang="en">Beginner friendly</span>
         <span class="badge badge-beginner" data-lang="nl">Beginnersvriendelijk</span>

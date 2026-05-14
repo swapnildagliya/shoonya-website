@@ -7,17 +7,16 @@
 <meta name="description" content="Shoonya Dance Centre school year 2026–2027 starting September 2026 in Ghent. 24 dance styles across 5 studios. Registration open now.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
     --ink:       #1a1a1a;
-    --warm:      #c8521a;
-    --warm-soft: #fdf3ec;
-    --teal:      #1a7a6e;
-    --teal-soft: #edf7f5;
+    --purple:    #B564F7;
+    --purple-soft: #F5ECFF;
+    
     --muted:     #666;
     --border:    #e4e0db;
-    --bg:        #faf9f7;
+    --bg:        #ffffff;
     --white:     #ffffff;
     --radius:    10px;
   }
@@ -25,7 +24,7 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'PT Serif', serif;
     background: var(--bg);
     color: var(--ink);
     line-height: 1.6;
@@ -55,7 +54,7 @@
     transition: background .15s, color .15s;
   }
   .lang-btn.active {
-    background: var(--ink);
+    background: #000000;
     color: var(--white);
     border-radius: 99px;
   }
@@ -74,7 +73,7 @@
 
   /* ── Hero ── */
   .hero {
-    background: var(--ink);
+    background: #000000;
     color: var(--white);
     padding: 4rem 1.5rem 3.5rem;
     text-align: center;
@@ -85,12 +84,12 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at 70% 30%, rgba(200,82,26,.2) 0%, transparent 65%);
+    background: none;
     pointer-events: none;
   }
   .hero-label {
     display: inline-block;
-    background: var(--warm);
+    background: var(--purple);
     color: var(--white);
     font-size: .7rem;
     font-weight: 700;
@@ -101,9 +100,9 @@
     margin-bottom: 1rem;
   }
   .hero h1 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Marcellus', serif;
     font-size: clamp(2rem, 5vw, 3.2rem);
-    font-weight: 900;
+    font-weight: 400;
     line-height: 1.1;
     margin-bottom: .75rem;
   }
@@ -140,8 +139,8 @@
   }
   .key-date .date { font-size: 1rem; font-weight: 700; color: var(--ink); }
   .key-date .sub  { font-size: .8rem; color: var(--muted); margin-top: .15rem; }
-  .key-date.highlight { border-color: var(--warm); background: var(--warm-soft); }
-  .key-date.highlight .label { color: var(--warm); }
+  .key-date.highlight { border-color: #FBC70F; background: #FFFCE0; }
+  .key-date.highlight .label { color: #7a6000; }
 
   /* ── Section heading ── */
   .section-heading {
@@ -151,7 +150,7 @@
     margin: 2.5rem 0 1.25rem;
   }
   .section-heading .badge {
-    background: var(--teal);
+    background: var(--purple);
     color: var(--white);
     font-size: .7rem;
     font-weight: 700;
@@ -161,11 +160,11 @@
     border-radius: 99px;
     white-space: nowrap;
   }
-  .section-heading .badge.warm { background: var(--warm); }
+  .section-heading .badge.warm { background: var(--purple); }
   .section-heading h2 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Marcellus', serif;
     font-size: 1.4rem;
-    font-weight: 700;
+    font-weight: 400;
   }
 
   /* ── Card ── */
@@ -177,7 +176,7 @@
     margin-bottom: 1rem;
   }
   .card-header {
-    background: var(--teal-soft);
+    background: var(--purple-soft);
     border-bottom: 1px solid var(--border);
     padding: 1rem 1.3rem;
     display: flex;
@@ -186,7 +185,7 @@
     gap: 1rem;
     flex-wrap: wrap;
   }
-  .card-header.warm-header { background: var(--warm-soft); }
+  .card-header.warm-header { background: var(--purple-soft); }
   .card-header h3 { font-size: 1.05rem; font-weight: 600; }
   .card-header .date-range { font-size: .85rem; color: var(--muted); font-weight: 500; }
   .card-body { padding: 1.2rem 1.3rem; }
@@ -204,7 +203,7 @@
   .info-row:last-child { border-bottom: none; }
   .info-row .key { color: var(--muted); flex-shrink: 0; }
   .info-row .val { font-weight: 600; text-align: right; }
-  .info-row .val.warm { color: var(--warm); }
+  .info-row .val.warm { color: var(--purple); }
 
   /* ── Pills ── */
   .pill {
@@ -234,7 +233,7 @@
   .special-event {
     background: var(--white);
     border: 1px solid var(--border);
-    border-left: 4px solid var(--warm);
+    border-left: 4px solid var(--purple);
     border-radius: var(--radius);
     padding: 1rem 1.3rem;
     display: flex;
@@ -246,8 +245,8 @@
   .special-event .event-name { font-weight: 700; font-size: 1rem; }
   .special-event .event-date { font-size: .9rem; color: var(--muted); margin-top: .2rem; }
   .special-event .badge-event {
-    background: var(--warm-soft);
-    color: var(--warm);
+    background: var(--purple-soft);
+    color: var(--purple);
     font-size: .75rem;
     font-weight: 700;
     padding: .3rem .8rem;
@@ -257,16 +256,16 @@
 
   /* ── CTA band ── */
   .cta-band {
-    background: var(--ink);
+    background: #000000;
     color: var(--white);
     text-align: center;
     padding: 3.5rem 1.5rem;
     margin-top: 3rem;
   }
   .cta-band h2 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Marcellus', serif;
     font-size: clamp(1.4rem, 3vw, 2rem);
-    font-weight: 700;
+    font-weight: 400;
     margin-bottom: .6rem;
   }
   .cta-band p {
@@ -276,9 +275,9 @@
   }
   .btn {
     display: inline-block;
-    background: var(--warm);
+    background: var(--purple);
     color: var(--white);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'PT Serif', serif;
     font-size: .9rem;
     font-weight: 700;
     padding: .85rem 2rem;
@@ -286,7 +285,7 @@
     text-decoration: none;
     transition: background .15s, transform .15s;
   }
-  .btn:hover { background: #b04718; transform: translateY(-1px); }
+  .btn:hover { background: #9a46d6; transform: translateY(-1px); }
 
   /* ── Footer note ── */
   .footnote {
