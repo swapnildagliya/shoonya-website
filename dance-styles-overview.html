@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>All Dance Styles — Shoonya Dance Centre</title>
+<meta name="description" content="Explore all dance styles at Shoonya Dance Centre in Ghent: Ballet, Flamenco, Cuban Salsa, Bachata, Tango, Bollywood, Tap Dance, Kathak, Burlesque, Kizomba, and more.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  /* ── Theme ─────────────────────────────────────────────────────────────── */
+  :root {
+    --bg:           #faf6ed;
+    --card-bg:      #fff;
+    --ink:          #1a1a1a;
+    --ink-soft:     #3a3530;       /* card description text */
+    --muted:        #6b6056;
+    --line:         #e6dccd;
+    --line-strong:  #c9bda7;       /* card hover border + decorative dots */
+    --pill:         #2a2a2a;
+    --partner:      #f4c542;       /* warm yellow — matches existing yellow card */
+    --classical:    #d8e2dc;       /* sage */
+    --culture:      #f6c1c7;       /* soft pink */
+    --cta:          #1a1a1a;
+    --cta-hover:    #444;
+    --cta-text:     #fff;
+    --focus:        #c8a13a;       /* keyboard-focus ring + trial callout accent */
+    --trial-bg:     #fff4d6;
+    --trial-ink:    #3a2e10;
+    --new-badge:    #ff6b4a;
+    --mini-badge:   #6b2fa0;       /* miniseries — purple to match Culture */
+    --paused-ink:   #968b7d;
+    --soon-bg:      #f3eee2;       /* "coming soon" card greying — only for unbuilt pages */
+    --soon-ink:     #968b7d;
+    --serif:        'Cormorant Garamond', 'EB Garamond', Georgia, 'Times New Roman', serif;
+    --sans:         -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 56px 32px 96px;
+  }
+
+  /* ── Page header ───────────────────────────────────────────────────────── */
+  .page-hdr h1 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(40px, 5vw, 64px);
+    margin: 0 0 18px;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+  }
+  .page-hdr p.lede {
+    max-width: 640px;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 0 0 14px;
+  }
+  .trial-callout {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 10px 18px;
+    background: var(--trial-bg);
+    border-left: 3px solid var(--focus);
+    border-radius: 4px;
+    font-size: 15px;
+    color: var(--trial-ink);
+  }
+
+  /* ── Category section ──────────────────────────────────────────────────── */
+  .cat-section {
+    margin-top: 72px;
+    padding-top: 36px;
+    border-top: 1px solid var(--line);
+  }
+  .cat-hdr {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .cat-pill {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+  }
+  .cat-pill.partner   { background: var(--partner); color: #2a2208; }
+  .cat-pill.classical { background: var(--classical); color: #1f3328; }
+  .cat-pill.culture   { background: var(--culture); color: #4a1f25; }
+
+  .cat-hdr h2 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(28px, 3vw, 38px);
+    margin: 0;
+    line-height: 1.1;
+  }
+  .cat-hdr p.cat-sub {
+    flex: 1 1 100%;
+    margin: 4px 0 0;
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 720px;
+    line-height: 1.5;
+  }
+
+  /* ── Card grid ─────────────────────────────────────────────────────────── */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 18px;
+  }
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 20px 22px 18px;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;     /* the card IS an <a> — kill default link underline */
+    color: inherit;            /* and the inherited link color */
+    transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    border-color: var(--line-strong);
+    box-shadow: 0 4px 14px rgba(0,0,0,.04);
+  }
+  .card:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 4px;
+  }
+  /* Greyed-out variant for styles whose pages don't exist yet ("coming soon") */
+  .card.soon {
+    background: var(--soon-bg);
+    pointer-events: none;
+    opacity: .82;
+  }
+  .card.soon h3,
+  .card.soon .meta,
+  .card.soon .desc {
+    color: var(--soon-ink);
+  }
+  .card.soon .cta {
+    background: var(--soon-ink);
+    pointer-events: none;
+  }
+  .card h3 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 1.15;
+    margin: 0 0 8px;
+  }
+  .meta {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin: 0 0 12px;
+  }
+  .meta .dot {
+    color: var(--line-strong);
+    margin: 0 6px;
+  }
+  .desc {
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin: 0 0 18px;
+    flex-grow: 1;
+  }
+  .cta {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--cta);
+    color: var(--cta-text);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    padding: 12px 18px;        /* 44px touch target */
+    border-radius: 6px;
+    transition: background .15s ease;
+  }
+  .cta:hover { background: var(--cta-hover); }
+  .cta:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+  }
+  .cta::after { content: '→'; }
+
+  .new-badge {
+    display: inline-block;
+    background: var(--new-badge);
+    color: var(--cta-text);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .soon-badge {
+    display: inline-block;
+    background: var(--soon-ink);
+    color: var(--cta-text);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .mini-badge {
+    display: inline-block;
+    background: var(--mini-badge);
+    color: var(--cta-text);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .paused-badge {
+    display: inline-block;
+    background: transparent;
+    border: 1px solid var(--paused-ink);
+    color: var(--paused-ink);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 1px 6px;
+    border-radius: 3px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .card.paused .desc { color: var(--paused-ink); }
+  .card.paused .cta { background: var(--paused-ink); }
+  .card.paused .cta:hover { background: var(--paused-ink); opacity: .88; }
+
+  /* ── Footer band ───────────────────────────────────────────────────────── */
+  .footer-cta {
+    margin-top: 96px;
+    padding: 44px 36px;
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    text-align: center;
+  }
+  .footer-cta h2 {
+    font-family: var(--serif);
+    font-size: clamp(26px, 3vw, 36px);
+    font-weight: 500;
+    margin: 0 0 12px;
+  }
+  .footer-cta p {
+    font-size: 16px;
+    color: var(--muted);
+    margin: 0 0 24px;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+  .footer-cta .cta {
+    background: var(--cta);
+    padding: 14px 28px;
+    font-size: 15px;
+  }
+
+  /* Mobile tweaks */
+  @media (max-width: 640px) {
+    .wrap { padding: 36px 18px 64px; }
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- ── HEADER ─────────────────────────────────────────────────────────── -->
+  <header class="page-hdr">
+    <h1>All dance styles at Shoonya</h1>
+    <p class="lede">
+      Over 40 weekly classes across three families of dance — partner styles for
+      connection and rhythm, classical and technique work to build your craft, and
+      cultural and wellness practices to move your whole self. Browse below, click
+      any style to see the full schedule and register.
+    </p>
+    <div class="trial-callout">
+      <strong>Free trial week:</strong> Sep 14–19, 2026 — try any class for free, no registration needed.
+    </div>
+  </header>
+
+  <!-- ── PARTNER & SOCIAL ────────────────────────────────────────────────── -->
+  <section class="cat-section">
+    <div class="cat-hdr">
+      <span class="cat-pill partner">Partner &amp; Social Dance</span>
+      <h2>Connect, lead, follow, improvise</h2>
+      <p class="cat-sub">
+        Dance with someone in your arms or in a circle of dancers. Most of these
+        classes welcome solo or partner registrations — we help pair you up.
+      </p>
+    </div>
+    <div class="grid">
+
+      <a class="card" href="/argentijnse-tango-danslessen-gent">
+        <h3>Argentine Tango</h3>
+        <p class="meta">Thu · Levels 1 &amp; 2 · 16+</p>
+        <p class="desc">Walking embrace from Buenos Aires with Gisela &amp; Sergio. Level 1 covers connection and floor craft; Level 2 introduces milonga codes.</p>
+        <span class="cta">See class details</span>
+      </a>
+
+      <a class="card" href="/bachata-dance-classes-in-ghent">
+        <h3>Bachata</h3>
+        <p class="meta">Tue · Levels 1–3</p>
+        <p class="desc">Sensual partner dance from the Dominican Republic. Hip-led, melodic, and one of the easiest partner styles to start with.</p>
+        <span class="cta">See class details</span>
+      </a>
+
+      <a class="card" href="/bachata-lady-style-miniseries-ghent">
+        <h3>Bachata Lady Style <span class="mini-badge">Miniseries</span></h3>
+        <p class="meta">Thu · 10 weeks · Oct 8 → Dec 17</p>
+        <p class="desc">Solo styling for Bachata dancers with Ioanna. Body isolations, footwork, and feminine flow over a short, focused 10-week run.</p>
+        <span class="cta">See class details</span>
+      </a>
+
+      <a class="card" href="/cuban-salsa-in-gent">
+        <h3>Cuban Salsa</h3>
+        <p class="meta">Mon (L1–L3) · Thu (L4) · Levels 1–4</p>
+        <p class="desc">Lively, circular, Afro-Cuban roots. Intricate footwork, playful turns, and improvisation with your partner.</p>
+        <span class="cta">See class details</span>
+      </a>
+
+      <a class="card" href="/kizomba-danslessen-in-gent">
+        <h3>Kizomba</h3>
+        <p class="meta">Wed · Levels 1–3</p>
+        <p class="desc">Slow, grounded partner dance from Angola. Connection, breath, and hip-led musicality.</p>
+        <span class="cta">See class details</span>
+      </a>
+
+      <a class="card" href="/lindy-hop-danslessen-in-gent">
+        <h3>Lindy Hop</h3>
+        <p class="meta">Wed · Level 1 (60min) · Level 2 (75min)</p>
+        <p class="desc">Energetic 1930s swing from Harlem with Upside Down. Level 1 starts from zero in 60 minutes; Level 2 goes 75 minutes for dancers ready to swing out. Solo registration welcome.</p>
+        <span class="cta">See class details</span>
+      </a>
+
+      <a class="card" href="/rueda-de-casino-danslessen-gent">
+        <h3>Rueda de Casino</h3>
+        <p class="meta">Thu · Levels 1 &amp; 2</p>
+        <p class="desc">Group salsa danced in a circle, calling moves and switching partners on cue. Highly social.</p>
+        <span class="cta">See class details</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ── CLASSICAL & TECHNIQUE ───────────────────────────────────────────── -->
+  <section class="cat-section">
+    <div class="cat-hdr">
+      <span class="cat-pill classical">Classical &amp; Technique</span>
+      <h2>Build your craft, level by level</h2>
+      <p class="cat-sub">
+        Structured progression — start at Foundation or Level 1 and grow over years.
+        Strong technique transfers across every other style you'll dance.
+      </p>
+    </div>
+    <div class="grid">
+
+      <a class="card" href="/ballet-voor-volwassenen-in-gent">
+        <h3>Ballet</h3>
+        <p class="meta">Fri · Foundation · Level 2 · Open Level</p>
+        <p class="desc">Classical foundation for adults with Shirley. Barre, centre, and across-the-floor with attention to alignment and grace. Three levels — pick yours on the registration form.</p>
+        <span class="cta">See class details</span>
+      </a>
+
+      <a class="card" href="/flamenco-danslessen-in-gent">
+        <h3>Flamenco</h3>
+        <p class="meta">Tue · All levels</p>
+        <p class="desc">Spanish dance of fierce footwork, expressive arms, and deep rhythm. A whole-body conversation with the music.</p>
+        <span class="cta">See class details</span>
+      </a>
+
+      <a class="card" href="/indian-dance-in-belgium">
+        <h3>Indian Dance Technique</h3>
+        <p class="meta">Tue · Open level</p>
+        <p class="desc">Foundational Indian dance work — barre, alignment, body control, and spatial awareness for all Indian styles.</p>
+        <span class="cta">See class details</span>
+      </a>
+
+      <a class="card" href="/kathak-danslessen-in-gent">
+        <h3>Indian Semi-classical (Kathak)</h3>
+        <p class="meta">Wed · Level 2</p>
+        <p class="desc">Kathak technique meets cinematic storytelling. Footwork, mudras, rhythm, and movement-based narrative.</p>
+        <span class="cta">See class details</span>
+      </a>
+
+      <a class="card" href="/oriental-flow-ghent">
+        <h3>Oriental Flow <span class="new-badge">New</span></h3>
+        <p class="meta">Sat 10:30 · 1h30 · Open level</p>
+        <p class="desc">Somatic, breath-led oriental movement with Nathalie. A Saturday morning class to slow down, open the body, and move with intention.</p>
+        <span class="cta">See class details</span>
+      </a>
+
+      <a class="card" href="/solo-jazz-danslessen-in-gent">
+        <h3>Solo Jazz</h3>
+        <p class="meta">Wed · Open level</p>
+        <p class="desc">Vintage jazz steps danced solo. Ground for swing and lindy, but also a complete style on its own.</p>
+        <span class="cta">See class details</span>
+      </a>
+
+      <a class="card" href="/tapdans-lessen-in-gent">
+        <h3>Tap Dance</h3>
+        <p class="meta">Mon &amp; Wed (L1–L3) · Thu (L4–L6)</p>
+        <p class="desc">Make rhythm with your feet. Free shoes for beginners — no equipment needed to start. Six levels with Lut, Jordan, Teddy, and Alexandre.</p>
+        <span class="cta">See class details</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ── CULTURE & WELLNESS ──────────────────────────────────────────────── -->
+  <section class="cat-section">
+    <div class="cat-hdr">
+      <span class="cat-pill culture">Culture &amp; Wellness</span>
+      <h2>Move with story, music, and breath</h2>
+      <p class="cat-sub">
+        Cultural traditions, expressive performance forms, and movement practices for
+        your wellbeing. Many of these welcome absolute beginners.
+      </p>
+    </div>
+    <div class="grid">
+
+      <a class="card" href="/afrikaanse-congolese-dans-gent">
+        <h3>African Congolese Dance</h3>
+        <p class="meta">Sat · Open level</p>
+        <p class="desc">Energetic Central African dance with live drumming roots. Full body, joyful, deeply social.</p>
+        <span class="cta">See class details</span>
+      </a>
+
+      <a class="card" href="/bhangra-danslessen-in-gent">
+        <h3>Bhangra</h3>
+        <p class="meta">Wed · Level 2</p>
+        <p class="desc">High-energy Punjabi folk celebration. Bouncy, cardiovascular, and impossible not to smile through.</p>
+        <span class="cta">See class details</span>
+      </a>
+
+      <a class="card" href="/bollyfolk-danslessen-in-gent">
+        <h3>Bollyfolk</h3>
+        <p class="meta">Tue · Open level</p>
+        <p class="desc">Indian folk traditions explored each semester. A welcoming entry into Indian dance — no prior experience needed.</p>
+        <span class="cta">See class details</span>
+      </a>
+
+      <a class="card" href="/bollywood-danslessen-in-gent">
+        <h3>Bollywood</h3>
+        <p class="meta">Thu · Levels 2 &amp; 3</p>
+        <p class="desc">Foundational technique and choreography rooted in classical Indian forms. Expressive, structured, joyful.</p>
+        <span class="cta">See class details</span>
+      </a>
+
+      <a class="card" href="/burlesque-lessen-in-gent">
+        <h3>Burlesque</h3>
+        <p class="meta">Mon (L1) · Tue (L2) · Early or late slot</p>
+        <p class="desc">Theatrical, sensual, body-positive. Build your own act with Zoe, Tine, and Hendrik. Each level has two weekly slots — pick the time that fits.</p>
+        <span class="cta">See class details</span>
+      </a>
+
+      <a class="card" href="/cissy-ball-danslessen-in-gent">
+        <h3>Cissy Ball</h3>
+        <p class="meta">Mon · Open level · solo</p>
+        <p class="desc">Dance-theater inspired by Pina Bausch and Alain Platel. Improvise from your inner joy with Hendrik. Each class ends in a show moment.</p>
+        <span class="cta">See class details</span>
+      </a>
+
+      <a class="card" href="/dance-and-fit-ghent">
+        <h3>Dance &amp; Fit <span class="new-badge">New</span></h3>
+        <p class="meta">Wed 10:00 · Open level</p>
+        <p class="desc">A dance-based fitness class with Lenka — cardio, strength, and a great soundtrack. Open to every body and every level. A daytime slot, perfect for flexible schedules.</p>
+        <span class="cta">See class details</span>
+      </a>
+
+      <a class="card" href="/pilates-for-dancers-ghent">
+        <h3>Pilates for Dancers <span class="new-badge">New</span></h3>
+        <p class="meta">Tue 17:30 · Wed 11:00 · Open level</p>
+        <p class="desc">Strength, mobility, and control built for dancers with Lenka — and just as effective if you've never danced. Pick the day that fits your week.</p>
+        <span class="cta">See class details</span>
+      </a>
+
+      <a class="card" href="/raqs-sharqi-danslessen-in-gent">
+        <h3>Raqs Sharqi (Belly Dance)</h3>
+        <p class="meta">Mon · Levels 1–3</p>
+        <p class="desc">The classical Egyptian art of belly dance — shimmies, undulations, and storytelling through the torso with Lenka Badriyah.</p>
+        <span class="cta">See class details</span>
+      </a>
+
+      <a class="card" href="/yoga-lessen-in-gent">
+        <h3>Yoga</h3>
+        <p class="meta">Tue · Open level</p>
+        <p class="desc">A balanced 60-minute Hatha-Vinyasa session. Breathing, meditation, asana, and a proper cool-down.</p>
+        <span class="cta">See class details</span>
+      </a>
+
+
+    </div>
+  </section>
+
+  <!-- ── FOOTER CTA ──────────────────────────────────────────────────────── -->
+  <div class="footer-cta">
+    <h2>Not sure where to start?</h2>
+    <p>
+      Come to the free trial week (Sep 14–19, 2026) and drop in to any class — no registration,
+      no commitment. The teachers will help you find your level.
+    </p>
+    <a class="cta" href="/calendar">See what's on this week</a>
+  </div>
+
+</div>
+
+</body>
+</html>

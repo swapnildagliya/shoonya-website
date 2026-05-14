@@ -64,6 +64,9 @@
   .badge-partner   { background: #e3f0ff; color: #1a5fa8; }
   .badge-solo      { background: #f0faf0; color: #2a7a3a; }
   .badge-advanced  { background: #fce4ec; color: #c62828; }
+  .badge-mini      { background: #f3e8ff; color: #6b2fa0; }
+  .badge-paused    { background: #f3eee2; color: #968b7d; border: 1px solid #968b7d; }
+  .style-card.paused { opacity: .8; background: #faf7f0; }
   .style-card h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; margin-bottom: .5rem; line-height: 1.2; }
   .teacher { font-size: .78rem; color: var(--muted); margin-bottom: .6rem; font-weight: 500; }
   .style-card p { font-size: .88rem; color: #444; line-height: 1.6; flex: 1; margin-bottom: 1rem; }
@@ -120,8 +123,8 @@
     <span data-lang="en">Partner & Social Dance</span>
     <span data-lang="nl">Partner- & Sociaal Dansen</span>
   </h1>
-  <p data-lang="en">Six styles built around connection, rhythm, and dancing with someone else. From Cuban Salsa to Argentine Tango.</p>
-  <p data-lang="nl">Zes stijlen gebaseerd op verbinding, ritme en dansen met iemand anders. Van Cuban Salsa tot Argentine Tango.</p>
+  <p data-lang="en">Eight styles built around connection, rhythm, and swing — from Cuban Salsa and Argentine Tango to Solo Jazz and the Bachata Lady Style miniseries.</p>
+  <p data-lang="nl">Acht stijlen rond verbinding, ritme en swing — van Cuban Salsa en Argentine Tango tot Solo Jazz en de Bachata Lady Style miniserie.</p>
 </div>
 
 <!-- Content -->
@@ -133,8 +136,8 @@
     <div>
       <strong data-lang="en">Most partner dances require you to register with a partner</strong>
       <strong data-lang="nl">De meeste partnerdansen vereisen inschrijving met een partner</strong>
-      <p data-lang="en">Cuban Salsa, Bachata, Argentine Tango, Kizomba, and Rueda de Casino require partner registration — we don't match solo registrants. Lindy Hop is the exception: solo registration is fine. Can't find a partner? Post in the <a href="https://shoonyadance.com" style="color:#555">Shoonya Dance Forum</a>.</p>
-      <p data-lang="nl">Cuban Salsa, Bachata, Argentine Tango, Kizomba en Rueda de Casino vereisen partnerinschrijving — we koppelen geen solo-deelnemers. Lindy Hop is de uitzondering: solo inschrijven is prima. Geen partner gevonden? Post in het <a href="https://shoonyadance.com" style="color:#555">Shoonya Dance Forum</a>.</p>
+      <p data-lang="en">Cuban Salsa, Bachata, Argentine Tango, Kizomba, and Rueda de Casino require partner registration — we don't match solo registrants. Lindy Hop, Solo Jazz, and Bachata Lady Style are danced solo — solo registration is welcome. Can't find a partner? Post in the <a href="https://shoonyadance.com" style="color:#555">Shoonya Dance Forum</a>.</p>
+      <p data-lang="nl">Cuban Salsa, Bachata, Argentine Tango, Kizomba en Rueda de Casino vereisen partnerinschrijving — we koppelen geen solo-deelnemers. Lindy Hop, Solo Jazz en Bachata Lady Style worden solo gedanst — solo inschrijven is welkom. Geen partner gevonden? Post in het <a href="https://shoonyadance.com" style="color:#555">Shoonya Dance Forum</a>.</p>
     </div>
   </div>
 
@@ -175,6 +178,23 @@
       <a class="card-cta" href="https://shoonyadance.com/bachata-dance-classes-in-ghent" data-lang="nl">Bekijk Bachata →</a>
     </div>
 
+    <!-- Bachata Lady Style -->
+    <div class="style-card" style="--card-accent: #6b2fa0;">
+      <div class="card-badges">
+        <span class="badge badge-mini" data-lang="en">10-week miniseries</span>
+        <span class="badge badge-mini" data-lang="nl">10-weken miniserie</span>
+        <span class="badge badge-solo" data-lang="en">Solo registration OK</span>
+        <span class="badge badge-solo" data-lang="nl">Solo inschrijven OK</span>
+      </div>
+      <h3>Bachata Lady Style</h3>
+      <div class="teacher" data-lang="en">👤 Ioanna · Thu 19:00 · Oct 8 → Dec 17</div>
+      <div class="teacher" data-lang="nl">👤 Ioanna · Do 19:00 · 8 okt → 17 dec</div>
+      <p data-lang="en">A focused 10-week run of solo styling for Bachata dancers. Body isolations, footwork, and feminine flow — no partner needed. Perfect alongside the Tuesday Bachata class, or as a standalone.</p>
+      <p data-lang="nl">Een gerichte miniserie van 10 weken solo styling voor Bachata-dansers. Isolaties, voetenwerk en feminiene flow — geen partner nodig. Perfect naast de dinsdagse Bachata-les of als losse cursus.</p>
+      <a class="card-cta" href="https://shoonyadance.com/bachata-lady-style-miniseries-ghent" data-lang="en">View Lady Style →</a>
+      <a class="card-cta" href="https://shoonyadance.com/bachata-lady-style-miniseries-ghent" data-lang="nl">Bekijk Lady Style →</a>
+    </div>
+
     <!-- Argentine Tango -->
     <div class="style-card" style="--card-accent: #c8521a;">
       <div class="card-badges">
@@ -193,35 +213,35 @@
     </div>
 
     <!-- Kizomba -->
-    <div class="style-card" style="--card-accent: #888;">
+    <div class="style-card" style="--card-accent: #c8521a;">
       <div class="card-badges">
-        <span class="badge badge-experience" data-lang="en">Some experience needed</span>
-        <span class="badge badge-experience" data-lang="nl">Enige ervaring vereist</span>
+        <span class="badge badge-beginner" data-lang="en">Beginner friendly</span>
+        <span class="badge badge-beginner" data-lang="nl">Beginnersvriendelijk</span>
         <span class="badge badge-partner" data-lang="en">Partner required</span>
         <span class="badge badge-partner" data-lang="nl">Partner vereist</span>
       </div>
       <h3>Kizomba</h3>
-      <div class="teacher" data-lang="en">👤 Sonja KikiZomba · Age 12+</div>
-      <div class="teacher" data-lang="nl">👤 Sonja KikiZomba · Vanaf 12 jaar</div>
-      <p data-lang="en">Smooth, close partner dance from Angola — often called the African Tango. Characterized by flowing Ginga movements and deep partner connection. Level 2 and up (prior experience needed).</p>
-      <p data-lang="nl">Vloeiende, close partnerdans uit Angola — ook wel de Afrikaanse Tango genoemd. Gekenmerkt door vloeiende Ginga-bewegingen. Niveau 2 en hoger (enige ervaring vereist).</p>
+      <div class="teacher" data-lang="en">👤 Sonja KikiZomba · Wed · Levels 1–3</div>
+      <div class="teacher" data-lang="nl">👤 Sonja KikiZomba · Wo · Niveau 1–3</div>
+      <p data-lang="en">Smooth, close partner dance from Angola — often called the African Tango. Characterized by flowing Ginga movements and deep partner connection. Three levels — Level 1 welcomes complete beginners.</p>
+      <p data-lang="nl">Vloeiende, close partnerdans uit Angola — ook wel de Afrikaanse Tango genoemd. Gekenmerkt door vloeiende Ginga-bewegingen. Drie niveaus — Level 1 verwelkomt absolute beginners.</p>
       <a class="card-cta" href="https://shoonyadance.com/kizomba-danslessen-in-gent" data-lang="en">View Kizomba →</a>
       <a class="card-cta" href="https://shoonyadance.com/kizomba-danslessen-in-gent" data-lang="nl">Bekijk Kizomba →</a>
     </div>
 
     <!-- Lindy Hop -->
-    <div class="style-card" style="--card-accent: #888;">
+    <div class="style-card" style="--card-accent: #c8521a;">
       <div class="card-badges">
-        <span class="badge badge-experience" data-lang="en">Some experience needed</span>
-        <span class="badge badge-experience" data-lang="nl">Enige ervaring vereist</span>
+        <span class="badge badge-beginner" data-lang="en">Beginner friendly</span>
+        <span class="badge badge-beginner" data-lang="nl">Beginnersvriendelijk</span>
         <span class="badge badge-solo" data-lang="en">Solo registration OK</span>
         <span class="badge badge-solo" data-lang="nl">Solo inschrijven OK</span>
       </div>
       <h3>Lindy Hop</h3>
-      <div class="teacher" data-lang="en">👤 Upside Down · Age 12+</div>
-      <div class="teacher" data-lang="nl">👤 Upside Down · Vanaf 12 jaar</div>
-      <p data-lang="en">Energetic swing partner dance from 1930s jazz culture. "Everybody leads, everybody follows." Requires a few months of prior social dancing experience — not for absolute beginners.</p>
-      <p data-lang="nl">Energieke swing partnerdans uit de jazzscene van de jaren 30. "Iedereen leidt, iedereen volgt." Vereist enige maanden sociaal dansen — niet voor absolute beginners.</p>
+      <div class="teacher" data-lang="en">👤 Upside Down · Wed · Level 1 (60min) · Level 2 (75min)</div>
+      <div class="teacher" data-lang="nl">👤 Upside Down · Wo · Niveau 1 (60min) · Niveau 2 (75min)</div>
+      <p data-lang="en">Energetic 1930s Harlem swing — "Everybody leads, everybody follows." Level 1 (60 min) starts from zero; Level 2 (75 min) goes deeper for dancers ready to swing out. Solo registration welcome.</p>
+      <p data-lang="nl">Energieke jaren-30 Harlem-swing — "Iedereen leidt, iedereen volgt." Niveau 1 (60 min) begint van nul; Niveau 2 (75 min) gaat dieper voor dansers die klaar zijn om uit te swingen. Solo inschrijven welkom.</p>
       <a class="card-cta" href="https://shoonyadance.com/lindy-hop-danslessen-in-gent" data-lang="en">View Lindy Hop →</a>
       <a class="card-cta" href="https://shoonyadance.com/lindy-hop-danslessen-in-gent" data-lang="nl">Bekijk Lindy Hop →</a>
     </div>
@@ -241,6 +261,23 @@
       <p data-lang="nl">Cuban salsa in een cirkel — één caller, wisselende partners, gesynchroniseerde combinaties. Minimaal 2 seizoenen Cuban Salsa vereist. Gesloten groep.</p>
       <a class="card-cta" href="https://shoonyadance.com/rueda-de-casino-danslessen-gent" data-lang="en">View Rueda de Casino →</a>
       <a class="card-cta" href="https://shoonyadance.com/rueda-de-casino-danslessen-gent" data-lang="nl">Bekijk Rueda de Casino →</a>
+    </div>
+
+    <!-- Solo Jazz -->
+    <div class="style-card" style="--card-accent: #c8521a;">
+      <div class="card-badges">
+        <span class="badge badge-beginner" data-lang="en">Beginner friendly</span>
+        <span class="badge badge-beginner" data-lang="nl">Beginnersvriendelijk</span>
+        <span class="badge badge-solo" data-lang="en">Solo registration OK</span>
+        <span class="badge badge-solo" data-lang="nl">Solo inschrijven OK</span>
+      </div>
+      <h3>Solo Jazz</h3>
+      <div class="teacher" data-lang="en">👤 Ann-Sofie (Sep · Leni) · Wed 21:00</div>
+      <div class="teacher" data-lang="nl">👤 Ann-Sofie (Sep · Leni) · Wo 21:00</div>
+      <p data-lang="en">Vintage jazz steps danced solo — the rhythmic foundation that gave swing its bounce. A complete style on its own, and a perfect complement to Lindy Hop on the same night.</p>
+      <p data-lang="nl">Vintage jazzstappen solo gedanst — de ritmische basis die swing zijn veerkracht gaf. Een volledige stijl op zichzelf en een mooie aanvulling op Lindy Hop op dezelfde avond.</p>
+      <a class="card-cta" href="https://shoonyadance.com/solo-jazz-danslessen-in-gent" data-lang="en">View Solo Jazz →</a>
+      <a class="card-cta" href="https://shoonyadance.com/solo-jazz-danslessen-in-gent" data-lang="nl">Bekijk Solo Jazz →</a>
     </div>
 
   </div>

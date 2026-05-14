@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Block Studio — Shoonya Dance Centre</title>
+<style>
+  :root {
+    --ink:        #1a1a1a;
+    --warm:       #c8521a;
+    --warm-soft:  #fdf3ec;
+    --teal:       #1a7a6e;
+    --gold:       #b8860b;
+    --muted:      #6b6560;
+    --border:     #e4e0db;
+    --bg:         #f5f4f1;
+    --white:      #ffffff;
+    --partner:    #f4c542;
+    --classical:  #d8e2dc;
+    --culture:    #f6c1c7;
+    --radius:     8px;
+    --sidebar-w:  280px;
+    --danger:     #c62828;
+    --success:    #2e7d32;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif;
+         background: var(--bg); color: var(--ink); font-size: 14px; line-height: 1.5; }
+
+  /* ── Layout ── */
+  .app { display: flex; height: 100vh; overflow: hidden; }
+  .sidebar { width: var(--sidebar-w); flex-shrink: 0; background: var(--ink);
+             color: var(--white); display: flex; flex-direction: column; overflow: hidden; }
+  .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+  /* ── Sidebar ── */
+  .sidebar-header { padding: 1.2rem 1rem .8rem; border-bottom: 1px solid rgba(255,255,255,.1); }
+  .sidebar-header .brand { font-size: .68rem; font-weight: 700; letter-spacing: .12em;
+                          text-transform: uppercase; color: #aaa; margin-bottom: .25rem; }
+  .sidebar-header h1 { font-size: 1.05rem; font-weight: 700; color: var(--white); }
+  .sidebar-header .meta { font-size: .7rem; color: #888; margin-top: .35rem; }
+
+  .sidebar-search { padding: .65rem .75rem; border-bottom: 1px solid rgba(255,255,255,.1); }
+  .sidebar-search input { width: 100%; background: rgba(255,255,255,.1);
+                          border: 1px solid rgba(255,255,255,.15); border-radius: 6px;
+                          padding: .42rem .65rem; color: var(--white); font-size: .82rem; outline: none; }
+  .sidebar-search input::placeholder { color: #888; }
+  .sidebar-search input:focus { border-color: var(--warm); }
+
+  .sidebar-list { flex: 1; overflow-y: auto; padding: .25rem 0 1.5rem; }
+
+  .sidebar-special { padding: 0 .75rem .35rem; }
+  .sidebar-special .item { display: flex; align-items: center; gap: .5rem;
+                           padding: .55rem .65rem; border-radius: 6px; cursor: pointer;
+                           font-size: .85rem; color: #ddd; background: rgba(255,255,255,.04);
+                           border-left: 3px solid var(--gold); transition: background .12s; }
+  .sidebar-special .item:hover { background: rgba(255,255,255,.09); color: var(--white); }
+  .sidebar-special .item.active { background: var(--gold); color: var(--ink); }
+  .sidebar-special .item .ico { font-size: 1rem; }
+
+  .sidebar-cat { padding: .9rem 1rem .25rem; font-size: .62rem; font-weight: 700;
+                 letter-spacing: .12em; text-transform: uppercase; color: #777;
+                 display: flex; align-items: center; gap: .45rem; }
+  .sidebar-cat .pip { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+  .sidebar-cat .pip.partner   { background: var(--partner); }
+  .sidebar-cat .pip.classical { background: var(--classical); }
+  .sidebar-cat .pip.culture   { background: var(--culture); }
+
+  .sidebar-item { display: flex; align-items: center; justify-content: space-between;
+                  padding: .42rem 1rem; cursor: pointer; font-size: .85rem;
+                  color: #cdcdcd; transition: background .12s; gap: .5rem; }
+  .sidebar-item:hover { background: rgba(255,255,255,.07); color: var(--white); }
+  .sidebar-item.active { background: var(--warm); color: var(--white); }
+  .sidebar-item .style-name { flex: 1; line-height: 1.3; }
+  .sidebar-item .levels-count { font-size: .68rem; color: #888;
+                                 background: rgba(255,255,255,.08); padding: .1rem .4rem;
+                                 border-radius: 99px; flex-shrink: 0; }
+  .sidebar-item.active .levels-count { background: rgba(255,255,255,.2); color: #fff; }
+
+  .sidebar-footer { padding: .8rem 1rem; border-top: 1px solid rgba(255,255,255,.1);
+                    font-size: .7rem; color: #777; }
+
+  /* ── Top bar ── */
+  .topbar { background: var(--white); border-bottom: 1px solid var(--border);
+            padding: .75rem 1.5rem; display: flex; align-items: center;
+            justify-content: space-between; flex-shrink: 0; gap: 1rem; }
+  .topbar-left h2 { font-size: 1rem; font-weight: 700; }
+  .topbar-left .sub { font-size: .78rem; color: var(--muted); margin-top: .12rem; }
+  .topbar-right { display: flex; align-items: center; gap: 1rem; font-size: .8rem; color: var(--muted); }
+  .topbar-right strong { color: var(--ink); }
+  .reload-btn { background: var(--white); border: 1px solid var(--border);
+                color: var(--ink); padding: .42rem .9rem; border-radius: 6px;
+                font-size: .8rem; font-weight: 600; cursor: pointer; display: flex;
+                align-items: center; gap: .4rem; transition: background .12s, border-color .12s; }
+  .reload-btn:hover { background: var(--bg); border-color: var(--warm); }
+  .reload-btn.loading { opacity: .6; pointer-events: none; }
+  .reload-btn .spinner { display: inline-block; width: 12px; height: 12px;
+                         border: 2px solid var(--border); border-top-color: var(--warm);
+                         border-radius: 50%; animation: spin .8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── Preview pane ── */
+  .preview-pane { flex: 1; overflow-y: auto; padding: 1.5rem 2rem 4rem; background: var(--bg); }
+  .preview-pane.has-toc { display: grid; grid-template-columns: minmax(0, 1fr) 160px; gap: 2rem; align-items: start; }
+  .preview-pane .preview-main { min-width: 0; }
+  .preview-header { display: flex; align-items: center; justify-content: space-between;
+                    margin-bottom: 1.25rem; gap: 1rem; flex-wrap: wrap; }
+  .preview-header h3 { font-size: 1.15rem; font-weight: 700; }
+  .preview-header .meta-line { font-size: .8rem; color: var(--muted); margin-top: .15rem; }
+  .copy-btn { background: var(--teal); color: var(--white); border: none;
+              border-radius: 6px; padding: .58rem 1.3rem; font-size: .82rem;
+              font-weight: 700; cursor: pointer; transition: background .15s;
+              display: inline-flex; align-items: center; gap: .4rem; }
+  .copy-btn:hover { background: #145f55; }
+  .copy-btn.copied { background: var(--success); }
+  .copy-btn-sm { background: var(--white); color: var(--ink); border: 1px solid var(--border);
+                 padding: .3rem .65rem; font-size: .72rem; font-weight: 600; cursor: pointer;
+                 border-radius: 5px; transition: background .12s, border-color .12s; }
+  .copy-btn-sm:hover { border-color: var(--teal); color: var(--teal); }
+  .copy-btn-sm.copied { background: var(--success); color: #fff; border-color: var(--success); }
+
+  .section-label { font-size: .68rem; font-weight: 700; letter-spacing: .1em;
+                   text-transform: uppercase; color: var(--muted); margin-bottom: .6rem; }
+  .preview-frame { background: var(--white); border: 1px solid var(--border);
+                   border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.5rem; }
+  .code-area { background: #1e1e2e; border-radius: var(--radius); padding: 1rem;
+               font-family: 'Menlo', 'Monaco', 'Courier New', monospace; font-size: .72rem;
+               color: #cdd6f4; white-space: pre-wrap; word-break: break-word;
+               overflow-x: auto; max-height: 280px; overflow-y: auto; line-height: 1.5; }
+
+  details.raw { background: var(--white); border: 1px solid var(--border);
+                border-radius: var(--radius); padding: 0; margin-bottom: 1.5rem; }
+  details.raw summary { padding: .9rem 1.2rem; font-size: .82rem; font-weight: 600;
+                        cursor: pointer; color: var(--muted); }
+  details.raw summary:hover { color: var(--ink); }
+  details.raw[open] summary { border-bottom: 1px solid var(--border); }
+  details.raw .body { padding: 1rem 1.2rem; }
+
+  /* ── Section cards ── */
+  .section { background: var(--white); border: 1px solid var(--border);
+             border-radius: var(--radius); padding: 1.25rem 1.5rem; margin-bottom: 1.25rem;
+             scroll-margin-top: 1rem; }
+  .section-head { display: flex; align-items: center; justify-content: space-between;
+                  gap: .75rem; margin-bottom: .75rem; flex-wrap: wrap; }
+  .section-title { font-size: .95rem; font-weight: 700; color: var(--ink);
+                   display: flex; align-items: center; gap: .5rem; }
+  .section-title .tag { font-size: .65rem; font-weight: 700; letter-spacing: .08em;
+                        text-transform: uppercase; background: var(--warm-soft);
+                        color: var(--warm); padding: .15rem .55rem; border-radius: 99px; }
+  .section-title .tag.muted { background: #f0ede7; color: var(--muted); }
+  .section-sub { font-size: .8rem; color: var(--muted); margin-top: -.2rem; margin-bottom: .9rem; }
+
+  .kv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+             gap: .65rem 1rem; font-size: .85rem; }
+  .kv-item .k { font-size: .68rem; font-weight: 700; letter-spacing: .07em;
+                text-transform: uppercase; color: var(--muted); margin-bottom: .1rem; }
+  .kv-item .v { color: var(--ink); font-weight: 500; line-height: 1.35; word-wrap: break-word; }
+  .kv-item .v.empty { color: #b8b3a8; font-weight: 400; font-style: italic; }
+  .kv-item .v a { color: var(--teal); }
+
+  .body-text { font-size: .9rem; line-height: 1.6; color: var(--ink); white-space: pre-wrap; }
+  .body-text.muted { color: var(--muted); font-style: italic; }
+
+  .level-card { background: var(--bg); border: 1px solid var(--border);
+                border-radius: 6px; padding: .9rem 1rem; margin-bottom: .75rem; }
+  .level-card:last-child { margin-bottom: 0; }
+  .level-head { display: flex; align-items: baseline; justify-content: space-between;
+                gap: .75rem; flex-wrap: wrap; margin-bottom: .5rem; }
+  .level-head .level-label { font-size: .82rem; font-weight: 700; color: var(--ink); }
+  .level-head .level-label .sublabel { font-weight: 500; color: var(--muted); font-size: .76rem; margin-left: .35rem; }
+  .level-head .level-meta { font-size: .76rem; color: var(--muted); }
+  .slot-row { display: flex; gap: .5rem; align-items: baseline; font-size: .82rem;
+              color: var(--ink); padding: .25rem 0; flex-wrap: wrap; }
+  .slot-row .day { font-weight: 600; min-width: 80px; }
+  .slot-row .time { color: var(--muted); }
+  .slot-row .teacher { color: var(--teal); font-weight: 500; }
+  .slot-row .studio { color: var(--muted); font-size: .76rem; }
+
+  .warn-note { background: #fff8e1; border-left: 3px solid var(--gold);
+               padding: .5rem .75rem; border-radius: 4px; font-size: .76rem;
+               color: #5f4c00; margin-top: .65rem; line-height: 1.5; }
+  .warn-note strong { color: #3d3000; }
+
+  /* ── Open Deurdag ── */
+  .od-header { display: flex; align-items: center; justify-content: space-between;
+               gap: 1rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .od-date-toggle { display: flex; gap: .35rem; flex-wrap: wrap; }
+  .od-date-btn { background: var(--white); border: 1px solid var(--border);
+                 color: var(--ink); padding: .5rem 1rem; font-size: .82rem;
+                 font-weight: 600; cursor: pointer; border-radius: 6px;
+                 transition: all .12s; }
+  .od-date-btn:hover { border-color: var(--teal); color: var(--teal); }
+  .od-date-btn.active { background: var(--teal); color: var(--white); border-color: var(--teal); }
+
+  .od-bucket { background: var(--white); }
+  .od-bucket-morn  { border-left: 4px solid #ffb84d; }
+  .od-bucket-aftn  { border-left: 4px solid #f4c542; }
+  .od-bucket-eve   { border-left: 4px solid #6b2fa0; }
+  .od-bucket-any   { border-left: 4px solid var(--teal); }
+  .od-bucket-unk   { border-left: 4px solid #b8b3a8; }
+  .od-bucket-no    { border-left: 4px solid #c62828; opacity: .82; }
+  .od-rows { display: flex; flex-direction: column; gap: .35rem; }
+  .od-row { display: grid; grid-template-columns: minmax(200px, 1fr) minmax(220px, 1.5fr);
+            gap: .85rem; align-items: center;
+            padding: .55rem .7rem; background: var(--bg); border-radius: 6px;
+            border: 1px solid transparent; transition: border-color .1s; }
+  .od-row:hover { border-color: var(--border); }
+  .od-row-main { min-width: 0; }
+  .od-row-style { font-weight: 600; font-size: .9rem; color: var(--ink); }
+  .od-row-teacher { font-size: .76rem; color: var(--muted); margin-top: .1rem; }
+  .od-row-email { color: #b8b3a8; font-size: .7rem; }
+  .od-row-note input { width: 100%; padding: .35rem .6rem; font-size: .8rem;
+                       border: 1px solid var(--border); border-radius: 4px;
+                       background: var(--white); color: var(--ink); outline: none; font-family: inherit; }
+  .od-row-note input:focus { border-color: var(--teal); }
+  .od-row-note input::placeholder { color: #c2bcb3; }
+
+  @media (max-width: 720px) {
+    .od-row { grid-template-columns: 1fr; gap: .4rem; }
+  }
+
+  /* ── Sticky TOC ── */
+  .toc { position: sticky; top: 1rem; align-self: start; font-size: .78rem; }
+  .toc .toc-label { font-size: .62rem; font-weight: 700; letter-spacing: .12em;
+                    text-transform: uppercase; color: var(--muted); margin-bottom: .4rem;
+                    padding: 0 .5rem; }
+  .toc a { display: block; padding: .3rem .6rem; color: var(--muted); text-decoration: none;
+           border-left: 2px solid transparent; line-height: 1.35; transition: all .1s; }
+  .toc a:hover { color: var(--ink); border-left-color: var(--border); }
+  .toc a.active { color: var(--warm); border-left-color: var(--warm); font-weight: 600; }
+  @media (max-width: 1100px) { .preview-pane.has-toc { grid-template-columns: 1fr; }
+                               .toc { display: none; } }
+
+  /* ── States ── */
+  .empty-state, .loading-state, .error-state {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    height: 100%; color: var(--muted); text-align: center; padding: 2rem; gap: .75rem;
+  }
+  .empty-state .ico, .loading-state .ico, .error-state .ico { font-size: 2.25rem; }
+  .empty-state p, .loading-state p, .error-state p { max-width: 380px; font-size: .9rem; }
+  .error-state { color: var(--danger); }
+  .error-state pre { font-family: 'Menlo', 'Monaco', monospace; font-size: .72rem;
+                     background: var(--white); color: var(--ink); padding: .8rem 1rem;
+                     border: 1px solid var(--border); border-radius: 6px;
+                     max-width: 540px; overflow-x: auto; white-space: pre-wrap;
+                     word-break: break-word; text-align: left; }
+  .retry-btn { background: var(--warm); color: var(--white); border: none;
+               border-radius: 6px; padding: .55rem 1.2rem; font-size: .82rem;
+               font-weight: 700; cursor: pointer; }
+  .retry-btn:hover { background: #a8431a; }
+
+  .setup-notice { background: #fff8e1; border: 1px solid #ffe082;
+                  border-left: 4px solid var(--gold); border-radius: 6px;
+                  padding: 1rem 1.2rem; margin: 1rem 1.5rem 0; font-size: .82rem;
+                  color: #5f4c00; line-height: 1.55; }
+  .setup-notice strong { color: #3d3000; }
+  .setup-notice code { background: rgba(0,0,0,.08); padding: .1rem .35rem;
+                       border-radius: 3px; font-family: 'Menlo', monospace; font-size: .72rem; }
+
+  /* ── Scrollbar ── */
+  ::-webkit-scrollbar { width: 7px; height: 7px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #c2bcb3; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #a8a298; }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="brand">Shoonya Dance Centre</div>
+      <h1>Block Studio</h1>
+      <div class="meta" id="sidebar-meta">Loading…</div>
+    </div>
+    <div class="sidebar-search">
+      <input type="text" id="search" placeholder="Search styles…" oninput="filterStyles(this.value)">
+    </div>
+    <div class="sidebar-list" id="sidebar-list">
+      <div style="padding:1.5rem 1rem;color:#777;font-size:.8rem;">Loading…</div>
+    </div>
+    <div class="sidebar-footer" id="sidebar-footer">Live from Master Schedule</div>
+  </aside>
+
+  <!-- ── Main ── -->
+  <div class="main">
+
+    <!-- Top bar -->
+    <div class="topbar">
+      <div class="topbar-left">
+        <h2 id="topbar-title">Block Studio</h2>
+        <div class="sub" id="topbar-sub">Select a style or the trial banner to preview a paste-ready block.</div>
+      </div>
+      <div class="topbar-right">
+        <span id="generated-at"></span>
+        <button class="reload-btn" id="reload-btn" onclick="loadData()">↻ Reload</button>
+      </div>
+    </div>
+
+    <!-- Preview pane -->
+    <div class="preview-pane" id="preview-pane">
+      <div class="loading-state">
+        <div class="ico">⏳</div>
+        <p>Loading the latest blocks from Master Schedule…</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// Block Studio — live viewer for paste-ready Squarespace blocks
+//
+// Data source: Apps Script web app endpoint, `doGet` in output-generator.gs.
+// Returns JSON: { semester, generatedAt, styles, trialBanner }
+//
+// Setup: publish the script as a web app (Deploy → New deployment),
+// then paste the /exec URL into WEB_APP_URL below.
+// ═══════════════════════════════════════════════════════════
+
+// WEB_APP_URL: the Apps Script /exec endpoint that serves the JSON data.
+//
+// Two delivery contexts:
+//   1. Hosted inside Apps Script HTML Service (when Wim opens /exec?ui=1) —
+//      the server injects the real /exec URL via the `<?!= execUrl ?>`
+//      template tag. We can't use location.href here because Apps Script
+//      serves the page in a sandboxed googleusercontent.com iframe.
+//   2. Opened from file:// or a self-hosted clone — the template tag isn't
+//      replaced, so we fall back to the hardcoded /exec URL.
+const WEB_APP_URL = (function () {
+  var injected = '<?!= execUrl ?>';
+  // Apps Script replaced the tag with a real URL → use it
+  if (injected.indexOf('https://script.google.com') === 0) return injected;
+  // Template tag survived as-is → we're not in Apps Script, fall back
+  return 'https://script.google.com/macros/s/AKfycbwh9PSrNxMUkBaMayhyfnU3XDzL76khEm7RL932CJ83qqm7dTG9afA-WB1cZYKSrcs3/exec';
+})();
+
+const SEMESTER = 'Sep 2026 – Jan 2027';
+
+const CATEGORY_META = {
+  partner:   { label: 'Partner & Social Dance', pip: 'partner'   },
+  classical: { label: 'Classical & Technique',  pip: 'classical' },
+  culture:   { label: 'Culture & Wellness',     pip: 'culture'   },
+  unknown:   { label: 'Other',                   pip: 'classical' },
+};
+
+const CATEGORY_ORDER = ['partner', 'classical', 'culture', 'unknown'];
+
+let currentData = null;       // last fetched payload
+let currentSelection = null;  // { kind: 'style' | 'banner', id: '...' }
+
+// ── Initial load ──────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', loadData);
+
+function isUrlConfigured() {
+  return WEB_APP_URL && !/PASTE_YOUR_DEPLOY_URL_HERE/.test(WEB_APP_URL);
+}
+
+async function loadData() {
+  if (!isUrlConfigured()) {
+    renderSetupNotice();
+    return;
+  }
+  const reloadBtn = document.getElementById('reload-btn');
+  reloadBtn.classList.add('loading');
+  reloadBtn.innerHTML = '<span class="spinner"></span> Loading…';
+
+  const pane = document.getElementById('preview-pane');
+  pane.classList.remove('has-toc');
+  pane.innerHTML = `
+    <div class="loading-state">
+      <div class="ico">⏳</div>
+      <p>Fetching the latest blocks from Master Schedule…<br>
+      (Apps Script cold start takes a few seconds.)</p>
+    </div>
+  `;
+
+  try {
+    const url = WEB_APP_URL + '?semester=' + encodeURIComponent(SEMESTER);
+    const res = await fetch(url, { method: 'GET', redirect: 'follow' });
+    if (!res.ok) throw new Error('HTTP ' + res.status + ' ' + res.statusText);
+    const data = await res.json();
+    currentData = data;
+    renderSidebar(data);
+    renderTopbarMeta(data);
+    // If the previous selection still exists, re-render it. Otherwise show prompt.
+    if (currentSelection) {
+      if (currentSelection.kind === 'banner' && data.trialBanner) {
+        renderTrialBanner(data.trialBanner);
+      } else if (currentSelection.kind === 'opendeurdag' && data.openDeurdag) {
+        renderOpenDeurdag(data.openDeurdag, currentSelection.date);
+      } else if (currentSelection.kind === 'style') {
+        const found = (data.styles || []).find(s => s.id === currentSelection.id);
+        if (found) renderStyle(found);
+        else renderEmptyState();
+      }
+    } else {
+      renderEmptyState();
+    }
+  } catch (err) {
+    renderErrorState(err);
+  } finally {
+    reloadBtn.classList.remove('loading');
+    reloadBtn.innerHTML = '↻ Reload';
+  }
+}
+
+// ── Sidebar ────────────────────────────────────────────────────────────────
+function renderSidebar(data) {
+  const list = document.getElementById('sidebar-list');
+  const styles = data.styles || [];
+  // Bucket by category
+  const byCat = {};
+  CATEGORY_ORDER.forEach(c => byCat[c] = []);
+  styles.forEach(s => {
+    const c = byCat[s.category] ? s.category : 'unknown';
+    byCat[c].push(s);
+  });
+
+  let html = '';
+
+  // Trial banner + Open Deurdag pseudo-items at top
+  let specialHtml = '';
+  if (data.trialBanner) {
+    specialHtml += `<div class="item" data-kind="banner" onclick="selectBanner()">
+        <span class="ico">★</span>
+        <span style="flex:1;">Trial-week banner</span>
+        <span style="font-size:.7rem;color:#888;">${escAttr(data.trialBanner.range)}</span>
+      </div>`;
+  }
+  // Always show Open Deurdag entry. Empty-state messaging lives in the view.
+  {
+    var odDates = data.openDeurdag ? Object.keys(data.openDeurdag).sort() : [];
+    var odCount = odDates.length;
+    var odLabel = odCount ? (odCount + ' date' + (odCount > 1 ? 's' : '')) : 'no data yet';
+    specialHtml += `<div class="item" data-kind="opendeurdag" onclick="selectOpenDeurdag()" style="border-left-color: #1a7a6e;">
+        <span class="ico">🏠</span>
+        <span style="flex:1;">Open Deurdag</span>
+        <span style="font-size:.7rem;color:#888;">${odLabel}</span>
+      </div>`;
+  }
+  if (specialHtml) html += `<div class="sidebar-special">${specialHtml}</div>`;
+
+  CATEGORY_ORDER.forEach(cat => {
+    const items = byCat[cat];
+    if (!items.length) return;
+    const meta = CATEGORY_META[cat] || CATEGORY_META.unknown;
+    html += `<div class="sidebar-cat"><span class="pip ${meta.pip}"></span>${meta.label}</div>`;
+    items.sort((a, b) => a.name.localeCompare(b.name));
+    items.forEach(s => {
+      const levelsCount = countLevelsFromText(s.text);
+      html += `<div class="sidebar-item" data-kind="style" data-id="${escAttr(s.id)}"
+                onclick="selectStyle('${escAttr(s.id)}')">
+        <span class="style-name">${escHtml(s.name)}</span>
+        ${levelsCount ? `<span class="levels-count">${levelsCount}</span>` : ''}
+      </div>`;
+    });
+  });
+
+  list.innerHTML = html;
+  document.getElementById('sidebar-meta').textContent =
+    `${styles.length} styles · ${SEMESTER}`;
+  applyActiveSelection();
+}
+
+function countLevelsFromText(text) {
+  // Look for the "Time:" section's level lines (single-day) or the per-day
+  // sections (multi-day). Quick heuristic: count distinct "Level X" / "Open Level"
+  // / "Foundation" mentions in the level prefix of each line.
+  if (!text) return 0;
+  const m = text.match(/^(Level [^:]*|Open Level|Foundation|Foundations|[A-Z][a-z]+ Level)[^:]*:/gm);
+  if (!m) return 0;
+  return [...new Set(m.map(s => s.trim()))].length;
+}
+
+function applyActiveSelection() {
+  document.querySelectorAll('.sidebar-item, .sidebar-special .item').forEach(el => {
+    el.classList.remove('active');
+  });
+  if (!currentSelection) return;
+  if (currentSelection.kind === 'banner') {
+    const el = document.querySelector('.sidebar-special .item[data-kind="banner"]');
+    if (el) el.classList.add('active');
+  } else if (currentSelection.kind === 'opendeurdag') {
+    const el = document.querySelector('.sidebar-special .item[data-kind="opendeurdag"]');
+    if (el) el.classList.add('active');
+  } else if (currentSelection.kind === 'style') {
+    const el = document.querySelector(`.sidebar-item[data-id="${cssEscape(currentSelection.id)}"]`);
+    if (el) el.classList.add('active');
+  }
+}
+
+function filterStyles(q) {
+  const query = (q || '').toLowerCase().trim();
+  document.querySelectorAll('.sidebar-item').forEach(el => {
+    const name = (el.querySelector('.style-name')?.textContent || '').toLowerCase();
+    el.style.display = (!query || name.includes(query)) ? '' : 'none';
+  });
+  // Hide category headers that have no visible items underneath
+  document.querySelectorAll('.sidebar-cat').forEach(hdr => {
+    let next = hdr.nextElementSibling;
+    let anyVisible = false;
+    while (next && next.classList.contains('sidebar-item')) {
+      if (next.style.display !== 'none') { anyVisible = true; break; }
+      next = next.nextElementSibling;
+    }
+    hdr.style.display = anyVisible ? '' : 'none';
+  });
+}
+
+// ── Selection / preview ────────────────────────────────────────────────────
+function selectStyle(id) {
+  if (!currentData) return;
+  const style = (currentData.styles || []).find(s => s.id === id);
+  if (!style) return;
+  currentSelection = { kind: 'style', id };
+  applyActiveSelection();
+  renderStyle(style);
+}
+
+function selectBanner() {
+  if (!currentData || !currentData.trialBanner) return;
+  currentSelection = { kind: 'banner' };
+  applyActiveSelection();
+  renderTrialBanner(currentData.trialBanner);
+}
+
+function selectOpenDeurdag(date) {
+  if (!currentData || !currentData.openDeurdag) return;
+  const dates = Object.keys(currentData.openDeurdag).sort();
+  if (!dates.length) return;
+  const targetDate = date || (currentSelection && currentSelection.kind === 'opendeurdag' && currentSelection.date) || dates[0];
+  currentSelection = { kind: 'opendeurdag', date: targetDate };
+  applyActiveSelection();
+  renderOpenDeurdag(currentData.openDeurdag, targetDate);
+}
+
+function renderStyle(style) {
+  document.getElementById('topbar-title').textContent = style.name;
+  document.getElementById('topbar-sub').textContent =
+    `${style.teachers?.join(' · ') || '—'} · ${style.sessionCount || '?'} sessions · ${style.semester}`;
+
+  const meta   = style.meta   || {};
+  const levels = Array.isArray(style.levels) ? style.levels : [];
+
+  const pane = document.getElementById('preview-pane');
+  pane.classList.add('has-toc');
+
+  // Build TOC anchors as we go
+  const tocItems = [{ id: 'sec-block', label: 'Squarespace block' }];
+  if (hasAnyMeta(meta)) tocItems.push({ id: 'sec-meta', label: 'Style metadata' });
+  if (meta.description) tocItems.push({ id: 'sec-description', label: 'Description' });
+  if (meta.whatToBring || meta.prereq || meta.websiteNote)
+    tocItems.push({ id: 'sec-notes', label: 'Bring · Prereq · Note' });
+  levels.forEach((lv, i) => {
+    tocItems.push({ id: 'sec-level-' + i, label: escHtml(lv.level || ('Level ' + (i + 1))) });
+  });
+  tocItems.push({ id: 'sec-plain', label: 'Plain text' });
+
+  pane.innerHTML = `
+    <div class="preview-main">
+      <!-- BLOCK -->
+      <section class="section" id="sec-block">
+        <div class="section-head">
+          <div>
+            <div class="section-title">Squarespace block <span class="tag">Primary output</span></div>
+            <div class="section-sub">Paste the HTML into the style page's Code block in Squarespace. Live preview below.</div>
+          </div>
+          <button class="copy-btn" id="copy-btn" onclick='copyHtml(this, ${JSON.stringify(style.id)})'>
+            ⧉ Copy HTML
+          </button>
+        </div>
+        <div class="preview-frame" id="live-preview"></div>
+        <details class="raw" style="margin-bottom:0;margin-top:.75rem;">
+          <summary>▾ Raw HTML (what gets copied)</summary>
+          <div class="body"><div class="code-area" id="raw-html"></div></div>
+        </details>
+      </section>
+
+      <!-- METADATA -->
+      ${ hasAnyMeta(meta) ? `
+      <section class="section" id="sec-meta">
+        <div class="section-head">
+          <div class="section-title">Style metadata</div>
+        </div>
+        <div class="kv-grid">
+          ${kvField('Full price',           meta.fullPrice    ? '€' + meta.fullPrice    : null)}
+          ${kvField('Student / 2+ price',   meta.studentPrice ? '€' + meta.studentPrice : null)}
+          ${kvField('UiTPAS (80% off full)',meta.fullPrice    ? '€' + (Math.round(meta.fullPrice * 0.2 * 100) / 100) : null)}
+          ${kvField('Partner required',     meta.partnerRequired ? 'Yes' : 'No')}
+          ${kvField('Language',             meta.language)}
+          ${kvField('Minimum age',          meta.ageMin)}
+          ${kvField('Co-teacher (style)',   meta.coTeacher)}
+          ${meta.registrationUrl
+            ? `<div class="kv-item"><div class="k">Registration</div>
+                <div class="v"><a href="${escAttr(meta.registrationUrl)}" target="_blank" rel="noopener">Open form ↗</a></div></div>` : ''}
+        </div>
+      </section>` : ''}
+
+      <!-- DESCRIPTION -->
+      ${ meta.description ? `
+      <section class="section" id="sec-description">
+        <div class="section-head">
+          <div>
+            <div class="section-title">
+              Description
+              <span class="tag ${meta.descriptionSource === 'profile' ? '' : 'muted'}">
+                ${meta.descriptionSource === 'profile' ? 'Teacher profile' : 'Flat sheet'}
+              </span>
+            </div>
+            <div class="section-sub">As submitted by the teacher. Goes on the style page's "About" section in Squarespace.</div>
+          </div>
+          <button class="copy-btn-sm" onclick='copyAnyText(this, ${JSON.stringify(meta.description)})'>⧉ Copy</button>
+        </div>
+        ${ renderDescriptionBody(meta) }
+        ${ meta.descriptionTruncated ? `
+          <div class="warn-note">
+            <strong>This row is from an older submission</strong> — the flat sheet truncated descriptions at 500 chars before today's fix.
+            The full text is in the teacher's confirmation email. Re-submitting the class through the form will repopulate the full description into the teacher profile.
+          </div>` : '' }
+      </section>` : ''}
+
+      <!-- NOTES -->
+      ${ (meta.whatToBring || meta.prereq || meta.websiteNote) ? `
+      <section class="section" id="sec-notes">
+        <div class="section-head">
+          <div class="section-title">Bring · Prereq · Website note</div>
+        </div>
+        <div class="kv-grid">
+          ${kvField('What to bring',  meta.whatToBring, { multiline: true })}
+          ${kvField('Prerequisites',   meta.prereq,      { multiline: true })}
+          ${kvField('Website note',    meta.websiteNote, { multiline: true })}
+        </div>
+      </section>` : ''}
+
+      <!-- LEVELS -->
+      ${ levels.map((lv, i) => renderLevelCard(lv, i, meta)).join('') }
+
+      <!-- PLAIN TEXT -->
+      <section class="section" id="sec-plain">
+        <div class="section-head">
+          <div>
+            <div class="section-title">Plain-text version <span class="tag muted">Reference</span></div>
+            <div class="section-sub">For the confirmation email, Zoho field, Canva post, etc.</div>
+          </div>
+          <button class="copy-btn-sm" onclick='copyAnyText(this, ${JSON.stringify(style.text)})'>⧉ Copy</button>
+        </div>
+        <div class="code-area" id="raw-text"></div>
+      </section>
+    </div>
+
+    <nav class="toc" aria-label="Section navigation">
+      <div class="toc-label">In this style</div>
+      ${ tocItems.map(t => `<a href="#${t.id}" data-target="${t.id}">${escHtml(t.label)}</a>`).join('') }
+    </nav>
+  `;
+
+  // Inject preview HTML (innerHTML is safe — comes from our own backend)
+  document.getElementById('live-preview').innerHTML = style.html || '';
+  document.getElementById('raw-html').textContent   = style.html || '';
+  document.getElementById('raw-text').textContent   = style.text || '';
+
+  // Wire up TOC smooth-scroll + scroll-spy highlight
+  setupTocScrollSpy(pane);
+}
+
+// ── Section helpers ──────────────────────────────────────────────────────
+function hasAnyMeta(meta) {
+  return !!(meta && (meta.fullPrice || meta.studentPrice || meta.partnerRequired ||
+            meta.language || meta.ageMin || meta.coTeacher || meta.registrationUrl));
+}
+
+function kvField(label, value, opts) {
+  opts = opts || {};
+  const isEmpty = !value;
+  const display = isEmpty ? '—' : value;
+  const multiline = opts.multiline ? 'style="white-space:pre-wrap;"' : '';
+  return `<div class="kv-item">
+    <div class="k">${escHtml(label)}</div>
+    <div class="v${isEmpty ? ' empty' : ''}" ${multiline}>${escHtml(display)}</div>
+  </div>`;
+}
+
+function renderDescriptionBody(meta) {
+  const byLevel = meta.descByLevel || {};
+  const keys    = Object.keys(byLevel);
+  if (keys.length > 1) {
+    // Per-level descriptions — render as stacked sub-blocks, each with its own copy button
+    return keys.map(k => `
+      <div style="margin:0 0 1rem 0;padding:.7rem .9rem;background:var(--bg);border-radius:6px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.3rem;">
+          <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--warm);">${escHtml(k)}</div>
+          <button class="copy-btn-sm" onclick='copyAnyText(this, ${JSON.stringify(byLevel[k])})'>⧉ Copy</button>
+        </div>
+        <div class="body-text">${escHtml(byLevel[k])}</div>
+      </div>
+    `).join('');
+  }
+  // Single combined text (or only one level)
+  return `<div class="body-text">${escHtml(meta.description)}</div>`;
+}
+
+function renderLevelCard(lv, idx, meta) {
+  const slots = Array.isArray(lv.slots) ? lv.slots : [];
+  const sessionLabel = lv.sessionCount ? `${lv.sessionCount} sessions` : '';
+  // Per-level prorated price (full × sessions/16, nearest €)
+  const standardSessions = 16;
+  let prorate = '';
+  if (meta.fullPrice && lv.sessionCount && lv.sessionCount !== standardSessions) {
+    const propor = Math.round(meta.fullPrice * lv.sessionCount / standardSessions);
+    const stProp = meta.studentPrice ? Math.ceil(meta.studentPrice * lv.sessionCount / standardSessions) : null;
+    prorate = `€${propor}${stProp ? ' · €' + stProp + ' student' : ''}`;
+  } else if (meta.fullPrice) {
+    prorate = `€${meta.fullPrice}${meta.studentPrice ? ' · €' + meta.studentPrice + ' student' : ''}`;
+  }
+
+  return `
+    <section class="section" id="sec-level-${idx}">
+      <div class="section-head">
+        <div>
+          <div class="section-title">
+            ${escHtml(lv.level || ('Level ' + (idx + 1)))}
+            ${ lv.displayLabel ? `<span class="tag muted">${escHtml(lv.displayLabel)}</span>` : '' }
+          </div>
+          <div class="section-sub">${ sessionLabel }${ sessionLabel && prorate ? ' · ' : '' }${ prorate }</div>
+        </div>
+      </div>
+      <div>
+        ${ slots.length === 0
+            ? '<div class="body-text muted">No slots defined.</div>'
+            : slots.map(s => `
+              <div class="slot-row">
+                <span class="day">${escHtml(s.day || '')}</span>
+                <span class="time">${escHtml(s.start || '')}–${escHtml(s.end || '')} <span class="studio">(${s.duration || '?'} min)</span></span>
+                ${ s.teacher    ? `<span class="teacher">with ${escHtml(s.teacher)}${ s.coTeachers ? ' + ' + escHtml(s.coTeachers) : '' }</span>` : '' }
+                ${ s.studio     ? `<span class="studio">| ${escHtml(s.studio)}</span>` : '' }
+              </div>
+            `).join('')
+        }
+        ${ slots[0] && slots[0].dates && slots[0].dates.length
+            ? `<div style="margin-top:.6rem;font-size:.76rem;color:var(--muted);">
+                <strong style="color:var(--ink);">Dates:</strong> ${ formatDateList(slots[0].dates) }
+              </div>` : '' }
+      </div>
+    </section>
+  `;
+}
+
+function formatDateList(isoArr) {
+  if (!isoArr || !isoArr.length) return '';
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const byMonth = {};
+  const order = [];
+  isoArr.slice().sort().forEach(iso => {
+    const d = new Date(iso + 'T12:00:00');
+    const key = d.getFullYear() + '-' + String(d.getMonth()).padStart(2, '0');
+    if (!byMonth[key]) { byMonth[key] = { month: months[d.getMonth()], days: [] }; order.push(key); }
+    byMonth[key].days.push(d.getDate());
+  });
+  return order.map(k => byMonth[k].month + ' ' + byMonth[k].days.join(', ')).join(' · ');
+}
+
+function setupTocScrollSpy(paneEl) {
+  const tocLinks = paneEl.querySelectorAll('.toc a');
+  const sections = Array.from(paneEl.querySelectorAll('.section'));
+  if (!tocLinks.length || !sections.length) return;
+  function update() {
+    let activeId = sections[0].id;
+    const offset = paneEl.scrollTop + 80;
+    for (const sec of sections) {
+      if (sec.offsetTop <= offset) activeId = sec.id;
+      else break;
+    }
+    tocLinks.forEach(a => a.classList.toggle('active', a.dataset.target === activeId));
+  }
+  // Smooth scroll on click — preventDefault so we don't get a hash navigation
+  tocLinks.forEach(a => a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = paneEl.querySelector('#' + a.dataset.target);
+    if (target) paneEl.scrollTo({ top: target.offsetTop - 16, behavior: 'smooth' });
+  }));
+  paneEl.addEventListener('scroll', update, { passive: true });
+  update();
+}
+
+async function copyAnyText(btn, text) {
+  try {
+    await navigator.clipboard.writeText(text || '');
+    btn.classList.add('copied');
+    const original = btn.textContent;
+    btn.textContent = '✓ Copied';
+    setTimeout(() => { btn.classList.remove('copied'); btn.textContent = original; }, 1500);
+  } catch (err) {
+    alert('Copy failed — manually select the text.');
+  }
+}
+
+function renderTrialBanner(banner) {
+  document.getElementById('topbar-title').textContent = 'Trial-week banner';
+  document.getElementById('topbar-sub').textContent =
+    `Paste this above each style page's accordion. Delete after ${banner.range.split(/[^A-Za-z0-9 ]+/).pop() || 'trial week'}.`;
+
+  const pane = document.getElementById('preview-pane');
+  pane.classList.remove('has-toc');
+  pane.innerHTML = `
+    <div class="preview-header">
+      <div>
+        <h3>Free trial week — ${escHtml(banner.range)}</h3>
+        <div class="meta-line">Same banner copied across all 24 style pages. Delete the block after trial week ends.</div>
+      </div>
+      <button class="copy-btn" id="copy-btn" onclick="copyBannerHtml(this)">
+        ⧉ Copy HTML banner
+      </button>
+    </div>
+
+    <div class="section-label">Live preview</div>
+    <div class="preview-frame" id="live-preview"></div>
+
+    <details class="raw">
+      <summary>▾ Raw HTML (what gets copied)</summary>
+      <div class="body"><div class="code-area" id="raw-html"></div></div>
+    </details>
+
+    <details class="raw">
+      <summary>▾ Plain text version</summary>
+      <div class="body"><div class="code-area" id="raw-text"></div></div>
+    </details>
+  `;
+
+  document.getElementById('live-preview').innerHTML = banner.html || '';
+  document.getElementById('raw-html').textContent = banner.html || '';
+  document.getElementById('raw-text').textContent = banner.text || '';
+}
+
+// ── Open Deurdag view ──────────────────────────────────────────────────────
+const OD_BUCKET_META = {
+  morn: { label: 'Morning',    ico: '🌅', order: 1 },
+  aftn: { label: 'Afternoon',  ico: '☀️', order: 2 },
+  eve:  { label: 'Evening',    ico: '🌆', order: 3 },
+  any:  { label: 'All day',    ico: '🕐', order: 4 },
+  unk:  { label: 'Available (preference unknown)', ico: '❓', order: 5 },
+  no:   { label: 'Not available', ico: '❌', order: 6 },
+};
+
+function _odBucketKey(entry) {
+  if (!entry.available) return 'no';
+  const t = (entry.time || '').toLowerCase();
+  if (t === 'morn' || t === 'aftn' || t === 'eve' || t === 'any') return t;
+  return 'unk';
+}
+
+function _odFmtDate(iso) {
+  const d = new Date(iso + 'T12:00:00');
+  const days   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return days[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
+}
+
+function _odNoteKey(date, style) {
+  return 'od:' + date + ':' + style;
+}
+function _odGetNote(date, style) {
+  try { return localStorage.getItem(_odNoteKey(date, style)) || ''; }
+  catch (e) { return ''; }
+}
+function _odSetNote(date, style, value) {
+  try {
+    if (value) localStorage.setItem(_odNoteKey(date, style), value);
+    else localStorage.removeItem(_odNoteKey(date, style));
+  } catch (e) { /* localStorage full or disabled — silent */ }
+}
+
+function renderOpenDeurdag(openDeurdag, activeDate) {
+  const pane = document.getElementById('preview-pane');
+  pane.classList.remove('has-toc');
+
+  const allDates = Object.keys(openDeurdag).sort();
+  if (!allDates.length) {
+    pane.innerHTML = `<div class="empty-state"><div class="ico">🏠</div>
+      <p>No Open Deurdag submissions yet.</p></div>`;
+    return;
+  }
+  if (!activeDate || allDates.indexOf(activeDate) === -1) activeDate = allDates[0];
+
+  const entries = openDeurdag[activeDate] || [];
+  // Group by bucket
+  const buckets = {};
+  entries.forEach(e => {
+    const k = _odBucketKey(e);
+    if (!buckets[k]) buckets[k] = [];
+    buckets[k].push(e);
+  });
+  // Sort each bucket alphabetically by style
+  Object.keys(buckets).forEach(k => buckets[k].sort((a, b) => a.style.localeCompare(b.style)));
+
+  // Date toggle buttons
+  const dateToggle = allDates.map(d => `
+    <button class="od-date-btn ${d === activeDate ? 'active' : ''}"
+            onclick="selectOpenDeurdag('${escAttr(d)}')">
+      ${escHtml(_odFmtDate(d))}
+    </button>
+  `).join('');
+
+  // Stats row
+  const totalAvailable = entries.filter(e => e.available).length;
+  const totalNot       = entries.length - totalAvailable;
+  const unknownCount   = (buckets.unk || []).length;
+
+  // Find which styles are missing entirely from this date (not yet submitted)
+  const styleIdsWithData = new Set(entries.map(e => e.style));
+  const missingStyles = (currentData.styles || [])
+    .filter(s => !styleIdsWithData.has(s.name))
+    .map(s => s.name);
+
+  document.getElementById('topbar-title').textContent = 'Open Deurdag — ' + _odFmtDate(activeDate);
+  document.getElementById('topbar-sub').textContent =
+    `${totalAvailable} available · ${totalNot} not available${unknownCount ? ' · ' + unknownCount + ' missing preference (re-submit or check email)' : ''}`;
+
+  pane.innerHTML = `
+    <div class="od-header">
+      <div class="od-date-toggle">${dateToggle}</div>
+      <button class="copy-btn" onclick='copyOpenDeurdagText("${escAttr(activeDate)}")'>⧉ Copy as plain text</button>
+    </div>
+
+    ${ renderOpenDeurdagBuckets(buckets, activeDate) }
+
+    ${ missingStyles.length ? `
+    <section class="section" id="sec-od-missing">
+      <div class="section-head">
+        <div class="section-title">Not yet submitted <span class="tag muted">${missingStyles.length}</span></div>
+        <div class="section-sub">These styles haven't submitted their availability for this date yet.</div>
+      </div>
+      <ul style="margin:0;padding-left:1.2rem;color:var(--muted);font-size:.88rem;line-height:1.7;">
+        ${ missingStyles.map(s => `<li>${escHtml(s)}</li>`).join('') }
+      </ul>
+    </section>` : '' }
+
+    <p style="margin-top:1.5rem;font-size:.78rem;color:var(--muted);line-height:1.5;">
+      <strong>Notes</strong> are saved on this browser only (localStorage) — useful for off-the-record info like
+      "Shirley messaged: post 16:00". They aren't synced anywhere.
+    </p>
+  `;
+}
+
+function renderOpenDeurdagBuckets(buckets, activeDate) {
+  const orderedKeys = Object.keys(OD_BUCKET_META).sort((a, b) => OD_BUCKET_META[a].order - OD_BUCKET_META[b].order);
+  return orderedKeys.filter(k => (buckets[k] || []).length).map(k => {
+    const meta = OD_BUCKET_META[k];
+    const items = buckets[k];
+    return `
+      <section class="section od-bucket od-bucket-${k}" id="sec-od-${k}">
+        <div class="section-head">
+          <div class="section-title">${meta.ico} ${escHtml(meta.label)} <span class="tag muted">${items.length}</span></div>
+        </div>
+        <div class="od-rows">
+          ${ items.map(e => renderOpenDeurdagRow(e, activeDate)).join('') }
+        </div>
+      </section>
+    `;
+  }).join('');
+}
+
+function renderOpenDeurdagRow(e, activeDate) {
+  const noteId = 'od-note-' + activeDate.replace(/-/g, '') + '-' + e.style.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  const savedNote = _odGetNote(activeDate, e.style);
+  return `
+    <div class="od-row">
+      <div class="od-row-main">
+        <div class="od-row-style">${escHtml(e.style)}</div>
+        <div class="od-row-teacher">${escHtml(e.teacher)}${ e.email ? ` <span class="od-row-email">${escHtml(e.email)}</span>` : '' }</div>
+      </div>
+      <div class="od-row-note">
+        <input type="text" id="${noteId}" value="${escAttr(savedNote)}"
+               placeholder="Add a note (saved locally)…"
+               oninput="_odSetNote('${escAttr(activeDate)}','${escAttr(e.style)}', this.value)">
+      </div>
+    </div>
+  `;
+}
+
+async function copyOpenDeurdagText(activeDate) {
+  const od = (currentData && currentData.openDeurdag) || {};
+  const entries = od[activeDate] || [];
+  if (!entries.length) return;
+  const buckets = {};
+  entries.forEach(e => {
+    const k = _odBucketKey(e);
+    if (!buckets[k]) buckets[k] = [];
+    buckets[k].push(e);
+  });
+  Object.keys(buckets).forEach(k => buckets[k].sort((a, b) => a.style.localeCompare(b.style)));
+
+  const lines = ['Open Deurdag — ' + _odFmtDate(activeDate), ''];
+  Object.keys(OD_BUCKET_META).sort((a, b) => OD_BUCKET_META[a].order - OD_BUCKET_META[b].order).forEach(k => {
+    const items = buckets[k];
+    if (!items || !items.length) return;
+    const meta = OD_BUCKET_META[k];
+    lines.push(meta.ico + ' ' + meta.label.toUpperCase());
+    items.forEach(e => {
+      const note = _odGetNote(activeDate, e.style);
+      lines.push('  • ' + e.style + ' — ' + e.teacher + (note ? ' (note: ' + note + ')' : ''));
+    });
+    lines.push('');
+  });
+  const text = lines.join('\n').trim();
+  const btn = event.currentTarget;
+  try {
+    await navigator.clipboard.writeText(text);
+    btn.classList.add('copied');
+    btn.innerHTML = '✓ Copied';
+    setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = '⧉ Copy as plain text'; }, 1500);
+  } catch (err) {
+    alert('Copy failed — manually select the text from the page.');
+  }
+}
+
+function renderEmptyState() {
+  const pane = document.getElementById('preview-pane');
+  pane.classList.remove('has-toc');
+  pane.innerHTML = `
+    <div class="empty-state">
+      <div class="ico">🗓️</div>
+      <p><strong>Pick a style from the sidebar.</strong><br>
+      Or click the Trial-week banner at the top to get the trial banner snippet.</p>
+    </div>
+  `;
+  document.getElementById('topbar-title').textContent = 'Block Studio';
+  document.getElementById('topbar-sub').textContent =
+    'Select a style or the trial banner to preview a paste-ready block.';
+}
+
+function renderTopbarMeta(data) {
+  const ts = new Date(data.generatedAt || Date.now());
+  const hh = String(ts.getHours()).padStart(2, '0');
+  const mm = String(ts.getMinutes()).padStart(2, '0');
+  document.getElementById('generated-at').innerHTML =
+    `<strong>${data.styleCount}</strong> styles · fetched ${hh}:${mm}`;
+  document.getElementById('sidebar-footer').textContent =
+    `Live from MS · ${data.semester}`;
+}
+
+function renderSetupNotice() {
+  const pane = document.getElementById('preview-pane');
+  pane.classList.remove('has-toc');
+  pane.innerHTML = `
+    <div class="setup-notice">
+      <strong>One-time setup needed.</strong> No Apps Script web app URL configured yet.
+      <ol style="margin:.7rem 0 0 1.2rem;line-height:1.7;">
+        <li>Open <code>backend/output-generator.gs</code> in Apps Script.</li>
+        <li>Click <strong>Deploy → New deployment</strong>. Type = <strong>Web app</strong>.</li>
+        <li>Execute as: <strong>Me</strong>. Who has access: <strong>Anyone</strong> (or your Google domain).</li>
+        <li>Copy the <strong>Web app URL</strong> (ends in <code>/exec</code>).</li>
+        <li>Paste it into <code>WEB_APP_URL</code> at the top of this HTML file.</li>
+        <li>Reload this page.</li>
+      </ol>
+    </div>
+  `;
+  document.getElementById('sidebar-meta').textContent = 'Web app URL not set';
+}
+
+function renderErrorState(err) {
+  const msg = (err && err.message) || String(err);
+  const pane = document.getElementById('preview-pane');
+  pane.classList.remove('has-toc');
+  pane.innerHTML = `
+    <div class="error-state">
+      <div class="ico">⚠</div>
+      <p><strong>Couldn't fetch the data.</strong></p>
+      <pre>${escHtml(msg)}</pre>
+      <p style="color:var(--muted);font-size:.8rem;">
+        Likely causes: web app URL is wrong, the script hasn't been deployed, or the deployment isn't set to "Anyone".
+      </p>
+      <button class="retry-btn" onclick="loadData()">↻ Retry</button>
+    </div>
+  `;
+  document.getElementById('sidebar-meta').textContent = 'Error — see preview pane';
+}
+
+// ── Copy buttons ───────────────────────────────────────────────────────────
+function copyHtml(btn, id) {
+  if (!currentData) return;
+  const idClean = String(id).replace(/^"|"$/g, '');
+  const style = (currentData.styles || []).find(s => s.id === idClean);
+  if (!style) return;
+  copyToClipboard(style.html, btn);
+}
+
+function copyBannerHtml(btn) {
+  if (!currentData || !currentData.trialBanner) return;
+  copyToClipboard(currentData.trialBanner.html, btn);
+}
+
+async function copyToClipboard(text, btn) {
+  try {
+    await navigator.clipboard.writeText(text);
+    btn.classList.add('copied');
+    btn.innerHTML = '✓ Copied!';
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.innerHTML = '⧉ Copy HTML';
+    }, 1500);
+  } catch (err) {
+    alert('Copy failed — manually select the Raw HTML section.');
+  }
+}
+
+// ── Helpers ────────────────────────────────────────────────────────────────
+function escHtml(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+function escAttr(s) { return escHtml(s).replace(/"/g, '&quot;'); }
+function cssEscape(s) {
+  // Minimal CSS attribute selector escape — only worry about quotes.
+  return String(s).replace(/["\\]/g, '\\$&');
+}
+</script>
+</body>
+</html>

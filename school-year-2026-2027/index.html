@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>School Year 2026–2027 — Shoonya Dance Centre</title>
+<meta name="description" content="Shoonya Dance Centre school year 2026–2027 starting September 2026 in Ghent. 24 dance styles across 5 studios. Registration open now.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
     --ink:       #1a1a1a;
@@ -11,7 +15,6 @@
     --warm-soft: #fdf3ec;
     --teal:      #1a7a6e;
     --teal-soft: #edf7f5;
-    --gold:      #b8860b;
     --muted:     #666;
     --border:    #e4e0db;
     --bg:        #faf9f7;
@@ -22,17 +25,16 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif;
+    font-family: 'DM Sans', sans-serif;
     background: var(--bg);
     color: var(--ink);
     line-height: 1.6;
   }
 
-  /* ── Language toggle ── */
+  /* ── Lang toggle ── */
   .lang-toggle {
     position: fixed;
-    top: 1rem;
-    right: 1rem;
+    top: 1rem; right: 1rem;
     z-index: 100;
     display: flex;
     background: var(--white);
@@ -58,40 +60,62 @@
     border-radius: 99px;
   }
 
+  /* ── Breadcrumb ── */
+  .breadcrumb {
+    padding: 1rem 1.5rem;
+    font-size: .82rem;
+    color: var(--muted);
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .breadcrumb a { color: var(--muted); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--ink); }
+  .breadcrumb span { margin: 0 .4rem; }
+
   /* ── Hero ── */
   .hero {
     background: var(--ink);
     color: var(--white);
-    padding: 3rem 1.5rem 2.5rem;
+    padding: 4rem 1.5rem 3.5rem;
     text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 70% 30%, rgba(200,82,26,.2) 0%, transparent 65%);
+    pointer-events: none;
   }
   .hero-label {
     display: inline-block;
     background: var(--warm);
     color: var(--white);
-    font-size: .75rem;
+    font-size: .7rem;
     font-weight: 700;
-    letter-spacing: .1em;
+    letter-spacing: .12em;
     text-transform: uppercase;
-    padding: .3rem .9rem;
+    padding: .3rem 1rem;
     border-radius: 99px;
     margin-bottom: 1rem;
   }
   .hero h1 {
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
-    font-weight: 800;
-    letter-spacing: -.02em;
-    margin-bottom: .5rem;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: .75rem;
   }
   .hero p {
-    color: #aaa;
     font-size: 1rem;
-    max-width: 480px;
+    color: rgba(255,255,255,.7);
+    max-width: 500px;
     margin: 0 auto;
   }
 
-  /* ── Layout ── */
-  .page { max-width: 860px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+  /* ── Content ── */
+  .content { max-width: 860px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
 
   /* ── Key dates strip ── */
   .key-dates {
@@ -138,7 +162,11 @@
     white-space: nowrap;
   }
   .section-heading .badge.warm { background: var(--warm); }
-  .section-heading h2 { font-size: 1.25rem; font-weight: 700; letter-spacing: -.01em; }
+  .section-heading h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
 
   /* ── Card ── */
   .card {
@@ -159,7 +187,7 @@
     flex-wrap: wrap;
   }
   .card-header.warm-header { background: var(--warm-soft); }
-  .card-header h3 { font-size: 1.05rem; font-weight: 700; }
+  .card-header h3 { font-size: 1.05rem; font-weight: 600; }
   .card-header .date-range { font-size: .85rem; color: var(--muted); font-weight: 500; }
   .card-body { padding: 1.2rem 1.3rem; }
 
@@ -178,7 +206,7 @@
   .info-row .val { font-weight: 600; text-align: right; }
   .info-row .val.warm { color: var(--warm); }
 
-  /* ── Pill tags ── */
+  /* ── Pills ── */
   .pill {
     display: inline-block;
     padding: .2rem .65rem;
@@ -202,7 +230,7 @@
   .holiday-list .name  { color: var(--muted); }
   .holiday-list .dates { font-weight: 600; }
 
-  /* ── Special events ── */
+  /* ── Special event ── */
   .special-event {
     background: var(--white);
     border: 1px solid var(--border);
@@ -227,10 +255,44 @@
     white-space: nowrap;
   }
 
-  /* ── Footer ── */
+  /* ── CTA band ── */
+  .cta-band {
+    background: var(--ink);
+    color: var(--white);
+    text-align: center;
+    padding: 3.5rem 1.5rem;
+    margin-top: 3rem;
+  }
+  .cta-band h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 700;
+    margin-bottom: .6rem;
+  }
+  .cta-band p {
+    font-size: .95rem;
+    color: rgba(255,255,255,.7);
+    margin-bottom: 1.75rem;
+  }
+  .btn {
+    display: inline-block;
+    background: var(--warm);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: .9rem;
+    font-weight: 700;
+    padding: .85rem 2rem;
+    border-radius: 99px;
+    text-decoration: none;
+    transition: background .15s, transform .15s;
+  }
+  .btn:hover { background: #b04718; transform: translateY(-1px); }
+
+  /* ── Footer note ── */
   .footnote {
-    margin-top: 2.5rem;
-    padding-top: 1.5rem;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 1.5rem 1.5rem 3rem;
     border-top: 1px solid var(--border);
     font-size: .82rem;
     color: var(--muted);
@@ -242,22 +304,25 @@
 </head>
 <body>
 
-<!-- ── Language toggle ── -->
 <div class="lang-toggle" role="group" aria-label="Language">
   <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
   <button class="lang-btn"        id="btn-nl" onclick="setLang('nl')">NL</button>
 </div>
 
-<!-- ── Hero ── -->
+<div class="breadcrumb">
+  <a href="https://shoonyadance.com" data-i18n="bc-home">Home</a>
+  <span>›</span>
+  <span data-i18n="bc-current">School Year 2026–2027</span>
+</div>
+
 <div class="hero">
   <div class="hero-label" data-i18n="hero-label">School Year 2026–2027</div>
   <h1>Shoonya Dance Centre</h1>
   <p data-i18n="hero-sub">All key dates and holidays for the coming school year — in one place.</p>
 </div>
 
-<div class="page">
+<div class="content">
 
-  <!-- ── Key dates ── -->
   <div class="key-dates">
     <div class="key-date highlight">
       <div class="label" data-i18n="reg-label">Registration opens</div>
@@ -297,7 +362,7 @@
     </div>
   </div>
 
-  <!-- ── Semester 1 ── -->
+  <!-- Semester 1 -->
   <div class="section-heading">
     <span class="badge warm">Semester 1</span>
     <h2 data-i18n="s1-heading">September 2026 – January 2027</h2>
@@ -353,7 +418,7 @@
     </div>
   </div>
 
-  <!-- ── Semester 2 ── -->
+  <!-- Semester 2 -->
   <div class="section-heading">
     <span class="badge">Semester 2</span>
     <h2 data-i18n="s2-heading">February – June 2027</h2>
@@ -416,7 +481,7 @@
     </div>
   </div>
 
-  <!-- ── Special events ── -->
+  <!-- Special events -->
   <div class="section-heading">
     <span class="badge warm" data-i18n="special-badge">Special Events</span>
     <h2 data-i18n="special-heading">Summer</h2>
@@ -430,17 +495,25 @@
     <span class="badge-event" data-i18n="zomerstage-badge">Summer intensive</span>
   </div>
 
-  <!-- ── Footer ── -->
-  <div class="footnote">
-    <p data-i18n="footer-shoes">Dance shoes policy: only clean dance shoes are allowed on the floor — no street shoes. 👟</p>
-    <p style="margin-top: .5rem;"><span data-i18n="footer-questions">Questions?</span> <a href="mailto:info@shoonyadance.com">info@shoonyadance.com</a> · <a href="https://shoonyadance.com">shoonyadance.com</a></p>
-  </div>
+</div><!-- /content -->
 
-</div><!-- /page -->
+<!-- CTA -->
+<div class="cta-band">
+  <h2 data-i18n="cta-heading">Ready to start dancing?</h2>
+  <p data-i18n="cta-sub">Registration for September 2026 is now open. Try your first class free.</p>
+  <a href="https://shoonyadance.com" class="btn" data-i18n="cta-btn">View all classes</a>
+</div>
+
+<div class="footnote">
+  <p data-i18n="footer-shoes">Dance shoes policy: only clean dance shoes are allowed on the floor — no street shoes. 👟</p>
+  <p style="margin-top: .5rem;"><span data-i18n="footer-questions">Questions?</span> <a href="mailto:info@shoonyadance.com">info@shoonyadance.com</a> · <a href="https://shoonyadance.com">shoonyadance.com</a></p>
+</div>
 
 <script>
   const translations = {
     en: {
+      'bc-home':           'Home',
+      'bc-current':        'School Year 2026–2027',
       'hero-label':        'School Year 2026–2027',
       'hero-sub':          'All key dates and holidays for the coming school year — in one place.',
       'reg-label':         'Registration opens',
@@ -488,10 +561,15 @@
       'special-heading':   'Summer',
       'zomerstage-date':   '3–9 July 2027',
       'zomerstage-badge':  'Summer intensive',
+      'cta-heading':       'Ready to start dancing?',
+      'cta-sub':           'Registration for September 2026 is now open. Try your first class free.',
+      'cta-btn':           'View all classes',
       'footer-shoes':      'Dance shoes policy: only clean dance shoes are allowed on the floor — no street shoes. 👟',
       'footer-questions':  'Questions?',
     },
     nl: {
+      'bc-home':           'Home',
+      'bc-current':        'Schooljaar 2026–2027',
       'hero-label':        'Schooljaar 2026–2027',
       'hero-sub':          'Alle belangrijke data en vakanties voor het komende schooljaar — op één plek.',
       'reg-label':         'Inschrijvingen open',
@@ -539,35 +617,28 @@
       'special-heading':   'Zomer',
       'zomerstage-date':   '3–9 juli 2027',
       'zomerstage-badge':  'Zomerstage',
+      'cta-heading':       'Klaar om te beginnen?',
+      'cta-sub':           'Inschrijvingen voor september 2026 zijn open. Probeer je eerste les gratis.',
+      'cta-btn':           'Bekijk alle lessen',
       'footer-shoes':      'Dansschoenenbeleid: alleen schone dansschoenen zijn toegestaan op de vloer — geen straatschoenen. 👟',
       'footer-questions':  'Vragen?',
     }
   };
 
-  let currentLang = 'en';
-
   function setLang(lang) {
-    currentLang = lang;
     const t = translations[lang];
-
-    // Swap all translated elements
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
       if (t[key] !== undefined) el.textContent = t[key];
     });
-
-    // Update html lang attribute and page title
     document.documentElement.lang = lang;
     document.title = lang === 'nl'
       ? 'Schooljaar 2026–2027 — Shoonya Dance Centre'
       : 'School Year 2026–2027 — Shoonya Dance Centre';
-
-    // Update toggle buttons
     document.getElementById('btn-en').classList.toggle('active', lang === 'en');
     document.getElementById('btn-nl').classList.toggle('active', lang === 'nl');
   }
 
-  // Auto-detect browser language on load
   const browserLang = navigator.language?.startsWith('nl') ? 'nl' : 'en';
   if (browserLang === 'nl') setLang('nl');
 </script>
