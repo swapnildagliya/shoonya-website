@@ -2737,17 +2737,113 @@ function renderWebsiteSection(style) {
   `;
 }
 
+// ── Squarespace HTML validator ────────────────────────────────────────────────
+// Catches known Squarespace code-block traps BEFORE the user copies.
+// Returns [] if clean, or [{level:'error'|'warn', msg, fix}] for each issue.
+function wsValidateHtml(html) {
+  const issues = [];
+
+  // 1. Double quotes inside <style> blocks — breaks Squarespace's HTML sanitizer,
+  //    causing the rest of the CSS to render as visible text on the page.
+  const styleBlocks = [...html.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/gi)];
+  for (const m of styleBlocks) {
+    if (/"/.test(m[1])) {
+      const sample = m[1].match(/[^\n]*"[^\n]*/)?.[0]?.trim().slice(0, 80) || '';
+      issues.push({
+        level: 'error',
+        msg: 'Double quotes inside a <style> block',
+        fix: `Squarespace's sanitizer breaks out of <style> at the first ". Use single quotes in CSS attribute selectors: [for='id'] not [for="id"]. Near: ${sample}…`
+      });
+    }
+  }
+
+  // 2. <a> tags without pointer-events:auto — Squarespace theme can zero out
+  //    pointer-events, making buttons and links unclickable.
+  const aRules = [...html.matchAll(/a\.[a-z-]+[^{]*\{([^}]+)\}/gi)];
+  const hasPointerEvents = aRules.some(m => /pointer-events\s*:\s*auto/i.test(m[1]));
+  const hasAnchorRules   = aRules.length > 0;
+  if (hasAnchorRules && !hasPointerEvents) {
+    issues.push({
+      level: 'warn',
+      msg: '<a> rules missing pointer-events:auto!important',
+      fix: 'Add pointer-events:auto!important;cursor:pointer!important to every <a> rule (all pseudo-states). Squarespace theme can disable clicks on links inside code blocks.'
+    });
+  }
+
+  // 3. <a> rules missing full pseudo-state chain — Squarespace paints <a> purple
+  //    on :link and :visited even if :hover is overridden.
+  if (hasAnchorRules && !/:visited/.test(html)) {
+    issues.push({
+      level: 'warn',
+      msg: '<a> rules missing :visited pseudo-state',
+      fix: 'Squarespace theme overrides <a> on :link and :visited. Include full chain: a.cls, a.cls:link, a.cls:visited, a.cls:hover, a.cls:focus, a.cls:active.'
+    });
+  }
+
+  // 4. Block wrapper with max-width or auto margins — double-constrains layout.
+  if (/max-width\s*:\s*\d/.test(html) || /margin\s*:\s*0\s+auto/.test(html)) {
+    issues.push({
+      level: 'warn',
+      msg: 'Block wrapper has max-width or margin:0 auto',
+      fix: 'Squarespace section settings control outer width. Remove max-width and margin:auto from wrappers — use width:100% only.'
+    });
+  }
+
+  // 5. Inline style with hard-coded px widths on the outermost wrapper (fragile).
+  // (light check — only flag if the outermost div has a fixed width in style="")
+  const outerDiv = html.match(/^<div[^>]*style="([^"]*)"[^>]*>/i);
+  if (outerDiv && /width\s*:\s*\d+px/.test(outerDiv[1])) {
+    issues.push({
+      level: 'warn',
+      msg: 'Outermost div has a fixed pixel width in style=""',
+      fix: 'Use width:100% on wrappers. Fixed px widths break at different Squarespace section widths.'
+    });
+  }
+
+  return issues;
+}
+
+// Show validation banner above a block when issues are found
+function wsShowValidationBanner(containerId, issues) {
+  const existing = document.getElementById(containerId + '-vbanner');
+  if (existing) existing.remove();
+  if (!issues.length) return;
+  const errors = issues.filter(i => i.level === 'error');
+  const warns  = issues.filter(i => i.level === 'warn');
+  const color  = errors.length ? '#c0392b' : '#b7770d';
+  const bg     = errors.length ? '#fdf0ee' : '#fefae8';
+  const label  = errors.length ? `🚨 ${errors.length} error${errors.length > 1 ? 's' : ''}` : '';
+  const wLabel = warns.length  ? `⚠️ ${warns.length} warning${warns.length > 1 ? 's' : ''}` : '';
+  const items  = issues.map(i =>
+    `<div style="margin:.4rem 0;padding:.4rem .6rem;border-left:3px solid ${i.level==='error'?'#c0392b':'#e67e22'};background:rgba(0,0,0,.04);">
+      <strong style="font-size:.8rem;">${i.msg}</strong>
+      <div style="font-size:.76rem;color:#555;margin-top:.2rem;">${i.fix}</div>
+    </div>`
+  ).join('');
+  const banner = document.createElement('div');
+  banner.id = containerId + '-vbanner';
+  banner.style.cssText = `margin-bottom:.5rem;padding:.6rem .75rem;border-radius:6px;border:1px solid ${color};background:${bg};font-family:system-ui,sans-serif;`;
+  banner.innerHTML = `<div style="font-weight:700;color:${color};font-size:.82rem;margin-bottom:.3rem;">${[label,wLabel].filter(Boolean).join(' · ')} — fix before deploying to Squarespace</div>${items}`;
+  const container = document.getElementById(containerId);
+  if (container) container.parentNode.insertBefore(banner, container);
+}
+
 // Copy a textarea or code-area by ID
 async function wscopyCb(btn, id) {
   const el = document.getElementById(id);
   if (!el) return;
   const text = el.tagName === 'TEXTAREA' ? el.value : el.textContent;
+
+  // Run Squarespace validator and show banner (non-blocking — user can still copy)
+  const issues = wsValidateHtml(text || '');
+  wsShowValidationBanner(id, issues);
+
   try {
     await navigator.clipboard.writeText(text || '');
     const orig = btn.textContent;
     btn.classList.add('copied');
-    btn.textContent = '✓ Copied';
-    setTimeout(() => { btn.classList.remove('copied'); btn.textContent = orig; }, 1500);
+    btn.textContent = issues.length ? `✓ Copied (${issues.length} issue${issues.length>1?'s':''})` : '✓ Copied';
+    setTimeout(() => { btn.classList.remove('copied'); btn.textContent = orig; }, 2500);
   } catch (err) {
     alert('Copy failed — select the text manually.');
   }
