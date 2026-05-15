@@ -1173,6 +1173,24 @@ const WS_STYLE_DATA = {
     hook: 'A slow-burning conversation between two people — lead and follow, pause and breath, completely in the moment.',
     description: 'Argentine Tango is an improvised partner dance from Buenos Aires, built on the connection between leader and follower. The vocabulary is walking, pausing, and listening — to each other and to the music. We work from the fundamentals of the embrace, the walk, and leading and following, and build toward musicality, adornos, and the confidence to dance at a milonga.',
     teacherBio: 'Gisela Graef Marino and Sergio Molini are co-founders of Estación Tango (Brussels, 1997). Gisela pioneered Argentine Tango performances in Paris in 1984 and performed at the Folies Bergère alongside Pablo Verón in 1994. Sergio trained at Maurice Béjart\'s school in Brussels (1985) and joined the Ballet of Teatro San Martin in Buenos Aires in 1988, where he discovered tango.',
+    teachers: [
+      { name: 'Gisela Graef Marino', pageSlug: null,
+        photo: 'https://images.squarespace-cdn.com/content/v1/643161d3f0077c58bb466e03/33dc24f9-c24c-46e6-994a-b616bb2e7fcf/Sergio+%26+Gisela+Corregida.jpg',
+        origin: 'Paris / Brussels',
+        tags: [{text:'Argentine Tango', type:'style'},{text:'Folies Bergère', type:'award'}],
+        stats: [{v:'1984', l:'tango in Paris'},{v:'1997', l:'Estación Tango'}],
+        bioShort: 'Pioneer of Argentine Tango in Paris since 1984. Performed at the Folies Bergère in 1994 alongside Pablo Verón. Co-founder of Estación Tango (Brussels) since 1997.',
+        bio: 'Gisela Graef Marino is a pioneering artist in dance, music, theatre, and pantomime who brought Argentine Tango performances to Paris in 1984 — long before the dance was widely known in Europe. In 1994, she performed at the legendary Folies Bergère Theatre as dance partner to tango icon Pablo Verón. She began her artistic collaboration with Sergio Molini in 1995, and together they founded Brussel Tango in 1997 (now Estación Tango). Their partnership is celebrated for its harmony, fluidity, and balance.',
+        social: [{ type:'website', url:'https://www.giselaysergio.com', label:'giselaysergio.com' },{ type:'facebook', url:'https://www.facebook.com/gisela.ysergio.94', label:'Facebook' },{ type:'youtube', url:'https://www.youtube.com/channel/UC04wvFfyAhh8cq6qbko-fMQ', label:'YouTube' }] },
+      { name: 'Sergio Molini', pageSlug: null,
+        photo: 'https://images.squarespace-cdn.com/content/v1/643161d3f0077c58bb466e03/33dc24f9-c24c-46e6-994a-b616bb2e7fcf/Sergio+%26+Gisela+Corregida.jpg',
+        origin: 'Buenos Aires / Brussels',
+        tags: [{text:'Argentine Tango', type:'style'},{text:'Béjart trained', type:'award'}],
+        stats: [{v:'1988', l:'Buenos Aires'},{v:'1997', l:'Estación Tango'}],
+        bioShort: 'Trained at Maurice Béjart\'s school in Brussels (1985). Joined Ballet of Teatro San Martin in Buenos Aires in 1988. Co-founder of Estación Tango (Brussels) since 1997.',
+        bio: 'Sergio Molini studied at Maurice Béjart\'s prestigious school in Brussels in 1985, sponsored by dancer Jorge Donn. He joined the Ballet of Teatro San Martin in Buenos Aires in 1988, where he discovered his true passion for Tango. He returned to Belgium in 1991 to teach and help build the local tango community. Together with Gisela Graef Marino, he founded Brussel Tango in 1997 (now Estación Tango). Their unique style is celebrated for its harmony, fluidity, and balance as a pair.',
+        social: [{ type:'website', url:'https://www.giselaysergio.com', label:'giselaysergio.com' },{ type:'facebook', url:'https://www.facebook.com/gisela.ysergio.94', label:'Facebook' },{ type:'youtube', url:'https://www.youtube.com/channel/UC04wvFfyAhh8cq6qbko-fMQ', label:'YouTube' }] }
+    ],
     social: [
       { type:'website',  url:'https://www.giselaysergio.com',                          label:'giselaysergio.com' },
       { type:'facebook', url:'https://www.facebook.com/gisela.ysergio.94',             label:'gisela.ysergio.94' },
@@ -1185,6 +1203,8 @@ const WS_STYLE_DATA = {
       { name: 'Cuban Salsa', slug: '/cuban-salsa-in-gent',            meta: 'Monday · L1/L2/L3/L4' },
       { name: 'Flamenco',    slug: '/flamenco-danslessen-in-gent',    meta: 'Tuesday · L1/L2/L3' }
     ],
+    partnerRequired: true,
+    partnerForumUrl: 'https://www.facebook.com/groups/1405926722822445',
     descriptionsByLevel: {
       'Level 1': 'An unpredictable encounter unfolds between two individuals — a unique and privileged moment filled with spontaneity. In Level 1, our exploration centers on unveiling the true essence of tango: a floating, intense, and timeless dance where two bodies gracefully unite in space, merging into a single rhythmic harmony. You will discover this social, sensual, and improvisational couple\'s dance, learning how to connect in a comfortable embrace while smoothly navigating the dance floor in the traditional counterclockwise direction.',
       'Level 2': 'A breeze from Buenos Aires rustles through Ghent. Building on your foundations, Level 2 introduces the intricate rules and codes that govern the traditional milonga. You will learn the conventional signs of the mirada and cabeceo — the gentle exchanges affirming a mutual invitation to dance. We will also deepen your musicality by exploring Tandas (sets of four pieces) and Cortinas (musical interludes). In this realm, barriers of age or language dissolve; what matters most is your shared experience of this deeply improvised dance for two.'
@@ -1193,7 +1213,12 @@ const WS_STYLE_DATA = {
   'Flamenco': {
     hook: 'Technique, feeling, and fire — all three at once, built slowly from the ground up.',
     description: 'In these classes Liz works from the technical foundations that make flamenco unmistakable: braceos (arm work), zapateado (footwork), and marcajes. Each series explores a specific palo — one of the many distinct musical forms within the tradition — covering choreography, palmas, and theory. Liz creates space for students to find their own expression within the form. She also organises the monthly Sevillanas Oefenavond social practice evenings at Shoonya.',
-    teacherBio: 'Liz brings an authentic dance style, shaped in the heart of Andalusia and seasoned on international stages. She is renowned for her strong pedagogical approach and her ability to convey the power of flamenco to everyone.',
+    photo: 'https://images.squarespace-cdn.com/content/v1/643161d3f0077c58bb466e03/53d7c27c-c144-400d-a960-a65c02b53b30/La+Liz.jpg',
+    teacherOrigin: 'Seville & Jerez / Belgium',
+    teacherTags: [{text:'Flamenco', type:'style'},{text:'La Guardia Flamenca', type:'award'},{text:'Sevillanas', type:'style'}],
+    teacherStats: [{v:'Seville', l:'trained'},{v:'Jerez', l:'+ trained'}],
+    teacherBio: 'Trained in Seville and Jerez. Founder of dance company La Guardia Flamenca. Organises the Sevillanas Oefenavond social nights at Shoonya.',
+    teacherBioFull: 'La Liz received her flamenco training in Seville and Jerez — the heartland of the art form. She has performed with numerous musicians and companies both nationally and internationally. She founded dance company La Guardia Flamenca, which blends flamenco with theatrical and comedic elements. Known for her strong pedagogy and engaging personality, her teaching emphasises intensive technical training alongside expressive body language development. She also organises Sevillanas Oefenavond, Shoonya\'s regular flamenco social practice evening.',
     social: [
       { type:'instagram', url:'https://www.instagram.com/laliz.flamenco', label:'@laliz.flamenco' },
       { type:'facebook',  url:'https://www.facebook.com/lalizdanceworks',  label:'lalizdanceworks' }
@@ -1207,7 +1232,12 @@ const WS_STYLE_DATA = {
   'Flamenco & Sevillanas': {
     hook: 'Technique, feeling, and fire — all three at once, built slowly from the ground up.',
     description: 'In these classes Liz works from the technical foundations that make flamenco unmistakable: braceos (arm work), zapateado (footwork), and marcajes. Each series explores a specific palo — one of the many distinct musical forms within the tradition — covering choreography, palmas, and theory. Liz creates space for students to find their own expression within the form. She also organises the monthly Sevillanas Oefenavond social practice evenings at Shoonya.',
-    teacherBio: 'Liz brings an authentic dance style, shaped in the heart of Andalusia and seasoned on international stages. She is renowned for her strong pedagogical approach and her ability to convey the power of flamenco to everyone.',
+    photo: 'https://images.squarespace-cdn.com/content/v1/643161d3f0077c58bb466e03/53d7c27c-c144-400d-a960-a65c02b53b30/La+Liz.jpg',
+    teacherOrigin: 'Seville & Jerez / Belgium',
+    teacherTags: [{text:'Flamenco', type:'style'},{text:'La Guardia Flamenca', type:'award'},{text:'Sevillanas', type:'style'}],
+    teacherStats: [{v:'Seville', l:'trained'},{v:'Jerez', l:'+ trained'}],
+    teacherBio: 'Trained in Seville and Jerez. Founder of dance company La Guardia Flamenca. Organises the Sevillanas Oefenavond social nights at Shoonya.',
+    teacherBioFull: 'La Liz received her flamenco training in Seville and Jerez — the heartland of the art form. She has performed with numerous musicians and companies both nationally and internationally. She founded dance company La Guardia Flamenca, which blends flamenco with theatrical and comedic elements. Known for her strong pedagogy and engaging personality, her teaching emphasises intensive technical training alongside expressive body language development. She also organises Sevillanas Oefenavond, Shoonya\'s regular flamenco social practice evening.',
     social: [
       { type:'instagram', url:'https://www.instagram.com/laliz.flamenco', label:'@laliz.flamenco' },
       { type:'facebook',  url:'https://www.facebook.com/lalizdanceworks',  label:'lalizdanceworks' }
@@ -1232,11 +1262,16 @@ const WS_STYLE_DATA = {
   'Kizomba': {
     hook: 'The smoothest partner dance in the room — gentle, connected, and deeply rooted in Angolan music culture.',
     description: 'Kizomba is a close-hold partner dance from Angola, built on smooth footwork, subtle partner communication, and the music of semba and kuduro. Sonja teaches the authentic roots of the dance alongside its social vocabulary — the steps, the connection, and the confidence to dance at a festival. She has been teaching Kizomba in Belgium since 2011 and has taught in over 20 countries across 4 continents. Shoonya offers Levels 2, 3, and 4.',
+    photo: 'https://images.squarespace-cdn.com/content/v1/643161d3f0077c58bb466e03/aa38a852-51ff-4a2a-8d0c-d09518fd3c12/Sonja+KikiZomba+-+brown+1.jpg',
     teacherBio: 'Pioneer of Kizomba teaching in Belgium since 2006. Master\'s degree in Lusitanistics. Taught in 20+ countries across 4 continents. Organised Belgium\'s first Kizomba Festival (2013). DJ since 2014.',
+    teacherBioFull: 'As a pioneer of Kizomba teaching in Belgium, Sonja KikiZomba looks back at more than a decade of experience.<br><br>She first fell in love with the dance in 2006 during her studies in Coimbra, Portugal. Previously a ballroom and Salsa dancer, she was asked to start teaching Kizomba in 2011. With Kizomba being virtually unknown in the area, she was forced early on to assume the role of leader and follower alike.<br><br>Complementary to the devotion for the dance, Sonja underpins her cultural knowledge with her academic background in linguistics and politics. She holds a master degree in Lusitanistics which allowed for a thorough insight into the languages and cultures of the Lusophone world. Understanding both Cape Verdean Kreol and Angolan Slang later proved precious for a wholistic pedagogical approach in Kizomba. She dedicated her post grad thesis to the economic and political transformation of Angola after the end of the civil war, followed by several travels across the country in a quest to ever more deeply experience Angolan culture.<br><br>Sonja\'s love for the roots of Kizomba, her enthusiastic teaching method, and precise explanations got her booked in over 20 countries across 4 continents. She was solicitated to all major high-quality festivals (such as Miami Beah Festival, Sawa Sawa Washington, Tabanka Texas, Las Vegas Festival, LIKE Festival Lissabon, Luxembourg Kizomba Festival, Istanbul and many more).<br><br>Over the years Sonja has been appointed to the Jury of different Kizomba competitions in Germany, Belgium, the United States, and Central America. With "Kizomba Continua" (which is a reference to the independence slogan "a luta continua"), KikiZomba organised the first ever Kizomba Festival in Belgium back in 2013. In 2014 Sonja took up DJ-ing in order to provide the scene with more authentic music. The same year KikiZomba was awarded for preserving and promoting Angolan culture in Belgium.',
     social: [
       { type:'website',   url:'https://www.kikizomba.com',                  label:'kikizomba.com' },
-      { type:'instagram', url:'https://www.instagram.com/sonja_kikizomba',  label:'@sonja_kikizomba' }
+      { type:'instagram', url:'https://www.instagram.com/sonja_kikizomba',  label:'@sonja_kikizomba' },
+      { type:'facebook',  url:'https://www.facebook.com/kizombadance/',     label:'kizombadance' }
     ],
+    partnerRequired: true,
+    partnerForumUrl: 'https://www.facebook.com/groups/1405926722822445',
     alsoStyles: [
       { name: 'African/Congolese Dance', slug: '/afrikaanse-congolese-dans-gent',   meta: 'Saturday · Open' },
       { name: 'Argentine Tango',         slug: '/argentijnse-tango-danslessen-gent', meta: 'Thursday · L1 & L2' },
@@ -1247,11 +1282,32 @@ const WS_STYLE_DATA = {
     hook: 'Connection, rhythm, and the joy of dancing close — with the right song, it feels effortless.',
     description: 'Bachata is a partner dance from the Dominican Republic, danced in a close hold with a four-beat rhythm and swaying hip movements. Alex and Lenka teach from the ground up — footwork, timing, connection, and musicality that lets you adapt to any song. Class builds toward confident social dancing.',
     teacherBio: 'Alex is a 3x Rueda de Casino World Champion (2007, 2008, 2025) and Vice World Champion in Salsa (2009), with 30+ years of dance experience and 10+ years of teaching. Lenka Badriyah is Silver Belly Dancer of the Universe 2012 and toured internationally with Bellydance Evolution for six years.',
+    teachers: [
+      { name: 'Alex', pageSlug: null,
+        photo: 'https://images.squarespace-cdn.com/content/v1/643161d3f0077c58bb466e03/2168ab47-2c6d-4939-9633-a660b5ec346d/IMG_2635.JPG',
+        origin: 'Bucharest, Romania',
+        tags: [{text:'Cuban Salsa', type:'style'},{text:'Bachata', type:'style'},{text:'Rueda de Casino', type:'style'},{text:'3× World Champion', type:'award'}],
+        stats: [{v:'30+', l:'years dancing'},{v:'2005', l:'teaching since'}],
+        bioShort: '3× Rueda de Casino World Champion (2007, 2008, Prague 2025), Vice World Champion in Salsa (2009). Originally from Bucharest, Romania, with 30+ years of dance experience.',
+        bio: 'Alex, from Bucharest in Romania; started dancing ballroom & other latin dances in 1993 and over the years has achieved numerous awards, both national and international in his career as a competition dancer and as a teacher. As a dancer he was part of the Romanian National Team in ballroom and latin, and a finalist and semi-finalist at the Romanian National Championships and Cups. As a dancer his biggest achievement is wining the European and World Champion title in Rueda de Casino in 2007 and 2008. In 2009 he became the Vice World Champion in Salsa in the competitions organised by the International Dance Organisation (IDO).<br><br>His teaching career both for social and competition dancing started in 2005. The couples who trained under Alex, became World and European Champions in Salsa, Bachata and Latino Show. For 3 years Alex lived in Turkey, and his students represented Turkey in the World Championships organised by the World Dance Sport Federation (WDSF) and became national champions.<br><br>Alex has a dance experience of over 30 years and a teaching experience of over 10 years. Even though he teaches Bachata, his favorite dance is still the Tango. Alex loves the expression of passion and other feelings that you can express through dance and his favorite quote about dance has to be: "Ginger Rogers did everything Fred Astaire did, except backwards and in high heels".',
+        social: [{ type:'website', url:'https://dwa.dance', label:'dwa.dance' },{ type:'instagram', url:'https://www.instagram.com/dance_with_alexx', label:'@dance_with_alexx' },{ type:'facebook', url:'https://www.facebook.com/alexdanceacademy', label:'Alex Dance Academy' }] },
+      { name: 'Lenka Badriyah', pageSlug: null,
+        photo: 'https://images.squarespace-cdn.com/content/v1/643161d3f0077c58bb466e03/fe4cab00-85d3-484d-8b81-c279d67693b4/IsabelleHanneuse+%284%29.jpg',
+        origin: 'Czech Republic / Belgium',
+        tags: [{text:'Raqs Sharqi', type:'style'},{text:'Bellydance', type:'style'},{text:'Silver BDU 2012', type:'award'}],
+        stats: [{v:'6 yrs', l:'Bellydance Evolution'},{v:'2012', l:'world title'}],
+        bioShort: 'Silver Belly Dancer of the Universe 2012. Toured internationally with Bellydance Evolution for six years. Founder of Kan Zaman Festival and co-organiser of Leylet Raqs bellydance festival.',
+        bio: 'Badriyah is a professional Raqs Sharqi dancer (bellydancer), devoted mainly to Egyptian classical and folkloric styles, modern fusion and the Golden Age of belly dance. Badriyah has won several important awards - she was awarded as silver Belly Dancer of the Universe 2012 (California, USA), Vice Miss Bellydancer of Europe 2011 (Germany) and bronze Bellydancer of the Universe 2011 (California, USA). The biggest achievement of her dance career is performing for 6 years with Bellydance Evolution, led by the famous Jillina. She has performed in Japan, Hong Kong, USA, Taiwan, Australia, Morocco, Greece and other countries.<br><br>Her biggest passion is the history of Raqs Sharqi. She is a collector of vintage items depicting Egyptian dancers, and she is the organizer of Kan Zaman - The Golden Era Music & Dance Festival. She runs an online Raqs Sharqi Museum, and she plans to turn it into a physical museum based in Ghent.<br><br>Personally, the most wonderful thing for her is to see her students grow and fall in love with dance, no matter which forms the dance has.',
+        social: [{ type:'youtube', url:'https://www.youtube.com/@Badriyah_bellydance', label:'YouTube' },{ type:'website', url:'https://www.badriyahbellydance.com', label:'badriyahbellydance.com' },{ type:'instagram', url:'https://www.instagram.com/lenka_badriyah/', label:'@lenka_badriyah' },{ type:'facebook', url:'https://www.facebook.com/lenkabadriyahdance', label:'Facebook' }] }
+    ],
     wear: 'Indoor dance shoes with suede or smooth leather soles — or socks. No street shoes in the studio.',
     bring: 'Water bottle. Dance shoes (or thick socks to start).',
-    partnerNote: 'Partner registration required — please register together with your dance partner. Looking for a partner? Join the <a href="https://www.facebook.com/groups/1405926722822445" style="color:#B564F7;">Shoonya Dance Forum</a> to connect with the community.',
+    partnerRequired: true,
+    partnerForumUrl: 'https://www.facebook.com/groups/1405926722822445',
+    practiceEvening: { text: '2nd Friday of the month, 20:00–01:00', url: '/calendar' },
+    levelGuide: 'No prior Bachata? Start at Level 1. Some experience? Level 2. Speak with us before joining Level 3.',
     social: [
-      { type:'website',   url:'https://www.alexdanceacademy.be',             label:'alexdanceacademy.be' },
+      { type:'website',   url:'https://dwa.dance',                            label:'dwa.dance' },
       { type:'instagram', url:'https://www.instagram.com/dance_with_alexx',  label:'@dance_with_alexx' },
       { type:'facebook',  url:'https://www.facebook.com/alexdanceacademy',   label:'Alex Dance Academy' }
     ],
@@ -1265,11 +1321,32 @@ const WS_STYLE_DATA = {
     hook: 'Circular, joyful, and social — Cuban Salsa at its best feels like a party that happens to have a syllabus.',
     description: 'Cuban Salsa (Casino) is danced in a circular pattern, with playful partner interactions, body movement, and the syncopated rhythms of son cubano. Alex and Ioanna teach from the foundations — the basic step, turn technique, and partner connection — and build toward the social vocabulary you\'ll use on any dance floor.',
     teacherBio: 'Alex is a 3x Rueda de Casino World Champion (2007, 2008, 2025) and Vice World Champion in Salsa (2009), with 30+ years of dance experience. Ioanna is a qualified Latin and ballroom instructor with 9 years of ballet and contemporary training.',
+    teachers: [
+      { name: 'Alex', pageSlug: null,
+        photo: 'https://images.squarespace-cdn.com/content/v1/643161d3f0077c58bb466e03/2168ab47-2c6d-4939-9633-a660b5ec346d/IMG_2635.JPG',
+        origin: 'Bucharest, Romania',
+        tags: [{text:'Cuban Salsa', type:'style'},{text:'Bachata', type:'style'},{text:'Rueda de Casino', type:'style'},{text:'3× World Champion', type:'award'}],
+        stats: [{v:'30+', l:'years dancing'},{v:'2005', l:'teaching since'}],
+        bioShort: '3× Rueda de Casino World Champion (2007, 2008, Prague 2025), Vice World Champion in Salsa (2009). Originally from Bucharest, Romania, with 30+ years of dance experience.',
+        bio: 'Alex, from Bucharest in Romania; started dancing ballroom & other latin dances in 1993 and over the years has achieved numerous awards, both national and international in his career as a competition dancer and as a teacher. As a dancer he was part of the Romanian National Team in ballroom and latin, and a finalist and semi-finalist at the Romanian National Championships and Cups. As a dancer his biggest achievement is wining the European and World Champion title in Rueda de Casino in 2007 and 2008. In 2009 he became the Vice World Champion in Salsa in the competitions organised by the International Dance Organisation (IDO).<br><br>His teaching career both for social and competition dancing started in 2005. The couples who trained under Alex, became World and European Champions in Salsa, Bachata and Latino Show. For 3 years Alex lived in Turkey, and his students represented Turkey in the World Championships organised by the World Dance Sport Federation (WDSF) and became national champions.<br><br>Alex has a dance experience of over 30 years and a teaching experience of over 10 years. Even though he teaches Bachata, his favorite dance is still the Tango. Alex loves the expression of passion and other feelings that you can express through dance and his favorite quote about dance has to be: "Ginger Rogers did everything Fred Astaire did, except backwards and in high heels".',
+        social: [{ type:'website', url:'https://dwa.dance', label:'dwa.dance' },{ type:'instagram', url:'https://www.instagram.com/dance_with_alexx', label:'@dance_with_alexx' },{ type:'facebook', url:'https://www.facebook.com/alexdanceacademy', label:'Alex Dance Academy' }] },
+      { name: 'Ioanna', pageSlug: null,
+        photo: 'https://images.squarespace-cdn.com/content/v1/643161d3f0077c58bb466e03/e9835450-0f01-4de7-bc68-fd2c0940fb4f/Ioanna+Petta.jpg',
+        origin: 'Greece / Belgium',
+        tags: [{text:'Bachata', type:'style'},{text:'Latin & Ballroom', type:'style'},{text:'Intl competitor', type:'award'}],
+        stats: [{v:'9 yrs', l:'ballet training'},{v:'2 countries', l:'competed'}],
+        bioShort: 'Qualified Latin and ballroom instructor with 9 years of ballet and contemporary dance training. Competed nationally and internationally in Greece and Belgium.',
+        bio: 'Ioanna is a qualified instructor in international Latin and ballroom styles through professional academies. Her background includes 9 years of ballet and contemporary dance training. She has competed nationally and internationally, and has taught Latin and ballroom classes in both Greece and Belgium. At Shoonya she co-teaches alongside Alex and leads her own Bachata Lady Styling miniseries.',
+        social: [{ type:'instagram', url:'https://www.instagram.com/joanfly', label:'@joanfly' }] }
+    ],
     social: [
-      { type:'website',   url:'https://www.alexdanceacademy.be',             label:'alexdanceacademy.be' },
+      { type:'website',   url:'https://dwa.dance',                            label:'dwa.dance' },
       { type:'instagram', url:'https://www.instagram.com/dance_with_alexx',  label:'@dance_with_alexx' },
       { type:'facebook',  url:'https://www.facebook.com/alexdanceacademy',   label:'Alex Dance Academy' }
     ],
+    partnerRequired: true,
+    partnerForumUrl: 'https://www.facebook.com/groups/1405926722822445',
+    practiceEvening: { text: '2nd Friday of the month, 20:00–01:00', url: '/calendar' },
     alsoStyles: [
       { name: 'Bachata',         slug: '/bachata-dance-classes-in-ghent',    meta: 'Tuesday · L1/L2/L3' },
       { name: 'Rueda de Casino', slug: '/rueda-de-casino-danslessen-gent',   meta: 'Thursday · L1/L2' },
@@ -1280,11 +1357,32 @@ const WS_STYLE_DATA = {
     hook: 'Salsa in a circle — calling moves, swapping partners, and dancing as one big joyful group.',
     description: 'Rueda de Casino is a group form of Cuban Salsa where couples dance in a circle, changing partners and executing moves simultaneously on the caller\'s command. Alex and Ioanna bring championship-level Rueda experience to classes for all levels — the vocabulary, the timing, and the collective energy that makes Rueda so much fun.',
     teacherBio: 'Alex is a 3x Rueda de Casino World Champion (2007, 2008, 2025) and Vice World Champion in Salsa (2009), with 30+ years of dance experience. Ioanna is a qualified Latin and ballroom instructor.',
+    teachers: [
+      { name: 'Alex', pageSlug: null,
+        photo: 'https://images.squarespace-cdn.com/content/v1/643161d3f0077c58bb466e03/2168ab47-2c6d-4939-9633-a660b5ec346d/IMG_2635.JPG',
+        origin: 'Bucharest, Romania',
+        tags: [{text:'Cuban Salsa', type:'style'},{text:'Bachata', type:'style'},{text:'Rueda de Casino', type:'style'},{text:'3× World Champion', type:'award'}],
+        stats: [{v:'30+', l:'years dancing'},{v:'2005', l:'teaching since'}],
+        bioShort: '3× Rueda de Casino World Champion (2007, 2008, Prague 2025), Vice World Champion in Salsa (2009). Originally from Bucharest, Romania, with 30+ years of dance experience.',
+        bio: 'Alex, from Bucharest in Romania; started dancing ballroom & other latin dances in 1993 and over the years has achieved numerous awards, both national and international in his career as a competition dancer and as a teacher. As a dancer he was part of the Romanian National Team in ballroom and latin, and a finalist and semi-finalist at the Romanian National Championships and Cups. As a dancer his biggest achievement is wining the European and World Champion title in Rueda de Casino in 2007 and 2008. In 2009 he became the Vice World Champion in Salsa in the competitions organised by the International Dance Organisation (IDO).<br><br>His teaching career both for social and competition dancing started in 2005. The couples who trained under Alex, became World and European Champions in Salsa, Bachata and Latino Show. For 3 years Alex lived in Turkey, and his students represented Turkey in the World Championships organised by the World Dance Sport Federation (WDSF) and became national champions.<br><br>Alex has a dance experience of over 30 years and a teaching experience of over 10 years. Even though he teaches Bachata, his favorite dance is still the Tango. Alex loves the expression of passion and other feelings that you can express through dance and his favorite quote about dance has to be: "Ginger Rogers did everything Fred Astaire did, except backwards and in high heels".',
+        social: [{ type:'website', url:'https://dwa.dance', label:'dwa.dance' },{ type:'instagram', url:'https://www.instagram.com/dance_with_alexx', label:'@dance_with_alexx' },{ type:'facebook', url:'https://www.facebook.com/alexdanceacademy', label:'Alex Dance Academy' }] },
+      { name: 'Ioanna', pageSlug: null,
+        photo: 'https://images.squarespace-cdn.com/content/v1/643161d3f0077c58bb466e03/e9835450-0f01-4de7-bc68-fd2c0940fb4f/Ioanna+Petta.jpg',
+        origin: 'Greece / Belgium',
+        tags: [{text:'Bachata', type:'style'},{text:'Latin & Ballroom', type:'style'},{text:'Intl competitor', type:'award'}],
+        stats: [{v:'9 yrs', l:'ballet training'},{v:'2 countries', l:'competed'}],
+        bioShort: 'Qualified Latin and ballroom instructor with 9 years of ballet and contemporary dance training. Competed nationally and internationally in Greece and Belgium.',
+        bio: 'Ioanna is a qualified instructor in international Latin and ballroom styles through professional academies. Her background includes 9 years of ballet and contemporary dance training. She has competed nationally and internationally, and has taught Latin and ballroom classes in both Greece and Belgium. At Shoonya she co-teaches alongside Alex and leads her own Bachata Lady Styling miniseries.',
+        social: [{ type:'instagram', url:'https://www.instagram.com/joanfly', label:'@joanfly' }] }
+    ],
     social: [
-      { type:'website',   url:'https://www.alexdanceacademy.be',             label:'alexdanceacademy.be' },
+      { type:'website',   url:'https://dwa.dance',                            label:'dwa.dance' },
       { type:'instagram', url:'https://www.instagram.com/dance_with_alexx',  label:'@dance_with_alexx' },
       { type:'facebook',  url:'https://www.facebook.com/alexdanceacademy',   label:'Alex Dance Academy' }
     ],
+    partnerRequired: true,
+    partnerForumUrl: 'https://www.facebook.com/groups/1405926722822445',
+    practiceEvening: { text: '2nd Friday of the month, 20:00–01:00', url: '/calendar' },
     alsoStyles: [
       { name: 'Bachata',                 slug: '/bachata-dance-classes-in-ghent',    meta: 'Tuesday · L1/L2/L3' },
       { name: 'Lindy Hop',               slug: '/lindy-hop-danslessen-in-gent',      meta: 'Wednesday · L1/L2' },
@@ -1350,7 +1448,9 @@ const WS_STYLE_DATA = {
   'Raqs Sharqi': {
     hook: 'Belly dance rooted in the golden era of Egyptian dance — precise, expressive, and deeply musical.',
     description: 'Raqs Sharqi (Arabic for "oriental dance") is the theatrical solo dance form that flourished in Egypt from the 1920s through the 1970s. Lenka Badriyah brings her international competition and performance background to classes that build from the foundation: hip isolations, undulations, layering, and the musical sensitivity that makes the dance alive. She co-organises the annual Leylet Raqs bellydance festival in Ghent.',
+    photo: 'https://images.squarespace-cdn.com/content/v1/643161d3f0077c58bb466e03/fe4cab00-85d3-484d-8b81-c279d67693b4/IsabelleHanneuse+%284%29.jpg',
     teacherBio: 'Silver Belly Dancer of the Universe 2012. Toured internationally with Bellydance Evolution (led by Jillina) for six years. Co-organiser of Leylet Raqs bellydance festival. Founder of the Kan Zaman Festival.',
+    teacherBioFull: 'Badriyah is a professional Raqs Sharqi dancer (bellydancer), devoted mainly to Egyptian classical and folkloric styles, modern fusion and the Golden Age of belly dance. Badriyah has won several important awards - she was awarded as silver Belly Dancer of the Universe 2012 (California, USA), Vice Miss Bellydancer of Europe 2011 (Germany) and bronze Bellydancer of the Universe 2011 (California, USA). The biggest achievement of her dance career is performing for 6 years with Bellydance Evolution, led by the famous Jillina. She has performed in Japan, Hong Kong, USA, Taiwan, Australia, Morocco, Greece and other countries.<br><br>Her biggest passion is the history of Raqs Sharqi. She is a collector of vintage items depicting Egyptian dancers, and she is the organizer of Kan Zaman - The Golden Era Music & Dance Festival. She runs an online Raqs Sharqi Museum, and she plans to turn it into a physical museum based in Ghent.<br><br>Personally, the most wonderful thing for her is to see her students grow and fall in love with dance, no matter which forms the dance has.',
     social: [
       { type:'website',   url:'https://badriyahbellydance.com',                   label:'badriyahbellydance.com' },
       { type:'instagram', url:'https://www.instagram.com/lenka_badriyah',         label:'@lenka_badriyah' },
@@ -1378,6 +1478,39 @@ const WS_STYLE_DATA = {
     hook: 'Performance confidence built step by step — storytelling, presence, and a lot of fun.',
     description: 'Burlesque at Shoonya is about developing performance presence, personal expression, and the confidence to own a stage. Zoe Bizoe, Hendrik Lebon, and Tine De Pauw bring their professional performance backgrounds to a class that builds technique through character work, movement quality, and the art of the reveal.',
     teacherBio: 'Zoe Bizoe is an international burlesque champion with 7 international titles and a Belgium Got Talent finalist. Hendrik Lebon (Bibi Lebon) graduated from Fontys Dance Academy and performs with Les Ballets C de la B. Tine De Pauw (Ding Dong Dolores) graduated from the Academy for Theater in Tilburg (2014).',
+    teachers: [
+      { name: 'Zoe Bizoe',
+        pageSlug: null,
+        photo: 'https://images.squarespace-cdn.com/content/v1/643161d3f0077c58bb466e03/062d01d3-98f3-4e25-bf3a-d4183029e5df/Zoe+Bizoe.jpg',
+        origin: 'Belgium',
+        tags: [{text:'Burlesque', type:'style'},{text:'7× Intl Champion', type:'award'},{text:'BGT finalist', type:'award'}],
+        stats: [{v:'7', l:'intl titles'},{v:'2017', l:'Cabaresque premiere'}],
+        bioShort: 'International burlesque champion with 7 international titles. Belgium Got Talent finalist. Founder of &#8220;Cabaresque.&#8221; Motivational speaker focused on justice, equality, and self-love.',
+        bio: 'Zoe Bizoe (real name Zoe Blyau) is an international burlesque champion with 7 international titles and a Belgium Got Talent finalist. Despite lacking formal dance training, her passion for theatre and drama propelled her to the top of the international burlesque scene. In November 2017 she premiered her one-woman show &#8220;Cabaresque,&#8221; blending cabaret, comedy, and burlesque. Beyond performing and teaching, she is a motivational speaker focused on themes of justice, equality, and self-love, helping students discover their power through performance presence.',
+        social: [
+          { type:'instagram', url:'https://www.instagram.com/zoebizoe', label:'@zoebizoe' }
+        ]},
+      { name: 'Hendrik Lebon',
+        pageSlug: null,
+        photo: 'https://images.squarespace-cdn.com/content/v1/643161d3f0077c58bb466e03/6faab140-e120-4262-b7c7-d3a773b8a41a/Hendrik.png',
+        origin: 'Belgium',
+        tags: [{text:'Burlesque', type:'style'},{text:'Dance theatre', type:'style'},{text:'Young Top Talent', type:'award'}],
+        stats: [{v:'2005', l:'Fontys Academy'},{v:'Les Ballets C', l:'performs with'}],
+        bioShort: 'Graduate of Fontys Dance Academy (2005), winner of the Jacques De Leeuw Young Top Talent Prize. Performed with Royal Ballet of Flanders and Les Ballets C de la B. Combines dance, circus, acting, and music.',
+        bio: 'Hendrik Lebon (stage name Bibi Lebon) graduated from Fontys Dance Academy in Tilburg in 2005, specialising in dance theatre and modern dance, and won the Jacques De Leeuw Young Top Talent Prize. He performs with Les Ballets C de la B in &#8220;Gardenia,&#8221; collaborates with Curious Seed, sings in two bands, and founded Goodone Productions. His work spans dance, choreography, acting, circus, burlesque, and music across national and international stages.',
+        social: [
+          { type:'website',   url:'https://goodoneproductions.be',                    label:'goodoneproductions.be' },
+          { type:'instagram', url:'https://www.instagram.com/hendrikbibilebon',        label:'@hendrikbibilebon' }
+        ]},
+      { name: 'Tine De Pauw',
+        pageSlug: null,
+        photo: null,
+        bioShort: 'Burlesque performer from Ghent (stage name: Ding Dong Dolores). Graduated from the Academy for Theater in Tilburg (2014).',
+        bio: 'Tine De Pauw (stage name: Ding Dong Dolores) is a Burlesque performer from Ghent. In 2014, she graduated from the Academy for Theater in Tilburg. As Ding Dong Dolores, Tine explores the boundaries of sensuality — each performance creates a small story in which she allows her body to triumph, captivating the audience.',
+        social: [
+          { type:'instagram', url:'https://www.instagram.com/ding_dong_dolores', label:'@ding_dong_dolores' }
+        ]}
+    ],
     social: [
       { type:'instagram', url:'https://www.instagram.com/zoebizoe',    label:'@zoebizoe' },
       { type:'instagram', url:'https://www.instagram.com/hendriklebon', label:'@hendriklebon' }
@@ -1404,7 +1537,12 @@ const WS_STYLE_DATA = {
   },
   'Bollyfolk': {
     hook: 'The best of Bollywood and folk dance in one class — colour, rhythm, and pure joy.',
+    photo: 'https://images.squarespace-cdn.com/content/v1/643161d3f0077c58bb466e03/95289349-2c80-4366-b39b-1180fc72de3b/DIHP+swapnil+small.jpg',
+    teacherOrigin: 'Pune, India / Ghent, Belgium',
+    teacherTags: [{text:'Bollywood', type:'style'},{text:'Folk Dance', type:'style'},{text:'GIDF curator', type:'award'}],
+    teacherStats: [{v:'NYC + Florence', l:'trained'},{v:'2011', l:'yoga teacher'}],
     teacherBio: 'Artistic director and co-founder of Shoonya Dance Centre, born in Pune, India. Trained at Broadway Dance Center (New York) and Opus Ballet (Florence). Leads ABC a Bollywood Company and curates the annual Gent India Dans Festival.',
+    teacherBioFull: 'Born and raised in Pune, India, near Mumbai, Swapnil grew up immersed in Indian film music and dance culture. He holds a diploma in Indian folk dance and is a certified Learn Bhangra® instructor. His formal training includes graduation from Broadway Dance Center in New York and advanced studies at Opus Ballet in Florence, Italy. From 2008–2018, he directed SPACE (Swapnil\'s Performing Arts & Contemporary Ensemble) in India, and taught at Lalit Kala Kendra – University of Pune and Flame University. He completed yoga teacher training in Pune in 2011, influenced by his grandmother\'s Iyengar yoga practice. He now leads ABC a Bollywood Company and curates the annual Gent India Dans Festival.',
     social: [
       { type:'website',   url:'https://abcdans.com',                       label:'abcdans.com' },
       { type:'instagram', url:'https://instagram.com/swapkebolly',         label:'@swapkebolly' },
@@ -1421,7 +1559,12 @@ const WS_STYLE_DATA = {
   },
   'Bollywood': {
     hook: 'The energy and glamour of Indian cinema dance — feel-good, expressive, and always moving.',
+    photo: 'https://images.squarespace-cdn.com/content/v1/643161d3f0077c58bb466e03/95289349-2c80-4366-b39b-1180fc72de3b/DIHP+swapnil+small.jpg',
+    teacherOrigin: 'Pune, India / Ghent, Belgium',
+    teacherTags: [{text:'Bollywood', type:'style'},{text:'Folk Dance', type:'style'},{text:'GIDF curator', type:'award'}],
+    teacherStats: [{v:'NYC + Florence', l:'trained'},{v:'2011', l:'yoga teacher'}],
     teacherBio: 'Artistic director and co-founder of Shoonya Dance Centre, born in Pune, India. Trained at Broadway Dance Center (New York) and Opus Ballet (Florence). Leads ABC a Bollywood Company and curates the annual Gent India Dans Festival.',
+    teacherBioFull: 'Born and raised in Pune, India, near Mumbai, Swapnil grew up immersed in Indian film music and dance culture. He holds a diploma in Indian folk dance and is a certified Learn Bhangra® instructor. His formal training includes graduation from Broadway Dance Center in New York and advanced studies at Opus Ballet in Florence, Italy. From 2008–2018, he directed SPACE (Swapnil\'s Performing Arts & Contemporary Ensemble) in India, and taught at Lalit Kala Kendra – University of Pune and Flame University. He completed yoga teacher training in Pune in 2011, influenced by his grandmother\'s Iyengar yoga practice. He now leads ABC a Bollywood Company and curates the annual Gent India Dans Festival.',
     social: [
       { type:'website',   url:'https://abcdans.com',                       label:'abcdans.com' },
       { type:'instagram', url:'https://instagram.com/swapkebolly',         label:'@swapkebolly' },
@@ -1438,6 +1581,9 @@ const WS_STYLE_DATA = {
   },
   'Bhangra': {
     hook: 'The most exuberant folk dance of Punjab — big arms, big energy, and a beat you can\'t resist.',
+    teacherOrigin: 'Pune, India / Ghent, Belgium',
+    teacherTags: [{text:'Bhangra', type:'style'},{text:'Learn Bhangra® cert.', type:'award'}],
+    teacherStats: [{v:'NYC + Florence', l:'trained'},{v:'Punjab folk', l:'speciality'}],
     teacherBio: 'Artistic director and co-founder of Shoonya Dance Centre, born in Pune, India. Certified Learn Bhangra® instructor. Trained at Broadway Dance Center (New York) and Opus Ballet (Florence).',
     social: [
       { type:'website',   url:'https://abcdans.com',                       label:'abcdans.com' },
@@ -1455,6 +1601,9 @@ const WS_STYLE_DATA = {
   },
   'Indian Semi-Classical': {
     hook: 'Classical Indian dance vocabulary — Kathak footwork, expressive gestures, and stories told through movement.',
+    teacherOrigin: 'Pune, India / Ghent, Belgium',
+    teacherTags: [{text:'Kathak', type:'style'},{text:'Indian Semi-Classical', type:'style'}],
+    teacherStats: [{v:'NYC + Florence', l:'trained'},{v:'Radhika K.', l:'Kathak under'}],
     teacherBio: 'Artistic director and co-founder of Shoonya Dance Centre, born in Pune, India. Ongoing Kathak training under Radhika Karandikar. Trained at Broadway Dance Center (New York) and Opus Ballet (Florence).',
     social: [
       { type:'website',   url:'https://abcdans.com',                       label:'abcdans.com' },
@@ -1472,6 +1621,9 @@ const WS_STYLE_DATA = {
   },
   'Yoga': {
     hook: 'A grounded, movement-based yoga practice for dancers and non-dancers alike.',
+    teacherOrigin: 'Pune, India / Ghent, Belgium',
+    teacherTags: [{text:'Yoga', type:'style'},{text:'Iyengar lineage', type:'award'},{text:'Teacher 2011', type:'award'}],
+    teacherStats: [{v:'2011', l:'Pune training'},{v:'B.K.S. Iyengar', l:'lineage'}],
     teacherBio: 'Artistic director and co-founder of Shoonya Dance Centre. Completed yoga teacher training in Pune in 2011, rooted in his grandmother\'s Iyengar practice — she was a student of B.K.S. Iyengar.',
     social: [
       { type:'website',   url:'https://abcdans.com',                       label:'abcdans.com' },
@@ -1541,6 +1693,8 @@ function wsGetStyleData(styleName) {
 const WS_REG_URL = '/register/';
 const WS_SPRING_SCHEDULE_URL = 'https://schooljaar.shoonyadance.com/schedule-spring-2026';
 const WS_SEMESTER_DATES = 'Sep 14 – Jan 30';
+// Set to null at the start of the main semester (Sep) to hide the spring carry-over note.
+const WS_SPRING_NOTE = 'Spring 2026 classes still running';
 const WS_ZOHO_STARTER_URL = 'https://creatorapp.zohopublic.eu/developer_shoonyadance/shoonya-dance-studio/form-perma/Workshop_Registration_Form/uOO7GVYHQEJn5dSVDz7z1nTXXeEfD0AZ4PJvtQJ0ZbMRum3tBX30zxQHC02n9b3bvTO6ORFDsVCfS4bJQF1VOZdBMZquYuPb4xx8';
 const WS_GOOGLE_FONTS = "https://fonts.googleapis.com/css2?family=Marcellus&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap";
 
@@ -1607,7 +1761,7 @@ function wsShortDay(day) {
 // color defaults to purple (#B564F7); pass '#fff' or '#1a1a1a' for contrast on coloured backgrounds
 function wsSectionLabelHtml(text, color) {
   const c = color || '#1a1a1a';
-  return `<style>\n.sec-label{font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:${c};font-family:'PT Serif',serif;margin:0;}\n</style>\n<p class="sec-label">${text}</p>`;
+  return `<style>\n.sec-label{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:${c};font-family:'Marcellus',serif;margin:0;}\n</style>\n<p class="sec-label">${text}</p>`;
 }
 
 // Free trial week banner (deletable after Sep 19)
@@ -1622,20 +1776,6 @@ function wsTrialPillHtml() {
 </div>`;
 }
 
-// Teacher avatar block
-function wsTeacherAvatarHtml(teacherName) {
-  const initials = wsInitials(teacherName);
-  const first = (teacherName || '').split(' ')[0] || 'Teacher';
-  return `<style>
-.t-block{display:flex;align-items:center;gap:1rem;}
-.t-avatar{width:64px;height:64px;border-radius:50%;background:#B564F7;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Marcellus',serif;font-size:1.8rem;font-weight:400;}
-.t-name{font-family:'Marcellus',serif;font-size:1.4rem;color:#1a1a1a;}
-</style>
-<div class="t-block">
-  <div class="t-avatar">${initials}</div>
-  <div class="t-name">${first}</div>
-</div>`;
-}
 
 // Social links placeholder (circular icons) — fallback only
 function wsTeacherSocialPlaceholder(teacherName) {
@@ -1663,6 +1803,222 @@ function wsSocialLinksHtml(links) {
     return `<a href="${l.url}" target="_blank" rel="noopener" aria-label="${l.label || l.type}" title="${l.label || l.type}" style="display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:#1a1a1a;text-decoration:none;flex-shrink:0;">${icon}</a>`;
   }).join('\n');
   return `<div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;">\n${buttons}\n</div>`;
+}
+
+// ─── Multi-teacher avatar strip with expandable bios (CSS-only, no script) ────
+// Uses hidden radio inputs + :checked ~ sibling selectors.
+// No <script> tag = no "Embedded Scripts" placeholder in Squarespace edit mode.
+// Bio text lives in DOM divs — readable by Google and Weglot.
+// Optional per-teacher fields: origin (string), tags ([{text,type}] where type='style'|'award'|'lang'),
+// stats ([{v,l}] — value + label). All gracefully omitted if absent.
+function wsTeacherBlockHtml(wsData, prefix) {
+  const p = prefix;
+  const teachers = wsData.teachers;
+  if (!teachers || !teachers.length) return '';
+
+  // Pill icons using currentColor — inherit link hover colour automatically
+  const PILL_ICONS = {
+    website:   `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
+    instagram: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>`,
+    facebook:  `<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true" style="flex-shrink:0;"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>`,
+    youtube:   `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon fill="currentColor" stroke="none" points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>`
+  };
+
+  // Tag colour map by type — dark panel theme
+  const TAG_STYLES = {
+    style: 'background:rgba(181,100,247,.18);color:#d4a0ff;',
+    award: 'background:#B564F7;color:#fff;',
+    lang:  'background:rgba(30,200,160,.14);color:#7fffd4;'
+  };
+
+  function renderTags(tags) {
+    if (!tags || !tags.length) return '';
+    return `<div class="${p}-ttags">${tags.map(tag => {
+      const s = TAG_STYLES[tag.type] || TAG_STYLES.style;
+      return `<span class="${p}-ttag" style="${s}">${tag.text}</span>`;
+    }).join('')}</div>`;
+  }
+
+  function renderStats(stats) {
+    if (!stats || !stats.length) return '';
+    return `<div class="${p}-tstats">${stats.map(s =>
+      `<div class="${p}-tstat"><div class="${p}-tstatv">${s.v}</div><div class="${p}-tstatl">${s.l}</div></div>`
+    ).join('')}</div>`;
+  }
+
+  // Hidden radio inputs — one per teacher, first checked by default
+  const radioInputs = teachers.map((t, i) =>
+    `<input type="radio" id="${p}-t${i}" name="${p}-teacher" class="${p}-tr"${i === 0 ? ' checked' : ''}>`
+  ).join('\n');
+
+  // Labels (act as avatar buttons, trigger radio via for=)
+  // Ring wrapper provides the animated border without affecting the photo crop
+  const stripLabels = teachers.map((t, i) => {
+    const photoHtml = t.photo
+      ? `<img src="${t.photo}" alt="${t.name}" loading="lazy">`
+      : `<span style="font-family:'Marcellus',serif;font-size:1.5rem;color:#fff;line-height:1;">${wsInitials(t.name)}</span>`;
+    return `  <label for="${p}-t${i}" class="${p}-tb">
+    <div class="${p}-tring"><div class="${p}-tphoto">${photoHtml}</div></div>
+    <div class="${p}-tname">${t.name}</div>
+  </label>`;
+  }).join('\n');
+
+  // Panels — shown via :checked ~ sibling CSS.
+  const panels = teachers.map((t, i) => {
+    const shortBio  = t.bioShort || t.bio || '';
+    const fullBio   = (t.bio && t.bio !== shortBio) ? t.bio : null;
+    const originHtml = t.origin ? `<div class="${p}-torigin">${t.origin}</div>` : '';
+    // Award badge shown top-right; style/lang tags shown inline below
+    const awardTag = t.tags && t.tags.find(tag => tag.type === 'award');
+    const awardBadge = awardTag ? `<span class="${p}-tp-badge">${awardTag.text}</span>` : '';
+    const nonAwardTags = t.tags ? t.tags.filter(tag => tag.type !== 'award') : null;
+    const socialHtml = (t.social && t.social.length)
+      ? `<div class="${p}-tsoc">${t.social.map(s =>
+          `<a href="${s.url}" target="_blank" rel="noopener" class="${p}-tsl" aria-label="${s.label}" title="${s.label}">${PILL_ICONS[s.type] || PILL_ICONS.website}</a>`
+        ).join('')}</div>` : '';
+    const detailsHtml = fullBio
+      ? `<details class="${p}-det">
+  <summary class="${p}-more">Read full bio of ${t.name}</summary>
+  <div class="${p}-full">${fullBio}</div>
+</details>` : '';
+    const bioLink = t.pageSlug
+      ? `<a href="${t.pageSlug}" class="${p}-tbio-link">View profile →</a>` : '';
+    return `<div class="${p}-tp" id="${p}-tp${i}" role="region" aria-label="${t.name}">
+  <div class="${p}-tp-w">
+    <div class="${p}-tp-inner">
+      <div class="${p}-tp-name-row"><div class="${p}-tp-name">${t.name}</div>${awardBadge}</div>
+      ${originHtml}${renderTags(nonAwardTags)}<div class="${p}-tp-bio">${shortBio}</div>
+      ${detailsHtml}${socialHtml}${bioLink}
+    </div>
+  </div>
+</div>`;
+  }).join('\n');
+
+  // Per-teacher :checked + :focus-visible selectors
+  // Visibility trick: closing → visibility:hidden fires after animation (.38s delay)
+  //                   opening → visibility:visible fires immediately (0s delay)
+  const checkedCss = teachers.map((t, i) =>
+    `#${p}-t${i}:checked ~ .${p}-tstrip label[for="${p}-t${i}"] .${p}-tring{border-color:#B564F7;transform:scale(1.06);}
+#${p}-t${i}:focus-visible ~ .${p}-tstrip label[for="${p}-t${i}"] .${p}-tring{outline:2px solid #B564F7;outline-offset:3px;}
+#${p}-t${i}:checked ~ #${p}-tp${i}{grid-template-rows:1fr;opacity:1;visibility:visible;transition:grid-template-rows .38s cubic-bezier(.22,1,.36,1),opacity .22s ease,visibility 0s 0s;}`
+  ).join('\n');
+
+  return `<link href="${WS_GOOGLE_FONTS}" rel="stylesheet">
+<style>
+.${p}-tr{position:absolute;opacity:0;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;}
+.${p}-tstrip{display:flex;gap:1.5rem;flex-wrap:wrap;margin-bottom:.25rem;}
+.${p}-tb{background:none;border:none;padding:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:.5rem;text-align:center;}
+.${p}-tring{width:92px;height:92px;border-radius:50%;border:2.5px solid transparent;padding:3px;display:flex;align-items:center;justify-content:center;transition:border-color .22s,transform .25s;will-change:transform;}
+.${p}-tb:hover .${p}-tring{border-color:#d9b8f7;transform:scale(1.03);}
+.${p}-tphoto{width:82px;height:82px;border-radius:50%;overflow:hidden;background:#B564F7;display:flex;align-items:center;justify-content:center;}
+.${p}-tphoto img{width:100%;height:100%;object-fit:cover;object-position:top center;}
+.${p}-tname{font-family:'Marcellus',serif;font-size:.82rem;color:#1a1a1a;line-height:1.3;max-width:96px;}
+.${p}-tp{display:grid;grid-template-rows:0fr;opacity:0;visibility:hidden;transition:grid-template-rows .38s cubic-bezier(.22,1,.36,1),opacity .22s ease,visibility 0s .38s;}
+.${p}-tp-w{min-height:0;overflow:hidden;}
+.${p}-tp-inner{background:#1a1a1a;border:none;border-radius:12px;padding:1rem 1.25rem;margin:.6rem 0;}
+.${p}-tp-name-row{display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem;margin-bottom:.25rem;}
+.${p}-tp-name{font-family:'Marcellus',serif;font-size:1rem;color:#fff;margin-bottom:0;}
+.${p}-tp-badge{background:#B564F7;color:#fff;font-size:.68rem;font-weight:500;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:2px;}
+.${p}-torigin{font-size:.75rem;color:rgba(255,255,255,.4);margin-bottom:.5rem;}
+.${p}-ttags{display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:.55rem;}
+.${p}-ttag{font-size:.72rem;font-weight:500;padding:2px 9px;border-radius:20px;}
+.${p}-tp-bio{font-size:.83rem;color:rgba(255,255,255,.72);line-height:1.62;margin-bottom:.45rem;}
+.${p}-det{margin:.1rem 0 .5rem;}
+.${p}-more{cursor:pointer;color:#c99ff8;font-weight:600;font-size:.78rem;list-style:none;display:inline-flex;align-items:center;padding:.4rem 0;}
+.${p}-more::-webkit-details-marker{display:none;}
+.${p}-more::before{content:'▸ ';margin-right:.1em;}
+details[open] .${p}-more::before{content:'▾ ';}
+.${p}-full{font-size:.83rem;color:rgba(255,255,255,.65);line-height:1.62;padding-top:.6rem;border-top:1px solid rgba(255,255,255,.12);margin-top:.4rem;}
+.${p}-tsoc{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.45rem;}
+.${p}-tp a.${p}-tsl,.${p}-tp a.${p}-tsl:link,.${p}-tp a.${p}-tsl:visited,.${p}-tp a.${p}-tsl:hover,.${p}-tp a.${p}-tsl:focus,.${p}-tp a.${p}-tsl:active{display:inline-flex!important;align-items:center!important;justify-content:center!important;width:32px!important;height:32px!important;padding:0!important;border-radius:50%!important;border:0.5px solid rgba(255,255,255,.18)!important;background:rgba(255,255,255,.1)!important;background-color:rgba(255,255,255,.1)!important;background-image:none!important;color:rgba(255,255,255,.65)!important;text-decoration:none!important;box-shadow:none!important;font-family:inherit!important;transition:background .15s,border-color .15s,color .15s;flex-shrink:0!important;}
+.${p}-tp a.${p}-tsl svg{width:15px!important;height:15px!important;}
+.${p}-tp a.${p}-tsl:hover{background:rgba(181,100,247,.3)!important;background-color:rgba(181,100,247,.3)!important;border-color:rgba(181,100,247,.5)!important;color:#d4a0ff!important;}
+.${p}-tp a.${p}-tbio-link,.${p}-tp a.${p}-tbio-link:link,.${p}-tp a.${p}-tbio-link:visited,.${p}-tp a.${p}-tbio-link:hover,.${p}-tp a.${p}-tbio-link:focus,.${p}-tp a.${p}-tbio-link:active{font-size:.78rem;font-weight:700;color:#c99ff8!important;text-decoration:none!important;background:transparent!important;background-color:transparent!important;background-image:none!important;border:0!important;box-shadow:none!important;}
+${checkedCss}
+</style>
+${radioInputs}
+<div class="${p}-tstrip">
+${stripLabels}
+</div>
+${panels}`;
+}
+
+// ─── Single-teacher card (same pattern as multi-teacher panels, no strip) ──────
+// Used when wsData.teachers is absent. Pulls wsData.photo, wsData.teacherBio,
+// wsData.teacherBioFull, wsData.teacherOrigin, wsData.teacherTags, wsData.teacherStats,
+// wsData.social. Falls back to initials if no photo.
+// teacherTags: [{text, type}] where type = 'style' | 'award' | 'lang'
+// teacherStats: [{v, l}] — up to 3 items (value + label)
+function wsSoloTeacherCardHtml(wsData, teacherName, prefix) {
+  const p = prefix;
+  const shortBio = wsData.teacherBio || '';
+  const fullBio  = (wsData.teacherBioFull && wsData.teacherBioFull !== shortBio) ? wsData.teacherBioFull : null;
+  const photo    = wsData.photo || null;
+  const social   = wsData.social || [];
+  const tags     = wsData.teacherTags || [];
+  const stats    = wsData.teacherStats || [];
+  const origin   = wsData.teacherOrigin || null;
+
+  const PILL_ICONS = {
+    website:   `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
+    instagram: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>`,
+    facebook:  `<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true" style="flex-shrink:0;"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>`,
+    youtube:   `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon fill="currentColor" stroke="none" points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>`
+  };
+  const TAG_STYLES = { style:'background:rgba(181,100,247,.18);color:#d4a0ff;', award:'background:#B564F7;color:#fff;', lang:'background:rgba(30,200,160,.14);color:#7fffd4;' };
+
+  const photoHtml = photo
+    ? `<img src="${photo}" alt="${teacherName}" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:top center;">`
+    : `<span style="font-family:'Marcellus',serif;font-size:1.4rem;color:#fff;line-height:1;">${wsInitials(teacherName)}</span>`;
+  const originHtml = origin ? `<div class="${p}-sc-origin">${origin}</div>` : '';
+  const awardTag = tags.find(t => t.type === 'award');
+  const awardBadge = awardTag ? `<span class="${p}-sc-badge">${awardTag.text}</span>` : '';
+  const styleTags = tags.filter(t => t.type !== 'award');
+  const tagsHtml   = styleTags.length
+    ? `<div class="${p}-sc-tags">${styleTags.map(tag => {
+        const s = TAG_STYLES[tag.type] || TAG_STYLES.style;
+        return `<span class="${p}-sc-tag" style="${s}">${tag.text}</span>`;
+      }).join('')}</div>` : '';
+  const socialHtml = social.length
+    ? `<div class="${p}-sc-soc">${social.map(s =>
+        `<a href="${s.url}" target="_blank" rel="noopener" class="${p}-sc-sl" aria-label="${s.label}" title="${s.label}">${PILL_ICONS[s.type] || PILL_ICONS.website}</a>`
+      ).join('')}</div>` : '';
+  const detailsHtml = fullBio ? `<details class="${p}-sc-det">
+  <summary class="${p}-sc-more">Read full bio of ${teacherName}</summary>
+  <div class="${p}-sc-full">${fullBio}</div>
+</details>` : '';
+
+  return `<link href="${WS_GOOGLE_FONTS}" rel="stylesheet">
+<style>
+.${p}-sc{display:flex;gap:1rem;align-items:flex-start;background:#1a1a1a;border:none;border-radius:12px;padding:1rem 1.25rem;}
+@media(max-width:600px){.${p}-sc{flex-direction:column;align-items:center;text-align:center;}}
+.${p}-sc-photo{width:76px;height:76px;border-radius:50%;overflow:hidden;flex-shrink:0;background:#B564F7;display:flex;align-items:center;justify-content:center;}
+.${p}-sc-name-row{display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem;margin-bottom:.25rem;}
+.${p}-sc-name{font-family:'Marcellus',serif;font-size:1rem;color:#fff;margin-bottom:0;}
+.${p}-sc-badge{background:#B564F7;color:#fff;font-size:.68rem;font-weight:500;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:2px;}
+.${p}-sc-origin{font-size:.75rem;color:rgba(255,255,255,.4);margin-bottom:.5rem;}
+.${p}-sc-tags{display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:.55rem;}
+.${p}-sc-tag{font-size:.72rem;font-weight:500;padding:2px 9px;border-radius:20px;}
+.${p}-sc-bio{font-size:.83rem;color:rgba(255,255,255,.72);line-height:1.62;margin-bottom:.45rem;}
+.${p}-sc-det{margin:.1rem 0 .5rem;}
+.${p}-sc-more{cursor:pointer;color:#c99ff8;font-weight:600;font-size:.78rem;list-style:none;display:inline-flex;align-items:center;padding:.4rem 0;}
+.${p}-sc-more::-webkit-details-marker{display:none;}
+.${p}-sc-more::before{content:'▸ ';margin-right:.1em;}
+details[open] .${p}-sc-more::before{content:'▾ ';}
+.${p}-sc-full{font-size:.83rem;color:rgba(255,255,255,.65);line-height:1.62;padding-top:.6rem;border-top:1px solid rgba(255,255,255,.12);margin-top:.4rem;}
+.${p}-sc-soc{display:flex;gap:.4rem;flex-wrap:wrap;}
+.${p}-sc a.${p}-sc-sl,.${p}-sc a.${p}-sc-sl:link,.${p}-sc a.${p}-sc-sl:visited,.${p}-sc a.${p}-sc-sl:hover,.${p}-sc a.${p}-sc-sl:focus,.${p}-sc a.${p}-sc-sl:active{display:inline-flex!important;align-items:center!important;justify-content:center!important;width:32px!important;height:32px!important;padding:0!important;border-radius:50%!important;border:0.5px solid rgba(255,255,255,.18)!important;background:rgba(255,255,255,.1)!important;background-color:rgba(255,255,255,.1)!important;background-image:none!important;color:rgba(255,255,255,.65)!important;text-decoration:none!important;box-shadow:none!important;font-family:inherit!important;transition:background .15s,border-color .15s,color .15s;flex-shrink:0!important;}
+.${p}-sc a.${p}-sc-sl svg{width:15px!important;height:15px!important;}
+.${p}-sc a.${p}-sc-sl:hover{background:rgba(181,100,247,.3)!important;background-color:rgba(181,100,247,.3)!important;border-color:rgba(181,100,247,.5)!important;color:#d4a0ff!important;}
+</style>
+<div class="${p}-sc">
+  <div class="${p}-sc-photo">${photoHtml}</div>
+  <div class="${p}-sc-body">
+    <div class="${p}-sc-name-row"><div class="${p}-sc-name">${teacherName}</div>${awardBadge}</div>
+    ${originHtml}${tagsHtml}<div class="${p}-sc-bio">${shortBio}</div>
+    ${detailsHtml}${socialHtml}
+  </div>
+</div>`;
 }
 
 // Practical + Also block (structural template)
@@ -1701,18 +2057,54 @@ function wsPracticalHtml(style, prefix, wsData) {
     <a class="also-link" href="/style-page-slug" aria-label="Style Name"></a>
   </div>`;
 
-  const partnerNote = ws.partnerNote || null;
+  // Partner info strip — structured fields
+  const hasPartnerInfo = ws.partnerRequired || ws.practiceEvening || ws.levelGuide;
+  const partnerForumUrl = ws.partnerForumUrl || 'https://www.facebook.com/groups/1405926722822445';
+  const partnerStripHtml = hasPartnerInfo ? (() => {
+    const rows = [];
+    if (ws.partnerRequired) {
+      rows.push(`<div class="${p}-pi-row">
+      <span class="${p}-pi-icon">👫</span>
+      <span class="${p}-pi-text"><strong>Partner registration required</strong> — please register together with your dance partner. Looking for a partner? <a href="${partnerForumUrl}">Join the Shoonya Dance Forum →</a></span>
+    </div>`);
+    }
+    if (ws.practiceEvening) {
+      const pe = ws.practiceEvening;
+      const peText = pe.url
+        ? `<a href="${pe.url}">${pe.text}</a>`
+        : pe.text;
+      rows.push(`<div class="${p}-pi-row">
+      <span class="${p}-pi-icon">🎵</span>
+      <span class="${p}-pi-text"><strong>Practice evening</strong> — Salsa & Bachata social: ${peText}</span>
+    </div>`);
+    }
+    if (ws.levelGuide) {
+      rows.push(`<div class="${p}-pi-row">
+      <span class="${p}-pi-icon">💬</span>
+      <span class="${p}-pi-text"><strong>Which level?</strong> — ${ws.levelGuide}</span>
+    </div>`);
+    }
+    return `<div class="${p}-partner-info">${rows.join('\n')}</div>`;
+  })() : '';
 
   return `<link href="${WS_GOOGLE_FONTS}" rel="stylesheet">
 <style>
 .${p}-prac{width:100%;font-family:'PT Serif',Georgia,serif;}
-.${p}-prac .sec-label{font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#1a1a1a;margin:0 0 .5rem;}
+.${p}-prac .sec-label{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#1a1a1a;margin:0 0 .5rem;}
 .${p}-prac h2.section-h{font-family:'Marcellus',serif;font-weight:400;font-size:1.6rem;color:#1a1a1a;margin:0 0 1.25rem;}
-.${p}-prac .prac-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem 2rem;margin-bottom:${partnerNote ? '1.25rem' : '2rem'};}
+.${p}-prac .prac-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem 2rem;margin-bottom:${hasPartnerInfo ? '1.25rem' : '2rem'};}
 @media(max-width:700px){.${p}-prac .prac-grid{grid-template-columns:1fr;}}
 .${p}-prac .prac-item h4{font-family:'Marcellus',serif;font-weight:400;font-size:1rem;color:#1a1a1a;margin:0 0 .4rem;}
 .${p}-prac .prac-item p{font-size:.88rem;color:#444;margin:0;line-height:1.55;}
-.${p}-prac .partner-note{font-size:.85rem;color:#444;line-height:1.55;background:#F5ECFF;border-left:3px solid #B564F7;padding:.65rem .9rem;border-radius:0 6px 6px 0;margin-bottom:2rem;}
+.${p}-prac .${p}-partner-info{border:1.5px solid #e8dcf8;border-radius:8px;padding:.65rem .9rem;margin-bottom:2rem;display:flex;flex-direction:column;gap:0;}
+.${p}-prac .${p}-pi-row{display:flex;gap:.65rem;align-items:flex-start;padding:.55rem 0;border-bottom:1px solid #f0e8fb;}
+.${p}-prac .${p}-pi-row:last-child{border-bottom:none;padding-bottom:0;}
+.${p}-prac .${p}-pi-row:first-child{padding-top:0;}
+.${p}-prac .${p}-pi-icon{font-size:.9rem;margin-top:.1rem;flex-shrink:0;}
+.${p}-prac .${p}-pi-text{font-size:.83rem;color:#444;line-height:1.55;}
+.${p}-prac .${p}-pi-text strong{color:#1a1a1a;font-weight:700;}
+.${p}-prac .${p}-pi-text a{color:#B564F7;text-decoration:none;}
+.${p}-prac .${p}-pi-text a:hover{text-decoration:underline;}
 .${p}-prac .also-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:.75rem;}
 @media(max-width:700px){.${p}-prac .also-grid{grid-template-columns:1fr;}}
 .${p}-prac .also-card{position:relative;background:#B564F7;color:#fff;border-radius:10px;padding:1.5rem 1.4rem;transition:opacity .15s;}
@@ -1733,8 +2125,7 @@ function wsPracticalHtml(style, prefix, wsData) {
       <h4>What to bring</h4>
       <p>${bringText}</p>
     </div>
-  </div>${partnerNote ? `
-  <div class="partner-note">${partnerNote}</div>` : ''}
+  </div>${hasPartnerInfo ? `\n  ${partnerStripHtml}` : ''}
 
   <p class="sec-label">Also at Shoonya</p>
   <h2 class="section-h">You might also like</h2>
@@ -1766,7 +2157,7 @@ function wsPerLevelCard(lv, idx, meta, prefix, isStarterSeries, levelDesc) {
     } else {
       priceLabel = `<div class="${p}-price-row">
           <div class="${p}-price-col"><div class="${p}-price-amount">€${fp}</div><div class="${p}-price-label">Full</div></div>
-          <div class="${p}-price-col"><div class="${p}-price-amount">€${sp || '—'}</div><div class="${p}-price-label">Student / 2+ lessons −12%</div></div>
+          <div class="${p}-price-col"><div class="${p}-price-amount">€${sp || '—'}</div><div class="${p}-price-label">Student −12%</div></div>
           <div class="${p}-price-col"><div class="${p}-price-amount">€${up}</div><div class="${p}-price-label">UiTPAS −80%</div></div>
         </div>`;
     }
@@ -1782,7 +2173,7 @@ function wsPerLevelCard(lv, idx, meta, prefix, isStarterSeries, levelDesc) {
 
   const datesHtml = (slot.dates && slot.dates.length)
     ? `<details class="${p}-date-list"><summary>${sc} sessions · Sep–Jan · see all dates</summary>
-          <div class="${p}-date-grid">${slot.dates.sort().map((d, i) => {
+          <div class="${p}-date-grid">${[...slot.dates].sort().map((d, i) => {
             const dt = new Date(d + 'T12:00:00');
             const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
             const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -1861,7 +2252,7 @@ function wsDayCard(dayName, dayLevels, meta, prefix) {
 
   const datesHtml = (firstSlot.dates && firstSlot.dates.length)
     ? `<details class="${p}-date-list"><summary>${dayLevels[0].lv.sessionCount || 14} sessions · Sep–Jan · see all dates</summary>
-          <div class="${p}-date-grid">${firstSlot.dates.sort().map(d => {
+          <div class="${p}-date-grid">${[...firstSlot.dates].sort().map(d => {
             const dt = new Date(d + 'T12:00:00');
             const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
             const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -1891,7 +2282,7 @@ function wsDayCard(dayName, dayLevels, meta, prefix) {
 }
 
 // ─── Full Levels & Registration code block ─────────────────────────────────
-function wsLevelsHtml(style, descsByLevel) {
+function wsLevelsHtml(style, descsByLevel, wsData) {
   const meta   = style.meta   || {};
   const levels = Array.isArray(style.levels) ? style.levels : [];
   const _descs = descsByLevel || meta.descriptions_by_level || {};
@@ -1912,9 +2303,13 @@ function wsLevelsHtml(style, descsByLevel) {
   };
   const semesterTagDays = allDays.map(d => wsShortDay(d) + ' ' + (_slotsByDay[d] ? _timeLabel(_slotsByDay[d]) : 'evenings')).join(' + ');
 
-  const isSingleCard = levels.length === 1;
+  // Count how many cards will actually render — per-level: one per level; day-based: one per unique day
+  const renderedCardCount = layout === 'day'
+    ? dayOrder.filter(d => allDays.includes(d)).length
+    : levels.length;
+  const isSingleCard = renderedCardCount === 1;
   const gridCols = isSingleCard ? '1fr' : '1fr 1fr';
-  const gridExtra = isSingleCard ? `max-width:520px;margin:0;` : '';
+  const gridExtra = isSingleCard ? 'max-width:640px;margin:0 auto;' : '';
 
   // Generate cards
   let cardsHtml = '';
@@ -1942,16 +2337,17 @@ function wsLevelsHtml(style, descsByLevel) {
   const fullCss = `<link href="${WS_GOOGLE_FONTS}" rel="stylesheet">
 <style>
 .${p}-reg{width:100%;font-family:'PT Serif',Georgia,serif;}
-.${p}-reg .section-label{font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#1a1a1a;font-family:'PT Serif',serif;margin:0 0 .5rem;}
+.${p}-reg .section-label{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#1a1a1a;font-family:'Marcellus',serif;margin:0 0 .5rem;}
 .${p}-reg h2.section-h{font-family:'Marcellus',serif;font-weight:400;font-size:1.6rem;color:#1a1a1a;margin:0 0 .5rem;}
 .${p}-reg .stat-row{display:flex;flex-wrap:wrap;gap:.75rem 2rem;margin:.65rem 0 1.5rem;align-items:flex-start;}
 .${p}-reg .stat-item{display:flex;flex-direction:column;gap:.15rem;}
-.${p}-reg .stat-val{font-size:.95rem;font-weight:400;color:#1a1a1a;font-family:'Marcellus',serif;}
-.${p}-reg .stat-key{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#888;}
+.${p}-reg .stat-val{font-size:.85rem;font-weight:400;color:#1a1a1a;font-family:'Marcellus',serif;}
+.${p}-reg .stat-key{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#6b6b6b;}
 .${p}-reg .stat-div{width:1px;background:rgba(0,0,0,.12);align-self:stretch;margin:.1rem 0;}
 @media(max-width:500px){.${p}-reg .stat-div{display:none;}}
 .${p}-reg .level-cards{display:grid;grid-template-columns:${gridCols};gap:1rem;width:100%;${gridExtra}}
 @media(max-width:700px){.${p}-reg .level-cards{grid-template-columns:1fr;}}
+@media(max-width:480px){.${p}-reg .${p}-level-meta{grid-template-columns:1fr;}}
 .${p}-reg .${p}-level-card{background:#fff;border:1.5px solid #e4e0db;border-radius:10px;padding:1.35rem 1.4rem;display:flex;flex-direction:column;gap:.85rem;}
 .${p}-reg .${p}-starter{background:#F5ECFF;border-color:#B564F7;}
 .${p}-reg .${p}-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:.75rem;}
@@ -1960,26 +2356,28 @@ function wsLevelsHtml(style, descsByLevel) {
 .${p}-reg .${p}-level-badge{font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:#F5ECFF;color:#B564F7;border-radius:99px;padding:.25rem .75rem;white-space:nowrap;flex-shrink:0;}
 .${p}-reg .${p}-badge-l2{background:#1a1a1a;color:#fff;}
 .${p}-reg .${p}-level-prereq{font-size:.78rem;color:#555;line-height:1.55;font-style:italic;background:#FAF8F4;border-left:3px solid #B564F7;padding:.55rem .8rem;border-radius:0 4px 4px 0;}
+.${p}-reg .${p}-level-desc{font-size:.82rem;color:#555;line-height:1.55;margin-bottom:.25rem;}
 .${p}-reg .${p}-level-meta{display:grid;grid-template-columns:1fr 1fr;gap:.5rem .75rem;}
 .${p}-reg .${p}-meta-item{font-size:.8rem;color:#6b6b6b;display:flex;flex-direction:column;gap:.1rem;}
-.${p}-reg .${p}-meta-item strong{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#1a1a1a;}
+.${p}-reg .${p}-meta-item strong{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#1a1a1a;}
 .${p}-reg .${p}-meta-item a{color:#1a1a1a;text-decoration:underline;}
 .${p}-reg .${p}-date-list{border:1px solid #e4e0db;border-radius:6px;overflow:hidden;}
-.${p}-reg .${p}-date-list summary{padding:.55rem .85rem;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#B564F7;cursor:pointer;}
+.${p}-reg .${p}-date-list summary{padding:.55rem .85rem;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#B564F7;cursor:pointer;min-height:44px;display:flex;align-items:center;}
 .${p}-reg .${p}-date-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.3rem;padding:.65rem .85rem;background:#faf8f4;}
 .${p}-reg .${p}-date-grid span{font-size:.72rem;color:#444;}
 .${p}-reg .${p}-date-grid .date-skip{grid-column:1/-1;text-align:center;font-size:.7rem;color:#B564F7;font-style:italic;padding:.25rem 0;border-top:1px dashed #e4e0db;}
 .${p}-reg .${p}-price-row{display:flex;border:1.5px solid #e4e0db;border-radius:8px;overflow:hidden;}
 .${p}-reg .${p}-price-col{flex:1;padding:.65rem .75rem;text-align:center;border-right:1px solid #e4e0db;}
 .${p}-reg .${p}-price-col:last-child{border-right:none;}
+@media(max-width:480px){.${p}-reg .${p}-price-row{flex-direction:column;}.${p}-reg .${p}-price-col{border-right:none;border-bottom:1px solid #e4e0db;}.${p}-reg .${p}-price-col:last-child{border-bottom:none;}}
 .${p}-reg .${p}-price-amount{font-family:'Marcellus',serif;font-size:1.1rem;color:#1a1a1a;}
-.${p}-reg .${p}-price-label{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#767676;margin-top:.15rem;}
+.${p}-reg .${p}-price-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#5a5a5a;margin-top:.15rem;}
 .${p}-reg .${p}-day-levels{display:flex;flex-direction:column;gap:.65rem;}
 .${p}-reg .${p}-day-level{background:#faf8f4;border-radius:6px;padding:.6rem .8rem;}
 .${p}-reg .${p}-day-level-row{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;}
 .${p}-reg .${p}-day-level-name{font-size:.85rem;font-weight:700;color:#1a1a1a;flex:1;}
 .${p}-reg .${p}-day-level-time{font-size:.78rem;color:#6b6b6b;}
-.${p}-reg .${p}-day-level-badge{font-size:.62rem;font-weight:700;text-transform:uppercase;background:#F5ECFF;color:#B564F7;border-radius:99px;padding:.15rem .55rem;}
+.${p}-reg .${p}-day-level-badge{font-size:.72rem;font-weight:700;text-transform:uppercase;background:#F5ECFF;color:#B564F7;border-radius:99px;padding:.15rem .55rem;}
 .${p}-reg .${p}-day-pricing{font-size:.75rem;color:#6b6b6b;margin-top:.3rem;}
 .${p}-reg a.register-link,
 .${p}-reg a.register-link:link,
@@ -1988,8 +2386,13 @@ function wsLevelsHtml(style, descsByLevel) {
 .${p}-reg a.register-link:focus,
 .${p}-reg a.register-link:active{display:block!important;width:100%!important;box-sizing:border-box!important;padding:.75rem 1rem!important;background:#000!important;background-color:#000!important;background-image:none!important;color:#ffffff!important;text-align:center!important;text-decoration:none!important;font-size:.82rem!important;font-weight:700!important;letter-spacing:.08em!important;text-transform:uppercase!important;border-radius:8px!important;border:0!important;box-shadow:none!important;transition:background .15s!important;}
 .${p}-reg a.register-link:hover{background:#B564F7!important;background-color:#B564F7!important;}
-.${p}-reg .spring-note{text-align:center;font-size:.8rem;color:#6b6b6b;margin-top:1.25rem;}
-.${p}-reg .spring-note a{color:#B564F7;}
+.${p}-reg .spring-note{display:flex;align-items:center;gap:.5rem;font-size:.8rem;color:#5a3a7a;background:#f5ecff;border:1px solid #e0ccf8;border-radius:6px;padding:.55rem .9rem;margin-top:1.25rem;}
+.${p}-reg .spring-note a{color:#B564F7;text-decoration:none;font-weight:700;}
+.${p}-reg .spring-note a:hover{text-decoration:underline;}
+.${p}-reg .${p}-partner-callout{display:flex;gap:.6rem;align-items:flex-start;background:#F5ECFF;border:1.5px solid #dbc5f8;border-radius:8px;padding:.7rem 1rem;margin-bottom:1.25rem;font-size:.83rem;color:#3a1a5c;line-height:1.55;}
+.${p}-reg .${p}-partner-callout strong{font-weight:700;}
+.${p}-reg .${p}-partner-callout a{color:#B564F7;text-decoration:none;}
+.${p}-reg .${p}-partner-callout a:hover{text-decoration:underline;}
 </style>
 <div class="${p}-reg">
   <h2 class="section-h">Levels &amp; registration</h2>
@@ -2002,9 +2405,13 @@ function wsLevelsHtml(style, descsByLevel) {
     <div class="stat-div"></div>
     <div class="stat-item"><span class="stat-val">${levels.length} ${levels.length === 1 ? 'level' : 'levels'}</span><span class="stat-key">Levels</span></div>
   </div>
+  ${wsData && wsData.partnerRequired ? `<div class="${p}-partner-callout"${isSingleCard ? ' style="max-width:640px;margin:0 auto;"' : ''}>
+    <span>👫</span>
+    <span><strong>Partner required</strong> — please register together with your dance partner.${wsData.partnerForumUrl ? ` Looking for one? <a href="${wsData.partnerForumUrl}">Join the Shoonya Dance Forum →</a>` : ''}</span>
+  </div>` : ''}
   <div class="level-cards">
 ${cardsHtml}  </div>
-  <p class="spring-note">Spring 2026 classes run until 9 June — <a href="${WS_SPRING_SCHEDULE_URL}">view the schedule →</a></p>
+  ${WS_SPRING_NOTE ? `<p class="spring-note"><span>🌸</span><span>${WS_SPRING_NOTE} — <a href="${WS_SPRING_SCHEDULE_URL}">view the spring schedule →</a></span></p>` : ''}
 </div>`;
 
   return fullCss;
@@ -2051,8 +2458,11 @@ function renderWebsiteSection(style) {
   const hookLine = wsData.hook || '[One-sentence hook — what makes this style worth trying?]';
   const heroNative = `${style.name}\n\n${factsLine}\n\n${hookLine}\n\n[Button] REGISTER FOR SEP 2026 ↓ → #register`;
 
-  // About native copy — teacher submission wins; WS_STYLE_DATA is fallback only
-  const descriptionText = meta.description || wsData.description || '[No description submitted yet.]';
+  // About native copy.
+  // Priority: teacher profile (never truncated) > WS_STYLE_DATA > flat-sheet (may be 500-char clipped).
+  // If the flat-sheet description is flagged as truncated, skip it and prefer wsData.description.
+  const _sheetDesc = (!meta.descriptionTruncated && meta.description) ? meta.description : null;
+  const descriptionText = _sheetDesc || wsData.description || meta.description || '[No description submitted yet.]';
   const aboutNative = `What is ${style.name}?\n\n${descriptionText}`;
 
   // Teacher native copy — use WS_STYLE_DATA bio (already sourced from teacher-bios-full.md)
@@ -2062,11 +2472,9 @@ function renderWebsiteSection(style) {
   // Social links — generate real HTML from WS_STYLE_DATA
   const socialLinksHtml = wsSocialLinksHtml(wsData.social || []);
 
-  // Section label blocks
-  const aboutLabelHtml   = wsSectionLabelHtml('About');
-  const teacherLabelHtml = wsSectionLabelHtml('Teacher');
+  // Section label blocks — About/Teacher/Coming Up labels removed (blocks self-label)
   const trialPillHtml    = wsTrialPillHtml();
-  const levelsHtml       = wsLevelsHtml(style, wsData.descriptionsByLevel || {});
+  const levelsHtml       = wsLevelsHtml(style, wsData.descriptionsByLevel || {}, wsData);
   const practicalHtml    = wsPracticalHtml(style, prefix, wsData);
 
   const descRows = Math.min(12, Math.ceil(descriptionText.length / 80) + 2);
@@ -2097,17 +2505,10 @@ function renderWebsiteSection(style) {
     <!-- ── ABOUT ── -->
     <div class="ws-block">
       <div class="ws-block-head">
-        <div class="ws-block-title">About — section label <span class="ws-badge code">Code block</span></div>
-        ${copyBtn('ws-about-label', 'Copy HTML')}
-      </div>
-      <div id="ws-about-label" class="ws-code-area">${escHtml(aboutLabelHtml)}</div>
-    </div>
-    <div class="ws-block">
-      <div class="ws-block-head">
         <div class="ws-block-title">About — "What is [Style]?" heading + description <span class="ws-badge native">Native copy</span></div>
         ${copyBtn('ws-about-native', 'Copy text')}
       </div>
-      ${!meta.description && wsData.description ? '<div class="ws-note-box" style="margin-bottom:.4rem;">ℹ Teacher has not submitted a description — using pre-filled text. Update if teacher submits their own.</div>' : ''}
+      ${(!meta.description || meta.descriptionTruncated) && wsData.description ? `<div class="ws-note-box" style="margin-bottom:.4rem;">ℹ ${meta.descriptionTruncated ? 'Sheet description is truncated (old submission) — using pre-filled text.' : 'Teacher has not submitted a description — using pre-filled text.'} Update once teacher re-submits via the form.</div>` : ''}
       <textarea id="ws-about-native" class="ws-text-area" rows="${descRows}" spellcheck="false">${escHtml(aboutNative)}</textarea>
     </div>
     <div class="ws-block">
@@ -2121,27 +2522,25 @@ function renderWebsiteSection(style) {
     <hr class="ws-divider">
 
     <!-- ── TEACHER ── -->
+    ${wsData.teachers && wsData.teachers.length ? `
     <div class="ws-block">
       <div class="ws-block-head">
-        <div class="ws-block-title">Teacher — section label <span class="ws-badge code">Code block</span></div>
-        ${copyBtn('ws-teacher-label', 'Copy HTML')}
+        <div class="ws-block-title">Teacher — avatar strip &amp; bios <span class="ws-badge code">Code block</span></div>
+        ${copyBtn('ws-teacher-block', 'Copy HTML')}
       </div>
-      <div id="ws-teacher-label" class="ws-code-area">${escHtml(teacherLabelHtml)}</div>
+      <div id="ws-teacher-block" class="ws-code-area" style="max-height:300px;">${escHtml(wsTeacherBlockHtml(wsData, prefix))}</div>
+      <div class="ws-note-box" style="margin-top:.5rem;">Click avatar → bio expands. Yellow panel, credential tags, stats row, pill social links. Optional per-teacher fields: <code>origin</code>, <code>tags [{text,type}]</code>, <code>stats [{v,l}]</code>. Set <code>pageSlug</code> once teacher profile pages are live.</div>
     </div>
+    ` : `
     <div class="ws-block">
       <div class="ws-block-head">
-        <div class="ws-block-title">Teacher — bio <span class="ws-badge native">Native copy</span></div>
-        ${copyBtn('ws-teacher-bio', 'Copy text')}
+        <div class="ws-block-title">Teacher — bio card <span class="ws-badge code">Code block</span></div>
+        ${copyBtn('ws-teacher-block', 'Copy HTML')}
       </div>
-      <textarea id="ws-teacher-bio" class="ws-text-area" rows="6" spellcheck="false">${escHtml(teacherNative)}</textarea>
+      <div id="ws-teacher-block" class="ws-code-area" style="max-height:260px;">${escHtml(wsSoloTeacherCardHtml(wsData, displayTeacher || teacherName || style.name, prefix))}</div>
+      <div class="ws-note-box" style="margin-top:.5rem;">Yellow panel, credential tags, stats row, pill social links. Optional fields: <code>teacherOrigin</code>, <code>teacherTags [{text,type}]</code>, <code>teacherStats [{v,l}]</code>, <code>photo</code>, <code>teacherBioFull</code>.</div>
     </div>
-    <div class="ws-block">
-      <div class="ws-block-head">
-        <div class="ws-block-title">Teacher — social links <span class="ws-badge code">Code block</span></div>
-        ${copyBtn('ws-social-links', 'Copy HTML')}
-      </div>
-      <div id="ws-social-links" class="ws-code-area">${escHtml(socialLinksHtml)}</div>
-    </div>
+    `}
 
     <hr class="ws-divider">
 
@@ -2155,6 +2554,7 @@ function renderWebsiteSection(style) {
       <div id="ws-levels-html" class="ws-code-area" style="max-height:360px;">${escHtml(levelsHtml)}</div>
       <div class="ws-note-box" style="margin-top:.5rem;">
         Set Section ID = <code>register</code> in Squarespace (Edit Section → Section ID) so the hero CTA button's <code>#register</code> link works.
+        Each code block includes a Google Fonts <code>&lt;link&gt;</code> — keep only <strong>one</strong> per page (e.g. in the Teacher block); remove duplicates from Levels and Practical blocks after pasting.
         ${!levels.length ? '<br><strong>⚠ No level data yet</strong> — teacher needs to submit a weekly class form first.' : ''}
         ${layout === 'day' ? '<br><strong>Day-based layout</strong> — ≥5 levels or back-to-back same day. Each card = one day of the week.' : ''}
       </div>
@@ -2165,11 +2565,9 @@ function renderWebsiteSection(style) {
     <!-- ── UPCOMING EVENTS ── -->
     <div class="ws-block">
       <div class="ws-block-head">
-        <div class="ws-block-title">Coming Up — section label <span class="ws-badge code">Code block</span></div>
-        ${copyBtn('ws-comingup-label', 'Copy HTML')}
+        <div class="ws-block-title">Coming Up — events block <span class="ws-badge native">Native block</span></div>
       </div>
-      <div id="ws-comingup-label" class="ws-code-area">${escHtml(wsSectionLabelHtml('Coming up', '#1a1a1a'))}</div>
-      <div class="ws-note-box" style="margin-top:.5rem;">After this code block, add a native <strong>Squarespace Events block</strong> filtered to this style's tag. The block auto-updates as you add events in Squarespace.</div>
+      <div class="ws-note-box">Add a native <strong>Squarespace Events block</strong> filtered to this style's tag. The block auto-updates as you add events in Squarespace. No code block needed — the section heading already labels it.</div>
     </div>
 
     <hr class="ws-divider">
