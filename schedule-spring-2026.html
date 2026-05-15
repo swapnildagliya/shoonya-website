@@ -927,11 +927,11 @@
       { day:'tue', time:'20:30–21:30', style:'Indian Dance Technique', level:'Open',      teacher:'Swapnil',                studio:'AKH', studioName:'Aakash',   duration:60, category:'classical-technique' },
       { day:'tue', time:'20:30–22:00', style:'Burlesque',              level:'L1+',       teacher:'Zoe, Tine & Hendrik',    studio:'AD',  studioName:'Art Deco', duration:90, category:'culture-wellness' },
       { day:'tue', time:'20:40–21:40', style:'Flamenco',               level:'L1',        teacher:'La Liz',                 studio:'AN1', studioName:'Ananta 1', duration:60, category:'classical-technique' },
-      { day:'tue', time:'21:00–22:00', style:'Bachata Choreo',         level:'Miniseries',teacher:'Alex & Badriyah',        studio:'AN2', studioName:'Ananta 2', duration:60, category:'partner-social' },
+      { day:'tue', time:'21:00–22:00', style:'Bachata Choreo',         level:'Miniseries',teacher:'Alex & Badriyah',        studio:'AN2', studioName:'Ananta 2', duration:60, category:'partner-social',   href:'https://www.shoonyadance.com/bachata-choreo-classes-in-ghent' },
 
       // ─── Wednesday
-      { day:'wed', time:'18:30–19:30', style:'Garba & Kalbeliya',      level:'Open',      teacher:'Swapnil',                studio:'AKH', studioName:'Aakash',   duration:60, category:'culture-wellness' },
-      { day:'wed', time:'18:30–19:30', style:'Jazzy Workout',          level:'Open',      teacher:'Upside Down',            studio:'AD',  studioName:'Art Deco', duration:60, category:'culture-wellness' },
+      { day:'wed', time:'18:30–19:30', style:'Garba & Kalbeliya',      level:'Open',      teacher:'Swapnil',                studio:'AKH', studioName:'Aakash',   duration:60, category:'culture-wellness', href:'https://www.shoonyadance.com/garba-kalbeliya-danslessen-in-gent' },
+      { day:'wed', time:'18:30–19:30', style:'Jazzy Workout',          level:'Open',      teacher:'Upside Down',            studio:'AD',  studioName:'Art Deco', duration:60, category:'culture-wellness', href:'https://www.shoonyadance.com/jazzy-workout-danslessen-in-gent' },
       { day:'wed', time:'18:30–19:40', style:'Tap Dance',              level:'L2',        teacher:'Teddy',                  studio:'AN2', studioName:'Ananta 2', duration:70, category:'classical-technique' },
       { day:'wed', time:'19:00–20:00', style:'Kizomba',                level:'L2',        teacher:'Sonja KikiZomba',        studio:'AN1', studioName:'Ananta 1', duration:60, category:'partner-social' },
       { day:'wed', time:'19:30–20:30', style:'Bhangra',                level:'L2/3',      teacher:'Swapnil',                studio:'AKH', studioName:'Aakash',   duration:60, category:'culture-wellness' },
@@ -1233,7 +1233,7 @@
             win.slots.filter(s => s.studio === st.code).forEach(s => {
               const slotEl = document.createElement('a');
               slotEl.className = 'slot ' + studioClass(s.studio);
-              slotEl.href = styleHref(s.style);
+              slotEl.href = s.href || styleHref(s.style);
               slotEl.style.top    = ((s.startMin - startHour * 60) * PX_PER_MIN) + 'px';
               slotEl.style.height = ((s.endMin - s.startMin) * PX_PER_MIN - 2) + 'px';
               slotEl.setAttribute('aria-label',
