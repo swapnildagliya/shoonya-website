@@ -301,6 +301,19 @@
   .ws-layout-badge.per-level { background: #e8f5e9; color: #2e7d32; }
   .ws-layout-badge.day-based { background: #e3f2fd; color: #1565c0; }
 
+  /* ── SEO block ── */
+  .ws-seo-wrap { border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+  .ws-seo-row  { display: flex; align-items: center; gap: .5rem; margin-bottom: .25rem; }
+  .ws-seo-label{ font-size: .68rem; font-weight: 700; letter-spacing: .1em;
+                 text-transform: uppercase; color: var(--muted); flex: 1; }
+  .ws-seo-count{ font-size: .7rem; font-weight: 600; color: var(--teal); }
+  .ws-seo-count.over { color: var(--danger); }
+  .ws-seo-field{ padding: .75rem .85rem; }
+  .ws-seo-field + .ws-seo-field { border-top: 1px solid var(--border); }
+  .ws-seo-value{ font-size: .82rem; line-height: 1.5; color: var(--ink);
+                 background: var(--bg); border-radius: 4px;
+                 padding: .4rem .6rem; margin-top: .2rem; word-break: break-word; }
+
   /* ── Scrollbar ── */
   ::-webkit-scrollbar { width: 7px; height: 7px; }
   ::-webkit-scrollbar-track { background: transparent; }
@@ -1820,6 +1833,38 @@ const WS_STYLE_DATA = {
   }
 };
 
+// ─── SEO data — page title + meta description per style ──────────────────────
+// Target: title ≤60 chars, description ≤160 chars.
+// Keywords: Ghent/Gent, Belgium, dance style name, teacher credential, CTA.
+const WS_SEO = {
+  'Argentine Tango':       { title: 'Argentine Tango Classes in Ghent | Shoonya Dance Centre',          description: 'Argentine Tango in Ghent with Gisela & Sergio, co-founders of Estación Tango Brussels. All levels — from first embrace to social milonga. Register for September 2026.' },
+  'Flamenco':              { title: 'Flamenco Classes in Ghent | Shoonya Dance Centre',                 description: 'Authentic flamenco in Ghent with La Liz — trained in Seville and Jerez, 25+ years experience. Braceos, zapateado, choreography. All levels, September 2026.' },
+  'Flamenco & Sevillanas': { title: 'Flamenco and Sevillanas in Ghent | Shoonya Dance Centre',         description: 'Flamenco and Sevillanas classes in Ghent with La Liz. Monthly Sevillanas practice evenings included. Trained in Seville and Jerez. All levels welcome.' },
+  'Ballet':                { title: 'Adult Ballet Classes in Ghent | Shoonya Dance Centre',             description: 'Ballet for adults in Ghent with Shirley De Muer — graduate of the Royal Ballet School of Antwerp. Technique, posture, and musicality for all levels.' },
+  'Kizomba':               { title: 'Kizomba Classes in Ghent | Shoonya Dance Centre',                 description: 'Kizomba in Ghent with Sonja KikiZomba — Belgium\'s pioneer of Kizomba teaching since 2006. Levels 2, 3 and 4. Authentic Angolan partner dance, Ghent.' },
+  'Bachata':               { title: 'Bachata Classes in Ghent | Shoonya Dance Centre',                 description: 'Bachata classes in Ghent with World Champion Alex and Lenka Badriyah. Dominican partner dance — rhythm, connection, and confidence. All levels, Gent.' },
+  'Cuban Salsa':           { title: 'Cuban Salsa Classes in Ghent | Shoonya Dance Centre',             description: 'Cuban Salsa (Casino) in Ghent with 3× World Champion Alex and Ioanna. Circular partner dance rooted in son cubano. All levels from beginner to advanced.' },
+  'Rueda de Casino':       { title: 'Rueda de Casino Classes in Ghent | Shoonya Dance Centre',         description: 'Rueda de Casino in Ghent — Cuban Salsa in a circle with partner changes. With World Champion Alex and Ioanna. Pre-req: 2 seasons of Cuban Salsa.' },
+  'Lindy Hop':             { title: 'Lindy Hop Classes in Ghent | Shoonya Dance Centre',               description: 'Lindy Hop swing dance classes in Ghent with Upside Down — Ghent\'s own swing & jazz organisation. All levels, everybody leads and follows. September 2026.' },
+  'Solo Jazz':             { title: 'Solo Jazz Dance Classes in Ghent | Shoonya Dance Centre',         description: 'Solo Jazz in Ghent — Harlem steps, swing vocabulary and improvisation with the Upside Down team. Open level, no experience needed. September 2026, Gent.' },
+  'Jazzy Workout':         { title: 'Jazzy Workout Classes in Ghent | Shoonya Dance Centre',           description: 'Jazzy Workout in Ghent — jazz dance and swing movement in a feel-good fitness class. Taught by the Upside Down team. No partner needed, all levels welcome.' },
+  'Tap Dance':             { title: 'Tap Dance Classes in Ghent | Shoonya Dance Centre',               description: 'Tap dance classes in Ghent with Tapdance Promotion — Lut Vermeulen and team. Levels 1–4, home of the annual Ghent Tap Festival. Register September 2026.' },
+  'Raqs Sharqi':           { title: 'Belly Dance Classes in Ghent | Shoonya Dance Centre',             description: 'Raqs Sharqi (belly dance) in Ghent with Lenka Badriyah — Silver Belly Dancer of the Universe 2012. Egyptian classical bellydance, all levels. September 2026.' },
+  'African Congolese Dance':{ title: 'African Dance Classes in Ghent | Shoonya Dance Centre',          description: 'Congolese traditional dance and Congolese Rumba in Ghent with Joseph Simako Said — choreographer from DR Congo. Body rhythm, energy, and community spirit.' },
+  'Burlesque':             { title: 'Burlesque Classes in Ghent | Shoonya Dance Centre',               description: 'Burlesque performance classes in Ghent for adults 18+. Stage presence, storytelling and confidence with Zoe Bizoe, Hendrik Lebon and Tine De Pauw.' },
+  'Cissy Ball':            { title: 'Cissy Ball Classes in Ghent | Shoonya Dance Centre',              description: 'Cissy Ball in Ghent — dance from your inner joy with Hendrik Lebon. No steps to memorise, no counts. Performance skills and pure expression for all levels.' },
+  'Bollyfolk':             { title: 'Bollyfolk Dance Classes in Ghent | Shoonya Dance Centre',         description: 'Bollyfolk in Ghent — Bollywood and Indian folk dance in one feel-good class with Swapnil Dagliya. Open level, no experience needed. September 2026.' },
+  'Bollywood':             { title: 'Bollywood Dance Classes in Ghent | Shoonya Dance Centre',         description: 'Bollywood dance classes in Ghent with Swapnil Dagliya. Indian cinema dance — energetic, expressive, and always moving. Levels 2 and 3, September 2026.' },
+  'Bhangra':               { title: 'Bhangra Dance Classes in Ghent | Shoonya Dance Centre',           description: 'Bhangra in Ghent with certified Learn Bhangra® instructor Swapnil Dagliya. The most exuberant folk dance of Punjab — big arms, big energy. Level 2.' },
+  'Indian Semi-Classical': { title: 'Indian Classical Dance Classes in Ghent | Shoonya',              description: 'Indian Semi-Classical dance in Ghent — Kathak footwork, expressive gestures, and storytelling through movement. Taught by Swapnil Dagliya. Level 2.' },
+  'Yoga':                  { title: 'Yoga Classes in Ghent | Shoonya Dance Centre',                   description: 'Yoga classes in Ghent for dancers and non-dancers. Iyengar-lineage practice taught by Swapnil Dagliya, certified yoga teacher since 2011, Pune.' },
+  'Indian Dance Technique':{ title: 'Indian Dance Technique in Ghent | Shoonya Dance Centre',         description: 'Indian Dance Technique in Ghent — foundation of Indian classical and folk dance. Vocabulary, posture, and coordination. Open level, Shoonya Dance Centre.' },
+  'Pilates for Dancers':   { title: 'Pilates for Dancers in Ghent | Shoonya Dance Centre',            description: 'Pilates for Dancers in Ghent with Lenka Badriyah. Core stability, joint mobility, and deep strength for movers of all backgrounds. Shoonya Dance Centre.' },
+  'Dance & Fit':           { title: 'Dance & Fit Classes in Ghent | Shoonya Dance Centre',            description: 'Dance & Fit in Ghent with Lenka Badriyah — energetic dance fitness for all levels. Morning classes that set you up for the day. No experience needed.' },
+  'Bachata Lady Style':    { title: 'Bachata Lady Styling in Ghent | Shoonya Dance Centre',           description: 'Bachata Lady Styling in Ghent with Ioanna — 10-session mini-series, October to December. Body movement, arm styling, and footwork. No partner needed.' },
+  'Oriental Flow':         { title: 'Oriental Flow Classes in Ghent | Shoonya Dance Centre',          description: 'Oriental Flow in Ghent — traditional Middle Eastern dance meets contemporary movement. Taught by Nathalie El Ghoul, dance artist with 30+ years experience.' },
+};
+
 // ─── Canonical price tiers (standard 16 sessions) ────────────────────────────
 // Source of truth: 6-tier pricing confirmed 2026-05-11
 const WS_PRICE_TIERS = {
@@ -2601,6 +2646,42 @@ ${cardsHtml}  </div>
 }
 
 // ─── Main render function ──────────────────────────────────────────────────
+function wsSeoHtml(styleName, wsData) {
+  const seo   = WS_SEO[styleName] || {};
+  const title = seo.title || `${styleName} Classes in Ghent | Shoonya Dance Centre`;
+  const desc  = seo.description || (wsData.hook
+    ? `${wsData.hook} Classes at Shoonya Dance Centre, Ghent, Belgium.`
+    : `${styleName} classes in Ghent, Belgium at Shoonya Dance Centre.`);
+  const tLen  = title.length;
+  const dLen  = desc.length;
+  return `
+    <div class="ws-block">
+      <div class="ws-block-head">
+        <div class="ws-block-title">SEO — Page title &amp; meta description</div>
+      </div>
+      <div class="ws-seo-wrap">
+        <div class="ws-seo-field">
+          <div class="ws-seo-row">
+            <span class="ws-seo-label">Page title</span>
+            <span class="ws-seo-count${tLen > 60 ? ' over' : ''}">${tLen}/60 chars</span>
+            <button class="copy-btn-sm" onclick='copyAnyText(this,${JSON.stringify(title)})'>⧉ Copy</button>
+          </div>
+          <div class="ws-seo-value">${escHtml(title)}</div>
+        </div>
+        <div class="ws-seo-field">
+          <div class="ws-seo-row">
+            <span class="ws-seo-label">Meta description</span>
+            <span class="ws-seo-count${dLen > 160 ? ' over' : ''}">${dLen}/160 chars</span>
+            <button class="copy-btn-sm" onclick='copyAnyText(this,${JSON.stringify(desc)})'>⧉ Copy</button>
+          </div>
+          <div class="ws-seo-value">${escHtml(desc)}</div>
+        </div>
+      </div>
+      <div class="ws-note-box" style="margin-top:.5rem;">Squarespace: Pages panel → hover the page → gear icon → <strong>SEO</strong> tab → paste title into "SEO Title" and description into "SEO Description". Don't exceed the char limits shown above.</div>
+    </div>
+  `;
+}
+
 function renderWebsiteSection(style) {
   const meta   = style.meta   || {};
   const levels = Array.isArray(style.levels) ? style.levels : [];
@@ -2765,6 +2846,11 @@ function renderWebsiteSection(style) {
       <div id="ws-practical-html" class="ws-code-area" style="max-height:360px;">${escHtml(practicalHtml)}</div>
       <div class="ws-note-box" style="margin-top:.5rem;">Edit the <strong>Also at Shoonya</strong> cards at the bottom — choose 3 related styles and fill in their slugs, day, and level. Use the barefoot note at the top of the block to confirm the attire rule for this style.</div>
     </div>
+
+    <hr class="ws-divider">
+
+    <!-- ── SEO ── -->
+    ${wsSeoHtml(style.name, wsData)}
   `;
 }
 
