@@ -2393,11 +2393,11 @@ function wsPerLevelCard(lv, idx, meta, prefix, isStarterSeries, levelDesc) {
 }
 
 // ─── Day-based card HTML (for 5+ levels or back-to-back same day) ──────────
-function wsDayCard(dayName, dayLevels, meta, prefix) {
+function wsDayCard(dayName, dayLevels, meta, prefix, descs) {
   const p = prefix;
 
   // Build level-by-level time rows
-  const levelRows = dayLevels.map(entry => {
+  const levelRows = dayLevels.map((entry, i) => {
     const lv = entry.lv;
     const slot = entry.slot;
     const sc = lv.sessionCount || WS_STD_SESSIONS;
@@ -2409,6 +2409,7 @@ function wsDayCard(dayName, dayLevels, meta, prefix) {
     const isL2plus = /level [2-9]|l[2-9]/i.test(lv.level || '');
     const _dNum = parseInt(((lv.level || '').match(/\d+/) || [])[0]);
     const _dLabel = isL2plus ? (_dNum >= 4 ? 'Advanced' : _dNum === 3 ? 'Intermediate' : 'Prior experience needed') : 'Beginners welcome';
+    const levelDesc = descs ? (descs[lv.level] || descs['Level ' + _dNum] || '') : '';
     return `<div class="${p}-day-level">
               <div class="${p}-day-level-row">
                 <span class="${p}-day-level-name">${lv.level || 'Level'}</span>
@@ -2416,6 +2417,7 @@ function wsDayCard(dayName, dayLevels, meta, prefix) {
                 <span class="${p}-day-level-badge ${isL2plus ? p + '-badge-l2' : ''}">${_dLabel}</span>
               </div>
               ${fp ? `<div class="${p}-day-pricing">€${fp}${sp ? ' · €' + sp + ' student' : ''} · €${up} UiTPAS</div>` : ''}
+              ${levelDesc ? `<details class="${p}-day-desc"${i === 0 ? ' open' : ''}><summary class="${p}-day-desc-sum">About this level</summary><p class="${p}-day-desc-text">${levelDesc}</p></details>` : ''}
             </div>`;
   }).join('');
 
@@ -2505,7 +2507,7 @@ function wsLevelsHtml(style, descsByLevel, wsData) {
       });
     });
     dayOrder.filter(d => byDay[d]).forEach(day => {
-      cardsHtml += wsDayCard(day, byDay[day], meta, p) + '\n';
+      cardsHtml += wsDayCard(day, byDay[day], meta, p, _descs) + '\n';
     });
   }
 
@@ -2554,6 +2556,10 @@ function wsLevelsHtml(style, descsByLevel, wsData) {
 .${p}-reg .${p}-day-level-time{font-size:.78rem;color:#6b6b6b;}
 .${p}-reg .${p}-day-level-badge{font-size:.72rem;font-weight:700;text-transform:uppercase;background:#F5ECFF;color:#B564F7;border-radius:99px;padding:.15rem .55rem;}
 .${p}-reg .${p}-day-pricing{font-size:.75rem;color:#6b6b6b;margin-top:.3rem;}
+.${p}-reg .${p}-day-desc{border-top:1px solid #e4e0db;margin-top:.5rem;padding-top:.4rem;}
+.${p}-reg .${p}-day-desc-sum{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#B564F7;cursor:pointer;list-style:none;padding:.1rem 0;}
+.${p}-reg .${p}-day-desc-sum::-webkit-details-marker{display:none;}
+.${p}-reg .${p}-day-desc-text{font-size:.8rem;color:#555;line-height:1.6;margin:.5rem 0 0;}
 .${p}-reg a.register-link,
 .${p}-reg a.register-link:link,
 .${p}-reg a.register-link:visited,
