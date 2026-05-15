@@ -1057,7 +1057,7 @@
       { day:'mon', time:'21:00–22:00', style:'Raqs Sharqi',      level:'L3',           teacher:'Lenka',                     studio:'AKH', studioName:'Aakash',      duration:60, category:'culture-wellness' },
 
       // ─── Tuesday
-      { day:'tue', time:'17:30–18:30', style:'Pilates for Dancers', level:'Open',     teacher:'Lenka Badriyah',            studio:'AKH', studioName:'Aakash',      duration:60, category:'culture-wellness', isNew:true, dropIn:true },
+      { day:'tue', time:'17:30–18:30', style:'Pilates for Dancers', level:'Open',     teacher:'Lenka Badriyah',            studio:'AKH', studioName:'Aakash',      duration:60, category:'culture-wellness', isNew:true, dropIn:true, href:'https://www.shoonyadance.com/pilates-voor-dansers-gent' },
       { day:'tue', time:'18:20–19:20', style:'Flamenco',         level:'L2',           teacher:'La Liz',                    studio:'AN1', studioName:'Ananta 1',    duration:60, category:'classical-technique' },
       { day:'tue', time:'18:30–19:30', style:'Bollyfolk',        level:'Open',         teacher:'Swapnil',                   studio:'AKH', studioName:'Aakash',      duration:60, category:'culture-wellness' },
       { day:'tue', time:'19:00–20:00', style:'Bachata',          level:'L1',           teacher:'Alex (Lenka)',              studio:'AD2', studioName:'Art Deco 2',  duration:60, category:'partner-social' },
@@ -1071,8 +1071,8 @@
       { day:'tue', time:'21:00–22:00', style:'Bachata',          level:'L3',           teacher:'Alex (Ioanna)',             studio:'AD2', studioName:'Art Deco 2',  duration:60, category:'partner-social' },
 
       // ─── Wednesday
-      { day:'wed', time:'10:00–11:00', style:'Dance & Fit',      level:'Open',         teacher:'Lenka Badriyah',            studio:'AKH', studioName:'Aakash',      duration:60, category:'culture-wellness', isNew:true, dropIn:true },
-      { day:'wed', time:'11:00–12:00', style:'Pilates for Dancers', level:'Open',     teacher:'Lenka',                     studio:'AKH', studioName:'Aakash',      duration:60, category:'culture-wellness', isNew:true, dropIn:true },
+      { day:'wed', time:'10:00–11:00', style:'Dance & Fit',      level:'Open',         teacher:'Lenka Badriyah',            studio:'AKH', studioName:'Aakash',      duration:60, category:'culture-wellness', isNew:true, dropIn:true, href:'https://www.shoonyadance.com/dance-fit-gent' },
+      { day:'wed', time:'11:00–12:00', style:'Pilates for Dancers', level:'Open',     teacher:'Lenka',                     studio:'AKH', studioName:'Aakash',      duration:60, category:'culture-wellness', isNew:true, dropIn:true, href:'https://www.shoonyadance.com/pilates-voor-dansers-gent' },
       { day:'wed', time:'18:30–19:30', style:'Bollyfolk',        level:'Open',         teacher:'Swapnil',                   studio:'AKH', studioName:'Aakash',      duration:60, category:'culture-wellness' },
       { day:'wed', time:'18:30–19:40', style:'Tap Dance',        level:'L2',           teacher:'Teddy',                     studio:'AN1', studioName:'Ananta 1',    duration:70, category:'classical-technique' },
       { day:'wed', time:'18:45–19:45', style:'Lindy Hop',        level:'L1 Foundation', teacher:'Ann-Sofie',                studio:'AD1', studioName:'Art Deco 1',  duration:60, category:'partner-social' },
@@ -1089,7 +1089,7 @@
       // ─── Thursday
       { day:'thu', time:'18:30–19:30', style:'Bollywood',        level:'L2',           teacher:'Swapnil',                   studio:'AKH', studioName:'Aakash',      duration:60, category:'culture-wellness' },
       { day:'thu', time:'18:30–19:40', style:'Tap Dance',        level:'L4',           teacher:'Alexandre',                 studio:'AN1', studioName:'Ananta 1',    duration:70, category:'classical-technique' },
-      { day:'thu', time:'19:00–20:00', style:'Bachata Lady Style', level:'L1',        teacher:'Ioanna',                    studio:'AN2', studioName:'Ananta 2',    duration:60, category:'partner-social' },
+      { day:'thu', time:'19:00–20:00', style:'Bachata Lady Style', level:'L1',        teacher:'Ioanna',                    studio:'AN2', studioName:'Ananta 2',    duration:60, category:'partner-social', href:'https://www.shoonyadance.com/bachata-lady-styling-gent' },
       { day:'thu', time:'19:00–20:00', style:'Rueda de Casino',  level:'L1',           teacher:'Alex',                      studio:'AD1', studioName:'Art Deco 1',  duration:60, category:'partner-social' },
       { day:'thu', time:'19:30–20:30', style:'Bollywood',        level:'L3',           teacher:'Swapnil',                   studio:'AKH', studioName:'Aakash',      duration:60, category:'culture-wellness' },
       { day:'thu', time:'19:45–20:55', style:'Tap Dance',        level:'L5',           teacher:'Alexandre',                 studio:'AN1', studioName:'Ananta 1',    duration:70, category:'classical-technique' },
@@ -1106,7 +1106,7 @@
 
       // ─── Saturday
       { day:'sat', time:'10:30–12:00', style:'African Congolese', level:'Open',        teacher:'Joseph Saidi Simako',       studio:'AN1', studioName:'Ananta 1',    duration:90, category:'culture-wellness' },
-      { day:'sat', time:'10:30–12:00', style:'Oriental Flow',    level:'Open',         teacher:'Nathalie El Ghoul',         studio:'AKH', studioName:'Aakash',      duration:90, category:'classical-technique', isNew:true }
+      { day:'sat', time:'10:30–12:00', style:'Oriental Flow',    level:'Open',         teacher:'Nathalie El Ghoul',         studio:'AKH', studioName:'Aakash',      duration:90, category:'classical-technique', isNew:true, href:'https://www.shoonyadance.com/oriental-flow-gent' }
     ];
 
     // Working copy — replaced by live data after syncLive() completes.
@@ -1131,7 +1131,36 @@
     // fresh after the live data fetch replaces SLOTS.
     let STYLES = [];
 
+    const STYLE_HREFS = {
+      'Argentine Tango':       'https://www.shoonyadance.com/argentijnse-tango-danslessen-gent',
+      'Kathak':                'https://www.shoonyadance.com/kathak-danslessen-in-gent',
+      'Bollywood':             'https://www.shoonyadance.com/bollywood-danslessen-in-gent',
+      'Flamenco':              'https://www.shoonyadance.com/flamenco-danslessen-in-gent',
+      'Bollyfolk':             'https://www.shoonyadance.com/bollyfolk-danslessen-in-gent',
+      'Bachata':               'https://www.shoonyadance.com/bachata-dance-classes-in-ghent',
+      'Burlesque':             'https://www.shoonyadance.com/burlesque-lessen-in-gent',
+      'Yoga':                  'https://www.shoonyadance.com/yoga-lessen-in-gent',
+      'Indian Dance Technique':'https://www.shoonyadance.com/indian-dance-in-belgium',
+      'Dance & Fit':           'https://www.shoonyadance.com/dance-fit-gent',
+      'Pilates for Dancers':   'https://www.shoonyadance.com/pilates-voor-dansers-gent',
+      'Tap Dance':             'https://www.shoonyadance.com/tapdans-lessen-in-gent',
+      'Lindy Hop':             'https://www.shoonyadance.com/lindy-hop-danslessen-in-gent',
+      'Solo Jazz':             'https://www.shoonyadance.com/solo-jazz-danslessen-in-gent',
+      'Kizomba':               'https://www.shoonyadance.com/kizomba-danslessen-in-gent',
+      'Bhangra':               'https://www.shoonyadance.com/bhangra-danslessen-in-gent',
+      'Indian Semi-Classical': 'https://www.shoonyadance.com/indian-semi-classical-ghent',
+      'Bachata Lady Style':    'https://www.shoonyadance.com/bachata-lady-styling-gent',
+      'Rueda de Casino':       'https://www.shoonyadance.com/rueda-de-casino-danslessen-gent',
+      'Cuban Salsa':           'https://www.shoonyadance.com/cuban-salsa-in-gent',
+      'Ballet':                'https://www.shoonyadance.com/ballet-voor-volwassenen-in-gent',
+      'African Congolese':     'https://www.shoonyadance.com/afrikaanse-congolese-dans-gent',
+      'Oriental Flow':         'https://www.shoonyadance.com/oriental-flow-gent',
+      'Raqs Sharqi':           'https://www.shoonyadance.com/raqs-sharqi-danslessen-in-gent',
+      'Cissy Ball':            'https://www.shoonyadance.com/cissy-ball-danslessen-in-gent',
+    };
+
     function styleHref(style) {
+      if (STYLE_HREFS[style]) return STYLE_HREFS[style];
       const slug = style.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
       return 'https://www.shoonyadance.com/' + slug;
     }
@@ -1392,7 +1421,7 @@
             win.slots.filter(s => s.studio === st.code).forEach(s => {
               const slotEl = document.createElement('a');
               slotEl.className = 'slot ' + studioClass(s.studio);
-              slotEl.href = styleHref(s.style);
+              slotEl.href = s.href || styleHref(s.style);
               slotEl.style.top  = ((s.startMin - startHour * 60) * PX_PER_MIN) + 'px';
               slotEl.style.height = ((s.endMin - s.startMin) * PX_PER_MIN - 2) + 'px';
               slotEl.setAttribute('aria-label',
