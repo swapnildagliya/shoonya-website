@@ -1,532 +1,733 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>School Year 2026–2027 — Shoonya Dance Centre</title>
-<meta name="description" content="Shoonya Dance Centre school year 2026–2027 starting September 2026 in Ghent. 24 dance styles across 5 studios. Registration open now.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --ink:       #1a1a1a;
-    --purple:    #B564F7;
-    --purple-soft: #F5ECFF;
-    
-    --muted:     #666;
-    --border:    #e4e0db;
-    --bg:        #ffffff;
-    --white:     #ffffff;
-    --radius:    10px;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light" />
+  <title>School Year 2026–2027 · Shoonya Dance Centre · Ghent</title>
+  <meta name="description" content="Shoonya Dance Centre school year 2026–2027 starting September 2026 in Ghent. All key dates, semesters, and holidays in one place." />
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Playfair+Display:ital,wght@0,500;1,400&display=swap" />
 
-  body {
-    font-family: 'PT Serif', serif;
-    background: var(--bg);
-    color: var(--ink);
-    line-height: 1.6;
-  }
+  <style>
+    :root {
+      --void-white: #FFFFFF;
+      --void-black: #000000;
+      --vibrant-purple: #B564F7;
+      --vibrant-purple-ink: #7E3FBF;
+      --vibrant-purple-tint: #F5ECFF;
+      --vibrant-purple-tint-2: #E2CCFF;
+      --highlight-yellow: #FBC70F;
+      --highlight-yellow-tint: #FFF6CC;
+      --mist: rgba(0, 0, 0, 0.12);
+      --mist-strong: rgba(0, 0, 0, 0.24);
+      --muted: rgba(0, 0, 0, 0.6);
+      --muted-soft: rgba(0, 0, 0, 0.4);
 
-  /* ── Lang toggle ── */
-  .lang-toggle {
-    position: fixed;
-    top: 1rem; right: 1rem;
-    z-index: 100;
-    display: flex;
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 99px;
-    overflow: hidden;
-    box-shadow: 0 1px 6px rgba(0,0,0,.1);
-  }
-  .lang-btn {
-    padding: .35rem .85rem;
-    font-size: .75rem;
-    font-weight: 700;
-    letter-spacing: .06em;
-    border: none;
-    background: none;
-    cursor: pointer;
-    color: var(--muted);
-    transition: background .15s, color .15s;
-  }
-  .lang-btn.active {
-    background: #000000;
-    color: var(--white);
-    border-radius: 99px;
-  }
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
 
-  /* ── Breadcrumb ── */
-  .breadcrumb {
-    padding: 1rem 1.5rem;
-    font-size: .82rem;
-    color: var(--muted);
-    max-width: 960px;
-    margin: 0 auto;
-  }
-  .breadcrumb a { color: var(--muted); text-decoration: none; }
-  .breadcrumb a:hover { color: var(--ink); }
-  .breadcrumb span { margin: 0 .4rem; }
+      --space-1: 8px;
+      --space-2: 16px;
+      --space-3: 24px;
+      --space-4: 32px;
+      --space-5: 48px;
+      --space-6: 64px;
+      --space-7: 96px;
+    }
 
-  /* ── Hero ── */
-  .hero {
-    background: #000000;
-    color: var(--white);
-    padding: 4rem 1.5rem 3.5rem;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: none;
-    pointer-events: none;
-  }
-  .hero-label {
-    display: inline-block;
-    background: var(--purple);
-    color: var(--white);
-    font-size: .7rem;
-    font-weight: 700;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    padding: .3rem 1rem;
-    border-radius: 99px;
-    margin-bottom: 1rem;
-  }
-  .hero h1 {
-    font-family: 'Marcellus', serif;
-    font-size: clamp(2rem, 5vw, 3.2rem);
-    font-weight: 400;
-    line-height: 1.1;
-    margin-bottom: .75rem;
-  }
-  .hero p {
-    font-size: 1rem;
-    color: rgba(255,255,255,.7);
-    max-width: 500px;
-    margin: 0 auto;
-  }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.55;
+      color: var(--void-black);
+      background: var(--void-white);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; padding: 0; }
+    :focus-visible { outline: 2px solid var(--vibrant-purple); outline-offset: 3px; }
 
-  /* ── Content ── */
-  .content { max-width: 860px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 var(--space-3);
+    }
 
-  /* ── Key dates strip ── */
-  .key-dates {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-    gap: .75rem;
-    margin-bottom: 2.5rem;
-  }
-  .key-date {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1rem 1.1rem;
-  }
-  .key-date .label {
-    font-size: .7rem;
-    font-weight: 700;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: .3rem;
-  }
-  .key-date .date { font-size: 1rem; font-weight: 700; color: var(--ink); }
-  .key-date .sub  { font-size: .8rem; color: var(--muted); margin-top: .15rem; }
-  .key-date.highlight { border-color: #FBC70F; background: #FFFCE0; }
-  .key-date.highlight .label { color: #7a6000; }
+    /* ── Lang toggle ─────────────────────────────────────────────── */
+    .lang-toggle {
+      position: fixed;
+      top: 16px; right: 16px;
+      z-index: 100;
+      display: flex;
+      background: var(--void-white);
+      border: 1px solid var(--void-black);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .lang-btn {
+      padding: 8px 14px;
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: background 200ms var(--ease), color 200ms var(--ease);
+    }
+    .lang-btn.active {
+      background: var(--void-black);
+      color: var(--void-white);
+    }
 
-  /* ── Section heading ── */
-  .section-heading {
-    display: flex;
-    align-items: center;
-    gap: .75rem;
-    margin: 2.5rem 0 1.25rem;
-  }
-  .section-heading .badge {
-    background: var(--purple);
-    color: var(--white);
-    font-size: .7rem;
-    font-weight: 700;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    padding: .3rem .8rem;
-    border-radius: 99px;
-    white-space: nowrap;
-  }
-  .section-heading .badge.warm { background: var(--purple); }
-  .section-heading h2 {
-    font-family: 'Marcellus', serif;
-    font-size: 1.4rem;
-    font-weight: 400;
-  }
+    /* ── Kicker / eyebrow ────────────────────────────────────────── */
+    .kicker {
+      font-family: var(--font-sans);
+      font-weight: 500;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .kicker--purple { color: var(--vibrant-purple-ink); }
+    .kicker--yellow { color: #8a6800; }
 
-  /* ── Card ── */
-  .card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-    margin-bottom: 1rem;
-  }
-  .card-header {
-    background: var(--purple-soft);
-    border-bottom: 1px solid var(--border);
-    padding: 1rem 1.3rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-  .card-header.warm-header { background: var(--purple-soft); }
-  .card-header h3 { font-size: 1.05rem; font-weight: 600; }
-  .card-header .date-range { font-size: .85rem; color: var(--muted); font-weight: 500; }
-  .card-body { padding: 1.2rem 1.3rem; }
+    /* ── Hero ────────────────────────────────────────────────────── */
+    .hero {
+      padding: var(--space-6) 0 var(--space-5);
+      position: relative;
+    }
+    .hero__top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-6);
+      padding-bottom: var(--space-2);
+      border-bottom: 0.5px solid var(--mist);
+      font-family: var(--font-sans);
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .hero__top a { color: var(--muted); transition: color 160ms var(--ease); }
+    .hero__top a:hover { color: var(--void-black); }
+    .hero__eyebrow { margin-bottom: var(--space-3); }
+    .hero__h1 {
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: clamp(48px, 6vw, 88px);
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+    .hero__h1 em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--vibrant-purple-ink);
+    }
+    .hero__sub {
+      font-family: var(--font-sans);
+      font-size: 17px;
+      line-height: 1.55;
+      color: var(--muted);
+      max-width: 540px;
+      margin-top: var(--space-3);
+    }
 
-  /* ── Info rows ── */
-  .info-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 1rem;
-    padding: .45rem 0;
-    border-bottom: 1px solid var(--border);
-    font-size: .9rem;
-  }
-  .info-row:last-child { border-bottom: none; }
-  .info-row .key { color: var(--muted); flex-shrink: 0; }
-  .info-row .val { font-weight: 600; text-align: right; }
-  .info-row .val.warm { color: var(--purple); }
+    /* ── Key dates grid ──────────────────────────────────────────── */
+    .keydates {
+      padding: var(--space-3) 0 var(--space-6);
+    }
+    .keydates__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0;
+      border: 1px solid var(--void-black);
+    }
+    .keydate {
+      padding: var(--space-3);
+      border-right: 1px solid var(--mist);
+      border-bottom: 1px solid var(--mist);
+      background: var(--void-white);
+    }
+    .keydate:last-child { border-right: 0; }
+    .keydate--highlight {
+      background: var(--highlight-yellow-tint);
+    }
+    .keydate__label {
+      font-family: var(--font-sans);
+      font-weight: 500;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: var(--space-1);
+    }
+    .keydate--highlight .keydate__label { color: #8a6800; }
+    .keydate__date {
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: 22px;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--void-black);
+    }
+    .keydate__sub {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 6px;
+      font-variant-numeric: tabular-nums;
+    }
 
-  /* ── Pills ── */
-  .pill {
-    display: inline-block;
-    padding: .2rem .65rem;
-    border-radius: 99px;
-    font-size: .75rem;
-    font-weight: 600;
-  }
-  .pill.free    { background: #e8f5e9; color: #2e7d32; }
-  .pill.holiday { background: #f3e5f5; color: #6a1b9a; }
+    /* ── Section heading ─────────────────────────────────────────── */
+    .section {
+      padding: var(--space-4) 0;
+    }
+    .section__head {
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-3);
+      margin-bottom: var(--space-4);
+      padding-bottom: var(--space-2);
+      border-bottom: 0.5px solid var(--mist);
+      flex-wrap: wrap;
+    }
+    .section__pill {
+      display: inline-block;
+      background: var(--vibrant-purple);
+      color: var(--void-white);
+      font-family: var(--font-sans);
+      font-weight: 500;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 6px 12px;
+    }
+    .section__h2 {
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: clamp(28px, 3.4vw, 40px);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin: 0;
+      flex: 1;
+    }
 
-  /* ── Holiday list ── */
-  .holiday-list { list-style: none; }
-  .holiday-list li {
-    display: flex;
-    justify-content: space-between;
-    padding: .4rem 0;
-    font-size: .88rem;
-    border-bottom: 1px solid var(--border);
-  }
-  .holiday-list li:last-child { border-bottom: none; }
-  .holiday-list .name  { color: var(--muted); }
-  .holiday-list .dates { font-weight: 600; }
+    /* ── Semester card (1px black border, like diptych) ──────────── */
+    .sem-card {
+      background: var(--void-white);
+      border: 1px solid var(--void-black);
+      padding: var(--space-4);
+      margin-bottom: var(--space-3);
+    }
+    .sem-card__top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-4);
+    }
+    .sem-card__title {
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: 24px;
+      line-height: 1.1;
+      margin: 0 0 6px 0;
+    }
+    .sem-card__range {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+    .sem-card__chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--vibrant-purple-tint);
+      color: var(--vibrant-purple-ink);
+      font-family: var(--font-sans);
+      font-weight: 500;
+      font-size: 12px;
+      padding: 6px 12px;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
 
-  /* ── Special event ── */
-  .special-event {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-left: 4px solid var(--purple);
-    border-radius: var(--radius);
-    padding: 1rem 1.3rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-  .special-event .event-name { font-weight: 700; font-size: 1rem; }
-  .special-event .event-date { font-size: .9rem; color: var(--muted); margin-top: .2rem; }
-  .special-event .badge-event {
-    background: var(--purple-soft);
-    color: var(--purple);
-    font-size: .75rem;
-    font-weight: 700;
-    padding: .3rem .8rem;
-    border-radius: 99px;
-    white-space: nowrap;
-  }
+    /* ── Stat list (key/value rows) ──────────────────────────────── */
+    .stat-list {
+      display: flex;
+      flex-direction: column;
+    }
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+      border-bottom: 0.5px solid var(--mist);
+      padding: 14px 0;
+      min-height: 32px;
+    }
+    .stat-row:last-child { border-bottom: 0; }
+    .stat-row__label {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .stat-row__value {
+      font-family: var(--font-sans);
+      font-weight: 500;
+      font-size: 14px;
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+    }
+    .stat-row__value--accent { color: var(--vibrant-purple-ink); }
 
-  /* ── CTA band ── */
-  .cta-band {
-    background: #000000;
-    color: var(--white);
-    text-align: center;
-    padding: 3.5rem 1.5rem;
-    margin-top: 3rem;
-  }
-  .cta-band h2 {
-    font-family: 'Marcellus', serif;
-    font-size: clamp(1.4rem, 3vw, 2rem);
-    font-weight: 400;
-    margin-bottom: .6rem;
-  }
-  .cta-band p {
-    font-size: .95rem;
-    color: rgba(255,255,255,.7);
-    margin-bottom: 1.75rem;
-  }
-  .btn {
-    display: inline-block;
-    background: var(--purple);
-    color: var(--white);
-    font-family: 'PT Serif', serif;
-    font-size: .9rem;
-    font-weight: 700;
-    padding: .85rem 2rem;
-    border-radius: 99px;
-    text-decoration: none;
-    transition: background .15s, transform .15s;
-  }
-  .btn:hover { background: #9a46d6; transform: translateY(-1px); }
+    /* ── Holidays card (simpler) ─────────────────────────────────── */
+    .holiday-card {
+      background: var(--void-white);
+      border: 1px solid var(--mist-strong);
+      padding: var(--space-3) var(--space-4);
+      margin-bottom: var(--space-3);
+    }
+    .holiday-card__title {
+      font-family: var(--font-sans);
+      font-weight: 500;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: var(--space-2);
+    }
+    .holiday-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .holiday-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 0.5px solid var(--mist);
+      font-family: var(--font-sans);
+    }
+    .holiday-list li:last-child { border-bottom: 0; }
+    .holiday-list__name {
+      font-size: 13px;
+      color: var(--void-black);
+    }
+    .holiday-list__dates {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+    .holiday-note {
+      margin-top: var(--space-2);
+      font-size: 12px;
+      color: var(--muted);
+      font-style: italic;
+    }
 
-  /* ── Footer note ── */
-  .footnote {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 1.5rem 1.5rem 3rem;
-    border-top: 1px solid var(--border);
-    font-size: .82rem;
-    color: var(--muted);
-    line-height: 1.7;
-  }
-  .footnote a { color: var(--teal); text-decoration: none; }
-  .footnote a:hover { text-decoration: underline; }
-</style>
+    /* ── Special event ───────────────────────────────────────────── */
+    .special {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+      padding: var(--space-3) var(--space-4);
+      background: var(--void-white);
+      border: 1px solid var(--void-black);
+      border-left: 4px solid var(--vibrant-purple);
+    }
+    .special__name {
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: 22px;
+      line-height: 1.15;
+      margin: 0 0 4px 0;
+    }
+    .special__date {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+    .special__chip {
+      background: var(--vibrant-purple-tint);
+      color: var(--vibrant-purple-ink);
+      font-family: var(--font-sans);
+      font-weight: 500;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      white-space: nowrap;
+    }
+
+    /* ── Closing CTA (mirrors schedule-landing style) ────────────── */
+    .closing {
+      position: relative;
+      padding: var(--space-6) var(--space-4);
+      margin: var(--space-5) 0 var(--space-4);
+      border-left: 3px solid var(--vibrant-purple);
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: var(--space-5);
+      align-items: center;
+    }
+    .closing__kicker { margin-bottom: var(--space-2); }
+    .closing__h2 {
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: clamp(36px, 4.5vw, 56px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+    .closing__h2 em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--vibrant-purple-ink);
+    }
+    .closing__sub {
+      font-family: var(--font-sans);
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 460px;
+      margin-top: var(--space-3);
+    }
+    .closing__ctas {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      align-items: flex-end;
+    }
+    .closing__cta {
+      background: var(--vibrant-purple);
+      color: var(--void-white);
+      padding: 14px 22px;
+      font-family: var(--font-sans);
+      font-weight: 500;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: background 200ms var(--ease);
+      white-space: nowrap;
+    }
+    .closing__cta:hover { background: var(--void-black); }
+    .closing__cta--outline {
+      background: transparent;
+      color: var(--void-black);
+      border: 1px solid var(--void-black);
+    }
+    .closing__cta--outline:hover {
+      background: var(--void-black);
+      color: var(--void-white);
+    }
+
+    /* ── Footer ──────────────────────────────────────────────────── */
+    .footer {
+      padding: var(--space-5) 0 var(--space-6);
+      border-top: 0.5px solid var(--mist);
+      margin-top: var(--space-4);
+      font-family: var(--font-sans);
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .footer a {
+      color: var(--vibrant-purple-ink);
+      transition: color 160ms var(--ease);
+    }
+    .footer a:hover { color: var(--void-black); }
+    .footer__line { margin: 0 0 var(--space-1) 0; }
+
+    /* ── Responsive ──────────────────────────────────────────────── */
+    @media (max-width: 720px) {
+      .closing {
+        grid-template-columns: 1fr;
+        gap: var(--space-3);
+      }
+      .closing__ctas { align-items: flex-start; }
+      .keydates__grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .keydate { border-right: 1px solid var(--mist); }
+      .keydate:nth-child(2n) { border-right: 0; }
+    }
+    @media (max-width: 480px) {
+      .keydates__grid { grid-template-columns: 1fr; }
+      .keydate { border-right: 0; }
+    }
+  </style>
 </head>
 <body>
 
+<!-- Language toggle -->
 <div class="lang-toggle" role="group" aria-label="Language">
   <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
-  <button class="lang-btn"        id="btn-nl" onclick="setLang('nl')">NL</button>
+  <button class="lang-btn" id="btn-nl" onclick="setLang('nl')">NL</button>
 </div>
 
-<div class="breadcrumb">
-  <a href="https://shoonyadance.com" data-i18n="bc-home">Home</a>
-  <span>›</span>
-  <span data-i18n="bc-current">School Year 2026–2027</span>
-</div>
+<main>
 
-<div class="hero">
-  <div class="hero-label" data-i18n="hero-label">School Year 2026–2027</div>
-  <h1>Shoonya Dance Centre</h1>
-  <p data-i18n="hero-sub">All key dates and holidays for the coming school year — in one place.</p>
-</div>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero__top">
+      <a href="https://shoonyadance.com" data-i18n="bc-home">← Home</a>
+      <span data-i18n="bc-current">School Year 2026–2027</span>
+    </div>
+    <p class="kicker kicker--purple hero__eyebrow" data-i18n="hero-label">School Year 2026–2027</p>
+    <h1 class="hero__h1" data-i18n="hero-h1">
+      All the <em data-i18n="hero-h1-em">key dates</em>, in one place.
+    </h1>
+    <p class="hero__sub" data-i18n="hero-sub">Two semesters, two free trial weeks, three Open Door days, and one summer retreat — everything you need to plan your Shoonya year.</p>
+  </section>
 
-<div class="content">
-
-  <div class="key-dates">
-    <div class="key-date highlight">
-      <div class="label" data-i18n="reg-label">Registration opens</div>
-      <div class="date">15 May 2026</div>
-    </div>
-    <div class="key-date highlight">
-      <div class="label" data-i18n="odd-label">Open Door Day</div>
-      <div class="date">13 September 2026</div>
-      <div class="sub" data-i18n="odd1-sub">Free — no registration needed</div>
-    </div>
-    <div class="key-date highlight">
-      <div class="label" data-i18n="s1-starts-label">Semester 1 starts</div>
-      <div class="date">14 September 2026</div>
-      <div class="sub" data-i18n="s1-starts-sub">Free trial week → 19 Sep</div>
-    </div>
-    <div class="key-date">
-      <div class="label" data-i18n="s1-ends-label">Semester 1 ends</div>
-      <div class="date">30 January 2027</div>
-    </div>
-    <div class="key-date">
-      <div class="label" data-i18n="odd-label">Open Door Day</div>
-      <div class="date">31 January 2027</div>
-      <div class="sub" data-i18n="odd2-sub">Preview Semester 2 classes</div>
-    </div>
-    <div class="key-date">
-      <div class="label" data-i18n="s2-starts-label">Semester 2 starts</div>
-      <div class="date">15 February 2027</div>
-      <div class="sub" data-i18n="s2-starts-sub">Free trial week → 20 Feb</div>
-    </div>
-    <div class="key-date">
-      <div class="label" data-i18n="s2-ends-label">Semester 2 ends</div>
-      <div class="date">12 June 2027</div>
-    </div>
-    <div class="key-date">
-      <div class="label" data-i18n="odd-year-label">End-of-year Open Door</div>
-      <div class="date">13 June 2027</div>
-    </div>
-  </div>
-
-  <!-- Semester 1 -->
-  <div class="section-heading">
-    <span class="badge warm">Semester 1</span>
-    <h2 data-i18n="s1-heading">September 2026 – January 2027</h2>
-  </div>
-
-  <div class="card">
-    <div class="card-header warm-header">
-      <div>
-        <h3 data-i18n="calendar">Calendar</h3>
-        <div class="date-range" data-i18n="s1-range">14 Sep 2026 — 30 Jan 2027 · 16 sessions</div>
+  <!-- Key dates strip -->
+  <section class="keydates">
+    <div class="keydates__grid">
+      <div class="keydate keydate--highlight" data-expires="2026-05-15">
+        <div class="keydate__label" data-i18n="reg-label">Registration opens</div>
+        <div class="keydate__date" data-i18n="reg-date">15 May 2026</div>
       </div>
-      <span class="pill free" data-i18n="s1-trial-pill">Free trial week: 14–19 Sep</span>
-    </div>
-    <div class="card-body">
-      <div class="info-row">
-        <span class="key" data-i18n="odd-key">Open Door Day</span>
-        <span class="val warm" data-i18n="s1-odd-date">Sunday 13 September 2026</span>
+      <div class="keydate keydate--highlight" data-expires="2026-06-14">
+        <div class="keydate__label" data-i18n="odd-label">Open Door Day</div>
+        <div class="keydate__date" data-i18n="odd-june-date">14 June 2026</div>
+        <div class="keydate__sub" data-i18n="odd-june-sub">Preview Sep 2026 classes</div>
       </div>
-      <div class="info-row">
-        <span class="key" data-i18n="first-class-key">First class (free trial)</span>
-        <span class="val" data-i18n="s1-first-date">Monday 14 September 2026</span>
+      <div class="keydate keydate--highlight" data-expires="2026-09-13">
+        <div class="keydate__label" data-i18n="odd-label">Open Door Day</div>
+        <div class="keydate__date" data-i18n="odd1-date">13 September 2026</div>
+        <div class="keydate__sub" data-i18n="odd1-sub">Free — no registration needed</div>
       </div>
-      <div class="info-row">
-        <span class="key" data-i18n="trial-ends-key">Free trial week ends</span>
-        <span class="val" data-i18n="s1-trial-end-date">Saturday 19 September 2026</span>
+      <div class="keydate keydate--highlight" data-expires="2026-09-19">
+        <div class="keydate__label" data-i18n="s1-starts-label">Semester 1 starts</div>
+        <div class="keydate__date" data-i18n="s1-starts-date">14 September 2026</div>
+        <div class="keydate__sub" data-i18n="s1-starts-sub">Free trial week → 19 Sep</div>
       </div>
-      <div class="info-row">
-        <span class="key" data-i18n="last-class-key">Last class</span>
-        <span class="val" data-i18n="s1-last-date">Friday 30 January 2027</span>
+      <div class="keydate" data-expires="2027-01-30">
+        <div class="keydate__label" data-i18n="s1-ends-label">Semester 1 ends</div>
+        <div class="keydate__date" data-i18n="s1-ends-date">30 January 2027</div>
       </div>
-      <div class="info-row">
-        <span class="key" data-i18n="catchup-key">Catch-up week</span>
-        <span class="val" data-i18n="s1-catchup-date">1–7 February 2027</span>
+      <div class="keydate" data-expires="2027-01-31">
+        <div class="keydate__label" data-i18n="odd-label">Open Door Day</div>
+        <div class="keydate__date" data-i18n="odd2-date">31 January 2027</div>
+        <div class="keydate__sub" data-i18n="odd2-sub">Preview Semester 2 classes</div>
+      </div>
+      <div class="keydate" data-expires="2027-02-20">
+        <div class="keydate__label" data-i18n="s2-starts-label">Semester 2 starts</div>
+        <div class="keydate__date" data-i18n="s2-starts-date">15 February 2027</div>
+        <div class="keydate__sub" data-i18n="s2-starts-sub">Free trial week → 20 Feb</div>
+      </div>
+      <div class="keydate" data-expires="2027-06-12">
+        <div class="keydate__label" data-i18n="s2-ends-label">Semester 2 ends</div>
+        <div class="keydate__date" data-i18n="s2-ends-date">12 June 2027</div>
+      </div>
+      <div class="keydate" data-expires="2027-06-13">
+        <div class="keydate__label" data-i18n="odd-year-label">End-of-year Open Door</div>
+        <div class="keydate__date" data-i18n="odd-year-date">13 June 2027</div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="card">
-    <div class="card-header">
-      <h3 data-i18n="holidays-title">School Holidays</h3>
-    </div>
-    <div class="card-body">
+  <!-- ────────── Semester 1 ────────── -->
+  <section class="section" data-expires="2027-01-30">
+    <header class="section__head">
+      <span class="section__pill">Semester 1</span>
+      <h2 class="section__h2" data-i18n="s1-heading">September 2026 — January 2027</h2>
+    </header>
+
+    <article class="sem-card">
+      <div class="sem-card__top">
+        <div>
+          <h3 class="sem-card__title" data-i18n="calendar">Calendar</h3>
+          <div class="sem-card__range" data-i18n="s1-range">14 Sep 2026 — 30 Jan 2027 · 16 sessions</div>
+        </div>
+        <span class="sem-card__chip" data-i18n="s1-trial-pill">Free trial week: 14–19 Sep</span>
+      </div>
+      <div class="stat-list">
+        <div class="stat-row">
+          <span class="stat-row__label" data-i18n="odd-key">Open Door Day</span>
+          <span class="stat-row__value stat-row__value--accent" data-i18n="s1-odd-date">Sunday 13 September 2026</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-row__label" data-i18n="first-class-key">First class (free trial)</span>
+          <span class="stat-row__value" data-i18n="s1-first-date">Monday 14 September 2026</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-row__label" data-i18n="trial-ends-key">Free trial week ends</span>
+          <span class="stat-row__value" data-i18n="s1-trial-end-date">Saturday 19 September 2026</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-row__label" data-i18n="last-class-key">Last class</span>
+          <span class="stat-row__value" data-i18n="s1-last-date">Friday 30 January 2027</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-row__label" data-i18n="catchup-key">Catch-up week</span>
+          <span class="stat-row__value" data-i18n="s1-catchup-date">1–7 February 2027</span>
+        </div>
+      </div>
+    </article>
+
+    <div class="holiday-card">
+      <div class="holiday-card__title" data-i18n="holidays-title">School Holidays</div>
       <ul class="holiday-list">
         <li>
-          <span class="name"><span class="pill holiday">Herfstvakantie</span></span>
-          <span class="dates" data-i18n="herfst-dates">1–8 Nov 2026</span>
+          <span class="holiday-list__name">Herfstvakantie</span>
+          <span class="holiday-list__dates" data-i18n="herfst-dates">1–8 Nov 2026</span>
         </li>
         <li>
-          <span class="name"><span class="pill holiday">Kerstvakantie</span></span>
-          <span class="dates" data-i18n="kerst-dates">20 Dec 2026 – 10 Jan 2027</span>
+          <span class="holiday-list__name">Kerstvakantie</span>
+          <span class="holiday-list__dates" data-i18n="kerst-dates">20 Dec 2026 – 10 Jan 2027</span>
         </li>
       </ul>
     </div>
-  </div>
+  </section>
 
-  <!-- Semester 2 -->
-  <div class="section-heading">
-    <span class="badge">Semester 2</span>
-    <h2 data-i18n="s2-heading">February – June 2027</h2>
-  </div>
+  <!-- ────────── Semester 2 ────────── -->
+  <section class="section" data-expires="2027-06-12">
+    <header class="section__head">
+      <span class="section__pill">Semester 2</span>
+      <h2 class="section__h2" data-i18n="s2-heading">February — June 2027</h2>
+    </header>
 
-  <div class="card">
-    <div class="card-header">
-      <div>
-        <h3 data-i18n="calendar">Calendar</h3>
-        <div class="date-range" data-i18n="s2-range">15 Feb 2027 — 12 Jun 2027 · 15 sessions</div>
+    <article class="sem-card">
+      <div class="sem-card__top">
+        <div>
+          <h3 class="sem-card__title" data-i18n="calendar">Calendar</h3>
+          <div class="sem-card__range" data-i18n="s2-range">15 Feb 2027 — 12 Jun 2027 · 15 sessions</div>
+        </div>
+        <span class="sem-card__chip" data-i18n="s2-trial-pill">Free trial week: 15–20 Feb</span>
       </div>
-      <span class="pill free" data-i18n="s2-trial-pill">Free trial week: 15–20 Feb</span>
-    </div>
-    <div class="card-body">
-      <div class="info-row">
-        <span class="key" data-i18n="odd-preview-key">Open Door Day (preview)</span>
-        <span class="val warm" data-i18n="s2-odd-date">Saturday 31 January 2027</span>
+      <div class="stat-list">
+        <div class="stat-row">
+          <span class="stat-row__label" data-i18n="odd-preview-key">Open Door Day (preview)</span>
+          <span class="stat-row__value stat-row__value--accent" data-i18n="s2-odd-date">Saturday 31 January 2027</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-row__label" data-i18n="first-class-key">First class (free trial)</span>
+          <span class="stat-row__value" data-i18n="s2-first-date">Monday 15 February 2027</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-row__label" data-i18n="trial-ends-key">Free trial week ends</span>
+          <span class="stat-row__value" data-i18n="s2-trial-end-date">Saturday 20 February 2027</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-row__label" data-i18n="last-class-key">Last class</span>
+          <span class="stat-row__value" data-i18n="s2-last-date">Friday 12 June 2027</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-row__label" data-i18n="odd-year-label">End-of-year Open Door</span>
+          <span class="stat-row__value stat-row__value--accent" data-i18n="s2-yearend-date">Sunday 13 June 2027</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-row__label" data-i18n="catchup-key">Catch-up week</span>
+          <span class="stat-row__value" data-i18n="s2-catchup-date">14–19 June 2027</span>
+        </div>
       </div>
-      <div class="info-row">
-        <span class="key" data-i18n="first-class-key">First class (free trial)</span>
-        <span class="val" data-i18n="s2-first-date">Monday 15 February 2027</span>
-      </div>
-      <div class="info-row">
-        <span class="key" data-i18n="trial-ends-key">Free trial week ends</span>
-        <span class="val" data-i18n="s2-trial-end-date">Saturday 20 February 2027</span>
-      </div>
-      <div class="info-row">
-        <span class="key" data-i18n="last-class-key">Last class</span>
-        <span class="val" data-i18n="s2-last-date">Friday 12 June 2027</span>
-      </div>
-      <div class="info-row">
-        <span class="key" data-i18n="odd-year-label">End-of-year Open Door</span>
-        <span class="val warm" data-i18n="s2-yearend-date">Sunday 13 June 2027</span>
-      </div>
-      <div class="info-row">
-        <span class="key" data-i18n="catchup-key">Catch-up week</span>
-        <span class="val" data-i18n="s2-catchup-date">14–19 June 2027</span>
-      </div>
-    </div>
-  </div>
+    </article>
 
-  <div class="card">
-    <div class="card-header">
-      <h3 data-i18n="holidays-title">School Holidays</h3>
-    </div>
-    <div class="card-body">
+    <div class="holiday-card">
+      <div class="holiday-card__title" data-i18n="holidays-title">School Holidays</div>
       <ul class="holiday-list">
         <li>
-          <span class="name"><span class="pill holiday">Krokusvakantie</span></span>
-          <span class="dates" data-i18n="krocus-dates">8–14 Feb 2027</span>
+          <span class="holiday-list__name">Krokusvakantie</span>
+          <span class="holiday-list__dates" data-i18n="krocus-dates">8–14 Feb 2027</span>
         </li>
         <li>
-          <span class="name"><span class="pill holiday">Paasvakantie</span></span>
-          <span class="dates" data-i18n="paas-dates">28 Mar – 11 Apr 2027</span>
+          <span class="holiday-list__name">Paasvakantie</span>
+          <span class="holiday-list__dates" data-i18n="paas-dates">28 Mar – 11 Apr 2027</span>
         </li>
       </ul>
-      <div style="margin-top: .75rem; font-size: .78rem; color: var(--muted);" data-i18n="krocus-note">
-        Krokusvakantie ends the day before semester starts — no classes are skipped.
-      </div>
+      <div class="holiday-note" data-i18n="krocus-note">Krokusvakantie ends the day before semester starts — no classes are skipped.</div>
     </div>
-  </div>
+  </section>
 
-  <!-- Special events -->
-  <div class="section-heading">
-    <span class="badge warm" data-i18n="special-badge">Special Events</span>
-    <h2 data-i18n="special-heading">Summer</h2>
-  </div>
+  <!-- ────────── Summer ────────── -->
+  <section class="section" data-expires="2027-07-09">
+    <header class="section__head">
+      <span class="section__pill" style="background:var(--highlight-yellow);color:var(--void-black);" data-i18n="special-badge">Special Events</span>
+      <h2 class="section__h2" data-i18n="special-heading">Summer</h2>
+    </header>
 
-  <div class="special-event">
+    <div class="special">
+      <div>
+        <div class="special__name">Zomerstage 2027</div>
+        <div class="special__date" data-i18n="zomerstage-date">3–9 July 2027</div>
+      </div>
+      <span class="special__chip" data-i18n="zomerstage-badge">Dance &amp; yoga retreat · South of France</span>
+    </div>
+  </section>
+
+  <!-- Closing CTA -->
+  <section class="closing">
     <div>
-      <div class="event-name">Zomerstage 2027</div>
-      <div class="event-date" data-i18n="zomerstage-date">3–9 July 2027</div>
+      <p class="kicker kicker--purple closing__kicker" data-i18n="cta-kicker">Ready to begin</p>
+      <h2 class="closing__h2" data-i18n="cta-heading">Start <em data-i18n="cta-heading-em">dancing</em>.</h2>
+      <p class="closing__sub" data-i18n="cta-sub">Registration for September 2026 is open. Browse the full weekly schedule or try your first class free during the Sep 14–19 trial week.</p>
     </div>
-    <span class="badge-event" data-i18n="zomerstage-badge">Summer intensive</span>
-  </div>
+    <div class="closing__ctas">
+      <a class="closing__cta" href="https://schooljaar.shoonyadance.com/schedule-sep-2026" data-i18n="cta-btn">View Sep 2026 schedule →</a>
+      <a class="closing__cta closing__cta--outline" href="https://schooljaar.shoonyadance.com/dance-styles-overview" data-i18n="cta-btn2">Browse all dance styles</a>
+    </div>
+  </section>
 
-</div><!-- /content -->
+  <!-- Footer -->
+  <footer class="footer">
+    <p class="footer__line" data-i18n="footer-shoes">Dance shoes policy: only clean dance shoes are allowed on the floor — no street shoes.</p>
+    <p class="footer__line">
+      <span data-i18n="footer-questions">Questions?</span>
+      <a href="mailto:info@shoonyadance.com">info@shoonyadance.com</a> ·
+      <a href="https://shoonyadance.com">shoonyadance.com</a>
+    </p>
+  </footer>
 
-<!-- CTA -->
-<div class="cta-band">
-  <h2 data-i18n="cta-heading">Ready to start dancing?</h2>
-  <p data-i18n="cta-sub">Registration for September 2026 is now open. Try your first class free.</p>
-  <a href="https://schooljaar.shoonyadance.com/schedule-landing.html" class="btn" data-i18n="cta-btn">View all classes</a>
-</div>
-
-<div class="footnote">
-  <p data-i18n="footer-shoes">Dance shoes policy: only clean dance shoes are allowed on the floor — no street shoes. 👟</p>
-  <p style="margin-top: .5rem;"><span data-i18n="footer-questions">Questions?</span> <a href="mailto:info@shoonyadance.com">info@shoonyadance.com</a> · <a href="https://shoonyadance.com">shoonyadance.com</a></p>
-</div>
+</main>
 
 <script>
   const translations = {
     en: {
-      'bc-home':           'Home',
+      'bc-home':           '← Home',
       'bc-current':        'School Year 2026–2027',
       'hero-label':        'School Year 2026–2027',
-      'hero-sub':          'All key dates and holidays for the coming school year — in one place.',
+      'hero-h1':           'All the key dates, in one place.',
+      'hero-h1-em':        'key dates',
+      'hero-sub':          'Two semesters, two free trial weeks, three Open Door days, and one summer retreat — everything you need to plan your Shoonya year.',
       'reg-label':         'Registration opens',
+      'reg-date':          '15 May 2026',
       'odd-label':         'Open Door Day',
+      'odd-june-date':     '14 June 2026',
+      'odd-june-sub':      'Preview Sep 2026 classes',
+      'odd1-date':         '13 September 2026',
       'odd1-sub':          'Free — no registration needed',
+      'odd2-date':         '31 January 2027',
+      'odd2-sub':          'Preview Semester 2 classes',
       's1-starts-label':   'Semester 1 starts',
+      's1-starts-date':    '14 September 2026',
       's1-starts-sub':     'Free trial week → 19 Sep',
       's1-ends-label':     'Semester 1 ends',
-      'odd2-sub':          'Preview Semester 2 classes',
+      's1-ends-date':      '30 January 2027',
       's2-starts-label':   'Semester 2 starts',
+      's2-starts-date':    '15 February 2027',
       's2-starts-sub':     'Free trial week → 20 Feb',
       's2-ends-label':     'Semester 2 ends',
+      's2-ends-date':      '12 June 2027',
       'odd-year-label':    'End-of-year Open Door',
-      's1-heading':        'September 2026 – January 2027',
+      'odd-year-date':     '13 June 2027',
+      's1-heading':        'September 2026 — January 2027',
       'calendar':          'Calendar',
       's1-range':          '14 Sep 2026 — 30 Jan 2027 · 16 sessions',
       's1-trial-pill':     'Free trial week: 14–19 Sep',
@@ -543,7 +744,7 @@
       'holidays-title':    'School Holidays',
       'herfst-dates':      '1–8 Nov 2026',
       'kerst-dates':       '20 Dec 2026 – 10 Jan 2027',
-      's2-heading':        'February – June 2027',
+      's2-heading':        'February — June 2027',
       's2-range':          '15 Feb 2027 — 12 Jun 2027 · 15 sessions',
       's2-trial-pill':     'Free trial week: 15–20 Feb',
       'odd-preview-key':   'Open Door Day (preview)',
@@ -560,29 +761,44 @@
       'special-heading':   'Summer',
       'zomerstage-date':   '3–9 July 2027',
       'zomerstage-badge':  'Dance & yoga retreat · South of France',
-      'cta-heading':       'Ready to start dancing?',
-      'cta-sub':           'Registration for September 2026 is now open. Try your first class free.',
-      'cta-btn':           'View all classes',
-      'footer-shoes':      'Dance shoes policy: only clean dance shoes are allowed on the floor — no street shoes. 👟',
-      'footer-questions':  'Questions?',
+      'cta-kicker':        'Ready to begin',
+      'cta-heading':       'Start dancing.',
+      'cta-heading-em':    'dancing',
+      'cta-sub':           'Registration for September 2026 is open. Browse the full weekly schedule or try your first class free during the Sep 14–19 trial week.',
+      'cta-btn':           'View Sep 2026 schedule →',
+      'cta-btn2':          'Browse all dance styles',
+      'footer-shoes':      'Dance shoes policy: only clean dance shoes are allowed on the floor — no street shoes.',
+      'footer-questions':  'Questions?'
     },
     nl: {
-      'bc-home':           'Home',
+      'bc-home':           '← Home',
       'bc-current':        'Schooljaar 2026–2027',
       'hero-label':        'Schooljaar 2026–2027',
-      'hero-sub':          'Alle belangrijke data en vakanties voor het komende schooljaar — op één plek.',
+      'hero-h1':           'Alle belangrijke data, op één plek.',
+      'hero-h1-em':        'belangrijke data',
+      'hero-sub':          'Twee semesters, twee gratis proefweken, drie opendeurdagen en één zomerstage — alles om je Shoonya-jaar te plannen.',
       'reg-label':         'Inschrijvingen open',
+      'reg-date':          '15 mei 2026',
       'odd-label':         'Opendeurdag',
+      'odd-june-date':     '14 juni 2026',
+      'odd-june-sub':      'Voorproefje sep 2026 lessen',
+      'odd1-date':         '13 september 2026',
       'odd1-sub':          'Gratis — geen inschrijving vereist',
+      'odd2-date':         '31 januari 2027',
+      'odd2-sub':          'Voorproefje semester 2',
       's1-starts-label':   'Semester 1 begint',
+      's1-starts-date':    '14 september 2026',
       's1-starts-sub':     'Gratis proefweek → 19 sep',
       's1-ends-label':     'Semester 1 eindigt',
-      'odd2-sub':          'Voorproefje semester 2',
+      's1-ends-date':      '30 januari 2027',
       's2-starts-label':   'Semester 2 begint',
+      's2-starts-date':    '15 februari 2027',
       's2-starts-sub':     'Gratis proefweek → 20 feb',
       's2-ends-label':     'Semester 2 eindigt',
+      's2-ends-date':      '12 juni 2027',
       'odd-year-label':    'Opendeurdag einde schooljaar',
-      's1-heading':        'September 2026 – januari 2027',
+      'odd-year-date':     '13 juni 2027',
+      's1-heading':        'September 2026 — januari 2027',
       'calendar':          'Kalender',
       's1-range':          '14 sep 2026 — 30 jan 2027 · 16 lessen',
       's1-trial-pill':     'Gratis proefweek: 14–19 sep',
@@ -599,7 +815,7 @@
       'holidays-title':    'Schoolvakanties',
       'herfst-dates':      '1–8 nov 2026',
       'kerst-dates':       '20 dec 2026 – 10 jan 2027',
-      's2-heading':        'Februari – juni 2027',
+      's2-heading':        'Februari — juni 2027',
       's2-range':          '15 feb 2027 — 12 jun 2027 · 15 lessen',
       's2-trial-pill':     'Gratis proefweek: 15–20 feb',
       'odd-preview-key':   'Opendeurdag (voorproefje)',
@@ -616,11 +832,14 @@
       'special-heading':   'Zomer',
       'zomerstage-date':   '3–9 juli 2027',
       'zomerstage-badge':  'Dans & yoga retreat · Zuid-Frankrijk',
-      'cta-heading':       'Klaar om te beginnen?',
-      'cta-sub':           'Inschrijvingen voor september 2026 zijn open. Probeer je eerste les gratis.',
-      'cta-btn':           'Bekijk alle lessen',
-      'footer-shoes':      'Dansschoenenbeleid: alleen schone dansschoenen zijn toegestaan op de vloer — geen straatschoenen. 👟',
-      'footer-questions':  'Vragen?',
+      'cta-kicker':        'Klaar om te beginnen',
+      'cta-heading':       'Begin met dansen.',
+      'cta-heading-em':    'dansen',
+      'cta-sub':           'Inschrijvingen voor september 2026 zijn open. Bekijk het volledige weekrooster of probeer je eerste les gratis tijdens de proefweek van 14–19 sep.',
+      'cta-btn':           'Bekijk rooster sep 2026 →',
+      'cta-btn2':          'Verken alle dansstijlen',
+      'footer-shoes':      'Dansschoenenbeleid: alleen schone dansschoenen zijn toegestaan op de vloer — geen straatschoenen.',
+      'footer-questions':  'Vragen?'
     }
   };
 
@@ -628,18 +847,78 @@
     const t = translations[lang];
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
-      if (t[key] !== undefined) el.textContent = t[key];
+      if (t[key] === undefined) return;
+      // Preserve nested <em> for hero/closing h1 by reading their text and rebuilding
+      if (key === 'hero-h1' || key === 'cta-heading') return;
+      el.textContent = t[key];
     });
+    // Rebuild hero h1 with em
+    const heroH1 = document.querySelector('[data-i18n="hero-h1"]');
+    if (heroH1) {
+      const full = t['hero-h1'];
+      const em = t['hero-h1-em'];
+      const idx = full.indexOf(em);
+      if (idx >= 0) {
+        heroH1.innerHTML =
+          full.slice(0, idx) +
+          '<em>' + em + '</em>' +
+          full.slice(idx + em.length);
+      } else {
+        heroH1.textContent = full;
+      }
+    }
+    // Rebuild closing h2 with em
+    const ctaH = document.querySelector('[data-i18n="cta-heading"]');
+    if (ctaH) {
+      const full = t['cta-heading'];
+      const em = t['cta-heading-em'];
+      const idx = full.indexOf(em);
+      if (idx >= 0) {
+        ctaH.innerHTML =
+          full.slice(0, idx) +
+          '<em>' + em + '</em>' +
+          full.slice(idx + em.length);
+      } else {
+        ctaH.textContent = full;
+      }
+    }
     document.documentElement.lang = lang;
     document.title = lang === 'nl'
-      ? 'Schooljaar 2026–2027 — Shoonya Dance Centre'
-      : 'School Year 2026–2027 — Shoonya Dance Centre';
+      ? 'Schooljaar 2026–2027 · Shoonya Dance Centre · Gent'
+      : 'School Year 2026–2027 · Shoonya Dance Centre · Ghent';
     document.getElementById('btn-en').classList.toggle('active', lang === 'en');
     document.getElementById('btn-nl').classList.toggle('active', lang === 'nl');
   }
 
+  // Apply EN on load to render the em tags
+  setLang('en');
+
+  // Honour browser language
   const browserLang = navigator.language?.startsWith('nl') ? 'nl' : 'en';
   if (browserLang === 'nl') setLang('nl');
+
+  // ── Auto-hide expired blocks ────────────────────────────────────
+  // Each element with [data-expires="YYYY-MM-DD"] is shown up to and
+  // including that date. The day AFTER, the element disappears.
+  // Applies to individual key-date cards AND whole sections (Semester 1,
+  // Semester 2, Zomerstage), so the page evolves through the school year
+  // with no manual edits.
+  (function hideExpired() {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    document.querySelectorAll('[data-expires]').forEach(el => {
+      const raw = el.getAttribute('data-expires');
+      if (!raw) return;
+      const [y, m, d] = raw.split('-').map(Number);
+      if (!y || !m || !d) return;
+      const expires = new Date(y, m - 1, d);
+      expires.setHours(0, 0, 0, 0);
+      if (today > expires) {
+        el.style.display = 'none';
+        el.setAttribute('aria-hidden', 'true');
+      }
+    });
+  })();
 </script>
 
 </body>
