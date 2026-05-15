@@ -2050,8 +2050,8 @@ function wsTeacherBlockHtml(wsData, prefix) {
   // Visibility trick: closing → visibility:hidden fires after animation (.38s delay)
   //                   opening → visibility:visible fires immediately (0s delay)
   const checkedCss = teachers.map((t, i) =>
-    `#${p}-t${i}:checked ~ .${p}-tstrip label[for="${p}-t${i}"] .${p}-tring{border-color:#B564F7;transform:scale(1.06);}
-#${p}-t${i}:focus-visible ~ .${p}-tstrip label[for="${p}-t${i}"] .${p}-tring{outline:2px solid #B564F7;outline-offset:3px;}
+    `#${p}-t${i}:checked ~ .${p}-tstrip label[for='${p}-t${i}'] .${p}-tring{border-color:#B564F7;transform:scale(1.06);}
+#${p}-t${i}:focus-visible ~ .${p}-tstrip label[for='${p}-t${i}'] .${p}-tring{outline:2px solid #B564F7;outline-offset:3px;}
 #${p}-t${i}:checked ~ #${p}-tp${i}{grid-template-rows:1fr;opacity:1;visibility:visible;transition:grid-template-rows .38s cubic-bezier(.22,1,.36,1),opacity .22s ease,visibility 0s 0s;}`
   ).join('\n');
 
