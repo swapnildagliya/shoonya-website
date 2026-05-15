@@ -360,6 +360,23 @@
     transition: opacity .15s;
   }
   .footer-band .btn:hover { opacity: .88; }
+  .footer-btns { display: flex; flex-wrap: wrap; gap: .75rem; justify-content: center; }
+  .footer-band .btn-outline {
+    display: inline-block;
+    background: transparent;
+    color: #fff;
+    font-family: 'PT Serif', serif;
+    font-size: .82rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: .75rem 1.5rem;
+    border: 1.5px solid rgba(255,255,255,.4);
+    border-radius: 6px;
+    text-decoration: none;
+    transition: border-color .15s;
+  }
+  .footer-band .btn-outline:hover { border-color: #fff; }
 
   /* ── Responsive ───────────────────────────────────────────────── */
   @media (max-width: 640px) {
@@ -429,7 +446,7 @@
         <span class="card-cta" data-i18n="card_cta">See class details</span>
       </a>
 
-      <a class="card" href="/bachata-lady-style-miniseries-ghent">
+      <a class="card" href="/bachata-lady-styling-gent">
         <h3 data-i18n="c_bachata_ls_h">Bachata Lady Style <span class="badge badge-mini" data-i18n="badge_mini">Miniseries</span></h3>
         <p class="card-meta" data-i18n="c_bachata_ls_meta">Thu · 10 weeks · Oct 8 → Dec 17</p>
         <p class="card-desc" data-i18n="c_bachata_ls_desc">Solo styling for Bachata dancers with Ioanna. Body isolations, footwork, and feminine flow over a focused 10-week run.</p>
@@ -616,7 +633,10 @@
   <div class="footer-band">
     <h2 data-i18n="footer_h">Not sure where to start?</h2>
     <p data-i18n="footer_p">Come to the free trial week (Sep 14–19, 2026) and drop in to any class — no registration, no commitment. The teachers will help you find your level.</p>
-    <a class="btn" href="/school-year-2026-2027" data-i18n="footer_btn">See the full school year →</a>
+    <div class="footer-btns">
+      <a class="btn" href="/new-to-shoonya" data-i18n="footer_btn">Start here →</a>
+      <a class="btn-outline" href="/school-year-2026-2027" data-i18n="footer_btn2">See the full school year</a>
+    </div>
   </div>
 
 </div>
@@ -665,7 +685,8 @@ const translations = {
     c_yoga_h: "Yoga", c_yoga_meta: "Tue · Open level", c_yoga_desc: "A balanced 60-minute Hatha-Vinyasa session. Breathing, meditation, asana, and a proper cool-down.",
     footer_h: "Not sure where to start?",
     footer_p: "Come to the free trial week (Sep 14–19, 2026) and drop in to any class — no registration, no commitment. The teachers will help you find your level.",
-    footer_btn: "See the full school year →"
+    footer_btn: "Start here →",
+    footer_btn2: "See the full school year"
   },
   nl: {
     bc_home: "Home", bc_current: "Alle dansstijlen",
@@ -709,7 +730,8 @@ const translations = {
     c_yoga_h: "Yoga", c_yoga_meta: "Di · Open niveau", c_yoga_desc: "Een gebalanceerde sessie Hatha-Vinyasa van 60 minuten. Ademhaling, meditatie, asana en een goede afkoeling.",
     footer_h: "Weet je niet waar te beginnen?",
     footer_p: "Kom naar de gratis proefweek (14–19 sep 2026) en probeer elke les — geen inschrijving, geen verplichting. De leraars helpen je je niveau te vinden.",
-    footer_btn: "Bekijk het volledige schooljaar →"
+    footer_btn: "Begin hier →",
+    footer_btn2: "Bekijk het volledige schooljaar"
   }
 };
 
