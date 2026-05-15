@@ -983,7 +983,37 @@
 
     const STYLES = [...new Set(SLOTS.map(s => s.style))].sort((a, b) => a.localeCompare(b));
 
+    const STYLE_HREFS = {
+      'Argentine Tango':        'https://www.shoonyadance.com/argentijnse-tango-danslessen-gent',
+      'Kathak':                 'https://www.shoonyadance.com/kathak-danslessen-in-gent',
+      'Bollywood':              'https://www.shoonyadance.com/bollywood-danslessen-in-gent',
+      'Flamenco':               'https://www.shoonyadance.com/flamenco-danslessen-in-gent',
+      'Bollyfolk':              'https://www.shoonyadance.com/bollyfolk-danslessen-in-gent',
+      'Bachata':                'https://www.shoonyadance.com/bachata-dance-classes-in-ghent',
+      'Burlesque':              'https://www.shoonyadance.com/burlesque-lessen-in-gent',
+      'Yoga':                   'https://www.shoonyadance.com/yoga-lessen-in-gent',
+      'Indian Dance Technique': 'https://www.shoonyadance.com/indian-dance-in-belgium',
+      'Tap Dance':              'https://www.shoonyadance.com/tapdans-lessen-in-gent',
+      'Lindy Hop':              'https://www.shoonyadance.com/lindy-hop-danslessen-in-gent',
+      'Solo Jazz':              'https://www.shoonyadance.com/solo-jazz-danslessen-in-gent',
+      'Kizomba':                'https://www.shoonyadance.com/kizomba-danslessen-in-gent',
+      'Bhangra':                'https://www.shoonyadance.com/bhangra-danslessen-in-gent',
+      'Indian Semi-Classical':  'https://www.shoonyadance.com/kathak-danslessen-in-gent',
+      'Bachata Lady Style':     'https://www.shoonyadance.com/bachata-lady-styling-gent',
+      'Bachata Lady Styling':   'https://www.shoonyadance.com/bachata-lady-styling-gent',
+      'Rueda de Casino':        'https://www.shoonyadance.com/rueda-de-casino-danslessen-gent',
+      'Cuban Salsa':            'https://www.shoonyadance.com/cuban-salsa-in-gent',
+      'Ballet':                 'https://www.shoonyadance.com/ballet-voor-volwassenen-in-gent',
+      'Ballet Pointes':         'https://www.shoonyadance.com/ballet-voor-volwassenen-in-gent',
+      'African Congolese':      'https://www.shoonyadance.com/afrikaanse-congolese-dans-gent',
+      'African Congolese Dance':'https://www.shoonyadance.com/afrikaanse-congolese-dans-gent',
+      'Raqs Sharqi':            'https://www.shoonyadance.com/raqs-sharqi-danslessen-in-gent',
+      'Cissy Ball':             'https://www.shoonyadance.com/cissy-ball-danslessen-in-gent',
+      'High Heels':             'https://www.shoonyadance.com/burlesque-lessen-in-gent',
+    };
+
     function styleHref(style) {
+      if (STYLE_HREFS[style]) return STYLE_HREFS[style];
       const slug = style.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
       return 'https://www.shoonyadance.com/' + slug;
     }
