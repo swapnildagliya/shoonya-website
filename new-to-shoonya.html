@@ -10,18 +10,22 @@
 <meta name="description" content="Never danced before? Start here. Find your style, understand how your first class works, and take the first step with Shoonya Dance Centre in Ghent.">
 <style>
   :root {
-    --ink:        #1a1a1a;
-    --purple:     #B564F7;
-    --purple-soft: #F5ECFF;
-    --warm-soft:  #fdf3ec;
-    
-    --teal-soft:  #edf7f5;
-    --gold:       #b8860b;
-    --muted:      #666;
-    --border:     #e4e0db;
-    --bg:         #faf9f7;
-    --white:      #ffffff;
-    --radius:     10px;
+    --ink:          #1a1a1a;
+    --purple:       #B564F7;
+    --purple-text:  #6B21A8;   /* darkened for text on light bg — 8:1 on white */
+    --purple-soft:  #F5ECFF;
+    --warm-soft:    #fdf3ec;
+    --teal-soft:    #edf7f5;
+    --gold:         #b8860b;
+    --muted:        #666;
+    --border:       #e4e0db;
+    --bg:           #faf9f7;
+    --white:        #ffffff;
+    --radius:       10px;
+    /* Warning / partner-alert tokens */
+    --warning-bg:     #fff8e1;
+    --warning-border: #ffe082;
+    --warning-accent: #f9a825;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -31,6 +35,33 @@
     background: var(--bg);
     color: var(--ink);
     line-height: 1.6;
+  }
+
+  /* ── Skip link ── */
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 1rem;
+    z-index: 200;
+    background: #000;
+    color: #fff;
+    padding: .5rem 1rem;
+    border-radius: 4px;
+    font-size: .9rem;
+    text-decoration: none;
+    font-family: 'PT Serif', serif;
+  }
+  .skip-link:focus { left: 1rem; }
+
+  /* ── Focus visible ── */
+  :focus-visible {
+    outline: 3px solid var(--purple);
+    outline-offset: 2px;
+  }
+  .hero :focus-visible,
+  .pricing-section :focus-visible,
+  .final-cta :focus-visible {
+    outline-color: #fff;
   }
 
   /* ── Language toggle ── */
@@ -47,7 +78,7 @@
     box-shadow: 0 1px 6px rgba(0,0,0,.1);
   }
   .lang-btn {
-    padding: .35rem .85rem;
+    padding: .55rem 1rem;   /* was .35rem .85rem — touch target fix */
     font-size: .75rem;
     font-weight: 700;
     letter-spacing: .06em;
@@ -71,13 +102,6 @@
     text-align: center;
     position: relative;
     overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: none;
-    pointer-events: none;
   }
   .hero-label {
     display: inline-block;
@@ -156,7 +180,7 @@
     font-weight: 700;
     letter-spacing: .12em;
     text-transform: uppercase;
-    color: var(--purple);
+    color: var(--purple-text);   /* was var(--purple) — contrast fix */
     margin-bottom: .6rem;
   }
   .section h2 {
@@ -176,9 +200,9 @@
 
   /* ── Partner alert banner ── */
   .partner-alert {
-    background: #fff8e1;
-    border: 1px solid #ffe082;
-    border-left: 4px solid #f9a825;
+    background: var(--warning-bg);
+    border: 1px solid var(--warning-border);
+    border-left: 4px solid var(--warning-accent);
     border-radius: var(--radius);
     padding: 1.1rem 1.4rem;
     margin-bottom: 2.5rem;
@@ -188,7 +212,7 @@
   }
   .partner-alert .icon { font-size: 1.3rem; flex-shrink: 0; margin-top: .1rem; }
   .partner-alert strong { display: block; font-size: .95rem; margin-bottom: .2rem; }
-  .partner-alert p { font-size: .88rem; color: #555; line-height: 1.5; }
+  .partner-alert p { font-size: .88rem; color: var(--muted); line-height: 1.5; }
 
   /* ── Style cards ── */
   .style-grid {
@@ -228,7 +252,7 @@
   }
   .tag-partner { background: #e3f0ff; color: #1a5fa8; }
   .tag-solo    { background: #e8f5e9; color: #2a7a3a; }
-  .tag-open    { background: #f3e8ff; color: #B564F7; }
+  .tag-open    { background: #f3e8ff; color: var(--purple-text); }  /* was #B564F7 — contrast fix */
   .style-card p { font-size: .88rem; color: var(--muted); line-height: 1.55; margin-bottom: 1rem; }
   .style-list {
     list-style: none;
@@ -247,7 +271,7 @@
   }
   .style-list li a {
     display: block;
-    padding: .2rem .65rem;
+    padding: .35rem .65rem;   /* was .2rem .65rem — touch target fix */
     color: var(--ink);
     text-decoration: none;
     border-radius: 99px;
@@ -262,7 +286,7 @@
     margin-top: 1rem;
     font-size: .82rem;
     font-weight: 700;
-    color: var(--purple);
+    color: var(--purple-text);   /* was var(--purple) — contrast fix */
     text-decoration: none;
   }
   .style-card .card-link:hover { text-decoration: underline; }
@@ -296,7 +320,7 @@
   .step .badge {
     display: inline-block;
     background: var(--purple-soft);
-    color: var(--purple);
+    color: var(--purple-text);   /* was var(--purple) — contrast fix */
     font-size: .7rem;
     font-weight: 700;
     letter-spacing: .06em;
@@ -332,7 +356,7 @@
   /* ── Pricing ── */
   .pricing-section { background: #000000; color: var(--white); }
   .pricing-section .section { max-width: 900px; }
-  .pricing-section .section-label { color: var(--purple); }
+  .pricing-section .section-label { color: var(--purple); }   /* on dark bg, original purple has 3.8:1 — acceptable for decorative label */
   .pricing-section h2 { color: var(--white); }
   .pricing-section .lead { color: rgba(255,255,255,.6); }
   .pricing-table {
@@ -472,6 +496,10 @@
   .footer a { color: var(--muted); }
 
   /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .style-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+    .expect-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  }
   @media (max-width: 600px) {
     .hero { padding: 4rem 1.25rem 3rem; }
     .style-grid { grid-template-columns: 1fr; }
@@ -483,34 +511,48 @@
   /* ── Language visibility ── */
   [data-lang="nl"] { display: none; }
   body.nl [data-lang="en"] { display: none; }
-  body.nl [data-lang="nl"] { display: unset; }
+  body.nl [data-lang="nl"] { display: revert; }   /* was unset — revert respects UA block/inline defaults */
   body.nl .block-nl { display: block; }
   body.nl .block-en { display: none; }
   .block-nl { display: none; }
-  .breadcrumb { padding: .85rem 1.5rem; font-size: .82rem; color: #666; max-width: 960px; margin: 0 auto; font-family: 'PT Serif', serif; }
-  .breadcrumb a { color: #666; text-decoration: none; }
-  .breadcrumb a:hover { color: #1a1a1a; }
+
+  /* ── Breadcrumb ── */
+  .breadcrumb {
+    padding: .85rem 1.5rem;
+    font-size: .82rem;
+    color: var(--muted);   /* was #666 — use token */
+    max-width: 960px;
+    margin: 0 auto;
+    font-family: 'PT Serif', serif;
+  }
+  .breadcrumb a { color: var(--muted); text-decoration: none; }   /* was #666 — use token */
+  .breadcrumb a:hover { color: var(--ink); }
   .breadcrumb span { margin: 0 .4rem; }
 </style>
 </head>
 <body>
 
+<!-- Skip link -->
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
 <!-- Language toggle -->
-<div class="lang-toggle">
-  <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
-  <button class="lang-btn" id="btn-nl" onclick="setLang('nl')">NL</button>
+<div class="lang-toggle" role="group" aria-label="Language selection">
+  <button class="lang-btn active" id="btn-en" onclick="setLang('en')" aria-pressed="true">EN</button>
+  <button class="lang-btn" id="btn-nl" onclick="setLang('nl')" aria-pressed="false">NL</button>
 </div>
 
+<main id="main-content">
+
 <!-- Breadcrumb -->
-<div class="breadcrumb">
-  <a href="/dance-styles-overview">
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="../dance-styles-overview.html">
     <span data-lang="en">← All dance styles</span>
     <span data-lang="nl">← Alle dansstijlen</span>
   </a>
-  <span>·</span>
+  <span aria-hidden="true">·</span>
   <span data-lang="en">New to Shoonya</span>
   <span data-lang="nl">Nieuw bij Shoonya</span>
-</div>
+</nav>
 
 <!-- ═══════════════════════════════════════
      HERO
@@ -551,7 +593,7 @@
 ════════════════════════════════════════ -->
 <div class="section" style="padding-bottom: 0;">
   <div class="partner-alert">
-    <div class="icon">⚠️</div>
+    <div class="icon" aria-hidden="true">⚠️</div>
     <div>
       <strong data-lang="en">Partner dances require you to register with a partner</strong>
       <strong data-lang="nl">Partnerdansen vereisen dat je je inschrijft met een partner</strong>
@@ -578,7 +620,7 @@
 
     <!-- Partner & Social -->
     <a class="style-card" href="../partner-social/">
-      <div class="style-card-icon">💃🕺</div>
+      <div class="style-card-icon" aria-hidden="true">💃🕺</div>
       <h3 data-lang="en">Partner & Social Dance</h3>
       <h3 data-lang="nl">Partner- & Sociaal Dansen</h3>
       <span class="tag tag-partner" data-lang="en">Most require a partner</span>
@@ -591,7 +633,7 @@
 
     <!-- Classical & Technique -->
     <a class="style-card" href="../classical-technique/">
-      <div class="style-card-icon">🩰</div>
+      <div class="style-card-icon" aria-hidden="true">🩰</div>
       <h3 data-lang="en">Classical & Technique</h3>
       <h3 data-lang="nl">Klassiek & Techniek</h3>
       <span class="tag tag-solo" data-lang="en">Solo — come alone</span>
@@ -604,7 +646,7 @@
 
     <!-- Culture & Wellness -->
     <a class="style-card" href="../culture-wellness/">
-      <div class="style-card-icon">🌍</div>
+      <div class="style-card-icon" aria-hidden="true">🌍</div>
       <h3 data-lang="en">Culture & Wellness</h3>
       <h3 data-lang="nl">Cultuur & Welzijn</h3>
       <span class="tag tag-open" data-lang="en">Solo — come alone</span>
@@ -635,7 +677,7 @@
 
   <div class="steps">
     <div class="step">
-      <div class="step-num">1</div>
+      <div class="step-num" aria-hidden="true">1</div>
       <div>
         <h3 data-lang="en">Come to an Open House Day</h3>
         <h3 data-lang="nl">Kom naar een Open Deurdag</h3>
@@ -649,7 +691,7 @@
     </div>
 
     <div class="step">
-      <div class="step-num">2</div>
+      <div class="step-num" aria-hidden="true">2</div>
       <div>
         <h3 data-lang="en">Try the first week free</h3>
         <h3 data-lang="nl">Probeer de eerste week gratis</h3>
@@ -663,7 +705,7 @@
     </div>
 
     <div class="step">
-      <div class="step-num">3</div>
+      <div class="step-num" aria-hidden="true">3</div>
       <div>
         <h3 data-lang="en">Register when you're ready</h3>
         <h3 data-lang="nl">Schrijf je in wanneer je er klaar voor bent</h3>
@@ -740,52 +782,54 @@
     <p class="lead" data-lang="en">You pay for the full semester. If you join mid-semester, your price is prorated automatically.</p>
     <p class="lead" data-lang="nl">Je betaalt voor het volledige semester. Als je halverwege begint, wordt je prijs automatisch berekend.</p>
 
-    <table class="pricing-table">
-      <thead>
-        <tr>
-          <th data-lang="en">Class type</th>
-          <th data-lang="nl">Lestype</th>
-          <th data-lang="en">Full price</th>
-          <th data-lang="nl">Volledige prijs</th>
-          <th data-lang="en">Student / 2+ classes</th>
-          <th data-lang="nl">Student / 2+ lessen</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td data-lang="en">Most classes (60 min)</td>
-          <td data-lang="nl">Meeste lessen (60 min)</td>
-          <td class="price-full">€198</td>
-          <td class="price-full">€198</td>
-          <td class="price-student">€175</td>
-          <td class="price-student">€175</td>
-        </tr>
-        <tr>
-          <td data-lang="en">Tap Dance (70 min)</td>
-          <td data-lang="nl">Tapdans (70 min)</td>
-          <td class="price-full">€223</td>
-          <td class="price-full">€223</td>
-          <td class="price-student">€197</td>
-          <td class="price-student">€197</td>
-        </tr>
-        <tr>
-          <td data-lang="en">Lindy Hop (75 min)</td>
-          <td data-lang="nl">Lindy Hop (75 min)</td>
-          <td class="price-full">€231</td>
-          <td class="price-full">€231</td>
-          <td class="price-student">€204</td>
-          <td class="price-student">€204</td>
-        </tr>
-        <tr>
-          <td data-lang="en">African Dance, Ballet, Burlesque, Cissy Ball (90 min)</td>
-          <td data-lang="nl">Afrikaanse dans, Ballet, Burlesque, Cissy Ball (90 min)</td>
-          <td class="price-full">€248</td>
-          <td class="price-full">€248</td>
-          <td class="price-student">€219</td>
-          <td class="price-student">€219</td>
-        </tr>
-      </tbody>
-    </table>
+    <div style="overflow-x:auto;">
+      <table class="pricing-table">
+        <thead>
+          <tr>
+            <th data-lang="en">Class type</th>
+            <th data-lang="nl">Lestype</th>
+            <th data-lang="en">Full price</th>
+            <th data-lang="nl">Volledige prijs</th>
+            <th data-lang="en">Student / 2+ classes</th>
+            <th data-lang="nl">Student / 2+ lessen</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-lang="en">Most classes (60 min)</td>
+            <td data-lang="nl">Meeste lessen (60 min)</td>
+            <td class="price-full">€198</td>
+            <td class="price-full">€198</td>
+            <td class="price-student">€175</td>
+            <td class="price-student">€175</td>
+          </tr>
+          <tr>
+            <td data-lang="en">Tap Dance (70 min)</td>
+            <td data-lang="nl">Tapdans (70 min)</td>
+            <td class="price-full">€223</td>
+            <td class="price-full">€223</td>
+            <td class="price-student">€197</td>
+            <td class="price-student">€197</td>
+          </tr>
+          <tr>
+            <td data-lang="en">Lindy Hop (75 min)</td>
+            <td data-lang="nl">Lindy Hop (75 min)</td>
+            <td class="price-full">€231</td>
+            <td class="price-full">€231</td>
+            <td class="price-student">€204</td>
+            <td class="price-student">€204</td>
+          </tr>
+          <tr>
+            <td data-lang="en">African Dance, Ballet, Burlesque, Cissy Ball (90 min)</td>
+            <td data-lang="nl">Afrikaanse dans, Ballet, Burlesque, Cissy Ball (90 min)</td>
+            <td class="price-full">€248</td>
+            <td class="price-full">€248</td>
+            <td class="price-student">€219</td>
+            <td class="price-student">€219</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <p class="pricing-note">
       <span data-lang="en">
@@ -815,72 +859,72 @@
   <div class="faq">
 
     <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
+      <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-a-1">
         <span data-lang="en">Do I need a dance partner to join?</span>
         <span data-lang="nl">Heb ik een danspartner nodig?</span>
-        <span class="arrow">▼</span>
+        <span class="arrow" aria-hidden="true">▼</span>
       </button>
-      <div class="faq-a">
+      <div class="faq-a" id="faq-a-1">
         <span data-lang="en">Only for Cuban Salsa, Bachata, Argentine Tango, Kizomba, and Rueda de Casino. For all other classes — including Lindy Hop, Bollywood, Tap, Ballet, Flamenco, Burlesque, and more — you come alone and that's perfectly normal. The majority of our students are solo.</span>
         <span data-lang="nl">Alleen voor Cuban Salsa, Bachata, Argentine Tango, Kizomba en Rueda de Casino. Voor alle andere lessen — inclusief Lindy Hop, Bollywood, Tapdans, Ballet, Flamenco, Burlesque en meer — kom je alleen en dat is heel normaal. De meerderheid van onze leerlingen danst solo.</span>
       </div>
     </div>
 
     <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
+      <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-a-2">
         <span data-lang="en">I have absolutely no rhythm. Is that a problem?</span>
         <span data-lang="nl">Ik heb absoluut geen gevoel voor ritme. Is dat een probleem?</span>
-        <span class="arrow">▼</span>
+        <span class="arrow" aria-hidden="true">▼</span>
       </button>
-      <div class="faq-a">
+      <div class="faq-a" id="faq-a-2">
         <span data-lang="en">Not at all. Rhythm is something you develop through practice — it's not something you're born with or without. Level 1 classes start slower than you'd expect, and teachers are used to working with complete beginners. Come to the Open House and see for yourself.</span>
         <span data-lang="nl">Helemaal niet. Ritme ontwikkel je door oefening — het is niets wat je hebt of niet hebt. Level 1 lessen gaan langzamer dan je verwacht, en leerkrachten zijn gewend aan absolute beginners. Kom naar de Open Deur en zie het zelf.</span>
       </div>
     </div>
 
     <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
+      <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-a-3">
         <span data-lang="en">Can I join mid-semester?</span>
         <span data-lang="nl">Kan ik halverwege het semester beginnen?</span>
-        <span class="arrow">▼</span>
+        <span class="arrow" aria-hidden="true">▼</span>
       </button>
-      <div class="faq-a">
+      <div class="faq-a" id="faq-a-3">
         <span data-lang="en">Yes, for most classes. Your price is automatically prorated — you pay only for the sessions remaining in the semester. Some classes have a fixed group that doesn't accept mid-semester joiners (e.g. Rueda de Casino). Check the class page or ask us.</span>
         <span data-lang="nl">Ja, voor de meeste lessen. Je prijs wordt automatisch berekend — je betaalt alleen voor de resterende sessies van het semester. Sommige lessen hebben een vaste groep die geen tussentijdse inschrijvingen accepteert (bijv. Rueda de Casino). Bekijk de lespagina of vraag het ons.</span>
       </div>
     </div>
 
     <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
+      <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-a-4">
         <span data-lang="en">What is a Shoonya ID and why do I need one?</span>
         <span data-lang="nl">Wat is een Shoonya ID en waarom heb ik er een nodig?</span>
-        <span class="arrow">▼</span>
+        <span class="arrow" aria-hidden="true">▼</span>
       </button>
-      <div class="faq-a">
+      <div class="faq-a" id="faq-a-4">
         <span data-lang="en">It's your personal account on the Shoonya platform — you use it to register for classes and manage your enrolment. You don't need one to visit an Open House. Only create it when you're ready to register for a class.</span>
-        <span data-lang="nl">Het is je persoonlijk account op het Shoonya-platform — je gebruikt het om je in te schrijven voor lessen en je inschrijving te beheren. Je hebt er geen nodig voor een Open Deur. Maak het pas aan wanneer je klaar bent om je voor een les in te schrijven.</span>
+        <span data-lang="nl">Het is je persoonlijk account op het Shoonya-platform — je gebruikt het om je in te schrijven voor lessen en je inschrijving te beheren. Je hebt er geen nodig voor een Open Deur. Maak het pas aan wanneer je klaar voor bent om je voor een les in te schrijven.</span>
       </div>
     </div>
 
     <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
+      <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-a-5">
         <span data-lang="en">What should I bring or wear?</span>
         <span data-lang="nl">Wat moet ik meenemen of dragen?</span>
-        <span class="arrow">▼</span>
+        <span class="arrow" aria-hidden="true">▼</span>
       </button>
-      <div class="faq-a">
+      <div class="faq-a" id="faq-a-5">
         <span data-lang="en">Comfortable clothing you can move in freely. Bring a pair of clean indoor shoes — street shoes are not allowed on the dance floor (it damages the surface). For a first Open House visit, socks work fine. Water is always a good idea. Specific footwear per style (like tap shoes or dance heels) is only needed if you continue.</span>
         <span data-lang="nl">Comfortabele kleding om vrijuit in te bewegen. Breng een paar schone binnenschoenen mee — straatschoenen zijn niet toegestaan op de dansvloer (dit beschadigt het oppervlak). Voor een eerste Open Deur bezoek zijn sokken prima. Water is altijd een goed idee. Specifiek schoeisel per stijl (zoals tapshoenen of danshakken) is alleen nodig als je verdergaat.</span>
       </div>
     </div>
 
     <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
+      <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-a-6">
         <span data-lang="en">Do I need to be fit or flexible?</span>
         <span data-lang="nl">Moet ik fit of soepel zijn?</span>
-        <span class="arrow">▼</span>
+        <span class="arrow" aria-hidden="true">▼</span>
       </button>
-      <div class="faq-a">
+      <div class="faq-a" id="faq-a-6">
         <span data-lang="en">No. Fitness and flexibility are things you build over time through dance. Students come in all shapes, sizes, ages, and fitness levels. The dance builds the body — not the other way around.</span>
         <span data-lang="nl">Nee. Conditie en soepelheid bouw je op in de loop van de tijd door te dansen. Leerlingen komen in alle vormen, maten, leeftijden en fitnesniveaus. De dans vormt het lichaam — niet andersom.</span>
       </div>
@@ -905,6 +949,8 @@
   </div>
 </div>
 
+</main>
+
 <!-- ── Footer ── -->
 <div class="footer">
   <p>Shoonya Dance Centre · Stapelplein 41, 9000 Gent · <a href="https://shoonyadance.com">shoonyadance.com</a></p>
@@ -914,8 +960,12 @@
   // ── Language toggle ──
   function setLang(lang) {
     document.body.classList.toggle('nl', lang === 'nl');
-    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-    document.getElementById('btn-nl').classList.toggle('active', lang === 'nl');
+    const enBtn = document.getElementById('btn-en');
+    const nlBtn = document.getElementById('btn-nl');
+    enBtn.classList.toggle('active', lang === 'en');
+    nlBtn.classList.toggle('active', lang === 'nl');
+    enBtn.setAttribute('aria-pressed', lang === 'en' ? 'true' : 'false');
+    nlBtn.setAttribute('aria-pressed', lang === 'nl' ? 'true' : 'false');
     localStorage.setItem('shoonya-lang', lang);
   }
 
@@ -932,9 +982,15 @@
     const item = btn.closest('.faq-item');
     const isOpen = item.classList.contains('open');
     // Close all
-    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    document.querySelectorAll('.faq-item').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+    });
     // Open clicked if it was closed
-    if (!isOpen) item.classList.add('open');
+    if (!isOpen) {
+      item.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
   }
 </script>
 
