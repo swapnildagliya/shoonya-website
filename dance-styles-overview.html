@@ -1,8 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" translate="no">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- This page handles EN/NL via in-page JS toggle. External translation tools (Weglot, Google Translate) should skip it. -->
+<meta name="google" content="notranslate">
+<meta name="weglot-translate" content="no">
 <title>All Dance Styles — Shoonya Dance Centre Ghent</title>
 <meta name="description" content="Explore all dance styles at Shoonya Dance Centre in Ghent: Ballet, Flamenco, Cuban Salsa, Bachata, Tango, Bollywood, Tap Dance, Kathak, Burlesque, Kizomba, and more.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,6 +33,25 @@
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* Skip-to-content (visible only on keyboard focus) */
+  .skip-link {
+    position: absolute; top: 0; left: 0;
+    transform: translateY(-100%);
+    background: var(--ink); color: #fff;
+    padding: .75rem 1.25rem;
+    font-weight: 700; font-size: .85rem; letter-spacing: .04em;
+    text-decoration: none;
+    z-index: 200;
+    border-radius: 0 0 6px 0;
+    transition: transform .15s;
+    font-family: 'PT Serif', serif;
+  }
+  .skip-link:focus {
+    transform: translateY(0);
+    outline: 2px solid var(--purple);
+    outline-offset: -2px;
+  }
 
   body {
     font-family: 'PT Serif', serif;
@@ -375,6 +397,9 @@
 </head>
 <body>
 
+<!-- Skip to content (accessibility — visible only on keyboard focus) -->
+<a href="#main-content" class="skip-link" data-i18n="skip_link">Skip to content</a>
+
 <!-- Lang toggle -->
 <div class="lang-toggle" role="group" aria-label="Language">
   <button class="lang-btn active" data-lang="en">EN</button>
@@ -389,7 +414,7 @@
 </nav>
 
 <!-- Hero -->
-<header class="hero">
+<header class="hero" id="main-content" tabindex="-1">
   <div class="hero-label" data-i18n="hero_label">Dance Centre · Ghent</div>
   <h1 data-i18n="hero_h1">All dance styles at Shoonya</h1>
   <p data-i18n="hero_p">Over 40 weekly classes across three families of dance. Browse by family below — every style links to its full page with prices, dates and teachers.</p>
@@ -694,6 +719,7 @@
 <script>
 const translations = {
   en: {
+    skip_link: "Skip to content",
     bc_home: "Home", bc_current: "All dance styles",
     hero_label: "Dance Centre · Ghent",
     hero_h1: "All dance styles at Shoonya",
@@ -752,6 +778,7 @@ const translations = {
     footer_btn2: "See the full school year"
   },
   nl: {
+    skip_link: "Naar inhoud",
     bc_home: "Home", bc_current: "Alle dansstijlen",
     hero_label: "Danscentrum · Gent",
     hero_h1: "Alle dansstijlen bij Shoonya",

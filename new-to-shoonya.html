@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" translate="no">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light">
+<!-- This page handles EN/NL via in-page JS toggle. External translation tools (Weglot, Google Translate) should skip it. -->
+<meta name="google" content="notranslate">
+<meta name="weglot-translate" content="no">
 <title>New to Shoonya? — Shoonya Dance Centre Ghent</title>
 <meta name="description" content="Never danced before? Start here. Find your style, understand how your first class works, and take the first step with Shoonya Dance Centre in Ghent.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,6 +35,25 @@
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* Skip-to-content (visible only on keyboard focus) */
+  .skip-link {
+    position: absolute; top: 0; left: 0;
+    transform: translateY(-100%);
+    background: var(--ink); color: #fff;
+    padding: .75rem 1.25rem;
+    font-weight: 700; font-size: .85rem; letter-spacing: .04em;
+    text-decoration: none;
+    z-index: 200;
+    border-radius: 0 0 6px 0;
+    transition: transform .15s;
+    font-family: 'PT Serif', serif;
+  }
+  .skip-link:focus {
+    transform: translateY(0);
+    outline: 2px solid var(--purple);
+    outline-offset: -2px;
+  }
 
   body {
     font-family: 'PT Serif', Georgia, serif;
@@ -526,6 +548,12 @@
 </head>
 <body>
 
+<!-- Skip to content (accessibility — visible only on keyboard focus) -->
+<a href="#main-content" class="skip-link">
+  <span data-lang="en">Skip to content</span>
+  <span data-lang="nl">Naar inhoud</span>
+</a>
+
 <!-- Language toggle -->
 <div class="lang-toggle" role="group" aria-label="Language selection">
   <button class="lang-btn active" id="btn-en" onclick="setLang('en')" aria-pressed="true">EN</button>
@@ -544,7 +572,7 @@
 </nav>
 
 <!-- ═════════ Hero ═════════ -->
-<section class="hero" aria-labelledby="hero-h1">
+<section class="hero" id="main-content" tabindex="-1" aria-labelledby="hero-h1">
   <div class="hero__pill">
     <span data-lang="en">Welcome · Shoonya · Ghent</span>
     <span data-lang="nl">Welkom · Shoonya · Gent</span>

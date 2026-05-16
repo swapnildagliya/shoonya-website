@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" translate="no">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="color-scheme" content="light" />
+  <!-- Bilingual via in-page JS toggle. External translation tools should skip. -->
+  <meta name="google" content="notranslate" />
+  <meta name="weglot-translate" content="no" />
   <title>Schedule · Shoonya Dance Centre · Ghent</title>
   <meta name="description" content="Choose your semester at Shoonya Dance Centre. September 2026 brings a new school year with 24 styles across 5 studios. Spring 2026 is in its final weeks." />
 
@@ -33,6 +36,25 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* Skip-to-content (visible only on keyboard focus) */
+    .skip-link {
+      position: absolute; top: 0; left: 0;
+      transform: translateY(-100%);
+      background: var(--ink); color: #fff;
+      padding: .75rem 1.25rem;
+      font-weight: 700; font-size: .85rem; letter-spacing: .04em;
+      text-decoration: none;
+      z-index: 200;
+      border-radius: 0 0 6px 0;
+      transition: transform .15s;
+      font-family: 'PT Serif', serif;
+    }
+    .skip-link:focus {
+      transform: translateY(0);
+      outline: 2px solid var(--purple);
+      outline-offset: -2px;
+    }
 
     body {
       font-family: 'PT Serif', Georgia, serif;
@@ -470,6 +492,9 @@
 </head>
 <body>
 
+  <!-- Skip to content (accessibility — visible only on keyboard focus) -->
+  <a href="#main-content" class="skip-link" data-i18n="skip-link">Skip to content</a>
+
   <!-- Lang toggle -->
   <div class="lang-toggle" role="group" aria-label="Language">
     <button class="lang-btn active" data-lang="en">EN</button>
@@ -483,7 +508,7 @@
   </div>
 
   <!-- Hero -->
-  <header class="hero">
+  <header class="hero" id="main-content" tabindex="-1">
     <div class="hero__pill" data-i18n="hero-pill">The dance year</div>
     <h1 data-i18n="hero-h1">Where are you on <em>the calendar?</em></h1>
     <p class="hero__sub" data-i18n="hero-sub">Two semesters, an open house, and a free trial week. Pick where to land.</p>
@@ -663,6 +688,7 @@
         'tl-kicker':      'Your year ahead',
         'tl-h2':          'A few <em>moments</em> in the year',
         'tl-sub':         'Where you are now, and what\'s next.',
+        'skip-link':           'Skip to content',
         'nav-back':            '← Back',
         'nav-home':            'Home ↗',
         'now-label':           'You are here',
@@ -709,6 +735,7 @@
         'tl-kicker':      'Het jaar in beeld',
         'tl-h2':          'Een paar <em>momenten</em> in het jaar',
         'tl-sub':         'Waar je nu staat, en wat volgt.',
+        'skip-link':           'Naar inhoud',
         'nav-back':            '← Terug',
         'nav-home':            'Home ↗',
         'now-label':           'Je bent hier',

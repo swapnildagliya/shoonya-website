@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" translate="no">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="color-scheme" content="light" />
+  <!-- Bilingual via in-page JS toggle. External translation tools should skip. -->
+  <meta name="google" content="notranslate" />
+  <meta name="weglot-translate" content="no" />
   <title>Spring 2026 schedule · Shoonya Dance Centre · Ghent</title>
   <meta name="description" content="Shoonya Dance Centre weekly class schedule for Spring 2026 — Semester 2 of the 2025-2026 school year, in its final weeks. Filter by day, level, teacher, or style." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -37,6 +40,25 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* Skip-to-content (visible only on keyboard focus) */
+    .skip-link {
+      position: absolute; top: 0; left: 0;
+      transform: translateY(-100%);
+      background: var(--ink); color: #fff;
+      padding: .75rem 1.25rem;
+      font-weight: 700; font-size: .85rem; letter-spacing: .04em;
+      text-decoration: none;
+      z-index: 200;
+      border-radius: 0 0 6px 0;
+      transition: transform .15s;
+      font-family: 'PT Serif', serif;
+    }
+    .skip-link:focus {
+      transform: translateY(0);
+      outline: 2px solid var(--salmon-deep);
+      outline-offset: -2px;
+    }
     body {
       font-family: 'PT Serif', Georgia, serif;
       background: var(--bg);
@@ -593,6 +615,9 @@
 </head>
 <body>
 
+  <!-- Skip to content (accessibility — visible only on keyboard focus) -->
+  <a href="#main-content" class="skip-link" data-i18n="skip-link">Skip to content</a>
+
   <div class="lang-toggle" role="group" aria-label="Language">
     <button class="lang-btn active" data-lang="en">EN</button>
     <button class="lang-btn" data-lang="nl">NL</button>
@@ -646,7 +671,7 @@
     </div>
   </section>
 
-  <main class="schedule" id="schedule" aria-label="Weekly schedule">
+  <main class="schedule" id="main-content" tabindex="-1" aria-label="Weekly schedule">
     <div class="legend" aria-label="Studio legend">
       <span><span class="legend__swatch" style="background:var(--studio-aakash-bg)"></span>Aakash</span>
       <span><span class="legend__swatch" style="background:var(--studio-ananta1-bg)"></span>Ananta 1</span>
@@ -691,6 +716,7 @@
         'view-grid':  '▦ Grid',
         'view-list':  '☰ List',
         'clear-all':  'clear all',
+        'skip-link':  'Skip to schedule',
         'nav-back':   '← Back',
         'nav-hub':    '↑ School year',
         'nav-home':   'Home ↗',
@@ -720,6 +746,7 @@
         'view-grid':  '▦ Rooster',
         'view-list':  '☰ Lijst',
         'clear-all':  'alles wissen',
+        'skip-link':  'Naar rooster',
         'nav-back':   '← Terug',
         'nav-hub':    '↑ Schooljaar',
         'nav-home':   'Home ↗',
@@ -856,8 +883,10 @@
       days: new Set(),
       search: '',
       beginnerOnly: false,
-      view: 'grid'  // 'grid' | 'list' — grid is the desktop default
+      view: 'grid',         // 'grid' | 'list' — grid is the desktop default
+      viewUserSet: false    // true once the user manually toggles or URL pins it
     };
+    const AUTO_LIST_THRESHOLD = 12;
 
     /* Spring 2026: 4 studios (Art Deco was a single space, pre-split) */
     const STUDIOS = [
@@ -916,7 +945,11 @@
       if (d) d.split(',').forEach(x => { if (DAYS.some(dd => dd.code === x)) state.days.add(x); });
       const q = p.get('q'); if (q) state.search = q;
       if (p.get('beginner') === '1') state.beginnerOnly = true;
-      const v = p.get('view'); if (v === 'list' || v === 'grid') state.view = v;
+      const v = p.get('view');
+      if (v === 'list' || v === 'grid') {
+        state.view = v;
+        state.viewUserSet = true;
+      }
     }
 
     /* ─── Render: toolbar chips ────────────────────────────────── */
@@ -1212,7 +1245,23 @@
       document.getElementById('view-list').setAttribute('aria-pressed', state.view === 'list' ? 'true' : 'false');
     }
 
+    /* Auto-switch grid → list when filters narrow results below the threshold;
+       reverts to grid when filters clear. Skipped once viewUserSet is true. */
+    function autoSwitchView() {
+      if (state.viewUserSet) return;
+      const matching = SLOTS.filter(matchesFilters).length;
+      const filtersActive = hasFilters();
+      if (filtersActive && matching > 0 && matching < AUTO_LIST_THRESHOLD && state.view === 'grid') {
+        state.view = 'list';
+      } else if (!filtersActive && state.view === 'list') {
+        state.view = 'grid';
+      }
+    }
+
     function applyAll() {
+      const prevView = state.view;
+      autoSwitchView();
+      if (state.view !== prevView) buildSchedule();
       updateChipStates();
       applyFilters();
       writeUrl();
@@ -1242,6 +1291,7 @@
     readUrl();
     applyStaticLang();
     buildDayChips();
+    autoSwitchView();   // adjust view BEFORE first render if URL filters already narrow
     buildSchedule();
     applyAll();
 
@@ -1279,10 +1329,12 @@
       }
     });
 
+    // View toggle — manual click locks the choice (auto-switch off for this session)
     document.querySelectorAll('.view-toggle__btn').forEach(btn => {
       btn.addEventListener('click', () => {
         if (state.view === btn.dataset.view) return;
         state.view = btn.dataset.view;
+        state.viewUserSet = true;
         buildSchedule();
         applyAll();
       });
