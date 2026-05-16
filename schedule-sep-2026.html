@@ -623,7 +623,6 @@
       <!-- Chips row: intent toggles + day chips + count + view toggle -->
       <div class="chips-row" role="group" aria-label="Filter chips">
         <button class="chip chip--intent" id="chip-beginner" type="button" aria-pressed="false" data-i18n-attr="aria-label" data-i18n="chip-beginner">✦ Beginner</button>
-        <button class="chip chip--intent" id="chip-dropin"   type="button" aria-pressed="false" data-i18n-attr="aria-label" data-i18n="chip-dropin">Drop-in</button>
         <span class="chips-row__divider" aria-hidden="true"></span>
         <div id="day-chips" style="display:contents"></div>
         <span class="chips-row__count" id="result-count" aria-live="polite"></span>
@@ -693,7 +692,6 @@
         'hero-sub':   'A typical week at Shoonya. Search a style, teacher, or day; tap a slot for full details.',
         'hero-chip':  '✦ Free trial week · Sep 14–19, 2026',
         'chip-beginner': '✦ Beginner',
-        'chip-dropin':   'Drop-in',
         'view-grid':  '▦ Grid',
         'view-list':  '☰ List',
         'clear-all':  'clear all',
@@ -709,7 +707,6 @@
         dayClasses:    (n) => n === 1 ? '1 class' : (n + ' classes'),
         activeSummary: (parts) => '<strong>' + parts.length + ' filter' + (parts.length === 1 ? '' : 's') + '</strong> — ' + parts.join(', '),
         beginnerLabel:  'Beginner',
-        dropinLabel:    'Drop-in',
         daysLabel:      (ns) => ns.length === 1 ? ns[0] : ns.length + ' days',
         searchLabel:    (q) => '"' + q + '"',
         dropInTag:      'drop-in'
@@ -723,7 +720,6 @@
         'hero-sub':   'Een typische week bij Shoonya. Zoek een stijl, leraar of dag; klik op een tijdslot voor details.',
         'hero-chip':  '✦ Gratis proefweek · 14–19 sep 2026',
         'chip-beginner': '✦ Beginner',
-        'chip-dropin':   'Losse les',
         'view-grid':  '▦ Rooster',
         'view-list':  '☰ Lijst',
         'clear-all':  'alles wissen',
@@ -739,7 +735,6 @@
         dayClasses:    (n) => n === 1 ? '1 les' : (n + ' lessen'),
         activeSummary: (parts) => '<strong>' + parts.length + ' filter' + (parts.length === 1 ? '' : 's') + '</strong> — ' + parts.join(', '),
         beginnerLabel:  'Beginner',
-        dropinLabel:    'Losse les',
         daysLabel:      (ns) => ns.length === 1 ? ns[0] : ns.length + ' dagen',
         searchLabel:    (q) => '"' + q + '"',
         dropInTag:      'losse les'
@@ -868,7 +863,6 @@
       days: new Set(),       // {'mon','wed',…}
       search: '',            // free-text
       beginnerOnly: false,
-      dropInOnly: false,
       view: 'grid'           // 'grid' | 'list' — grid is the desktop default
     };
 
@@ -909,7 +903,6 @@
     function matchesFilters(s) {
       if (state.days.size > 0 && !state.days.has(s.day)) return false;
       if (state.beginnerOnly && !isBeginnerFriendly(s)) return false;
-      if (state.dropInOnly && !s.dropIn) return false;
       if (state.search) {
         const q = state.search.toLowerCase();
         const haystack = (s.style + ' ' + s.level + ' ' + s.teacher + ' ' + (UI.en.dl[s.day] || '') + ' ' + (UI.nl.dl[s.day] || '') + ' ' + (UI.en.d[s.day] || '') + ' ' + (UI.nl.d[s.day] || '')).toLowerCase();
@@ -924,7 +917,6 @@
       if (state.days.size > 0) p.set('days', [...state.days].join(','));
       if (state.search) p.set('q', state.search);
       if (state.beginnerOnly) p.set('beginner', '1');
-      if (state.dropInOnly) p.set('dropin', '1');
       if (state.view !== 'grid') p.set('view', state.view);  // grid is default — omit param
       const qs = p.toString();
       const url = qs ? '?' + qs : location.pathname;
@@ -936,7 +928,6 @@
       if (d) d.split(',').forEach(x => { if (DAYS.some(dd => dd.code === x)) state.days.add(x); });
       const q = p.get('q'); if (q) state.search = q;
       if (p.get('beginner') === '1') state.beginnerOnly = true;
-      if (p.get('dropin')   === '1') state.dropInOnly   = true;
       const v = p.get('view'); if (v === 'list' || v === 'grid') state.view = v;
     }
 
@@ -1030,7 +1021,10 @@
         const titleEl = document.createElement('div');
         titleEl.className = 'slot__title' + (s.isNew ? ' slot__title--new' : '');
         titleEl.textContent = s.style + ' · ' + s.level;
-        if (s.dropIn) {
+        // Drop-in tag only appears on the two casual-attendance classes —
+        // Pilates for Dancers and Dance & Fit. All other weekly classes are
+        // semester registrations and should never carry the drop-in label.
+        if (s.dropIn && (s.style === 'Pilates for Dancers' || s.style === 'Dance & Fit')) {
           const tag = document.createElement('span');
           tag.className = 'slot__dropin-tag';
           tag.textContent = UI[lang].dropInTag;
@@ -1179,7 +1173,6 @@
       const parts = [];
       if (state.search) parts.push(UI[lang].searchLabel(state.search));
       if (state.beginnerOnly) parts.push(UI[lang].beginnerLabel);
-      if (state.dropInOnly)   parts.push(UI[lang].dropinLabel);
       if (state.days.size > 0) {
         const dayNames = [...state.days].map(d => UI[lang].dl[d]);
         parts.push(UI[lang].daysLabel(dayNames));
@@ -1196,7 +1189,7 @@
     }
 
     function hasFilters() {
-      return state.days.size > 0 || state.search !== '' || state.beginnerOnly || state.dropInOnly;
+      return state.days.size > 0 || state.search !== '' || state.beginnerOnly;
     }
 
     function updateChipStates() {
@@ -1204,7 +1197,6 @@
         if (dayChipEls[d.code]) dayChipEls[d.code].setAttribute('aria-pressed', state.days.has(d.code) ? 'true' : 'false');
       });
       document.getElementById('chip-beginner').setAttribute('aria-pressed', state.beginnerOnly ? 'true' : 'false');
-      document.getElementById('chip-dropin').setAttribute('aria-pressed', state.dropInOnly ? 'true' : 'false');
       document.getElementById('search-wrap').classList.toggle('search--has-value', state.search !== '');
       const input = document.getElementById('search-input');
       if (input.value !== state.search) input.value = state.search;
@@ -1261,15 +1253,10 @@
       state.beginnerOnly = !state.beginnerOnly;
       applyAll();
     });
-    document.getElementById('chip-dropin').addEventListener('click', () => {
-      state.dropInOnly = !state.dropInOnly;
-      applyAll();
-    });
     document.getElementById('clear-all').addEventListener('click', () => {
       state.days.clear();
       state.search = '';
       state.beginnerOnly = false;
-      state.dropInOnly = false;
       document.getElementById('search-input').value = '';
       applyAll();
     });
