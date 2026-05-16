@@ -2131,47 +2131,13 @@ function wsTeacherBlockHtml(wsData, prefix) {
     ).join('')}</div>`;
   }
 
-  // ── 2-teacher side-by-side split (no org card, no JS, no Embedded Scripts warning) ──
+  // ── 2-teacher layouts (no org card, no JS, no Embedded Scripts warning) ──
   if (teachers.length === 2 && !teachers.some(t => t.isOrg)) {
-    const splitHalf = (t, isFirst) => {
-      const shortBio = t.bioShort || t.bio || '';
-      const fullBio  = (t.bio && t.bio !== shortBio) ? t.bio : null;
-      const awardTag = t.tags && t.tags.find(tag => tag.type === 'award');
-      const awardBadge = awardTag ? `<span class="${p}-badge">${awardTag.text}</span>` : '';
-      const nonAwardTags = t.tags ? t.tags.filter(tag => tag.type !== 'award') : [];
-      const photoHtml = t.photo
-        ? `<img src="${t.photo}" alt="${t.name}" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:50% 20%;display:block;">`
-        : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#B564F7;"><span style="font-family:'Marcellus',serif;font-size:2rem;color:#fff;">${wsInitials(t.name)}</span></div>`;
-      const originHtml = t.origin ? `<div class="${p}-torigin">${t.origin}</div>` : '';
-      const socialHtml = (t.social && t.social.length)
-        ? `<div class="${p}-tsoc" role="list">${t.social.map(s =>
-            `<a href="${s.url}" target="_blank" rel="noopener" class="${p}-tsl" aria-label="${s.label}" title="${s.label}" role="listitem">${ICONS[s.type] || ICONS.website}</a>`
-          ).join('')}</div>` : '';
-      const fullBioHtml = fullBio
-        ? `<details class="${p}-det"><summary class="${p}-more">Read full bio &#9656;</summary><div class="${p}-full">${fullBio}</div></details>` : '';
-      const creditHtml = t.photoCredit ? `<div class="${p}-tcredit">&#128247; ${t.photoCredit}</div>` : '';
-      return `<div class="${p}-th"${isFirst ? '' : ''}>
-  <div class="${p}-thphoto" aria-hidden="true">${photoHtml}</div>
-  <div class="${p}-sbody">
-    <div class="${p}-shead"><div><div class="${p}-sname">${t.name}</div>${originHtml}</div>${awardBadge}</div>
-    ${renderTags(nonAwardTags)}
-    ${renderStats(t.stats || [])}
-    <div class="${p}-sbio">${shortBio}</div>
-    ${fullBioHtml}
-    ${socialHtml}
-    ${creditHtml}
-  </div>
-</div>`;
-    };
-    return `<link href="${WS_GOOGLE_FONTS}" rel="stylesheet">
-<style>
-.${p}-tc{width:100%;border:0.5px solid #e4e0db;border-radius:12px;overflow:hidden;display:flex;background:#fff;}
-@media(max-width:560px){.${p}-tc{flex-direction:column;}}
-.${p}-th{flex:1;display:flex;flex-direction:column;min-width:0;}
-.${p}-th:first-child{border-right:0.5px solid #e4e0db;}
-@media(max-width:560px){.${p}-th:first-child{border-right:none;border-bottom:0.5px solid #e4e0db;}}
-.${p}-thphoto{height:260px;flex-shrink:0;overflow:hidden;background:#e8e0f0;}
-@media(max-width:560px){.${p}-thphoto{height:220px;}}
+    const sharedPhoto = teachers[0].photo && teachers[0].photo === teachers[1].photo;
+
+    // Shared CSS used by both Option A and Option B
+    const sharedCss = `
+.${p}-tc{width:100%;border:0.5px solid #e4e0db;border-radius:12px;overflow:hidden;background:#fff;}
 .${p}-sbody{flex:1;padding:.9rem 1.1rem;display:flex;flex-direction:column;gap:.32rem;min-width:0;}
 .${p}-shead{display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem;}
 .${p}-sname{font-family:'Marcellus',serif;font-size:1rem;color:#1a1a1a;line-height:1.2;}
@@ -2193,12 +2159,74 @@ function wsTeacherBlockHtml(wsData, prefix) {
 .${p}-tsoc{display:flex;gap:.32rem;flex-wrap:wrap;margin-top:.2rem;}
 .${p}-tcredit{font-size:.65rem;color:#aaa;margin-top:.2rem;}
 .${p}-tc .${p}-tsl,.${p}-tc a.${p}-tsl:link,.${p}-tc a.${p}-tsl:visited,.${p}-tc a.${p}-tsl:hover,.${p}-tc a.${p}-tsl:focus,.${p}-tc a.${p}-tsl:active{display:inline-flex!important;align-items:center!important;justify-content:center!important;width:44px!important;height:44px!important;border-radius:50%!important;border:0.5px solid #d0caca!important;background:#f7f5f5!important;background-color:#f7f5f5!important;background-image:none!important;color:#555!important;text-decoration:none!important;box-shadow:none!important;font-family:inherit!important;transition:background .15s,border-color .15s,color .15s!important;flex-shrink:0!important;pointer-events:auto!important;cursor:pointer!important;}
-.${p}-tc a.${p}-tsl:hover{background:#f0e8fb!important;background-color:#f0e8fb!important;border-color:#c99ff8!important;color:#7a3caa!important;}
+.${p}-tc a.${p}-tsl:hover{background:#f0e8fb!important;background-color:#f0e8fb!important;border-color:#c99ff8!important;color:#7a3caa!important;}`;
+
+    // Bio section — shared between both layouts
+    const bioHalf = (t) => {
+      const shortBio = t.bioShort || t.bio || '';
+      const fullBio  = (t.bio && t.bio !== shortBio) ? t.bio : null;
+      const awardTag = t.tags && t.tags.find(tag => tag.type === 'award');
+      const awardBadge = awardTag ? `<span class="${p}-badge">${awardTag.text}</span>` : '';
+      const nonAwardTags = t.tags ? t.tags.filter(tag => tag.type !== 'award') : [];
+      const originHtml = t.origin ? `<div class="${p}-torigin">${t.origin}</div>` : '';
+      const socialHtml = (t.social && t.social.length)
+        ? `<div class="${p}-tsoc" role="list">${t.social.map(s =>
+            `<a href="${s.url}" target="_blank" rel="noopener" class="${p}-tsl" aria-label="${s.label}" title="${s.label}" role="listitem">${ICONS[s.type] || ICONS.website}</a>`
+          ).join('')}</div>` : '';
+      const fullBioHtml = fullBio
+        ? `<details class="${p}-det"><summary class="${p}-more">Read full bio &#9656;</summary><div class="${p}-full">${fullBio}</div></details>` : '';
+      const creditHtml = t.photoCredit ? `<div class="${p}-tcredit">&#128247; ${t.photoCredit}</div>` : '';
+      return `<div class="${p}-sbody">
+    <div class="${p}-shead"><div><div class="${p}-sname">${t.name}</div>${originHtml}</div>${awardBadge}</div>
+    ${renderTags(nonAwardTags)}${renderStats(t.stats || [])}
+    <div class="${p}-sbio">${shortBio}</div>
+    ${fullBioHtml}${socialHtml}${creditHtml}
+  </div>`;
+    };
+
+    if (sharedPhoto) {
+      // Option B — shared photo LEFT column, two bio cards stacked RIGHT (portrait-friendly)
+      const photoHtml = `<img src="${teachers[0].photo}" alt="${teachers[0].name} &amp; ${teachers[1].name}" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:50% 20%;display:block;">`;
+      return `<link href="${WS_GOOGLE_FONTS}" rel="stylesheet">
+<style>${sharedCss}
+.${p}-tc{display:flex;align-items:stretch;}
+@media(max-width:600px){.${p}-tc{flex-direction:column;}}
+.${p}-tphcol{width:240px;flex-shrink:0;overflow:hidden;background:#e8e0f0;border-right:0.5px solid #e4e0db;}
+@media(max-width:600px){.${p}-tphcol{width:100%;height:260px;border-right:none;border-bottom:0.5px solid #e4e0db;}}
+.${p}-tcards{flex:1;display:flex;flex-direction:column;min-width:0;}
+.${p}-tcard{flex:1;min-width:0;}
+.${p}-tcard:first-child{border-bottom:0.5px solid #e4e0db;}
 </style>
 <div class="${p}-tc" role="region" aria-label="Teaching team">
-${splitHalf(teachers[0], true)}
-${splitHalf(teachers[1], false)}
+  <div class="${p}-tphcol" aria-hidden="true">${photoHtml}</div>
+  <div class="${p}-tcards">
+    <div class="${p}-tcard">${bioHalf(teachers[0])}</div>
+    <div class="${p}-tcard">${bioHalf(teachers[1])}</div>
+  </div>
 </div>`;
+    } else {
+      // Option A — individual photo per teacher, side by side (e.g. Alex & Lenka)
+      const photoCol = (t) => {
+        const img = t.photo
+          ? `<img src="${t.photo}" alt="${t.name}" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:50% 20%;display:block;">`
+          : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#B564F7;"><span style="font-family:'Marcellus',serif;font-size:2rem;color:#fff;">${wsInitials(t.name)}</span></div>`;
+        return `<div class="${p}-thphoto" aria-hidden="true">${img}</div>`;
+      };
+      return `<link href="${WS_GOOGLE_FONTS}" rel="stylesheet">
+<style>${sharedCss}
+.${p}-tc{display:flex;}
+@media(max-width:560px){.${p}-tc{flex-direction:column;}}
+.${p}-th{flex:1;display:flex;flex-direction:column;min-width:0;}
+.${p}-th:first-child{border-right:0.5px solid #e4e0db;}
+@media(max-width:560px){.${p}-th:first-child{border-right:none;border-bottom:0.5px solid #e4e0db;}}
+.${p}-thphoto{height:260px;flex-shrink:0;overflow:hidden;background:#e8e0f0;}
+@media(max-width:560px){.${p}-thphoto{height:220px;}}
+</style>
+<div class="${p}-tc" role="region" aria-label="Teaching team">
+  <div class="${p}-th">${photoCol(teachers[0])}${bioHalf(teachers[0])}</div>
+  <div class="${p}-th">${photoCol(teachers[1])}${bioHalf(teachers[1])}</div>
+</div>`;
+    }
   }
 
   // ── Carousel for 3+ teachers or org-card-first styles ──
