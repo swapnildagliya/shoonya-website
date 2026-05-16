@@ -73,6 +73,31 @@
     }
     .lang-btn.active { background: #000; color: #fff; border-radius: 99px; }
 
+    /* ── Nav actions (Back + Home, fixed top-left) ─────────────── */
+    .nav-actions {
+      position: fixed;
+      top: 1rem; left: 1rem;
+      z-index: 100;
+      display: flex;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      overflow: hidden;
+      box-shadow: 0 1px 6px rgba(0,0,0,.1);
+    }
+    .nav-action-btn {
+      padding: .35rem .85rem;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      color: var(--muted);
+      text-decoration: none;
+      font-family: 'PT Serif', serif;
+      cursor: pointer;
+    }
+    .nav-action-btn:hover { color: var(--ink); }
+    .nav-action-btn + .nav-action-btn { border-left: 1px solid var(--border); }
+
     /* ── Hero ─────────────────────────────────────────────────── */
     .hero {
       background: var(--hero-bg);
@@ -451,6 +476,12 @@
     <button class="lang-btn" data-lang="nl">NL</button>
   </div>
 
+  <!-- Navigation actions (Back + Home) -->
+  <div class="nav-actions" role="group" aria-label="Navigation">
+    <button class="nav-action-btn" id="nav-back" type="button" data-i18n="nav-back">← Back</button>
+    <a class="nav-action-btn" href="https://www.shoonyadance.com" data-i18n="nav-home">Home ↗</a>
+  </div>
+
   <!-- Hero -->
   <header class="hero">
     <div class="hero__pill" data-i18n="hero-pill">The dance year</div>
@@ -632,6 +663,8 @@
         'tl-kicker':      'Your year ahead',
         'tl-h2':          'A few <em>moments</em> in the year',
         'tl-sub':         'Where you are now, and what\'s next.',
+        'nav-back':            '← Back',
+        'nav-home':            'Home ↗',
         'now-label':           'You are here',
         'spring-end-label':    'Spring semester ends',
         'open-house-label':    'Open House',
@@ -676,6 +709,8 @@
         'tl-kicker':      'Het jaar in beeld',
         'tl-h2':          'Een paar <em>momenten</em> in het jaar',
         'tl-sub':         'Waar je nu staat, en wat volgt.',
+        'nav-back':            '← Terug',
+        'nav-home':            'Home ↗',
         'now-label':           'Je bent hier',
         'spring-end-label':    'Lentesemester eindigt',
         'open-house-label':    'Open Deurdag',
@@ -896,6 +931,15 @@
 
     document.querySelectorAll('.lang-btn').forEach(function(btn) {
       btn.addEventListener('click', function() { applyLang(btn.dataset.lang); });
+    });
+
+    // Back button — history.back() if there's any history, else home as fallback
+    document.getElementById('nav-back').addEventListener('click', function() {
+      if (document.referrer && window.history.length > 1) {
+        window.history.back();
+      } else {
+        window.location.href = 'https://www.shoonyadance.com';
+      }
     });
 
     applyLang(landingLang);

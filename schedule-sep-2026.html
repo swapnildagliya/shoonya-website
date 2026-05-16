@@ -76,6 +76,31 @@
     }
     .lang-btn.active { background: #000; color: #fff; border-radius: 99px; }
 
+    /* Nav actions (Back + Home, fixed top-left mirroring lang toggle) */
+    .nav-actions {
+      position: fixed;
+      top: 1rem; left: 1rem;
+      z-index: 100;
+      display: flex;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      overflow: hidden;
+      box-shadow: 0 1px 6px rgba(0,0,0,.1);
+    }
+    .nav-action-btn {
+      padding: .35rem .85rem;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      color: var(--muted);
+      text-decoration: none;
+      font-family: 'PT Serif', serif;
+      cursor: pointer;
+    }
+    .nav-action-btn:hover { color: var(--ink); }
+    .nav-action-btn + .nav-action-btn { border-left: 1px solid var(--border); }
+
     /* Hero */
     .hero {
       background: var(--hero-bg);
@@ -402,6 +427,29 @@
     }
 
     /* Grid view (timetable: time axis × studio columns) */
+    .studio-grid-wrap { display: flex; flex-direction: column; gap: 0; }
+    .grid-gap-sep {
+      height: 18px;
+      position: relative;
+      margin: 4px 0;
+    }
+    .grid-gap-sep::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 56px; right: 0;
+      height: 1px;
+      background: repeating-linear-gradient(to right, var(--border) 0 6px, transparent 6px 12px);
+    }
+    .grid-gap-sep::after {
+      content: '⏸';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      color: var(--muted-soft);
+      font-size: 10px;
+      padding: 0 8px;
+    }
     .studio-grid {
       display: grid;
       grid-template-columns: 50px repeat(5, 1fr);
@@ -595,6 +643,13 @@
     <button class="lang-btn" data-lang="nl">NL</button>
   </div>
 
+  <!-- Navigation actions (Back + Home) -->
+  <div class="nav-actions" role="group" aria-label="Navigation">
+    <button class="nav-action-btn" id="nav-back" type="button" data-i18n="nav-back">← Back</button>
+    <a class="nav-action-btn" href="./schedule-landing.html" data-i18n="nav-hub">↑ School year</a>
+    <a class="nav-action-btn" href="https://www.shoonyadance.com" data-i18n="nav-home">Home ↗</a>
+  </div>
+
   <!-- Hero -->
   <header class="hero">
     <div class="hero__pill" data-i18n="hero-pill">Weekly schedule · 2026 / 2027</div>
@@ -695,6 +750,9 @@
         'view-grid':  '▦ Grid',
         'view-list':  '☰ List',
         'clear-all':  'clear all',
+        'nav-back':   '← Back',
+        'nav-hub':    '↑ School year',
+        'nav-home':   'Home ↗',
         'search-placeholder': 'Search style, teacher, day, level…',
         'closing-kicker': 'Found your class?',
         'closing-h1':     'The style page handles <em>the rest.</em>',
@@ -723,6 +781,9 @@
         'view-grid':  '▦ Rooster',
         'view-list':  '☰ Lijst',
         'clear-all':  'alles wissen',
+        'nav-back':   '← Terug',
+        'nav-hub':    '↑ Schooljaar',
+        'nav-home':   'Home ↗',
         'search-placeholder': 'Zoek stijl, leraar, dag, niveau…',
         'closing-kicker': 'Les gevonden?',
         'closing-h1':     'De stijlpagina regelt <em>de rest.</em>',
@@ -1052,6 +1113,30 @@
       return list;
     }
 
+    /* Cluster a day's slots into time windows separated by quiet gaps.
+       If two consecutive slots are more than GAP_THRESHOLD_MIN apart the
+       day splits into separate sub-grids so the timetable doesn't render
+       a huge empty middle (e.g. Wed morning Pilates → Wed evening classes). */
+    const GAP_THRESHOLD_MIN = 90;
+    function clusterWindows(parsed) {
+      if (parsed.length === 0) return [];
+      const sorted = parsed.slice().sort((a, b) => a.startMin - b.startMin);
+      const windows = [];
+      let cur = { startMin: sorted[0].startMin, endMin: sorted[0].endMin, slots: [sorted[0]] };
+      for (let i = 1; i < sorted.length; i++) {
+        const s = sorted[i];
+        if (s.startMin - cur.endMin > GAP_THRESHOLD_MIN) {
+          windows.push(cur);
+          cur = { startMin: s.startMin, endMin: s.endMin, slots: [s] };
+        } else {
+          cur.endMin = Math.max(cur.endMin, s.endMin);
+          cur.slots.push(s);
+        }
+      }
+      windows.push(cur);
+      return windows;
+    }
+
     /* ─── Grid view (timetable: time axis × studio columns) ────── */
     function buildGridForDay(daySlots, section) {
       const parsed = daySlots
@@ -1059,9 +1144,26 @@
         .filter(s => s.startMin !== null && s.endMin !== null);
       if (parsed.length === 0) return document.createElement('div');
 
-      const startHour = Math.floor(Math.min.apply(null, parsed.map(s => s.startMin)) / 60);
-      const endHour   = Math.ceil(Math.max.apply(null, parsed.map(s => s.endMin)) / 60);
-      const totalHeight = (endHour - startHour) * 60 * PX_PER_MIN;
+      const wrap = document.createElement('div');
+      wrap.className = 'studio-grid-wrap';
+
+      const windows = clusterWindows(parsed);
+      windows.forEach((win, idx) => {
+        if (idx > 0) {
+          const sep = document.createElement('div');
+          sep.className = 'grid-gap-sep';
+          sep.setAttribute('aria-hidden', 'true');
+          wrap.appendChild(sep);
+        }
+        wrap.appendChild(buildGridForWindow(win, section));
+      });
+      return wrap;
+    }
+
+    function buildGridForWindow(win, section) {
+      const startHour = Math.floor(win.startMin / 60);
+      const endHour   = Math.ceil(win.endMin / 60);
+      const totalHeight = Math.max((endHour - startHour) * 60 * PX_PER_MIN, 80);
 
       const grid = document.createElement('div');
       grid.className = 'studio-grid';
@@ -1098,7 +1200,6 @@
         col.className = 'studio-col';
         col.style.height = totalHeight + 'px';
 
-        // hour rules
         for (let h = startHour + 1; h < endHour; h++) {
           const line = document.createElement('div');
           line.className = 'hour-line';
@@ -1106,7 +1207,7 @@
           col.appendChild(line);
         }
 
-        parsed.filter(s => s.studio === st.code).forEach(s => {
+        win.slots.filter(s => s.studio === st.code).forEach(s => {
           const a = document.createElement('a');
           a.className = 'studio-col__slot';
           a.href = s.href || styleHref(s.style);
@@ -1262,6 +1363,15 @@
     });
     document.querySelectorAll('.lang-btn').forEach(btn => {
       btn.addEventListener('click', () => setLang(btn.dataset.lang));
+    });
+
+    // Back: history.back() with fallback to the school-year hub
+    document.getElementById('nav-back').addEventListener('click', function() {
+      if (document.referrer && window.history.length > 1) {
+        window.history.back();
+      } else {
+        window.location.href = './schedule-landing.html';
+      }
     });
 
     // View toggle (Grid / List)
