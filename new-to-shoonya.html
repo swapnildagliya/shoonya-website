@@ -5,727 +5,526 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light">
 <title>New to Shoonya? — Shoonya Dance Centre Ghent</title>
+<meta name="description" content="Never danced before? Start here. Find your style, understand how your first class works, and take the first step with Shoonya Dance Centre in Ghent.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Playfair+Display:ital,wght@0,500;1,400&display=swap">
-<meta name="description" content="Never danced before? Start here. Find your style, understand how your first class works, and take the first step with Shoonya Dance Centre in Ghent.">
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
 <style>
   :root {
-    --void-white:           #FFFFFF;
-    --void-black:           #000000;
-    --vibrant-purple:       #B564F7;      /* fills / backgrounds only */
-    --vibrant-purple-ink:   #7E3FBF;      /* text / icons — WCAG AA on white */
-    --vibrant-purple-tint:  #F5ECFF;
-    --vibrant-purple-tint-2:#E2CCFF;
-    --highlight-yellow:     #FBC70F;
-    --mist:                 rgba(0,0,0,.12);
-    --mist-strong:          rgba(0,0,0,.24);
-    --muted:                rgba(0,0,0,.6);
-    --muted-soft:           rgba(0,0,0,.4);
-    --font-serif: 'Playfair Display', Georgia, serif;
-    --font-sans:  'Inter', system-ui, -apple-system, sans-serif;
-    --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
-    --space-1: 8px;
-    --space-2: 16px;
-    --space-3: 24px;
-    --space-4: 32px;
-    --space-5: 48px;
-    --space-6: 64px;
-    --space-7: 96px;
+    --ink:           #1a1a1a;
+    --muted:         #5a5a5a;
+    --muted-soft:    #888;
+    --purple:        #B564F7;
+    --purple-deep:   #7E4FBF;
+    --purple-soft:   #F5ECFF;
+    --yellow:        #FBC70F;
+    --yellow-soft:   #FDF1B8;
+    --yellow-ink:    #6B4F00;
+    --salmon:        #F9D9C9;
+    --salmon-deep:   #C04A1F;
+    --salmon-ink:    #8A2F0E;
+    --border:        #e4e0db;
+    --bg:            #ffffff;
+    --hero-bg:       #000000;
+    --radius:        12px;
+    --radius-sm:     8px;
   }
 
-  *, *::before, *::after { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    margin: 0;
-    font-family: var(--font-sans);
-    font-size: 16px;
-    line-height: 1.55;
-    color: var(--void-black);
-    background: var(--void-white);
+    font-family: 'PT Serif', Georgia, serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
-
   a { color: inherit; text-decoration: none; }
   button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; padding: 0; }
+  :focus-visible { outline: 2px solid var(--purple); outline-offset: 3px; }
 
-  :focus-visible {
-    outline: 2px solid var(--vibrant-purple);
-    outline-offset: 3px;
-  }
+  /* Language toggle */
+  body.nl [data-lang="en"] { display: none; }
+  body:not(.nl) [data-lang="nl"] { display: none; }
 
-  .sr-only {
-    position: absolute;
-    width: 1px; height: 1px;
-    padding: 0; margin: -1px;
-    overflow: hidden; clip: rect(0,0,0,0);
-    white-space: nowrap; border: 0;
-  }
-
-  /* Skip link */
-  .skip-link {
-    position: absolute;
-    left: -9999px;
-    top: 1rem;
-    z-index: 200;
-    background: var(--void-black);
-    color: var(--void-white);
-    padding: 8px 16px;
-    font-family: var(--font-sans);
-    font-size: 13px;
-    font-weight: 500;
-  }
-  .skip-link:focus { left: 1rem; }
-
-  /* ── Kicker / eyebrow ── */
-  .kicker {
-    font-family: var(--font-sans);
-    font-weight: 500;
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  .kicker--purple { color: var(--vibrant-purple-ink); }
-
-  /* ── Language toggle ── */
   .lang-toggle {
     position: fixed;
-    top: 20px;
-    right: 20px;
+    top: 1rem; right: 1rem;
     z-index: 100;
     display: flex;
-    border: 1px solid var(--void-black);
-    background: var(--void-white);
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    overflow: hidden;
+    box-shadow: 0 1px 6px rgba(0,0,0,.1);
   }
   .lang-btn {
-    padding: 7px 14px;
-    font-family: var(--font-sans);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    border: none;
-    background: none;
-    cursor: pointer;
+    padding: .35rem .85rem;
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .06em;
     color: var(--muted);
-    transition: background 180ms var(--ease), color 180ms var(--ease);
-    min-height: 36px;
   }
-  .lang-btn.active {
-    background: var(--void-black);
-    color: var(--void-white);
-  }
-  .lang-btn:not(.active):hover {
-    background: var(--vibrant-purple-tint);
-    color: var(--void-black);
-  }
+  .lang-btn.active { background: #000; color: #fff; border-radius: 99px; }
 
-  /* ── Main container ── */
-  main {
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: 0 var(--space-3);
-  }
-
-  /* ── Breadcrumb ── */
+  /* Breadcrumb */
   .breadcrumb {
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: var(--space-2) var(--space-3) 0;
-    font-family: var(--font-sans);
-    font-size: 12px;
+    padding: 1rem 1.5rem;
+    font-size: .82rem;
     color: var(--muted);
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    max-width: 1080px;
+    margin: 0 auto;
   }
   .breadcrumb a { color: var(--muted); }
-  .breadcrumb a:hover { color: var(--vibrant-purple-ink); }
-  .breadcrumb__sep { color: var(--mist-strong); font-size: 10px; }
+  .breadcrumb a:hover { color: var(--ink); }
+  .breadcrumb__sep { margin: 0 .4rem; }
 
-  /* ── Hero ── */
-  .hero {
-    padding: var(--space-6) 0 var(--space-5);
-    position: relative;
-  }
-
-  .hero__eyebrow {
-    margin-bottom: var(--space-3);
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .hero__rule {
-    width: 18px;
-    height: 1px;
-    background: var(--void-black);
-    flex-shrink: 0;
-  }
-
-  .hero__h1 {
-    font-family: var(--font-serif);
-    font-weight: 500;
-    font-size: clamp(42px, 5.5vw, 72px);
-    line-height: 1.04;
-    letter-spacing: -0.02em;
-    margin: 0 0 var(--space-3);
-  }
-  .hero__h1 em {
-    font-style: italic;
-    font-weight: 400;
-    color: var(--vibrant-purple-ink);
-  }
-
-  .hero__sub {
-    font-family: var(--font-sans);
-    font-size: 17px;
-    line-height: 1.6;
-    color: var(--muted);
-    max-width: 500px;
-    margin: 0 0 var(--space-5);
-  }
-
-  .hero__ctas {
-    display: flex;
-    gap: var(--space-2);
-    flex-wrap: wrap;
-    margin-bottom: var(--space-5);
-  }
-
-  .btn-primary {
-    background: var(--vibrant-purple);
-    color: var(--void-white);
-    padding: 14px 22px;
-    font-family: var(--font-sans);
-    font-weight: 500;
-    font-size: 14px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    border: 0;
-    text-decoration: none;
-    transition: background 240ms var(--ease);
-    cursor: pointer;
-  }
-  .btn-primary:hover { background: var(--void-black); }
-
-  .btn-outline {
-    background: var(--void-white);
-    color: var(--void-black);
-    padding: 13px 22px;
-    font-family: var(--font-sans);
-    font-weight: 500;
-    font-size: 14px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    border: 1px solid var(--void-black);
-    text-decoration: none;
-    transition: background 240ms var(--ease), color 240ms var(--ease);
-    cursor: pointer;
-  }
-  .btn-outline:hover { background: var(--vibrant-purple-tint); }
-
-  .hero__strip {
-    display: flex;
-    align-items: center;
-    gap: var(--space-4);
-    padding-top: var(--space-3);
-    border-top: 0.5px solid var(--mist);
-    flex-wrap: wrap;
-  }
-  .hero__strip-label {
-    font-family: var(--font-sans);
-    font-weight: 500;
-    font-size: 11px;
-    letter-spacing: 0.12em;
+  /* Common kicker */
+  .kicker {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .12em;
     text-transform: uppercase;
     color: var(--muted-soft);
   }
-  .hero__strip-meta {
-    font-family: var(--font-sans);
-    font-size: 13px;
-    color: var(--muted);
-  }
-  .hero__strip-meta strong {
-    color: var(--void-black);
-    font-weight: 500;
-  }
-  .hero__strip-dot {
-    width: 3px;
-    height: 3px;
-    background: var(--mist-strong);
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
+  .kicker--purple { color: var(--purple-deep); }
+  .kicker--salmon { color: var(--salmon-ink);  }
+  .kicker--yellow { color: var(--yellow-ink);  }
 
-  /* ── Section common ── */
-  .section {
-    padding: var(--space-6) 0;
-    border-top: 0.5px solid var(--mist);
+  /* Hero (black) */
+  .hero {
+    background: var(--hero-bg);
+    color: #fff;
+    padding: 4rem 1.5rem 3.5rem;
+    text-align: center;
   }
-  .section__eyebrow {
-    margin-bottom: var(--space-3);
+  .hero__pill {
+    display: inline-block;
+    background: var(--purple);
+    color: #fff;
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: .3rem 1rem;
+    border-radius: 99px;
+    margin-bottom: 1rem;
+  }
+  .hero h1 {
+    font-family: 'Marcellus', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 400;
+    line-height: 1.1;
+    margin-bottom: .75rem;
+  }
+  .hero h1 em { color: var(--purple); font-style: italic; }
+  .hero__sub {
+    font-size: 1rem;
+    color: rgba(255,255,255,.72);
+    max-width: 540px;
+    margin: 0 auto 1.5rem;
+    line-height: 1.65;
+  }
+  .hero__ctas { display: flex; flex-wrap: wrap; gap: .6rem; justify-content: center; margin-bottom: 1.75rem; }
+
+  .btn-primary, .btn-outline {
+    display: inline-block;
+    font-size: .82rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: .75rem 1.5rem;
+    border-radius: 6px;
+    transition: opacity .15s, border-color .15s;
+  }
+  .btn-primary {
+    background: var(--purple);
+    color: #fff;
+  }
+  .btn-primary:hover { opacity: .88; }
+  .btn-outline {
+    background: transparent;
+    color: #fff;
+    border: 1.5px solid rgba(255,255,255,.4);
+  }
+  .btn-outline:hover { border-color: #fff; }
+
+  .hero__strip {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .5rem .9rem;
+    justify-content: center;
+    padding: .55rem 1.1rem;
+    background: rgba(255,255,255,.07);
+    border-radius: 99px;
+    font-size: .82rem;
+    color: rgba(255,255,255,.8);
+  }
+  .hero__strip-label {
+    background: var(--yellow);
+    color: #1a1200;
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: .15rem .55rem;
+    border-radius: 99px;
+  }
+  .hero__strip-dot { width: 3px; height: 3px; background: rgba(255,255,255,.4); border-radius: 50%; }
+  .hero__strip strong { color: #fff; font-weight: 700; }
+
+  /* Partner alert — contained salmon card with symmetric white space above + below */
+  .partner-alert-strip {
+    background: #fff;
+    padding: 1.75rem 1.5rem;
+  }
+  .partner-alert {
+    max-width: 1040px;
+    margin: 0 auto;
+    background: var(--salmon);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    display: flex;
+    gap: .9rem;
+    align-items: flex-start;
+    color: var(--salmon-ink);
+    font-size: .92rem;
+    line-height: 1.55;
+  }
+  .partner-alert__icon { font-size: 1.1rem; line-height: 1.4; flex-shrink: 0; color: var(--salmon-deep); }
+  .partner-alert strong { display: block; margin-bottom: .2rem; color: var(--salmon-deep); font-weight: 700; }
+
+  /* Section base */
+  .section {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem;
   }
   .section__h2 {
-    font-family: var(--font-serif);
-    font-weight: 500;
-    font-size: clamp(26px, 3.5vw, 38px);
-    line-height: 1.1;
-    letter-spacing: -0.01em;
-    margin: 0 0 10px;
-  }
-  .section__h2 em {
-    font-style: italic;
+    font-family: 'Marcellus', serif;
     font-weight: 400;
-    color: var(--vibrant-purple-ink);
+    font-size: clamp(1.6rem, 3vw, 2.3rem);
+    line-height: 1.15;
+    margin: .35rem 0 .65rem;
   }
+  .section__h2 em { color: var(--purple); font-style: italic; }
   .section__lead {
-    font-family: var(--font-sans);
-    font-size: 15px;
-    color: var(--muted);
-    max-width: 540px;
-    margin: 0 0 var(--space-5);
-    line-height: 1.6;
-  }
-
-  /* ── Partner alert ── */
-  .partner-alert {
-    border-left: 3px solid var(--highlight-yellow);
-    padding: var(--space-3) var(--space-3) var(--space-3) var(--space-4);
-    margin-bottom: var(--space-5);
-    display: flex;
-    gap: var(--space-2);
-    align-items: flex-start;
-    background: #fffef5;
-  }
-  .partner-alert__icon {
-    font-size: 16px;
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-  .partner-alert strong {
-    display: block;
-    font-family: var(--font-sans);
-    font-weight: 500;
-    font-size: 14px;
-    margin-bottom: 4px;
-  }
-  .partner-alert p {
-    font-family: var(--font-sans);
-    font-size: 13px;
+    font-size: 1rem;
     color: var(--muted);
     line-height: 1.6;
-    margin: 0;
+    margin-bottom: 2rem;
+    max-width: 640px;
   }
 
-  /* ── Style cards ── */
+  /* Step 1 — Choose your world (soft purple band, full-bleed) */
+  .step1-band { background: var(--purple-soft); padding: 4.5rem 1.5rem 4.5rem; }
+  .step1-inner { max-width: 1080px; margin: 0 auto; text-align: center; }
+  .step1-inner .section__lead { color: #4a3868; margin-left: auto; margin-right: auto; }
+  .step1-inner .kicker--purple { display: block; margin-bottom: .35rem; }
+
   .style-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: var(--mist);
-    border: 0.5px solid var(--mist);
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: 2rem;
+    text-align: left;
   }
-  @media (max-width: 760px) {
-    .style-grid { grid-template-columns: 1fr; }
+  @media (min-width: 860px) {
+    .style-grid { grid-template-columns: repeat(3, 1fr); }
   }
-
   .style-card {
-    background: var(--void-white);
-    padding: var(--space-4) var(--space-3);
     display: flex;
     flex-direction: column;
-    text-decoration: none;
-    color: inherit;
-    transition: background 180ms var(--ease);
-    cursor: pointer;
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 1.25rem 1.4rem;
+    transition: transform .15s, box-shadow .15s;
   }
-  .style-card:hover {
-    background: var(--vibrant-purple-tint);
-  }
-  a.style-card:focus-visible {
-    outline: 2px solid var(--vibrant-purple);
-    outline-offset: -2px;
-  }
+  .style-card__p { flex: 1 1 auto; }
+  .style-card:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(0,0,0,.06); }
+  .style-card--partner   { border-top: 3px solid var(--purple); }
+  .style-card--classical { border-top: 3px solid var(--salmon-deep); }
+  .style-card--culture   { border-top: 3px solid var(--yellow); }
 
-  .style-card__icon {
-    font-size: 24px;
-    margin-bottom: var(--space-2);
-    line-height: 1;
-  }
   .style-card__h3 {
-    font-family: var(--font-serif);
-    font-weight: 500;
-    font-size: 20px;
-    letter-spacing: -0.01em;
-    line-height: 1.15;
-    margin: 0 0 var(--space-1);
+    font-family: 'Marcellus', serif;
+    font-weight: 400;
+    font-size: 1.2rem;
+    line-height: 1.2;
+    margin: .15rem 0 .35rem;
   }
   .style-card__tag {
     display: inline-block;
-    font-family: var(--font-sans);
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .08em;
     text-transform: uppercase;
-    padding: 4px 8px;
-    margin-bottom: var(--space-2);
-    border: 1px solid;
+    padding: .15rem .55rem;
+    border-radius: 3px;
+    margin-bottom: .65rem;
   }
-  .tag-partner { border-color: #1F6FBE; color: #0C447C; background: #E6F1FB; }
-  .tag-solo    { border-color: #1D9E75; color: #085041; background: #E1F5EE; }
-  .tag-open    { border-color: var(--vibrant-purple-tint-2); color: var(--vibrant-purple-ink); background: var(--vibrant-purple-tint); }
+  .tag-partner { background: var(--purple-soft); color: var(--purple-deep); }
+  .tag-solo    { background: #f3eee5;            color: var(--salmon-ink);  }
+  .tag-open    { background: var(--yellow-soft); color: var(--yellow-ink);  }
 
   .style-card__p {
-    font-family: var(--font-sans);
-    font-size: 13px;
+    font-size: .9rem;
     color: var(--muted);
-    line-height: 1.6;
-    margin: 0 0 var(--space-3);
-    flex: 1;
+    line-height: 1.55;
+    margin-bottom: .9rem;
   }
   .style-card__link {
-    font-family: var(--font-sans);
-    font-weight: 500;
-    font-size: 13px;
-    color: var(--vibrant-purple-ink);
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    color: var(--purple-deep);
   }
-  .style-card__link::after {
-    content: '→';
-  }
+  .style-card--classical .style-card__link { color: var(--salmon-ink);  }
+  .style-card--culture   .style-card__link { color: var(--yellow-ink);  }
 
-  /* ── Steps ── */
-  .steps { display: flex; flex-direction: column; }
+  /* Step 2 — How it works (white, big numbered steps) */
+  .step2 { padding-top: 4.5rem; }
+  .step2__header { text-align: center; margin-bottom: 2rem; }
+  .step2__header .section__lead { margin-left: auto; margin-right: auto; }
 
+  .steps { display: flex; flex-direction: column; gap: 1.5rem; max-width: 720px; margin: 0 auto; }
   .step {
-    display: grid;
-    grid-template-columns: 40px 1fr;
-    gap: var(--space-3);
-    padding: var(--space-4) 0;
-    border-bottom: 0.5px solid var(--mist);
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
   }
-  .step:last-child { border-bottom: none; }
-
   .step__num {
-    font-family: var(--font-serif);
-    font-weight: 500;
-    font-size: 32px;
-    line-height: 1;
-    color: var(--mist-strong);
-    padding-top: 4px;
-  }
-  .step__h3 {
-    font-family: var(--font-sans);
-    font-weight: 500;
-    font-size: 16px;
-    margin: 0 0 6px;
-  }
-  .step__p {
-    font-family: var(--font-sans);
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.65;
-    margin: 0 0 var(--space-2);
-  }
-  .step__badge {
-    display: inline-block;
-    background: var(--vibrant-purple-tint);
-    color: var(--vibrant-purple-ink);
-    font-family: var(--font-sans);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 5px 10px;
-  }
-
-  /* ── Expect grid ── */
-  .expect-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1px;
-    background: var(--mist);
-    border: 0.5px solid var(--mist);
-  }
-  @media (max-width: 600px) {
-    .expect-grid { grid-template-columns: 1fr; }
-  }
-
-  .expect-card {
-    background: var(--void-white);
-    padding: var(--space-3);
-  }
-  .expect-card__label {
-    font-family: var(--font-sans);
-    font-weight: 500;
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--muted-soft);
-    margin-bottom: 8px;
-  }
-  .expect-card p {
-    font-family: var(--font-sans);
-    font-size: 14px;
-    color: var(--void-black);
-    line-height: 1.65;
-    margin: 0;
-  }
-  .expect-card strong { font-weight: 500; }
-
-  /* ── Pricing ── */
-  .pricing-section {
-    background: var(--void-black);
-    color: var(--void-white);
-  }
-  .pricing-section main {
-    padding-top: var(--space-6);
-    padding-bottom: var(--space-6);
-  }
-  .pricing-section .section {
-    border-top: none;
-    padding: 0;
-  }
-  .pricing-section .kicker { color: var(--vibrant-purple); }
-  .pricing-section .section__h2 { color: var(--void-white); }
-  .pricing-section .section__lead { color: rgba(255,255,255,.55); }
-
-  .pricing-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: var(--font-sans);
-    font-size: 14px;
-    margin-bottom: var(--space-3);
-  }
-  .pricing-table th {
-    text-align: left;
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,.45);
-    padding: 8px 12px;
-    border-bottom: 0.5px solid rgba(255,255,255,.15);
-  }
-  .pricing-table td {
-    padding: 12px 12px;
-    border-bottom: 0.5px solid rgba(255,255,255,.08);
-    color: rgba(255,255,255,.85);
-    vertical-align: top;
-  }
-  .pricing-table tr:last-child td { border-bottom: none; }
-  .pricing-table .price-full { font-weight: 500; }
-  .pricing-table .price-student { color: rgba(255,255,255,.55); font-size: 13px; }
-
-  .pricing-note {
-    font-family: var(--font-sans);
-    font-size: 12px;
-    color: rgba(255,255,255,.4);
-    line-height: 1.7;
-    border-top: 0.5px solid rgba(255,255,255,.1);
-    padding-top: var(--space-2);
-  }
-  .pricing-note strong { color: rgba(255,255,255,.65); font-weight: 500; }
-
-  /* ── FAQ ── */
-  .faq { display: flex; flex-direction: column; }
-
-  .faq-item {
-    border-bottom: 0.5px solid var(--mist);
-  }
-  .faq-item:first-child { border-top: 0.5px solid var(--mist); }
-
-  .faq-q {
-    width: 100%;
-    background: none;
-    border: none;
-    padding: var(--space-3) 0;
-    font-family: var(--font-sans);
-    font-size: 15px;
-    font-weight: 500;
-    text-align: left;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: var(--space-3);
-    color: var(--void-black);
-    transition: color 160ms;
-  }
-  .faq-q:hover { color: var(--vibrant-purple-ink); }
-
-  .faq-q .arrow {
-    font-size: 12px;
-    color: var(--muted-soft);
-    transition: transform 200ms var(--ease);
     flex-shrink: 0;
-  }
-  .faq-item.open .faq-q { color: var(--vibrant-purple-ink); }
-  .faq-item.open .faq-q .arrow { transform: rotate(180deg); }
-
-  .faq-a {
-    display: none;
-    padding-bottom: var(--space-3);
-    font-family: var(--font-sans);
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.7;
-    max-width: 640px;
-  }
-  .faq-item.open .faq-a { display: block; }
-
-  /* ── Closing CTA ── */
-  .closing {
-    padding: var(--space-6) var(--space-5);
-    border-top: 0.5px solid var(--mist);
-    border-left: 3px solid var(--vibrant-purple);
-    display: grid;
-    grid-template-columns: 1.3fr 1fr;
-    gap: var(--space-5);
-    align-items: center;
-    margin: var(--space-3) 0 0;
-  }
-  .closing__kicker { margin-bottom: var(--space-2); }
-  .closing__h2 {
-    font-family: var(--font-serif);
-    font-weight: 500;
-    font-size: clamp(28px, 3.5vw, 44px);
-    line-height: 1.08;
-    letter-spacing: -0.02em;
-    margin: 0;
-  }
-  .closing__h2 em {
-    font-style: italic;
-    font-weight: 400;
-    color: var(--vibrant-purple-ink);
-  }
-  .closing__sub {
-    font-family: var(--font-sans);
-    font-size: 15px;
-    color: var(--muted);
-    margin-top: var(--space-2);
-    line-height: 1.6;
-  }
-  .closing__cta-cluster {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: var(--space-2);
-  }
-  .closing__cta {
-    background: var(--vibrant-purple);
-    color: var(--void-white);
-    padding: 14px 22px;
-    font-family: var(--font-sans);
-    font-weight: 500;
-    font-size: 14px;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    border: 0;
-    text-decoration: none;
-    transition: background 240ms var(--ease);
-    cursor: pointer;
-    white-space: nowrap;
-  }
-  .closing__cta:hover { background: var(--void-black); }
-  .closing__cta-link {
-    background: var(--void-white);
-    color: var(--void-black);
-    padding: 13px 22px;
-    font-family: var(--font-sans);
-    font-weight: 500;
-    font-size: 14px;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    border: 1px solid var(--void-black);
-    text-decoration: none;
-    transition: background 240ms var(--ease);
-    cursor: pointer;
-    white-space: nowrap;
-  }
-  .closing__cta-link:hover { background: var(--vibrant-purple-tint); }
-  .closing__meta {
-    font-family: var(--font-sans);
-    font-size: 12px;
-    color: var(--muted-soft);
+    font-family: 'Marcellus', serif;
+    font-size: 3.25rem;
+    line-height: 1;
+    width: 56px;
     text-align: right;
   }
+  .step:nth-child(1) .step__num { color: var(--purple);      }
+  .step:nth-child(2) .step__num { color: var(--salmon-deep); }
+  .step:nth-child(3) .step__num { color: var(--yellow-ink);  }
 
-  /* ── Footer ── */
-  .footer {
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: var(--space-3) var(--space-3);
-    border-top: 0.5px solid var(--mist);
+  .step__body { flex: 1 1 auto; min-width: 0; }
+  .step__h3 {
+    font-family: 'Marcellus', serif;
+    font-weight: 400;
+    font-size: 1.3rem;
+    line-height: 1.2;
+    margin-bottom: .35rem;
+  }
+  .step__p { font-size: .95rem; color: var(--muted); margin-bottom: .65rem; line-height: 1.6; }
+  .step__badge {
+    display: inline-block;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    padding: .25rem .65rem;
+    border-radius: 4px;
+    background: #f5f1eb;
+    color: var(--muted);
+  }
+  .step:nth-child(1) .step__badge { background: var(--purple-soft); color: var(--purple-deep); }
+  .step:nth-child(2) .step__badge { background: var(--salmon);      color: var(--salmon-ink);  }
+  .step:nth-child(3) .step__badge { background: var(--yellow-soft); color: var(--yellow-ink);  }
+
+  /* Step 3 — pricing teaser strip (yellow soft) */
+  .step3-band { background: var(--yellow-soft); padding: 3rem 1.5rem 3.25rem; text-align: center; }
+  .step3-inner { max-width: 720px; margin: 0 auto; }
+  .step3-inner .kicker--yellow { display: block; margin-bottom: .35rem; }
+  .step3-inner h2 {
+    font-family: 'Marcellus', serif;
+    font-weight: 400;
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    line-height: 1.15;
+    margin-bottom: .65rem;
+    color: #1a1200;
+  }
+  .step3-inner h2 em { color: var(--salmon-deep); font-style: italic; }
+  .step3-inner__price {
+    font-family: 'Marcellus', serif;
+    font-size: 1.6rem;
+    margin: 1rem 0 .35rem;
+    color: var(--yellow-ink);
+  }
+  .step3-inner__price strong { color: #1a1200; }
+  .step3-inner__sub { font-size: .85rem; color: #3a2a00; margin-bottom: 1rem; }
+  .step3-inner__link {
+    font-size: .82rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: #1a1200;
+    border-bottom: 2px solid var(--salmon-deep);
+    padding-bottom: 2px;
+  }
+
+  /* Good to know cards */
+  .expect-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: 1.5rem;
+  }
+  @media (min-width: 640px) {
+    .expect-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 980px) {
+    .expect-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+  .expect-card {
+    background: #FAFAF8;
+    border-radius: var(--radius);
+    padding: 1.25rem 1.4rem;
+  }
+  .expect-card__label {
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--purple-deep);
+    margin-bottom: .55rem;
+  }
+  .expect-card p { font-size: .92rem; color: var(--ink); line-height: 1.55; }
+  .expect-card strong { color: var(--ink); font-weight: 700; }
+
+  /* Pricing table */
+  .pricing-section { background: #1a1a1a; color: #fff; padding: .5rem 0; }
+  .pricing-section .section__h2 { color: #fff; }
+  .pricing-section .section__h2 em { color: var(--purple); }
+  .pricing-section .section__lead { color: rgba(255,255,255,.7); }
+  .pricing-section .kicker { color: var(--yellow); }
+
+  .pricing-table { width: 100%; border-collapse: collapse; font-size: .92rem; margin-top: 1rem; }
+  .pricing-table th {
+    text-align: left;
+    font-family: 'PT Serif', serif;
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.5);
+    padding: .65rem .9rem;
+    border-bottom: 1px solid rgba(255,255,255,.15);
+  }
+  .pricing-table td {
+    padding: .9rem .9rem;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+    color: rgba(255,255,255,.9);
+  }
+  .pricing-table .price-full { font-family: 'Marcellus', serif; font-size: 1.05rem; color: #fff; }
+  .pricing-table .price-student { font-family: 'Marcellus', serif; font-size: 1.05rem; color: var(--purple); }
+  .pricing-note { font-size: .82rem; color: rgba(255,255,255,.65); line-height: 1.55; margin-top: 1.25rem; }
+  .pricing-note strong { color: #fff; }
+
+  /* FAQ */
+  .faq { display: flex; flex-direction: column; gap: .35rem; max-width: 760px; margin: 1.5rem auto 0; }
+  .faq-item { border-bottom: 1px solid var(--border); }
+  .faq-q {
+    width: 100%;
+    text-align: left;
+    padding: 1rem 0;
+    font-family: 'Marcellus', serif;
+    font-size: 1.05rem;
+    color: var(--ink);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    gap: var(--space-2);
-    margin-top: var(--space-5);
+    gap: 1rem;
   }
-  .footer__brand,
-  .footer__nav {
-    font-family: var(--font-sans);
-    font-weight: 500;
-    font-size: 11px;
-    letter-spacing: 0.12em;
+  .faq-q .arrow { color: var(--purple-deep); font-size: .75rem; transition: transform .15s; }
+  .faq-item.open .faq-q .arrow { transform: rotate(180deg); }
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .25s ease;
+    font-size: .92rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+  .faq-item.open .faq-a { max-height: 400px; padding: 0 0 1rem; }
+
+  /* Closing CTA (black band) */
+  .closing-wrap { max-width: 1080px; margin: 0 auto; padding: 0 1.5rem 5rem; }
+  .closing {
+    background: #000;
+    color: #fff;
+    border-radius: var(--radius);
+    padding: 3.5rem 2rem;
+    text-align: center;
+  }
+  .closing__kicker { color: var(--purple); margin-bottom: .75rem; }
+  .closing__h2 {
+    font-family: 'Marcellus', serif;
+    font-weight: 400;
+    font-size: clamp(1.6rem, 3vw, 2.3rem);
+    line-height: 1.15;
+    margin-bottom: .75rem;
+  }
+  .closing__h2 em { color: var(--purple); font-style: italic; }
+  .closing__sub { font-size: .95rem; color: rgba(255,255,255,.7); max-width: 480px; margin: 0 auto 1.75rem; line-height: 1.55; }
+  .closing__cta-cluster { display: flex; flex-direction: column; align-items: center; gap: .6rem; }
+  .closing__cta {
+    display: inline-block;
+    background: var(--purple);
+    color: #fff;
+    font-size: .82rem;
+    font-weight: 700;
+    letter-spacing: .06em;
     text-transform: uppercase;
+    padding: .85rem 1.85rem;
+    border-radius: 6px;
+  }
+  .closing__cta:hover { opacity: .88; }
+  .closing__cta-link {
+    font-size: .82rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.8);
+    border-bottom: 1.5px solid rgba(255,255,255,.4);
+    padding-bottom: 2px;
+  }
+  .closing__cta-link:hover { color: #fff; border-color: #fff; }
+  .closing__meta { font-size: .72rem; color: rgba(255,255,255,.45); margin-top: .35rem; letter-spacing: .06em; }
+
+  /* Footer */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 1.75rem 1.5rem;
+    max-width: 1080px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: .75rem 1.5rem;
+    font-size: .82rem;
     color: var(--muted);
   }
-  .footer__nav { display: flex; gap: 18px; }
-  .footer__nav a { color: inherit; }
-  .footer__nav a:hover { color: var(--vibrant-purple-ink); }
+  .footer__brand { font-weight: 700; }
+  .footer__nav { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+  .footer__nav a { color: var(--muted); }
+  .footer__nav a:hover { color: var(--ink); }
 
-  /* ── Divider ── */
-  hr.divider {
-    border: none;
-    border-top: 0.5px solid var(--mist);
-    margin: 0;
+  /* Responsive */
+  @media (max-width: 640px) {
+    .hero { padding: 3rem 1rem 2.75rem; }
+    .step1-band, .step2 { padding: 3rem 1rem; }
+    .step3-band { padding: 2.5rem 1rem; }
+    .section, .pricing-section .section { padding: 3rem 1rem; }
+    .closing-wrap { padding: 0 1rem 3.5rem; }
+    .closing { padding: 2.5rem 1.25rem; }
+    .partner-alert { margin: -1rem 1rem 0; }
+    .step { gap: 1rem; }
+    .step__num { font-size: 2.5rem; width: 44px; }
   }
-
-  /* ── Responsive ── */
-  @media (max-width: 760px) {
-    main { padding: 0 var(--space-2); }
-    .breadcrumb { padding: var(--space-2) var(--space-2) 0; }
-    .hero { padding: var(--space-5) 0 var(--space-4); }
-    .closing {
-      grid-template-columns: 1fr;
-      padding: var(--space-4) var(--space-3);
-      gap: var(--space-3);
-    }
-    .closing__cta-cluster {
-      align-items: flex-start;
-    }
-    .closing__meta { text-align: left; }
-  }
-  @media (max-width: 540px) {
-    .hero__h1 { font-size: 36px; }
-    .hero__ctas { flex-direction: column; align-items: flex-start; }
-  }
-
-  /* ── Language visibility ── */
-  [data-lang="nl"] { display: none; }
-  body.nl [data-lang="en"] { display: none; }
-  body.nl [data-lang="nl"] { display: revert; }
-  body.nl .block-nl { display: block; }
-  body.nl .block-en { display: none; }
-  .block-nl { display: none; }
 </style>
 </head>
 <body>
-
-<!-- Skip link -->
-<a href="#main-content" class="skip-link">Skip to main content</a>
 
 <!-- Language toggle -->
 <div class="lang-toggle" role="group" aria-label="Language selection">
@@ -735,7 +534,7 @@
 
 <!-- Breadcrumb -->
 <nav class="breadcrumb" aria-label="Breadcrumb">
-  <a href="../dance-styles-overview.html">
+  <a href="./dance-styles-overview.html">
     <span data-lang="en">All dance styles</span>
     <span data-lang="nl">Alle dansstijlen</span>
   </a>
@@ -744,512 +543,506 @@
   <span data-lang="nl">Nieuw bij Shoonya</span>
 </nav>
 
-<main id="main-content">
+<!-- ═════════ Hero ═════════ -->
+<section class="hero" aria-labelledby="hero-h1">
+  <div class="hero__pill">
+    <span data-lang="en">Welcome · Shoonya · Ghent</span>
+    <span data-lang="nl">Welkom · Shoonya · Gent</span>
+  </div>
+  <h1 id="hero-h1">
+    <span data-lang="en">New to <em>Shoonya?</em></span>
+    <span data-lang="nl">Nieuw bij <em>Shoonya?</em></span>
+  </h1>
+  <p class="hero__sub" data-lang="en">No experience, no partner, no rhythm needed. Just curiosity. Here's how to find your first class.</p>
+  <p class="hero__sub" data-lang="nl">Geen ervaring, partner of ritmegevoel nodig. Alleen nieuwsgierigheid. Zo vind je jouw eerste les.</p>
+  <div class="hero__ctas">
+    <a href="#styles" class="btn-primary">
+      <span data-lang="en">Find my style →</span>
+      <span data-lang="nl">Vind mijn stijl →</span>
+    </a>
+    <a href="#how" class="btn-outline">
+      <span data-lang="en">How it works</span>
+      <span data-lang="nl">Hoe het werkt</span>
+    </a>
+  </div>
+  <div class="hero__strip">
+    <span class="hero__strip-label">
+      <span data-lang="en">Open House</span>
+      <span data-lang="nl">Open Deur</span>
+    </span>
+    <span>
+      <span data-lang="en"><strong>14 June</strong> + <strong>13 Sept 2026</strong></span>
+      <span data-lang="nl"><strong>14 juni</strong> + <strong>13 sept 2026</strong></span>
+    </span>
+    <span class="hero__strip-dot" aria-hidden="true"></span>
+    <span>
+      <span data-lang="en">Trial week: <strong>14–19 Sep 2026</strong></span>
+      <span data-lang="nl">Proefweek: <strong>14–19 sep 2026</strong></span>
+    </span>
+    <span class="hero__strip-dot" aria-hidden="true"></span>
+    <span>
+      <span data-lang="en">Free · No sign-up</span>
+      <span data-lang="nl">Gratis · Geen inschrijving</span>
+    </span>
+  </div>
+</section>
 
-  <!-- ═══════════════════════════════════════
-       HERO
-  ════════════════════════════════════════ -->
-  <section class="hero" aria-labelledby="hero-h1">
-
-    <div class="hero__eyebrow">
-      <div class="hero__rule" aria-hidden="true"></div>
-      <p class="kicker kicker--purple">
-        <span data-lang="en">Welcome · Shoonya Dance Centre</span>
-        <span data-lang="nl">Welkom · Shoonya Danscentrum</span>
-      </p>
-    </div>
-
-    <h1 class="hero__h1" id="hero-h1">
-      <span data-lang="en">New to <em>Shoonya?</em></span>
-      <span data-lang="nl">Nieuw bij <em>Shoonya?</em></span>
-    </h1>
-
-    <p class="hero__sub" data-lang="en">You don't need experience, a partner, or even any rhythm. Just curiosity. Here's how to find your first class.</p>
-    <p class="hero__sub" data-lang="nl">Je hebt geen ervaring, partner of ritmegevoel nodig. Alleen nieuwsgierigheid. Zo vind je jouw eerste les.</p>
-
-    <div class="hero__ctas">
-      <a href="#styles" class="btn-primary">
-        <span data-lang="en">Find my style</span>
-        <span data-lang="nl">Vind mijn stijl</span>
-        <span aria-hidden="true">→</span>
-      </a>
-      <a href="https://shoonyadance.com/calendar" class="btn-outline">
-        <span data-lang="en">Next Open House</span>
-        <span data-lang="nl">Volgende Open Deur</span>
-      </a>
-    </div>
-
-    <div class="hero__strip">
-      <span class="hero__strip-label">
-        <span data-lang="en">Open House</span>
-        <span data-lang="nl">Open Deur</span>
-      </span>
-      <span class="hero__strip-meta">
-        <span data-lang="en"><strong>14 June 2026</strong></span>
-        <span data-lang="nl"><strong>14 juni 2026</strong></span>
-      </span>
-      <span class="hero__strip-dot" aria-hidden="true"></span>
-      <span class="hero__strip-meta" data-lang="en">Free · No sign-up needed</span>
-      <span class="hero__strip-meta" data-lang="nl">Gratis · Geen inschrijving nodig</span>
-      <span class="hero__strip-dot" aria-hidden="true"></span>
-      <span class="hero__strip-meta">
-        <span data-lang="en">Trial week: <strong>14–19 Sep 2026</strong></span>
-        <span data-lang="nl">Proefweek: <strong>14–19 sep 2026</strong></span>
-      </span>
-    </div>
-
-  </section>
-
-  <!-- ═══════════════════════════════════════
-       PARTNER CALLOUT
-  ════════════════════════════════════════ -->
+<!-- Partner alert (full-bleed salmon strip) -->
+<div class="partner-alert-strip">
   <div class="partner-alert" role="note">
     <span class="partner-alert__icon" aria-hidden="true">⚠</span>
     <div>
       <strong data-lang="en">Partner dances require you to register with a partner</strong>
       <strong data-lang="nl">Partnerdansen vereisen dat je je inschrijft met een partner</strong>
-      <p data-lang="en">Cuban Salsa, Bachata, Argentine Tango, Kizomba, and Rueda de Casino require you to register with a partner. Lindy Hop and all other styles are solo — you can come alone.</p>
-      <p data-lang="nl">Cuban Salsa, Bachata, Argentine Tango, Kizomba en Rueda de Casino vereisen dat je je met een partner inschrijft. Lindy Hop en alle andere stijlen zijn solo — je kunt alleen komen.</p>
+      <span data-lang="en">Cuban Salsa, Bachata, Argentine Tango, Kizomba, and Rueda de Casino require you to register with a partner. Lindy Hop and all other styles are solo — you can come alone.</span>
+      <span data-lang="nl">Cuban Salsa, Bachata, Argentine Tango, Kizomba en Rueda de Casino vereisen dat je je met een partner inschrijft. Lindy Hop en alle andere stijlen zijn solo — je kunt alleen komen.</span>
     </div>
   </div>
+</div>
 
-  <!-- ═══════════════════════════════════════
-       STYLE FINDER
-  ════════════════════════════════════════ -->
-  <section class="section" id="styles" aria-labelledby="styles-h2">
-
-    <div class="section__eyebrow">
-      <p class="kicker kicker--purple">
-        <span data-lang="en">Step 1 — Find your style</span>
-        <span data-lang="nl">Stap 1 — Vind jouw stijl</span>
-      </p>
-    </div>
+<!-- ═════════ Step 1 — Choose your world (purple band) ═════════ -->
+<section class="step1-band" id="styles" aria-labelledby="styles-h2">
+  <div class="step1-inner">
+    <span class="kicker kicker--purple">
+      <span data-lang="en">Step 1 — Choose your world</span>
+      <span data-lang="nl">Stap 1 — Kies jouw wereld</span>
+    </span>
     <h2 class="section__h2" id="styles-h2">
       <span data-lang="en">What kind of dance <em>calls to you?</em></span>
       <span data-lang="nl">Welk soort dans <em>spreekt je aan?</em></span>
     </h2>
-    <p class="section__lead" data-lang="en">We teach 25+ styles across three worlds. Pick what sounds like you — Level 1 is always absolute beginners.</p>
-    <p class="section__lead" data-lang="nl">We onderwijzen 25+ stijlen in drie werelden. Kies wat bij jou past — Level 1 is altijd voor absolute beginners.</p>
+    <p class="section__lead" data-lang="en">24 styles across three worlds. Pick what sounds like you — Level 1 is always for absolute beginners.</p>
+    <p class="section__lead" data-lang="nl">24 stijlen in drie werelden. Kies wat bij jou past — Level 1 is altijd voor absolute beginners.</p>
 
     <div class="style-grid" role="list">
 
-      <a class="style-card" href="../partner-social/" role="listitem">
-        <div class="style-card__icon" aria-hidden="true">💃🕺</div>
+      <a class="style-card style-card--partner" href="./dance-styles-overview.html#partner" role="listitem">
         <h3 class="style-card__h3">
-          <span data-lang="en">Partner & Social Dance</span>
-          <span data-lang="nl">Partner- & Sociaal Dansen</span>
+          <span data-lang="en">Partner &amp; Social</span>
+          <span data-lang="nl">Partner &amp; Sociaal</span>
         </h3>
-        <span class="style-card__tag tag-partner" data-lang="en">Most require a partner</span>
-        <span class="style-card__tag tag-partner" data-lang="nl">Meeste vereisen een partner</span>
-        <p class="style-card__p" data-lang="en">6 styles — Cuban Salsa, Bachata, Argentine Tango, Kizomba, Lindy Hop, Rueda. Dancing with someone else: connection, rhythm, improvisation.</p>
-        <p class="style-card__p" data-lang="nl">6 stijlen — Cuban Salsa, Bachata, Argentine Tango, Kizomba, Lindy Hop, Rueda. Dansen met iemand anders: verbinding, ritme en improvisatie.</p>
+        <span class="style-card__tag tag-partner">
+          <span data-lang="en">Most require a partner</span>
+          <span data-lang="nl">Meeste vereisen een partner</span>
+        </span>
+        <p class="style-card__p" data-lang="en">7 styles — Cuban Salsa, Bachata, Bachata Lady Style, Argentine Tango, Kizomba, Lindy Hop, Rueda. Dance with someone else.</p>
+        <p class="style-card__p" data-lang="nl">7 stijlen — Cuban Salsa, Bachata, Bachata Lady Style, Argentine Tango, Kizomba, Lindy Hop, Rueda. Dans met iemand anders.</p>
         <span class="style-card__link">
-          <span data-lang="en">Explore Partner & Social</span>
-          <span data-lang="nl">Verken Partner & Sociaal</span>
+          <span data-lang="en">Explore →</span>
+          <span data-lang="nl">Verken →</span>
         </span>
       </a>
 
-      <a class="style-card" href="../classical-technique/" role="listitem">
-        <div class="style-card__icon" aria-hidden="true">🩰</div>
+      <a class="style-card style-card--classical" href="./dance-styles-overview.html#classical" role="listitem">
         <h3 class="style-card__h3">
-          <span data-lang="en">Classical & Technique</span>
-          <span data-lang="nl">Klassiek & Techniek</span>
+          <span data-lang="en">Classical &amp; Technique</span>
+          <span data-lang="nl">Klassiek &amp; Techniek</span>
         </h3>
-        <span class="style-card__tag tag-solo" data-lang="en">Solo — come alone</span>
-        <span class="style-card__tag tag-solo" data-lang="nl">Solo — kom alleen</span>
-        <p class="style-card__p" data-lang="en">7 styles — Ballet, Tap Dance, Flamenco, Raqs Sharqi, Indian Semi-Classical, Indian Dance Technique, Solo Jazz. Structured and deeply satisfying.</p>
-        <p class="style-card__p" data-lang="nl">7 stijlen — Ballet, Tapdans, Flamenco, Raqs Sharqi, Indiase Semi-Klassiek, Indiase Danstechniek, Solo Jazz. Gestructureerd en bevredigend.</p>
+        <span class="style-card__tag tag-solo">
+          <span data-lang="en">Solo — come alone</span>
+          <span data-lang="nl">Solo — kom alleen</span>
+        </span>
+        <p class="style-card__p" data-lang="en">7 styles — Ballet, Tap Dance, Flamenco, Oriental Flow, Indian Semi-Classical, Indian Dance Technique, Solo Jazz. Structured progression.</p>
+        <p class="style-card__p" data-lang="nl">7 stijlen — Ballet, Tapdans, Flamenco, Oriental Flow, Indiase Semi-Klassiek, Indiase Danstechniek, Solo Jazz. Gestructureerde opbouw.</p>
         <span class="style-card__link">
-          <span data-lang="en">Explore Classical & Technique</span>
-          <span data-lang="nl">Verken Klassiek & Techniek</span>
+          <span data-lang="en">Explore →</span>
+          <span data-lang="nl">Verken →</span>
         </span>
       </a>
 
-      <a class="style-card" href="../culture-wellness/" role="listitem">
-        <div class="style-card__icon" aria-hidden="true">🌍</div>
+      <a class="style-card style-card--culture" href="./dance-styles-overview.html#culture" role="listitem">
         <h3 class="style-card__h3">
-          <span data-lang="en">Culture & Wellness</span>
-          <span data-lang="nl">Cultuur & Welzijn</span>
+          <span data-lang="en">Culture &amp; Wellness</span>
+          <span data-lang="nl">Cultuur &amp; Welzijn</span>
         </h3>
-        <span class="style-card__tag tag-open" data-lang="en">Solo — come alone</span>
-        <span class="style-card__tag tag-open" data-lang="nl">Solo — kom alleen</span>
-        <p class="style-card__p" data-lang="en">9 styles — Bollywood, Bollyfolk, African Dance, Burlesque, Cissy Ball, Yoga, Bhangra and more. Expressive, cultural, joyful.</p>
-        <p class="style-card__p" data-lang="nl">9 stijlen — Bollywood, Bollyfolk, Afrikaanse dans, Burlesque, Cissy Ball, Yoga, Bhangra en meer. Expressief, cultureel en vrolijk.</p>
+        <span class="style-card__tag tag-open">
+          <span data-lang="en">Solo — come alone</span>
+          <span data-lang="nl">Solo — kom alleen</span>
+        </span>
+        <p class="style-card__p" data-lang="en">10 styles — Bollywood, Bollyfolk, African Dance, Bhangra, Burlesque, Cissy Ball, Dance &amp; Fit, Pilates, Raqs Sharqi, Yoga.</p>
+        <p class="style-card__p" data-lang="nl">10 stijlen — Bollywood, Bollyfolk, Afrikaanse dans, Bhangra, Burlesque, Cissy Ball, Dance &amp; Fit, Pilates, Raqs Sharqi, Yoga.</p>
         <span class="style-card__link">
-          <span data-lang="en">Explore Culture & Wellness</span>
-          <span data-lang="nl">Verken Cultuur & Welzijn</span>
+          <span data-lang="en">Explore →</span>
+          <span data-lang="nl">Verken →</span>
         </span>
       </a>
 
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ═══════════════════════════════════════
-       HOW YOUR FIRST CLASS WORKS
-  ════════════════════════════════════════ -->
-  <section class="section" id="how" aria-labelledby="how-h2">
-
-    <div class="section__eyebrow">
-      <p class="kicker kicker--purple">
-        <span data-lang="en">Step 2 — Your first class</span>
-        <span data-lang="nl">Stap 2 — Je eerste les</span>
-      </p>
-    </div>
+<!-- ═════════ Step 2 — How it works (white, numbered) ═════════ -->
+<section class="section step2" id="how" aria-labelledby="how-h2">
+  <div class="step2__header">
+    <span class="kicker kicker--purple">
+      <span data-lang="en">Step 2 — Your first class</span>
+      <span data-lang="nl">Stap 2 — Je eerste les</span>
+    </span>
     <h2 class="section__h2" id="how-h2">
       <span data-lang="en">How it <em>works</em></span>
       <span data-lang="nl">Hoe het <em>werkt</em></span>
     </h2>
-    <p class="section__lead" data-lang="en">Three steps from curious to dancing. No commitment required until you're ready.</p>
+    <p class="section__lead" data-lang="en">Three steps from curious to dancing. No commitment until you're ready.</p>
     <p class="section__lead" data-lang="nl">Drie stappen van nieuwsgierig naar dansen. Geen verplichting totdat je er klaar voor bent.</p>
+  </div>
 
-    <div class="steps">
+  <div class="steps">
 
-      <div class="step">
-        <div class="step__num" aria-hidden="true">1</div>
-        <div>
-          <h3 class="step__h3">
-            <span data-lang="en">Come to an Open House Day</span>
-            <span data-lang="nl">Kom naar een Open Deurdag</span>
-          </h3>
-          <p class="step__p" data-lang="en">Three times a year we open our doors — no sign-up, no cost, no obligation. Walk in, try any class, meet the teachers, and get a feel for the space. Take your time.</p>
-          <p class="step__p" data-lang="nl">Drie keer per jaar openen we onze deuren — geen inschrijving, geen kosten, geen verplichtingen. Loop binnen, probeer elke les, ontmoet de leerkrachten en voel de sfeer. Neem je tijd.</p>
-          <span class="step__badge">
-            <span data-lang="en">Free · No sign-up · 14 June 2026</span>
-            <span data-lang="nl">Gratis · Geen inschrijving · 14 juni 2026</span>
-          </span>
-        </div>
+    <div class="step">
+      <span class="step__num" aria-hidden="true">1</span>
+      <div class="step__body">
+        <h3 class="step__h3">
+          <span data-lang="en">Come to an Open House Day</span>
+          <span data-lang="nl">Kom naar een Open Deurdag</span>
+        </h3>
+        <p class="step__p" data-lang="en">Three times a year we open our doors — no sign-up, no cost, no obligation. Walk in, try any class, meet the teachers.</p>
+        <p class="step__p" data-lang="nl">Drie keer per jaar openen we onze deuren — geen inschrijving, geen kosten, geen verplichtingen. Loop binnen, probeer elke les, ontmoet de leerkrachten.</p>
+        <span class="step__badge">
+          <span data-lang="en">Free · No sign-up · 14 June + 13 Sept 2026</span>
+          <span data-lang="nl">Gratis · Geen inschrijving · 14 juni + 13 sept 2026</span>
+        </span>
       </div>
-
-      <div class="step">
-        <div class="step__num" aria-hidden="true">2</div>
-        <div>
-          <h3 class="step__h3">
-            <span data-lang="en">Try the first week free</span>
-            <span data-lang="nl">Probeer de eerste week gratis</span>
-          </h3>
-          <p class="step__p" data-lang="en">When a new semester starts, the first week is free for everyone. Attend any class, no strings attached. This is your chance to try the full class before committing.</p>
-          <p class="step__p" data-lang="nl">Wanneer een nieuw semester begint, is de eerste week gratis voor iedereen. Volg elke les, zonder verplichtingen. Dit is je kans om de volledige les te proberen voor je je inschrijft.</p>
-          <span class="step__badge">
-            <span data-lang="en">Next free trial week: 14–19 September 2026</span>
-            <span data-lang="nl">Volgende gratis proefweek: 14–19 september 2026</span>
-          </span>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step__num" aria-hidden="true">3</div>
-        <div>
-          <h3 class="step__h3">
-            <span data-lang="en">Register when you're ready</span>
-            <span data-lang="nl">Schrijf je in wanneer je er klaar voor bent</span>
-          </h3>
-          <p class="step__p" data-lang="en">Create a Shoonya ID and register for the semester. If you join mid-semester, your price is prorated — you only pay for the remaining classes. Registration for 2026–2027 opens 15 May 2026.</p>
-          <p class="step__p" data-lang="nl">Maak een Shoonya ID aan en schrijf je in voor het semester. Als je halverwege het semester begint, betaal je alleen voor de resterende lessen. Inschrijving voor 2026–2027 opent op 15 mei 2026.</p>
-          <span class="step__badge">
-            <span data-lang="en">Registration opens 15 May 2026</span>
-            <span data-lang="nl">Inschrijving opent 15 mei 2026</span>
-          </span>
-        </div>
-      </div>
-
     </div>
-  </section>
 
-  <!-- ═══════════════════════════════════════
-       WHAT TO EXPECT
-  ════════════════════════════════════════ -->
-  <section class="section" id="expect" aria-labelledby="expect-h2">
-
-    <div class="section__eyebrow">
-      <p class="kicker">
-        <span data-lang="en">What to expect</span>
-        <span data-lang="nl">Wat je kunt verwachten</span>
-      </p>
+    <div class="step">
+      <span class="step__num" aria-hidden="true">2</span>
+      <div class="step__body">
+        <h3 class="step__h3">
+          <span data-lang="en">Try the first week free</span>
+          <span data-lang="nl">Probeer de eerste week gratis</span>
+        </h3>
+        <p class="step__p" data-lang="en">The first week of every new semester is free for everyone. Drop into any class to try the full experience before committing.</p>
+        <p class="step__p" data-lang="nl">De eerste week van elk nieuw semester is gratis voor iedereen. Loop binnen in elke les om de volledige ervaring te proberen voor je je inschrijft.</p>
+        <span class="step__badge">
+          <span data-lang="en">Trial week · 14–19 September 2026</span>
+          <span data-lang="nl">Proefweek · 14–19 september 2026</span>
+        </span>
+      </div>
     </div>
-    <h2 class="section__h2" id="expect-h2">
-      <span data-lang="en">Good to know <em>before you come</em></span>
-      <span data-lang="nl">Handig om te weten <em>voor je komt</em></span>
+
+    <div class="step">
+      <span class="step__num" aria-hidden="true">3</span>
+      <div class="step__body">
+        <h3 class="step__h3">
+          <span data-lang="en">Register when you're ready</span>
+          <span data-lang="nl">Schrijf je in wanneer je er klaar voor bent</span>
+        </h3>
+        <p class="step__p" data-lang="en">Create a Shoonya ID and sign up for the semester. If you join mid-semester, your price is prorated — you only pay for the remaining classes.</p>
+        <p class="step__p" data-lang="nl">Maak een Shoonya ID aan en schrijf je in voor het semester. Als je halverwege begint, betaal je alleen voor de resterende lessen.</p>
+        <span class="step__badge">
+          <span data-lang="en">Registration opens 15 May 2026</span>
+          <span data-lang="nl">Inschrijving opent 15 mei 2026</span>
+        </span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═════════ Step 3 — Pricing teaser (yellow band) ═════════ -->
+<section class="step3-band">
+  <div class="step3-inner">
+    <span class="kicker kicker--yellow">
+      <span data-lang="en">Step 3 — Sign up</span>
+      <span data-lang="nl">Stap 3 — Schrijf je in</span>
+    </span>
+    <h2>
+      <span data-lang="en">From <em>€198</em> for a full semester</span>
+      <span data-lang="nl">Vanaf <em>€198</em> voor een volledig semester</span>
     </h2>
-    <p class="section__lead" data-lang="en">A few things that will make your first visit easier.</p>
-    <p class="section__lead" data-lang="nl">Een paar dingen die je eerste bezoek makkelijker maken.</p>
+    <p class="step3-inner__sub" data-lang="en">16 weeks · Student tier €175 · UiTPAS 80% off · Mid-semester join is prorated</p>
+    <p class="step3-inner__sub" data-lang="nl">16 weken · Studententarief €175 · UiTPAS 80% korting · Halverwege beginnen wordt geprorateerd</p>
+    <a href="#pricing" class="step3-inner__link">
+      <span data-lang="en">See the full price breakdown ↓</span>
+      <span data-lang="nl">Bekijk de volledige prijslijst ↓</span>
+    </a>
+  </div>
+</section>
 
-    <div class="expect-grid">
+<!-- ═════════ Good to know ═════════ -->
+<section class="section" id="expect" aria-labelledby="expect-h2">
+  <span class="kicker">
+    <span data-lang="en">What to expect</span>
+    <span data-lang="nl">Wat je kunt verwachten</span>
+  </span>
+  <h2 class="section__h2" id="expect-h2">
+    <span data-lang="en">Good to know <em>before you come</em></span>
+    <span data-lang="nl">Handig om te weten <em>voor je komt</em></span>
+  </h2>
+  <p class="section__lead" data-lang="en">A few things that will make your first visit easier.</p>
+  <p class="section__lead" data-lang="nl">Een paar dingen die je eerste bezoek makkelijker maken.</p>
 
-      <div class="expect-card">
-        <div class="expect-card__label">
-          <span data-lang="en">Levels explained</span>
-          <span data-lang="nl">Niveaus uitgelegd</span>
-        </div>
-        <p data-lang="en"><strong>Level 1 = absolute zero.</strong> No prior dance. No fitness requirement. No rhythm test. If you can walk, you can start. Open Level classes welcome everyone.</p>
-        <p data-lang="nl"><strong>Level 1 = absoluut nul.</strong> Geen danservaring. Geen fitnesseis. Geen ritmetes. Als je kunt lopen, kun je beginnen. Open Level lessen zijn voor iedereen.</p>
+  <div class="expect-grid">
+
+    <div class="expect-card">
+      <div class="expect-card__label">
+        <span data-lang="en">Levels explained</span>
+        <span data-lang="nl">Niveaus uitgelegd</span>
       </div>
-
-      <div class="expect-card">
-        <div class="expect-card__label">
-          <span data-lang="en">What to wear</span>
-          <span data-lang="nl">Wat je aantrekt</span>
-        </div>
-        <p data-lang="en">Comfortable clothing you can move in. Bring <strong>clean indoor shoes</strong> — street shoes are not allowed on the dance floor. Socks are fine for a first visit.</p>
-        <p data-lang="nl">Comfortabele kleding om in te bewegen. Breng <strong>schone binnenschoenen</strong> mee — straatschoenen zijn niet toegestaan op de dansvloer. Sokken zijn prima voor een eerste bezoek.</p>
-      </div>
-
-      <div class="expect-card">
-        <div class="expect-card__label">
-          <span data-lang="en">Age</span>
-          <span data-lang="nl">Leeftijd</span>
-        </div>
-        <p data-lang="en">Most classes are <strong>age 12+</strong>. Argentine Tango is <strong>age 16+</strong>. All other classes welcome adults of all ages — many of our students started dancing as adults.</p>
-        <p data-lang="nl">De meeste lessen zijn voor <strong>12 jaar en ouder</strong>. Argentine Tango is voor <strong>16 jaar en ouder</strong>. Alle andere lessen zijn welkom voor volwassenen van alle leeftijden.</p>
-      </div>
-
-      <div class="expect-card">
-        <div class="expect-card__label">UiTPAS</div>
-        <p data-lang="en">Shoonya is a UiTPAS partner. If you have a UiTPAS kansentarief card, you get an <strong>80% discount</strong> on all classes. Mention it when registering.</p>
-        <p data-lang="nl">Shoonya is UiTPAS-partner. Als je een UiTPAS kansentariefkaart hebt, krijg je <strong>80% korting</strong> op alle lessen. Vermeld dit bij inschrijving.</p>
-      </div>
-
+      <p data-lang="en"><strong>Level 1 = absolute zero.</strong> No prior dance, no fitness requirement, no rhythm test. If you can walk, you can start. Open Level classes welcome everyone.</p>
+      <p data-lang="nl"><strong>Level 1 = absoluut nul.</strong> Geen danservaring, geen fitnesseis, geen ritmetes. Als je kunt lopen, kun je beginnen. Open Level lessen zijn voor iedereen.</p>
     </div>
-  </section>
 
-</main>
+    <div class="expect-card">
+      <div class="expect-card__label">
+        <span data-lang="en">What to wear</span>
+        <span data-lang="nl">Wat je aantrekt</span>
+      </div>
+      <p data-lang="en">Comfortable clothing you can move in. Bring <strong>clean indoor shoes</strong> — street shoes are not allowed on the dance floor. Socks are fine for a first visit.</p>
+      <p data-lang="nl">Comfortabele kleding om in te bewegen. Breng <strong>schone binnenschoenen</strong> mee — straatschoenen zijn niet toegestaan op de dansvloer. Sokken zijn prima voor een eerste bezoek.</p>
+    </div>
 
-<!-- ═══════════════════════════════════════
-     PRICING (full-bleed dark)
-════════════════════════════════════════ -->
+    <div class="expect-card">
+      <div class="expect-card__label">
+        <span data-lang="en">Age</span>
+        <span data-lang="nl">Leeftijd</span>
+      </div>
+      <p data-lang="en">Most classes are <strong>age 12+</strong>. Argentine Tango is <strong>age 16+</strong>. All other classes welcome adults of any age.</p>
+      <p data-lang="nl">De meeste lessen zijn voor <strong>12 jaar en ouder</strong>. Argentine Tango is voor <strong>16 jaar en ouder</strong>. Alle andere lessen zijn welkom voor volwassenen van alle leeftijden.</p>
+    </div>
+
+    <div class="expect-card">
+      <div class="expect-card__label">UiTPAS</div>
+      <p data-lang="en">Shoonya is a UiTPAS partner. With a UiTPAS kansentarief card, you get an <strong>80% discount</strong> on all classes. Mention it when registering.</p>
+      <p data-lang="nl">Shoonya is UiTPAS-partner. Met een UiTPAS kansentariefkaart krijg je <strong>80% korting</strong> op alle lessen. Vermeld dit bij inschrijving.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═════════ Full pricing table (dark band) ═════════ -->
 <div class="pricing-section">
-  <main>
-    <section class="section" id="pricing" aria-labelledby="pricing-h2">
+  <section class="section" id="pricing" aria-labelledby="pricing-h2">
+    <span class="kicker">
+      <span data-lang="en">Pricing · Semester 1, 2026–2027</span>
+      <span data-lang="nl">Prijzen · Semester 1, 2026–2027</span>
+    </span>
+    <h2 class="section__h2" id="pricing-h2">
+      <span data-lang="en">Transparent <em>pricing</em></span>
+      <span data-lang="nl">Transparante <em>prijzen</em></span>
+    </h2>
+    <p class="section__lead" data-lang="en">You pay for the full semester. Mid-semester join is prorated automatically.</p>
+    <p class="section__lead" data-lang="nl">Je betaalt voor het volledige semester. Halverwege beginnen wordt automatisch geprorateerd.</p>
 
-      <div class="section__eyebrow">
-        <p class="kicker">
-          <span data-lang="en">Pricing — Semester 1, 2026–2027</span>
-          <span data-lang="nl">Prijzen — Semester 1, 2026–2027</span>
-        </p>
-      </div>
-      <h2 class="section__h2" id="pricing-h2">
-        <span data-lang="en">Transparent pricing</span>
-        <span data-lang="nl">Transparante prijzen</span>
-      </h2>
-      <p class="section__lead" data-lang="en">You pay for the full semester. If you join mid-semester, your price is prorated automatically.</p>
-      <p class="section__lead" data-lang="nl">Je betaalt voor het volledige semester. Als je halverwege begint, wordt je prijs automatisch berekend.</p>
+    <div style="overflow-x:auto;">
+      <table class="pricing-table">
+        <thead>
+          <tr>
+            <th>
+              <span data-lang="en">Class type</span>
+              <span data-lang="nl">Lestype</span>
+            </th>
+            <th>
+              <span data-lang="en">Full price</span>
+              <span data-lang="nl">Volledige prijs</span>
+            </th>
+            <th>
+              <span data-lang="en">Student / 2+ classes</span>
+              <span data-lang="nl">Student / 2+ lessen</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <span data-lang="en">Most classes &amp; Ballet L1 (60 min)</span>
+              <span data-lang="nl">Meeste lessen &amp; Ballet L1 (60 min)</span>
+            </td>
+            <td class="price-full">€198</td>
+            <td class="price-student">€175</td>
+          </tr>
+          <tr>
+            <td>
+              <span data-lang="en">Tap Dance (70 min)</span>
+              <span data-lang="nl">Tapdans (70 min)</span>
+            </td>
+            <td class="price-full">€223</td>
+            <td class="price-student">€197</td>
+          </tr>
+          <tr>
+            <td>
+              <span data-lang="en">Lindy Hop L2, Ballet L2, Kathak (75 min)</span>
+              <span data-lang="nl">Lindy Hop N2, Ballet N2, Kathak (75 min)</span>
+            </td>
+            <td class="price-full">€231</td>
+            <td class="price-student">€204</td>
+          </tr>
+          <tr>
+            <td>
+              <span data-lang="en">African Dance, Ballet L3, Burlesque, Cissy Ball, Oriental Flow (90 min)</span>
+              <span data-lang="nl">Afrikaanse dans, Ballet N3, Burlesque, Cissy Ball, Oriental Flow (90 min)</span>
+            </td>
+            <td class="price-full">€248</td>
+            <td class="price-student">€219</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-      <div style="overflow-x:auto;">
-        <table class="pricing-table">
-          <thead>
-            <tr>
-              <th data-lang="en">Class type</th>
-              <th data-lang="nl">Lestype</th>
-              <th data-lang="en">Full price</th>
-              <th data-lang="nl">Volledige prijs</th>
-              <th data-lang="en">Student / 2+ classes</th>
-              <th data-lang="nl">Student / 2+ lessen</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td data-lang="en">Most classes (60 min)</td>
-              <td data-lang="nl">Meeste lessen (60 min)</td>
-              <td class="price-full">€198</td>
-              <td class="price-full">€198</td>
-              <td class="price-student">€175</td>
-              <td class="price-student">€175</td>
-            </tr>
-            <tr>
-              <td data-lang="en">Tap Dance (70 min)</td>
-              <td data-lang="nl">Tapdans (70 min)</td>
-              <td class="price-full">€223</td>
-              <td class="price-full">€223</td>
-              <td class="price-student">€197</td>
-              <td class="price-student">€197</td>
-            </tr>
-            <tr>
-              <td data-lang="en">Lindy Hop (75 min)</td>
-              <td data-lang="nl">Lindy Hop (75 min)</td>
-              <td class="price-full">€231</td>
-              <td class="price-full">€231</td>
-              <td class="price-student">€204</td>
-              <td class="price-student">€204</td>
-            </tr>
-            <tr>
-              <td data-lang="en">African Dance, Ballet, Burlesque, Cissy Ball (90 min)</td>
-              <td data-lang="nl">Afrikaanse dans, Ballet, Burlesque, Cissy Ball (90 min)</td>
-              <td class="price-full">€248</td>
-              <td class="price-full">€248</td>
-              <td class="price-student">€219</td>
-              <td class="price-student">€219</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <p class="pricing-note">
-        <span data-lang="en">
-          <strong>Student / multi-class discount:</strong> 12% off if you're a student under 25, or enrolled in 2+ weekly classes. ·
-          <strong>UiTPAS kansentarief:</strong> 80% discount — mention it when registering. ·
-          Semester 1 runs 16 September 2026 – January 2027 (16 sessions).
-        </span>
-        <span data-lang="nl">
-          <strong>Student- / meerdere lessen korting:</strong> 12% korting voor studenten onder 25 of bij inschrijving voor 2+ wekelijkse lessen. ·
-          <strong>UiTPAS kansentarief:</strong> 80% korting — vermeld dit bij inschrijving. ·
-          Semester 1 loopt van 14 september 2026 tot januari 2027 (16 sessies).
-        </span>
-      </p>
-
-    </section>
-  </main>
+    <p class="pricing-note" data-lang="en">
+      <strong>Student / multi-class discount:</strong> 12% off if you're a student under 25, or enrolled in 2+ weekly classes. ·
+      <strong>UiTPAS kansentarief:</strong> 80% discount — mention it when registering. ·
+      Semester 1 runs 14 September 2026 – 30 January 2027 (16 sessions).
+    </p>
+    <p class="pricing-note" data-lang="nl">
+      <strong>Student- / meerdere lessen korting:</strong> 12% korting voor studenten onder 25 of bij inschrijving voor 2+ wekelijkse lessen. ·
+      <strong>UiTPAS kansentarief:</strong> 80% korting — vermeld dit bij inschrijving. ·
+      Semester 1 loopt van 14 september 2026 tot 30 januari 2027 (16 sessies).
+    </p>
+  </section>
 </div>
 
-<main>
+<!-- ═════════ FAQ ═════════ -->
+<section class="section" id="faq" aria-labelledby="faq-h2">
+  <span class="kicker">FAQ</span>
+  <h2 class="section__h2" id="faq-h2">
+    <span data-lang="en">Common <em>questions</em></span>
+    <span data-lang="nl">Veelgestelde <em>vragen</em></span>
+  </h2>
+  <p class="section__lead" data-lang="en">The things most new students ask us.</p>
+  <p class="section__lead" data-lang="nl">De vragen die de meeste nieuwe leerlingen ons stellen.</p>
 
-  <!-- ═══════════════════════════════════════
-       FAQ
-  ════════════════════════════════════════ -->
-  <section class="section" id="faq" aria-labelledby="faq-h2">
+  <div class="faq" role="list">
 
-    <div class="section__eyebrow">
-      <p class="kicker">FAQ</p>
-    </div>
-    <h2 class="section__h2" id="faq-h2">
-      <span data-lang="en">Common questions</span>
-      <span data-lang="nl">Veelgestelde vragen</span>
-    </h2>
-    <p class="section__lead" data-lang="en">The things most new students ask us.</p>
-    <p class="section__lead" data-lang="nl">De vragen die de meeste nieuwe leerlingen ons stellen.</p>
-
-    <div class="faq" role="list">
-
-      <div class="faq-item" role="listitem">
-        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-a-1">
+    <div class="faq-item" role="listitem">
+      <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-a-1">
+        <span>
           <span data-lang="en">Do I need a dance partner to join?</span>
           <span data-lang="nl">Heb ik een danspartner nodig?</span>
-          <span class="arrow" aria-hidden="true">▼</span>
-        </button>
-        <div class="faq-a" id="faq-a-1">
-          <span data-lang="en">Only for Cuban Salsa, Bachata, Argentine Tango, Kizomba, and Rueda de Casino. For all other classes — including Lindy Hop, Bollywood, Tap, Ballet, Flamenco, Burlesque, and more — you come alone and that's perfectly normal. The majority of our students are solo.</span>
-          <span data-lang="nl">Alleen voor Cuban Salsa, Bachata, Argentine Tango, Kizomba en Rueda de Casino. Voor alle andere lessen — inclusief Lindy Hop, Bollywood, Tapdans, Ballet, Flamenco, Burlesque en meer — kom je alleen en dat is heel normaal. De meerderheid van onze leerlingen danst solo.</span>
-        </div>
+        </span>
+        <span class="arrow" aria-hidden="true">▼</span>
+      </button>
+      <div class="faq-a" id="faq-a-1">
+        <span data-lang="en">Only for Cuban Salsa, Bachata, Argentine Tango, Kizomba, and Rueda de Casino. For all other classes — including Lindy Hop, Bollywood, Tap, Ballet, Flamenco, Burlesque, and more — you come alone and that's perfectly normal. The majority of our students are solo.</span>
+        <span data-lang="nl">Alleen voor Cuban Salsa, Bachata, Argentine Tango, Kizomba en Rueda de Casino. Voor alle andere lessen — inclusief Lindy Hop, Bollywood, Tapdans, Ballet, Flamenco, Burlesque en meer — kom je alleen en dat is heel normaal. De meerderheid van onze leerlingen danst solo.</span>
       </div>
+    </div>
 
-      <div class="faq-item" role="listitem">
-        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-a-2">
+    <div class="faq-item" role="listitem">
+      <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-a-2">
+        <span>
           <span data-lang="en">I have absolutely no rhythm. Is that a problem?</span>
           <span data-lang="nl">Ik heb absoluut geen gevoel voor ritme. Is dat een probleem?</span>
-          <span class="arrow" aria-hidden="true">▼</span>
-        </button>
-        <div class="faq-a" id="faq-a-2">
-          <span data-lang="en">Not at all. Rhythm is something you develop through practice — it's not something you're born with or without. Level 1 classes start slower than you'd expect, and teachers are used to working with complete beginners. Come to the Open House and see for yourself.</span>
-          <span data-lang="nl">Helemaal niet. Ritme ontwikkel je door oefening — het is niets wat je hebt of niet hebt. Level 1 lessen gaan langzamer dan je verwacht, en leerkrachten zijn gewend aan absolute beginners. Kom naar de Open Deur en zie het zelf.</span>
-        </div>
+        </span>
+        <span class="arrow" aria-hidden="true">▼</span>
+      </button>
+      <div class="faq-a" id="faq-a-2">
+        <span data-lang="en">Not at all. Rhythm is something you develop through practice — it's not something you're born with or without. Level 1 classes start slower than you'd expect, and teachers are used to working with complete beginners. Come to the Open House and see for yourself.</span>
+        <span data-lang="nl">Helemaal niet. Ritme ontwikkel je door oefening — het is niets wat je hebt of niet hebt. Level 1 lessen gaan langzamer dan je verwacht, en leerkrachten zijn gewend aan absolute beginners. Kom naar de Open Deur en zie het zelf.</span>
       </div>
+    </div>
 
-      <div class="faq-item" role="listitem">
-        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-a-3">
+    <div class="faq-item" role="listitem">
+      <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-a-3">
+        <span>
           <span data-lang="en">Can I join mid-semester?</span>
           <span data-lang="nl">Kan ik halverwege het semester beginnen?</span>
-          <span class="arrow" aria-hidden="true">▼</span>
-        </button>
-        <div class="faq-a" id="faq-a-3">
-          <span data-lang="en">Yes, for most classes. Your price is automatically prorated — you pay only for the sessions remaining in the semester. Some classes have a fixed group that doesn't accept mid-semester joiners (e.g. Rueda de Casino). Check the class page or ask us.</span>
-          <span data-lang="nl">Ja, voor de meeste lessen. Je prijs wordt automatisch berekend — je betaalt alleen voor de resterende sessies van het semester. Sommige lessen hebben een vaste groep die geen tussentijdse inschrijvingen accepteert (bijv. Rueda de Casino). Bekijk de lespagina of vraag het ons.</span>
-        </div>
+        </span>
+        <span class="arrow" aria-hidden="true">▼</span>
+      </button>
+      <div class="faq-a" id="faq-a-3">
+        <span data-lang="en">Yes, for most classes. Your price is automatically prorated — you pay only for the sessions remaining in the semester. Some classes have a fixed group that doesn't accept mid-semester joiners (e.g. Rueda de Casino). Check the class page or ask us.</span>
+        <span data-lang="nl">Ja, voor de meeste lessen. Je prijs wordt automatisch berekend — je betaalt alleen voor de resterende sessies van het semester. Sommige lessen hebben een vaste groep die geen tussentijdse inschrijvingen accepteert (bijv. Rueda de Casino). Bekijk de lespagina of vraag het ons.</span>
       </div>
+    </div>
 
-      <div class="faq-item" role="listitem">
-        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-a-4">
+    <div class="faq-item" role="listitem">
+      <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-a-4">
+        <span>
           <span data-lang="en">What is a Shoonya ID and why do I need one?</span>
           <span data-lang="nl">Wat is een Shoonya ID en waarom heb ik er een nodig?</span>
-          <span class="arrow" aria-hidden="true">▼</span>
-        </button>
-        <div class="faq-a" id="faq-a-4">
-          <span data-lang="en">It's your personal account on the Shoonya platform — you use it to register for classes and manage your enrolment. You don't need one to visit an Open House. Only create it when you're ready to register for a class.</span>
-          <span data-lang="nl">Het is je persoonlijk account op het Shoonya-platform — je gebruikt het om je in te schrijven voor lessen en je inschrijving te beheren. Je hebt er geen nodig voor een Open Deur. Maak het pas aan wanneer je klaar voor bent om je voor een les in te schrijven.</span>
-        </div>
+        </span>
+        <span class="arrow" aria-hidden="true">▼</span>
+      </button>
+      <div class="faq-a" id="faq-a-4">
+        <span data-lang="en">It's your personal account on the Shoonya platform — you use it to register for classes and manage your enrolment. You don't need one to visit an Open House. Only create it when you're ready to register.</span>
+        <span data-lang="nl">Het is je persoonlijk account op het Shoonya-platform — je gebruikt het om je in te schrijven voor lessen en je inschrijving te beheren. Je hebt er geen nodig voor een Open Deur. Maak het pas aan wanneer je klaar voor bent om je in te schrijven.</span>
       </div>
+    </div>
 
-      <div class="faq-item" role="listitem">
-        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-a-5">
+    <div class="faq-item" role="listitem">
+      <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-a-5">
+        <span>
           <span data-lang="en">What should I bring or wear?</span>
           <span data-lang="nl">Wat moet ik meenemen of dragen?</span>
-          <span class="arrow" aria-hidden="true">▼</span>
-        </button>
-        <div class="faq-a" id="faq-a-5">
-          <span data-lang="en">Comfortable clothing you can move in freely. Bring a pair of clean indoor shoes — street shoes are not allowed on the dance floor (it damages the surface). For a first Open House visit, socks work fine. Water is always a good idea. Specific footwear per style (like tap shoes or dance heels) is only needed if you continue.</span>
-          <span data-lang="nl">Comfortabele kleding om vrijuit in te bewegen. Breng een paar schone binnenschoenen mee — straatschoenen zijn niet toegestaan op de dansvloer (dit beschadigt het oppervlak). Voor een eerste Open Deur bezoek zijn sokken prima. Water is altijd een goed idee. Specifiek schoeisel per stijl (zoals tapshoenen of danshakken) is alleen nodig als je verdergaat.</span>
-        </div>
+        </span>
+        <span class="arrow" aria-hidden="true">▼</span>
+      </button>
+      <div class="faq-a" id="faq-a-5">
+        <span data-lang="en">Comfortable clothing you can move in freely. Bring a pair of clean indoor shoes — street shoes are not allowed on the dance floor. Socks work fine for a first Open House visit. Water is always a good idea. Specific footwear per style (like tap shoes or dance heels) is only needed if you continue.</span>
+        <span data-lang="nl">Comfortabele kleding om vrijuit in te bewegen. Breng een paar schone binnenschoenen mee — straatschoenen zijn niet toegestaan op de dansvloer. Voor een eerste Open Deur bezoek zijn sokken prima. Water is altijd een goed idee. Specifiek schoeisel per stijl (zoals tapshoenen of danshakken) is alleen nodig als je verdergaat.</span>
       </div>
+    </div>
 
-      <div class="faq-item" role="listitem">
-        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-a-6">
+    <div class="faq-item" role="listitem">
+      <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-a-6">
+        <span>
           <span data-lang="en">Do I need to be fit or flexible?</span>
           <span data-lang="nl">Moet ik fit of soepel zijn?</span>
-          <span class="arrow" aria-hidden="true">▼</span>
-        </button>
-        <div class="faq-a" id="faq-a-6">
-          <span data-lang="en">No. Fitness and flexibility are things you build over time through dance. Students come in all shapes, sizes, ages, and fitness levels. The dance builds the body — not the other way around.</span>
-          <span data-lang="nl">Nee. Conditie en soepelheid bouw je op in de loop van de tijd door te dansen. Leerlingen komen in alle vormen, maten, leeftijden en fitnesniveaus. De dans vormt het lichaam — niet andersom.</span>
-        </div>
+        </span>
+        <span class="arrow" aria-hidden="true">▼</span>
+      </button>
+      <div class="faq-a" id="faq-a-6">
+        <span data-lang="en">No. Fitness and flexibility are things you build over time through dance. Students come in all shapes, sizes, ages, and fitness levels. The dance builds the body — not the other way around.</span>
+        <span data-lang="nl">Nee. Conditie en soepelheid bouw je op in de loop van de tijd door te dansen. Leerlingen komen in alle vormen, maten, leeftijden en fitnesniveaus. De dans vormt het lichaam — niet andersom.</span>
       </div>
-
     </div>
-  </section>
 
-  <!-- ═══════════════════════════════════════
-       CLOSING CTA
-  ════════════════════════════════════════ -->
+  </div>
+</section>
+
+<!-- ═════════ Closing CTA ═════════ -->
+<div class="closing-wrap">
   <div class="closing" aria-label="Call to action">
-
-    <div>
-      <p class="kicker kicker--purple closing__kicker">
-        <span data-lang="en">Ready to start?</span>
-        <span data-lang="nl">Klaar om te beginnen?</span>
-      </p>
-      <h2 class="closing__h2">
-        <span data-lang="en">Take the <em>first step</em></span>
-        <span data-lang="nl">Zet de <em>eerste stap</em></span>
-      </h2>
-      <p class="closing__sub" data-lang="en">Come to our next Open House — free, no sign-up, no obligation. Or browse all our classes and find what calls to you.</p>
-      <p class="closing__sub" data-lang="nl">Kom naar onze volgende Open Deur — gratis, geen inschrijving, geen verplichtingen. Of bekijk al onze lessen en vind wat jou aanspreekt.</p>
+    <div class="kicker closing__kicker">
+      <span data-lang="en">Ready to start?</span>
+      <span data-lang="nl">Klaar om te beginnen?</span>
     </div>
-
+    <h2 class="closing__h2">
+      <span data-lang="en">Take the <em>first step</em></span>
+      <span data-lang="nl">Zet de <em>eerste stap</em></span>
+    </h2>
+    <p class="closing__sub" data-lang="en">Come to our next Open House — free, no sign-up, no obligation. Or browse all our classes.</p>
+    <p class="closing__sub" data-lang="nl">Kom naar onze volgende Open Deur — gratis, geen inschrijving, geen verplichtingen. Of bekijk al onze lessen.</p>
     <div class="closing__cta-cluster">
       <a href="https://shoonyadance.com/calendar" class="closing__cta">
-        <span data-lang="en">Open House — 14 June 2026</span>
-        <span data-lang="nl">Open Deur — 14 juni 2026</span>
-        <span aria-hidden="true">→</span>
+        <span data-lang="en">Next Open House — 14 June 2026 →</span>
+        <span data-lang="nl">Volgende Open Deur — 14 juni 2026 →</span>
       </a>
-      <a href="https://shoonyadance.com/courses" class="closing__cta-link">
-        <span data-lang="en">Browse all classes</span>
-        <span data-lang="nl">Bekijk alle lessen</span>
-        <span aria-hidden="true">→</span>
+      <a href="https://shoonyadance.com/calendar" class="closing__cta-link">
+        <span data-lang="en">Or 13 September 2026 →</span>
+        <span data-lang="nl">Of 13 september 2026 →</span>
+      </a>
+      <a href="./dance-styles-overview.html" class="closing__cta-link">
+        <span data-lang="en">Browse all 24 styles →</span>
+        <span data-lang="nl">Bekijk alle 24 stijlen →</span>
       </a>
       <p class="closing__meta" data-lang="en">Free entry · No sign-up needed</p>
       <p class="closing__meta" data-lang="nl">Gratis toegang · Geen inschrijving nodig</p>
     </div>
-
   </div>
-
-</main>
+</div>
 
 <!-- Footer -->
 <footer class="footer">
-  <span class="footer__brand">Shoonya Dance Centre · Stapelplein 41, 9000 Gent</span>
+  <span class="footer__brand">Shoonya Dance Centre · Ghent</span>
   <nav class="footer__nav" aria-label="Footer navigation">
-    <a href="https://shoonyadance.com">shoonyadance.com</a>
-    <a href="../schedule-sep-2026.html">
-      <span data-lang="en">Schedule</span>
-      <span data-lang="nl">Rooster</span>
+    <a href="https://www.shoonyadance.com">home</a>
+    <a href="./schedule-sep-2026.html">
+      <span data-lang="en">schedule</span>
+      <span data-lang="nl">rooster</span>
     </a>
-    <a href="../dance-styles-overview.html">
-      <span data-lang="en">All styles</span>
-      <span data-lang="nl">Alle stijlen</span>
+    <a href="./dance-styles-overview.html">
+      <span data-lang="en">all styles</span>
+      <span data-lang="nl">alle stijlen</span>
     </a>
   </nav>
 </footer>
 
 <script>
-  // ── Language toggle ──
   function setLang(lang) {
     document.body.classList.toggle('nl', lang === 'nl');
+    document.documentElement.lang = lang;
     const enBtn = document.getElementById('btn-en');
     const nlBtn = document.getElementById('btn-nl');
     enBtn.classList.toggle('active', lang === 'en');
@@ -1261,12 +1054,11 @@
 
   (function() {
     const saved = localStorage.getItem('shoonya-lang');
-    const browserLang = navigator.language || navigator.userLanguage || '';
-    const lang = saved || (browserLang.toLowerCase().startsWith('nl') ? 'nl' : 'en');
+    const browserLang = (navigator.language || '').toLowerCase();
+    const lang = saved || (browserLang.startsWith('nl') ? 'nl' : 'en');
     if (lang === 'nl') setLang('nl');
   })();
 
-  // ── FAQ accordion ──
   function toggleFaq(btn) {
     const item = btn.closest('.faq-item');
     const isOpen = item.classList.contains('open');

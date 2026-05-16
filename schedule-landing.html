@@ -7,957 +7,902 @@
   <title>Schedule · Shoonya Dance Centre · Ghent</title>
   <meta name="description" content="Choose your semester at Shoonya Dance Centre. September 2026 brings a new school year with 24 styles across 5 studios. Spring 2026 is in its final weeks." />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Playfair+Display:ital,wght@0,500;1,400&display=swap" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --void-white: #FFFFFF;
-      --void-black: #000000;
-      --vibrant-purple: #B564F7;       /* fills / backgrounds only */
-      --vibrant-purple-ink: #7E3FBF;   /* text / icons — passes WCAG AA on white */
-      --vibrant-purple-tint: #F5ECFF;
-      --vibrant-purple-tint-2: #E2CCFF;
-      --highlight-yellow: #FBC70F;
-      --mist: rgba(0, 0, 0, 0.12);
-      --muted: rgba(0, 0, 0, 0.6);
-      --muted-soft: rgba(0, 0, 0, 0.4);
-      --font-serif: 'Playfair Display', Georgia, serif;
-      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-      --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
-      --space-1: 8px;
-      --space-2: 16px;
-      --space-3: 24px;
-      --space-4: 32px;
-      --space-5: 48px;
-      --space-6: 64px;
-      --space-7: 96px;
+      --ink:           #1a1a1a;
+      --muted:         #5a5a5a;
+      --muted-soft:    #888;
+      --purple:        #B564F7;
+      --purple-deep:   #7E4FBF;
+      --purple-soft:   #F5ECFF;
+      --yellow:        #FBC70F;
+      --yellow-soft:   #FDF1B8;
+      --yellow-ink:    #6B4F00;
+      --salmon:        #F9D9C9;
+      --salmon-deep:   #C04A1F;
+      --salmon-ink:    #8A2F0E;
+      --border:        #e4e0db;
+      --bg:            #ffffff;
+      --hero-bg:       #000000;
+      --radius:        12px;
+      --radius-sm:     8px;
     }
 
-    *, *::before, *::after { box-sizing: border-box; }
-
-    html { -webkit-text-size-adjust: 100%; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      margin: 0;
-      font-family: var(--font-sans);
-      font-size: 16px;
-      line-height: 1.55;
-      color: var(--void-black);
-      background: var(--void-white);
+      font-family: 'PT Serif', Georgia, serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
       -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
 
     a { color: inherit; text-decoration: none; }
+    button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; padding: 0; }
+    :focus-visible { outline: 2px solid var(--purple); outline-offset: 3px; }
 
     .sr-only {
-      position: absolute;
-      width: 1px; height: 1px;
-      padding: 0; margin: -1px;
-      overflow: hidden; clip: rect(0,0,0,0);
-      white-space: nowrap; border: 0;
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
     }
 
-    main {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 0 var(--space-3);
+    /* ── Lang toggle (fixed) ──────────────────────────────────── */
+    .lang-toggle {
+      position: fixed;
+      top: 1rem; right: 1rem;
+      z-index: 100;
+      display: flex;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      overflow: hidden;
+      box-shadow: 0 1px 6px rgba(0,0,0,.1);
     }
-
-    /* ───────── kicker / eyebrow patterns ───────── */
-
-    .kicker {
-      font-family: var(--font-sans);
-      font-weight: 500;
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
+    .lang-btn {
+      padding: .35rem .85rem;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .06em;
       color: var(--muted);
     }
+    .lang-btn.active { background: #000; color: #fff; border-radius: 99px; }
 
-    .kicker--purple { color: var(--vibrant-purple-ink); }
-
-    .caption {
-      font-family: var(--font-sans);
-      font-weight: 500;
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    /* ───────── P1 S1 · hero ───────── */
-
+    /* ── Hero ─────────────────────────────────────────────────── */
     .hero {
-      padding: var(--space-6) 0 var(--space-5);
-      position: relative;
+      background: var(--hero-bg);
+      color: #fff;
+      padding: 4rem 1.5rem 3.5rem;
+      text-align: center;
     }
-
-    .hero__top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: var(--space-6);
-      padding-bottom: var(--space-2);
-      border-bottom: 0.5px solid var(--mist);
+    .hero__pill {
+      display: inline-block;
+      background: var(--purple);
+      color: #fff;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: .3rem 1rem;
+      border-radius: 99px;
+      margin-bottom: 1rem;
     }
-
-    .hero__eyebrow {
-      margin-bottom: var(--space-3);
-    }
-
-    .hero__h1 {
-      font-family: var(--font-serif);
-      font-weight: 500;
-      font-size: clamp(48px, 6vw, 88px);
-      line-height: 1.0;
-      letter-spacing: -0.02em;
-      margin: 0;
-    }
-
-    .hero__h1 em {
-      font-style: italic;
+    .hero h1 {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
       font-weight: 400;
-      color: var(--vibrant-purple-ink);
+      line-height: 1.1;
+      margin-bottom: .75rem;
     }
-
+    .hero h1 em { color: var(--purple); font-style: italic; }
     .hero__sub {
-      font-family: var(--font-sans);
-      font-size: 17px;
-      line-height: 1.55;
-      color: var(--muted);
-      max-width: 520px;
-      margin-top: var(--space-3);
+      font-size: 1rem;
+      color: rgba(255,255,255,.72);
+      max-width: 560px;
+      margin: 0 auto 1.25rem;
+      line-height: 1.65;
     }
-
     .hero__year {
-      font-family: var(--font-sans);
-      font-weight: 500;
-      font-size: 11px;
-      letter-spacing: 0.18em;
+      display: inline-block;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .16em;
       text-transform: uppercase;
-      color: var(--muted-soft);
-      margin-top: var(--space-3);
+      color: rgba(255,255,255,.5);
     }
 
-    /* ───────── P1 S2 · diptych picker ───────── */
-
-    .diptych {
-      padding: var(--space-3) 0 var(--space-6);
+    /* ── Page wrap ────────────────────────────────────────────── */
+    .wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
     }
 
-    .diptych__grid {
-      display: grid;
-      grid-template-columns: 1fr 1px 1fr;
-      align-items: stretch;
-      background: var(--void-white);
-      border: 1px solid var(--void-black);
+    /* ── Timeline section ─────────────────────────────────────── */
+    .timeline-wrap { padding: 4rem 1.5rem 3rem; }
+    .timeline-header {
+      max-width: 720px;
+      margin: 0 auto 3rem;
+      text-align: center;
     }
-
-    .card {
-      position: relative;
-      background: var(--void-white);
-      padding: var(--space-5) var(--space-4) var(--space-4);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .card--sep {
-      background: var(--vibrant-purple);
-    }
-
-    .card--sep .kicker,
-    .card--sep .card__display { color: var(--void-white); }
-
-    .card--sep .card__sub { color: rgba(255, 255, 255, 0.72); }
-
-    .card--sep .stat-row { border-bottom-color: rgba(255, 255, 255, 0.2); }
-
-    .card--sep .stat-row__label { color: rgba(255, 255, 255, 0.65); }
-
-    .card--sep .stat-row__label--new { color: var(--highlight-yellow); }
-
-    .card--sep .stat-row__value { color: var(--void-white); }
-
-    .card--sep .progress__seg { background: rgba(255, 255, 255, 0.22); }
-
-    .card--sep .progress__seg--filled,
-    .card--sep .progress__seg--purple { background: var(--void-white); }
-
-    .card--sep .card__cta {
-      background: var(--void-black);
-      color: var(--void-white);
-    }
-
-    .card--sep .card__cta:hover { background: rgba(0, 0, 0, 0.7); }
-
-    .card__pill {
-      position: absolute;
-      top: 24px;
-      right: 24px;
-      background: var(--highlight-yellow);
-      color: var(--void-black);
-      font-family: var(--font-sans);
-      font-weight: 500;
-      font-size: 10px;
-      letter-spacing: 0.12em;
-      padding: 5px 9px;
+    .timeline-header__kicker {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .12em;
       text-transform: uppercase;
+      color: var(--purple-deep);
+      margin-bottom: .5rem;
     }
-
-    .card__eyebrow {
-      margin-bottom: var(--space-2);
+    .timeline-header h2 {
+      font-family: 'Marcellus', serif;
+      font-weight: 400;
+      font-size: clamp(1.6rem, 3vw, 2.3rem);
+      line-height: 1.15;
+      margin-bottom: .5rem;
     }
-
-    .card__display {
-      font-family: var(--font-serif);
-      font-weight: 500;
-      font-size: clamp(28px, 3.4vw, 40px);
-      line-height: 1.05;
-      letter-spacing: -0.01em;
-      margin: 0 0 8px;
-    }
-
-    .card__sub {
-      font-family: var(--font-sans);
-      font-size: 13px;
+    .timeline-header h2 em { color: var(--purple); font-style: italic; }
+    .timeline-header__sub {
+      font-size: .95rem;
       color: var(--muted);
-      font-variant-numeric: tabular-nums;
-      margin: 0 0 var(--space-4);
+      line-height: 1.6;
     }
 
-    .stat-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      margin-bottom: var(--space-3);
+    .timeline {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 32px 0 12px;
     }
-
-    .stat-row {
+    .timeline__rail {
+      position: absolute;
+      top: 48px; left: 0; right: 0;
+      height: 3px;
+      background: var(--border);
+      border-radius: 3px;
+    }
+    .timeline__rail-fill {
+      position: absolute;
+      top: 0; left: 0;
+      height: 100%;
+      background: var(--purple);
+      border-radius: 3px;
+      transition: width .5s ease;
+    }
+    .timeline__nodes {
+      position: relative;
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
-      gap: 12px;
-      border-bottom: 0.5px solid var(--mist);
-      padding: 12px 0;
-      min-height: 28px;
+      align-items: flex-start;
+    }
+    .timeline__node {
+      flex: 1 1 0;
+      text-align: center;
+      padding: 0 4px;
+      min-width: 0;
+      text-decoration: none;
+      color: inherit;
+    }
+    .timeline__dot {
+      display: block;
+      box-sizing: border-box;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: #fff;
+      border: 3px solid var(--border);
+      margin: 8px auto 0;
+      position: relative;
+      transition: transform .15s, border-color .15s;
+    }
+    .timeline__node--past .timeline__dot {
+      background: var(--purple);
+      border-color: var(--purple);
+    }
+    .timeline__node--past .timeline__dot::after {
+      content: '✓';
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 9px;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .timeline__node--now .timeline__dot {
+      background: var(--purple);
+      border-color: var(--purple);
+      box-shadow: 0 0 0 5px rgba(181,100,247,.22);
+      width: 18px; height: 18px;
+      margin-top: 7px;
+    }
+    .timeline__node--now { color: var(--purple-deep); }
+    .timeline__node--spring-end .timeline__dot { border-color: var(--salmon-deep); }
+    .timeline__node--open-house .timeline__dot { border-color: var(--yellow); background: #fffceb; }
+    .timeline__node--trial-week .timeline__dot { border-color: var(--ink); }
+    .timeline__node--sem-end    .timeline__dot { border-color: var(--purple); }
+    .timeline__node--year-end   .timeline__dot { border-color: var(--salmon-deep); background: #fff5ef; }
+
+    /* "Happening now" milestones get the pulsing purple highlight too */
+    .timeline__node--now:not(.timeline__node--synthetic) .timeline__dot {
+      background: var(--purple);
+      border-color: var(--purple);
+    }
+    .timeline__node--now:not(.timeline__node--synthetic) .timeline__dot::after {
+      content: '';
     }
 
-    .stat-row:last-child { border-bottom: 0; }
-
-    .stat-row__label {
-      font-family: var(--font-sans);
-      font-size: 13px;
+    .timeline__label {
+      display: block;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      margin-top: 14px;
+      color: var(--ink);
+      line-height: 1.25;
+    }
+    .timeline__node--past .timeline__label { color: var(--muted-soft); }
+    .timeline__node--now .timeline__label  { color: var(--purple-deep); }
+    .timeline__date {
+      display: block;
+      font-size: .8rem;
       color: var(--muted);
+      margin-top: 3px;
+      font-family: 'PT Serif', serif;
+      letter-spacing: 0;
+      text-transform: none;
+      font-weight: 400;
     }
+    a.timeline__node:hover .timeline__dot { transform: scale(1.1); }
 
-    .stat-row__label--new {
-      font-weight: 500;
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      color: var(--vibrant-purple-ink);
+    /* ── Semester cards ───────────────────────────────────────── */
+    .cards-wrap { max-width: 760px; margin: 0 auto; padding: 0 1.5rem 4rem; }
+    .card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 20px;
+      border-radius: var(--radius);
+      margin-bottom: 10px;
+      text-decoration: none;
+      color: inherit;
+      transition: transform .15s, box-shadow .15s;
     }
+    .card:last-child { margin-bottom: 0; }
+    .card:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,0,0,.06); }
+    .card:hover .card__arrow { transform: translateX(4px); }
 
-    .stat-row__value {
-      font-family: var(--font-sans);
-      font-weight: 500;
-      font-size: 14px;
-      font-variant-numeric: tabular-nums;
+    .card--spring { background: var(--salmon); }
+    .card--sep    { background: var(--purple-soft); }
+
+    .card__chip {
+      flex-shrink: 0;
+      background: var(--salmon-deep);
+      color: #fff;
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 99px;
     }
+    .card--sep .card__chip { background: var(--purple); }
 
-    .stat-row__value--names {
-      font-size: 13px;
-      text-align: right;
+    .card__body { flex: 1 1 auto; min-width: 0; }
+    .card__title {
+      font-family: 'Marcellus', serif;
+      font-weight: 400;
+      font-size: 1.18rem;
+      line-height: 1.2;
+      margin-bottom: 3px;
+    }
+    .card__meta {
+      font-size: .82rem;
+      color: var(--muted);
       line-height: 1.4;
     }
+    .card--spring .card__meta { color: var(--salmon-ink); }
+    .card--sep    .card__meta { color: var(--purple-deep); }
 
-    .spacer { flex: 1; min-height: var(--space-3); }
-
-    .progress {
-      display: flex;
-      gap: 4px;
-      margin-bottom: var(--space-4);
+    .card__arrow {
+      flex-shrink: 0;
+      font-size: 1.25rem;
+      font-family: 'Marcellus', serif;
+      transition: transform .15s;
     }
+    .card--spring .card__arrow { color: var(--salmon-ink); }
+    .card--sep    .card__arrow { color: var(--purple-deep); }
 
-    .progress__seg {
-      flex: 1;
-      height: 3px;
-      background: var(--mist);
-    }
+    .card--past { opacity: .55; pointer-events: none; }
+    .card--past .card__chip { background: var(--muted-soft); }
 
-    .progress__seg--filled { background: var(--void-black); }
-    .progress__seg--purple { background: var(--vibrant-purple); }
-
-    .card__cta {
-      align-self: flex-start;
-      background: var(--vibrant-purple);
-      color: var(--void-white);
-      padding: 14px 20px;
-      font-family: var(--font-sans);
-      font-weight: 500;
-      font-size: 14px;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
-      border: 0;
-      text-decoration: none;
-      transition: background 240ms var(--ease);
-    }
-
-    .card__cta:hover { background: var(--void-black); }
-
-    .card__link {
-      align-self: flex-start;
-      background: var(--void-black);
-      color: var(--void-white);
-      padding: 14px 20px;
-      font-family: var(--font-sans);
-      font-weight: 500;
-      font-size: 14px;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
-      border: 0;
-      text-decoration: none;
-      transition: background 240ms var(--ease);
-    }
-
-    .card__link:hover { background: var(--vibrant-purple); color: var(--void-white); }
-
-    .diptych__divider {
-      background: var(--void-black);
-    }
-
-    /* ───────── P1 S3 · closing CTA ───────── */
-
+    /* ── Closing CTA ──────────────────────────────────────────── */
     .closing {
-      position: relative;
-      padding: var(--space-6) var(--space-4);
-      margin: var(--space-3) 0 0;
-      border-left: 3px solid var(--vibrant-purple);
-      display: grid;
-      grid-template-columns: 1.4fr 1fr;
-      gap: var(--space-5);
-      align-items: center;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 1.5rem 5rem;
     }
-
-    .closing__kicker { margin-bottom: var(--space-2); }
-
-    .closing__h1 {
-      font-family: var(--font-serif);
-      font-weight: 500;
-      font-size: clamp(36px, 4.5vw, 56px);
-      line-height: 1.05;
-      letter-spacing: -0.02em;
-      margin: 0;
+    .closing__band {
+      background: #000;
+      color: #fff;
+      border-radius: var(--radius);
+      padding: 3rem 2rem;
+      text-align: center;
     }
-
-    .closing__h1 em {
-      font-style: italic;
+    .closing__kicker {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--purple);
+      margin-bottom: .75rem;
+    }
+    .closing h2 {
+      font-family: 'Marcellus', serif;
       font-weight: 400;
-      color: var(--vibrant-purple-ink);
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      line-height: 1.15;
+      margin-bottom: .75rem;
     }
-
+    .closing h2 em { color: var(--purple); font-style: italic; }
     .closing__sub {
-      font-family: var(--font-sans);
-      font-size: 16px;
-      color: var(--muted);
-      max-width: 460px;
-      margin-top: var(--space-3);
+      font-size: .95rem;
+      color: rgba(255,255,255,.7);
+      max-width: 480px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.55;
     }
-
-    .closing__cta-cluster {
-      text-align: right;
-    }
-
     .closing__cta {
-      background: var(--vibrant-purple);
-      color: var(--void-white);
-      padding: 14px 22px;
-      font-family: var(--font-sans);
-      font-weight: 500;
-      font-size: 14px;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
-      border: 0;
-      text-decoration: none;
-      transition: background 240ms var(--ease);
+      display: inline-block;
+      background: var(--purple);
+      color: #fff;
+      font-size: .82rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: .8rem 1.75rem;
+      border-radius: 6px;
+      transition: opacity .15s;
     }
-
-    .closing__cta:hover { background: var(--void-black); }
-
+    .closing__cta:hover { opacity: .88; }
     .closing__cta-meta {
-      margin-top: 10px;
-      font-family: var(--font-sans);
-      font-size: 12px;
-      color: var(--muted);
+      display: block;
+      font-size: .75rem;
+      color: rgba(255,255,255,.5);
+      margin-top: .9rem;
+      letter-spacing: .04em;
     }
 
-    /* ───────── footer ───────── */
-
+    /* ── Footer ───────────────────────────────────────────────── */
     .footer {
-      margin-top: var(--space-5);
-      padding: var(--space-3) 0;
-      border-top: 0.5px solid var(--mist);
+      border-top: 1px solid var(--border);
+      padding: 1.75rem 1.5rem;
+      max-width: 1080px;
+      margin: 0 auto;
       display: flex;
       justify-content: space-between;
-      align-items: center;
       flex-wrap: wrap;
-      gap: var(--space-2);
-    }
-
-    .footer__brand,
-    .footer__nav {
-      font-family: var(--font-sans);
-      font-weight: 500;
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      gap: .75rem 1.5rem;
+      font-size: .82rem;
       color: var(--muted);
     }
+    .footer__brand { font-weight: 700; }
+    .footer__nav { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+    .footer__nav a { color: var(--muted); }
+    .footer__nav a:hover { color: var(--ink); }
 
-    .footer__nav { display: flex; gap: 18px; }
-    .footer__nav a { color: inherit; }
-    .footer__nav a:hover { color: var(--vibrant-purple-ink); }
-
-    /* ───────── responsive ───────── */
-
-    /* ── 720px · stack diptych, collapse closing ── */
+    /* ── Responsive ───────────────────────────────────────────── */
     @media (max-width: 720px) {
-      main { padding: 0 var(--space-2); }
-
-      .diptych__grid {
-        grid-template-columns: 1fr;
+      .timeline { padding: 0; }
+      /* Mobile: rotate rail to vertical, anchored under the dot column */
+      .timeline__rail {
+        top: 8px;
+        bottom: 8px;
+        left: 11px;
+        right: auto;
+        width: 3px;
+        height: auto;
       }
-      .diptych__divider {
-        height: 1px;
-        width: 100%;
-      }
-      .card--sep {
-        border-left: 0;
-        border-top: 0;
-      }
-      .closing {
-        grid-template-columns: 1fr;
-        gap: var(--space-3);
-      }
-      .closing__cta-cluster {
-        text-align: left;
-      }
-      .hero__year { display: none; }
-    }
-
-    /* ── 600px · compress hero top, tighten card pill ── */
-    @media (max-width: 600px) {
-      .hero {
-        padding: var(--space-4) 0 var(--space-3);
-      }
-      .hero__top {
-        margin-bottom: var(--space-4);
-      }
-      .hero__est {
-        display: none;
-      }
-      .hero__h1 {
-        font-size: clamp(40px, 10vw, 56px);
-      }
-      .hero__sub {
-        font-size: 15px;
-      }
-      .card__pill {
-        top: 16px;
-        right: 16px;
-      }
-      .diptych {
-        padding-bottom: var(--space-4);
-      }
-      .closing {
-        padding: var(--space-4) var(--space-3);
-      }
-    }
-
-    /* ── 480px · tightest phones (SE, Galaxy A) ── */
-    @media (max-width: 480px) {
-      .card {
-        padding: var(--space-4) var(--space-3) var(--space-3);
-      }
-      .card__display {
-        font-size: 28px;
-      }
-      .card__cta,
-      .card__link {
-        width: 100%;
-        justify-content: center;
-      }
-      .closing__cta {
-        width: 100%;
-        justify-content: center;
-      }
-      .footer {
+      .timeline__rail-fill { display: none; }
+      .timeline__nodes {
         flex-direction: column;
-        align-items: flex-start;
-        gap: var(--space-1);
+        align-items: stretch;
+        gap: 22px;
       }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
+      .timeline__node {
+        flex: none;
+        width: 100%;
+        text-align: left;
+        display: grid;
+        grid-template-columns: 28px 1fr;
+        column-gap: 14px;
+        padding: 0;
       }
+      .timeline__dot {
+        grid-row: 1 / 3;
+        margin: 2px 0 0;
+        justify-self: center;
+      }
+      .timeline__label { margin-top: 0; }
+      .timeline__date  { margin-top: 2px; }
     }
-
-    /* ───────── language toggle ───────── */
-    .lang-btn {
-      font-family: var(--font-sans);
-      font-weight: 500;
-      font-size: 11px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--void-white);
-      background: var(--void-black);
-      border: 1px solid var(--void-black);
-      padding: 7px 12px;
-      cursor: pointer;
-      transition: background 200ms var(--ease), color 200ms var(--ease);
-      white-space: nowrap;
-    }
-    .lang-btn:hover {
-      background: var(--vibrant-purple);
-      border-color: var(--vibrant-purple);
-    }
-
-    /* ───────── focus states ───────── */
-
-    :focus-visible {
-      outline: 2px solid var(--vibrant-purple);
-      outline-offset: 2px;
-    }
-
-    /* On purple card, white outline is legible; on white surfaces, purple */
-    .card--sep .card__cta:focus-visible {
-      outline-color: var(--void-white);
-    }
-
-    /* Pin sep-card eyebrow to white regardless of kicker modifier specificity */
-    .card--sep .card__eyebrow {
-      color: var(--void-white);
+    @media (max-width: 480px) {
+      .hero { padding: 3rem 1rem 2.75rem; }
+      .timeline-wrap { padding: 2.75rem 1rem 2rem; }
+      .cards-wrap { padding: 0 1rem 3rem; }
+      .closing { padding: 0 1rem 4rem; }
+      .closing__band { padding: 2.5rem 1.25rem; }
+      .card { padding: 14px 16px; gap: 10px; }
+      .card__title { font-size: 1.05rem; }
     }
   </style>
 </head>
 <body>
-  <main>
 
-    <!-- ═══════════════════════════════════════════════════
-         P1 S1 · Hero · off-grid editorial offset
-         ═══════════════════════════════════════════════════ -->
-    <section class="hero">
-      <div class="hero__top">
-        <div class="kicker" data-i18n="hero-kicker">Shoonya Dance Centre · Ghent</div>
-        <div class="kicker hero__est">est. ghent</div>
-        <button class="lang-btn" id="lang-btn" type="button" aria-label="Taal wisselen / Switch language">NL</button>
+  <!-- Lang toggle -->
+  <div class="lang-toggle" role="group" aria-label="Language">
+    <button class="lang-btn active" data-lang="en">EN</button>
+    <button class="lang-btn" data-lang="nl">NL</button>
+  </div>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="hero__pill" data-i18n="hero-pill">The dance year</div>
+    <h1 data-i18n="hero-h1">Where are you on <em>the calendar?</em></h1>
+    <p class="hero__sub" data-i18n="hero-sub">Two semesters, an open house, and a free trial week. Pick where to land.</p>
+    <span class="hero__year">2026 — 2027</span>
+  </header>
+
+  <!-- Timeline -->
+  <section class="timeline-wrap" id="timeline-section" aria-label="School year timeline">
+    <div class="timeline-header">
+      <div class="timeline-header__kicker" data-i18n="tl-kicker">Your year ahead</div>
+      <h2 data-i18n="tl-h2">A few <em>moments</em> in the year</h2>
+      <p class="timeline-header__sub" data-i18n="tl-sub">Where you are now, and what's next.</p>
+    </div>
+
+    <div class="timeline" id="timeline" aria-hidden="false">
+      <div class="timeline__rail">
+        <div class="timeline__rail-fill" id="rail-fill" style="width: 0%;"></div>
       </div>
-
-      <div class="kicker kicker--purple hero__eyebrow" data-i18n="hero-eyebrow">choose your semester</div>
-
-      <h1 class="hero__h1" data-i18n="hero-h1">Two semesters.<br/><em>One stage.</em></h1>
-
-      <p class="hero__sub" data-i18n="hero-sub">Spring is in its final weeks. September opens a new school year — 24 styles, 22 teachers, six days a week.</p>
-
-      <p class="hero__year">2026 — 2027</p>
-    </section>
-
-    <!-- ═══════════════════════════════════════════════════
-         P1 S2 · Semester diptych picker
-         (locked from v8 mockup · 2026-05-13)
-         ═══════════════════════════════════════════════════ -->
-    <section class="diptych" aria-label="Choose a semester">
-      <h2 class="sr-only">Choose a semester — September 2026 (upcoming) or Spring 2026 (ongoing)</h2>
-
-      <div class="diptych__grid">
-
-        <!-- Left card · Sep 2026 (the active marketing card) -->
-        <article class="card card--sep" id="card-sep">
-          <div class="card__pill">REGISTRATIONS OPEN 15 MAY</div>
-
-          <div class="kicker kicker--purple card__eyebrow" data-i18n="sep-eyebrow">new school year</div>
-          <p class="card__display">Sep 2026 → Jan 2027</p>
-          <p class="card__sub" data-i18n="sep-sub">Registration · May 15 returning · May 21 everyone</p>
-
-          <div class="stat-list">
-            <div class="stat-row">
-              <span class="stat-row__label" data-i18n="stat-start">Start</span>
-              <span class="stat-row__value">Sep 14, 2026</span>
-            </div>
-            <div class="stat-row">
-              <span class="stat-row__label" data-i18n="stat-end">End</span>
-              <span class="stat-row__value">Jan 30, 2027</span>
-            </div>
-            <div class="stat-row" data-row="free-trial">
-              <span class="stat-row__label" data-i18n="stat-free-trial">Free trial</span>
-              <span class="stat-row__value">Sep 14–19</span>
-            </div>
-            <div class="stat-row" data-row="opendeurdag">
-              <span class="stat-row__label">Opendeurdag</span>
-              <span class="stat-row__value">Sun 14 Jun · Sun 13 Sep</span>
-            </div>
-            <div class="stat-row">
-              <span class="stat-row__label stat-row__label--new">NEW</span>
-              <span class="stat-row__value stat-row__value--names">Pilates · Dance &amp; Fit · Oriental Flow</span>
-            </div>
-          </div>
-
-          <div class="spacer"></div>
-
-          <div class="progress" id="progress-sep" data-semester="sep" data-total="16" data-mode="upcoming" aria-hidden="true"></div>
-
-          <a class="card__cta" href="./schedule-sep-2026.html" data-i18n="sep-cta">browse the new school year <span aria-hidden="true">→</span></a>
-        </article>
-
-        <div class="diptych__divider" aria-hidden="true"></div>
-
-        <!-- Right card · Spring 2026 (the quieter, ongoing card) -->
-        <article class="card card--spring" id="card-spring">
-          <div class="kicker card__eyebrow" data-i18n="spring-eyebrow">ongoing</div>
-          <p class="card__display" data-i18n="spring-display">Spring 2026</p>
-          <p class="card__sub" id="spring-sessions-meta">4 sessions remaining</p>
-
-          <div class="stat-list">
-            <div class="stat-row">
-              <span class="stat-row__label" data-i18n="stat-start">Start</span>
-              <span class="stat-row__value">Feb 9, 2026</span>
-            </div>
-            <div class="stat-row">
-              <span class="stat-row__label" data-i18n="stat-end">End</span>
-              <span class="stat-row__value">Jun 14, 2026</span>
-            </div>
-          </div>
-
-          <div class="spacer"></div>
-
-          <div class="progress" id="progress-spring" data-semester="spring" data-total="14" data-mode="running" aria-hidden="true"></div>
-
-          <a class="card__link" href="./schedule-spring-2026.html" data-i18n="spring-link">view spring schedule <span aria-hidden="true">→</span></a>
-        </article>
-
+      <div class="timeline__nodes" id="timeline-nodes">
+        <!-- Rendered by JS -->
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ═══════════════════════════════════════════════════
-         P1 S4 · Closing CTA · bottom-left lead
-         ═══════════════════════════════════════════════════ -->
-    <section class="closing" aria-label="Open the September schedule">
-      <div class="closing__content">
-        <div class="kicker closing__kicker" data-i18n="closing-kicker">next on stage</div>
-        <h2 class="closing__h1" data-i18n="closing-h1">September brings<br/><em>a new school year.</em></h2>
-        <p class="closing__sub" data-i18n="closing-sub">Browse all 24 styles, find your slot, click through to register on the style page.</p>
+  <!-- Two compact semester cards -->
+  <section class="cards-wrap" aria-label="Semesters">
+    <h2 class="sr-only">Browse Spring 2026 or September 2026</h2>
+
+    <a class="card card--spring" id="card-spring" href="./schedule-spring-2026.html">
+      <span class="card__chip" data-i18n="spring-chip">Spring</span>
+      <div class="card__body">
+        <div class="card__title" data-i18n="spring-title">Spring 2026</div>
+        <div class="card__meta" id="spring-meta" data-i18n="spring-meta">running until mid-June · drop-in welcome</div>
       </div>
+      <span class="card__arrow" aria-hidden="true">→</span>
+    </a>
 
-      <div class="closing__cta-cluster">
-        <a class="closing__cta" href="./schedule-sep-2026.html" data-i18n="closing-cta">browse the new school year <span aria-hidden="true">→</span></a>
-        <p class="closing__cta-meta" data-i18n="closing-meta">no account required to browse</p>
+    <a class="card card--sep" id="card-sep" href="./schedule-sep-2026.html">
+      <span class="card__chip" data-i18n="sep-chip">Sep</span>
+      <div class="card__body">
+        <div class="card__title" data-i18n="sep-title">Sep 2026 → Jan 2027</div>
+        <div class="card__meta" id="sep-meta" data-i18n="sep-meta">registration open · 24 styles · 22 teachers · 5 studios</div>
       </div>
-    </section>
+      <span class="card__arrow" aria-hidden="true">→</span>
+    </a>
+  </section>
 
-    <!-- ═══════════════════════════════════════════════════
-         Footer strip
-         ═══════════════════════════════════════════════════ -->
-    <footer class="footer">
-      <div class="footer__brand">Shoonya Dance Centre · Ghent</div>
-      <nav class="footer__nav">
-        <a href="https://www.shoonyadance.com">home</a>
-        <a href="./schedule-sep-2026.html" data-i18n="footer-schedule">schedule</a>
-        <a href="https://www.shoonyadance.com/teachers" data-i18n="footer-teachers">teachers</a>
-        <a href="https://www.shoonyadance.com/contact">contact</a>
-      </nav>
-    </footer>
+  <!-- Closing CTA -->
+  <section class="closing" aria-label="Open the September schedule">
+    <div class="closing__band">
+      <div class="closing__kicker" data-i18n="closing-kicker">Next on stage</div>
+      <h2 data-i18n="closing-h1">September brings <em>a new school year.</em></h2>
+      <p class="closing__sub" data-i18n="closing-sub">Browse all 24 styles, find your slot, click through to register on the style page.</p>
+      <a class="closing__cta" href="./schedule-sep-2026.html" data-i18n="closing-cta">browse the new school year →</a>
+      <span class="closing__cta-meta" data-i18n="closing-meta">no account required to browse</span>
+    </div>
+  </section>
 
-  </main>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__brand">Shoonya Dance Centre · Ghent</div>
+    <nav class="footer__nav">
+      <a href="https://www.shoonyadance.com" data-i18n="footer-home">home</a>
+      <a href="./schedule-sep-2026.html" data-i18n="footer-schedule">schedule</a>
+      <a href="https://www.shoonyadance.com/teachers" data-i18n="footer-teachers">teachers</a>
+      <a href="https://www.shoonyadance.com/contact" data-i18n="footer-contact">contact</a>
+    </nav>
+  </footer>
 
   <script>
-    /* ───────────────────────────────────────────────
+    /* ─────────────────────────────────────────────
        Semester data — inlined from config/semester-config.json
        so the page is self-contained for static hosting.
-       Update this block when semester-config.json changes.
-       ─────────────────────────────────────────────── */
+       ─────────────────────────────────────────── */
     const SEMESTERS = {
       spring: {
-        // Visitor-facing dates (match the live archive page framing).
-        // Canonical class window per config: Feb 10 – Jun 9.
-        startISO: '2026-02-09',
-        endISO:   '2026-06-14',
+        startISO: '2026-02-10',
+        endISO:   '2026-06-09',
+        catchupEndISO: '2026-06-20',
         totalSessions: 14,
+        openDoorDates: [
+          { dateISO: '2026-06-14', type: 'end-of-year' }
+        ],
+        freeTrial: null,
         holidays: [
-          { startISO: '2026-02-16', endISO: '2026-02-22' }, // Krokusvakantie
-          { startISO: '2026-04-06', endISO: '2026-04-19' }  // Paasvakantie
+          { startISO: '2026-02-16', endISO: '2026-02-22' },
+          { startISO: '2026-04-06', endISO: '2026-04-19' }
         ]
       },
       sep: {
         startISO: '2026-09-14',
         endISO:   '2027-01-30',
         totalSessions: 16,
+        openDoorDates: [
+          { dateISO: '2026-09-13', type: 'pre-semester' }
+        ],
+        freeTrial: { startISO: '2026-09-14', endISO: '2026-09-19' },
         holidays: [
-          { startISO: '2026-11-01', endISO: '2026-11-08' }, // Herfstvakantie
-          { startISO: '2026-12-20', endISO: '2027-01-10' }  // Kerstvakantie
+          { startISO: '2026-11-01', endISO: '2026-11-08' },
+          { startISO: '2026-12-20', endISO: '2027-01-10' }
+        ]
+      },
+      spring2027: {
+        startISO: '2027-02-15',
+        endISO:   '2027-06-12',
+        catchupEndISO: '2027-06-19',
+        totalSessions: 15,
+        openDoorDates: [
+          { dateISO: '2027-01-31', type: 'pre-semester' },
+          { dateISO: '2027-06-13', type: 'end-of-year' }
+        ],
+        freeTrial: { startISO: '2027-02-15', endISO: '2027-02-20' },
+        holidays: [
+          { startISO: '2027-02-08', endISO: '2027-02-14' },
+          { startISO: '2027-03-28', endISO: '2027-04-11' }
         ]
       }
     };
 
-    /* ───────────────────────────────────────────────
-       Sessions-elapsed calculator.
-       Counts whole weeks between semester start and today,
-       minus any weeks that fall entirely inside a holiday range.
-       Returns 0 if the semester hasn't started, totalSessions
-       if it's already ended.
-       ─────────────────────────────────────────────── */
+    /* School year wraps in June 2027 — Sem 1 (Sep→Jan) + Sem 2 (Feb→Jun). */
+    const SCHOOL_YEAR_END_ISO = SEMESTERS.spring2027.endISO;
+
     function sessionsElapsed(today, semester) {
       const start = new Date(semester.startISO);
       const end   = new Date(semester.endISO);
       if (today < start) return 0;
       if (today > end)   return semester.totalSessions;
-
-      const weeksSinceStart = Math.floor(
-        (today.getTime() - start.getTime()) / (7 * 24 * 60 * 60 * 1000)
-      );
-
-      // Count holiday weeks that have already passed
+      const weeksSinceStart = Math.floor((today - start) / (7*24*60*60*1000));
       let holidayWeeksElapsed = 0;
       for (const h of semester.holidays) {
         const hStart = new Date(h.startISO);
         const hEnd   = new Date(h.endISO);
         if (today >= hStart) {
           const passedEnd = today < hEnd ? today : hEnd;
-          const days = Math.ceil(
-            (passedEnd.getTime() - hStart.getTime()) / (24 * 60 * 60 * 1000)
-          );
+          const days = Math.ceil((passedEnd - hStart) / (24*60*60*1000));
           holidayWeeksElapsed += Math.ceil(days / 7);
         }
       }
-
-      const sessions = Math.max(0, weeksSinceStart - holidayWeeksElapsed);
-      return Math.min(sessions, semester.totalSessions);
+      return Math.min(semester.totalSessions, Math.max(0, weeksSinceStart - holidayWeeksElapsed));
     }
 
-    /* ───────────────────────────────────────────────
-       Language strings — declared early so renderProgressBar
-       can reference LANDING_STRINGS / landingLang.
-       ─────────────────────────────────────────────── */
+    /* ─────────────────────────────────────────────
+       Timeline milestones — fixed dates relative to the 2026-2027 year.
+       ─────────────────────────────────────────── */
+    /* Derived from SEMESTERS — keep in sync if you change a semester date.
+       Covers the full 2026-2027 school year:
+       Spring 2026 closes → Sem 1 (Sep→Jan) → Sem 2 (Feb→Jun) → year wraps.
+       Note: spring-end shows 13 Jun (visitor-facing semester wrap, day before
+       catchup week + open house). Classes themselves end 9 Jun per the config. */
+    const MILESTONES = [
+      { id: 'spring-end',     dateISO: '2026-06-13',                                                                                              type: 'spring-end',  labelKey: 'spring-end-label' },
+      { id: 'open-house-1',   dateISO: SEMESTERS.spring.openDoorDates[0].dateISO,                                                                 type: 'open-house',  labelKey: 'open-house-label' },
+      { id: 'open-house-2',   dateISO: SEMESTERS.sep.openDoorDates[0].dateISO,                                                                    type: 'open-house',  labelKey: 'open-house-label' },
+      { id: 'trial-week-1',   dateISO: SEMESTERS.sep.freeTrial.startISO,        endISO: SEMESTERS.sep.freeTrial.endISO,                           type: 'trial-week',  labelKey: 'trial-week-label' },
+      { id: 'sem-1-end',      dateISO: SEMESTERS.sep.endISO,                                                                                      type: 'sem-end',     labelKey: 'sem-1-end-label' },
+      { id: 'open-house-3',   dateISO: SEMESTERS.spring2027.openDoorDates[0].dateISO,                                                             type: 'open-house',  labelKey: 'open-house-label' },
+      { id: 'trial-week-2',   dateISO: SEMESTERS.spring2027.freeTrial.startISO, endISO: SEMESTERS.spring2027.freeTrial.endISO,                    type: 'trial-week',  labelKey: 'trial-week-label' },
+      { id: 'school-year-end',dateISO: SEMESTERS.spring2027.endISO,                                                                               type: 'year-end',    labelKey: 'school-year-end-label' },
+      { id: 'open-house-4',   dateISO: SEMESTERS.spring2027.openDoorDates[1].dateISO,                                                             type: 'open-house',  labelKey: 'open-house-label' }
+    ];
+
+    /* Auto-hide past milestones older than this many days, to keep the timeline forward-looking. */
+    const PAST_GRACE_DAYS = 30;
+
+    /* Year axis — for the rail-fill percentage. */
+    const YEAR_START = new Date('2026-02-09');
+    const YEAR_END   = new Date('2027-01-30');
+
+    /* ─────────────────────────────────────────────
+       Language strings.
+       ─────────────────────────────────────────── */
     const LANDING_STRINGS = {
       en: {
-        'hero-kicker': 'Shoonya Dance Centre · Ghent',
-        'hero-eyebrow': 'choose your semester',
-        'hero-h1': 'Two semesters.<br/><em>One stage.</em>',
-        'hero-sub': 'Spring is in its final weeks. September opens a new school year — 24 styles, 22 teachers, six days a week.',
-        'sep-eyebrow': 'new school year',
-        'sep-sub': 'Registration · May 15 returning · May 21 everyone',
-        'stat-start': 'Start', 'stat-end': 'End', 'stat-free-trial': 'Free trial',
-        'sep-cta': 'browse the new school year <span aria-hidden="true">→</span>',
-        'spring-eyebrow': 'ongoing',
-        'spring-display': 'Spring 2026',
-        'spring-link': 'view spring schedule <span aria-hidden="true">→</span>',
-        'closing-kicker': 'next on stage',
-        'closing-h1': 'September brings<br/><em>a new school year.</em>',
-        'closing-sub': 'Browse all 24 styles, find your slot, click through to register on the style page.',
-        'closing-cta': 'browse the new school year <span aria-hidden="true">→</span>',
-        'closing-meta': 'no account required to browse',
-        'footer-teachers': 'teachers', 'footer-schedule': 'schedule',
-        'sessions-remaining': function(n) { return n === 1 ? '1 session remaining' : n + ' sessions remaining'; }
+        'hero-pill':      'The dance year',
+        'hero-h1':        'Where are you on <em>the calendar?</em>',
+        'hero-sub':       'Two semesters, an open house, and a free trial week. Pick where to land.',
+        'tl-kicker':      'Your year ahead',
+        'tl-h2':          'A few <em>moments</em> in the year',
+        'tl-sub':         'Where you are now, and what\'s next.',
+        'now-label':           'You are here',
+        'spring-end-label':    'Spring semester ends',
+        'open-house-label':    'Open House',
+        'trial-week-label':    'Free trial week',
+        'sem-1-end-label':     'Sem 1 ends',
+        'school-year-end-label':'School year ends',
+        'today':               'today',
+        'spring-chip':         'Spring',
+        'spring-title':        'Spring 2026',
+        'spring-meta':         'running until 9 June · drop-in welcome',
+        'spring-meta-ended-pre-oh': 'season ended · Open House 14 June',
+        'spring-meta-ended':   'wrapped — see you in September',
+        'spring-meta-sessions': function(n) { return n + (n === 1 ? ' session left · drop-in welcome' : ' sessions left · drop-in welcome'); },
+        'sep-chip':            'Sep',
+        'sep-title':           'Sep 2026 → Jan 2027',
+        'sep-meta':            'registration open · 24 styles · trial week 14–19 Sep',
+        'sep-meta-oh-today':   'Open House today · trial week 14–19 Sep',
+        'sep-meta-trial':      'trial week running · drop in to any class',
+        'sep-meta-running':    'school year in progress · live schedule',
+        'closing-kicker': 'Next on stage',
+        'closing-h1':     'September brings <em>a new school year.</em>',
+        'closing-sub':    'Browse all 24 styles, find your slot, click through to register on the style page.',
+        'closing-cta':    'browse the new school year →',
+        'closing-meta':   'no account required to browse',
+        'footer-home':    'home',
+        'footer-schedule':'schedule',
+        'footer-teachers':'teachers',
+        'footer-contact': 'contact',
+        monthLabel: function(d) {
+          return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+        },
+        dateRangeLabel: function(d1, d2) {
+          const sameMonth = d1.getMonth() === d2.getMonth();
+          if (sameMonth) return d1.getDate() + '–' + d2.getDate() + ' ' + d1.toLocaleDateString('en-GB', { month: 'short' });
+          return d1.toLocaleDateString('en-GB', { day:'numeric', month:'short' }) + ' – ' + d2.toLocaleDateString('en-GB', { day:'numeric', month:'short' });
+        }
       },
       nl: {
-        'hero-kicker': 'Shoonya Dance Centre · Gent',
-        'hero-eyebrow': 'kies je semester',
-        'hero-h1': 'Twee semesters.<br/><em>Één podium.</em>',
-        'hero-sub': 'Lente is in de laatste weken. September opent een nieuw schooljaar — 24 stijlen, 22 docenten, zes dagen per week.',
-        'sep-eyebrow': 'nieuw schooljaar',
-        'sep-sub': 'Inschrijving · 15 mei huidige cursisten · 21 mei iedereen',
-        'stat-start': 'Start', 'stat-end': 'Einde', 'stat-free-trial': 'Proefweek',
-        'sep-cta': 'bekijk het nieuwe schooljaar <span aria-hidden="true">→</span>',
-        'spring-eyebrow': 'lopend',
-        'spring-display': 'Lente 2026',
-        'spring-link': 'bekijk lenteagenda <span aria-hidden="true">→</span>',
-        'closing-kicker': 'volgende op het podium',
-        'closing-h1': 'September brengt<br/><em>een nieuw schooljaar.</em>',
-        'closing-sub': 'Bekijk alle 24 stijlen, vind je tijdslot, en ga door naar de stijlpagina om je in te schrijven.',
-        'closing-cta': 'bekijk het nieuwe schooljaar <span aria-hidden="true">→</span>',
-        'closing-meta': 'geen account nodig om te bladeren',
-        'footer-teachers': 'docenten', 'footer-schedule': 'rooster',
-        'sessions-remaining': function(n) { return n === 1 ? '1 sessie resterend' : n + ' sessies resterend'; }
+        'hero-pill':      'Het dansjaar',
+        'hero-h1':        'Waar sta jij op <em>de kalender?</em>',
+        'hero-sub':       'Twee semesters, een open deurdag, en een gratis proefweek. Kies waar je begint.',
+        'tl-kicker':      'Het jaar in beeld',
+        'tl-h2':          'Een paar <em>momenten</em> in het jaar',
+        'tl-sub':         'Waar je nu staat, en wat volgt.',
+        'now-label':           'Je bent hier',
+        'spring-end-label':    'Lentesemester eindigt',
+        'open-house-label':    'Open Deurdag',
+        'trial-week-label':    'Gratis proefweek',
+        'sem-1-end-label':     'Sem 1 eindigt',
+        'school-year-end-label':'Schooljaar eindigt',
+        'today':               'vandaag',
+        'spring-chip':         'Lente',
+        'spring-title':        'Lente 2026',
+        'spring-meta':         'loopt tot 9 juni · losse les welkom',
+        'spring-meta-ended-pre-oh': 'lente afgelopen · Open Deurdag 14 juni',
+        'spring-meta-ended':   'afgesloten — tot september',
+        'spring-meta-sessions': function(n) { return n === 1 ? '1 sessie te gaan · losse les welkom' : (n + ' sessies te gaan · losse les welkom'); },
+        'sep-chip':            'Sep',
+        'sep-title':           'Sep 2026 → Jan 2027',
+        'sep-meta':            'inschrijvingen open · 24 stijlen · proefweek 14–19 sep',
+        'sep-meta-oh-today':   'Open Deurdag vandaag · proefweek 14–19 sep',
+        'sep-meta-trial':      'proefweek bezig · loop binnen in elke les',
+        'sep-meta-running':    'schooljaar bezig · live rooster',
+        'closing-kicker': 'Volgende op het podium',
+        'closing-h1':     'September brengt <em>een nieuw schooljaar.</em>',
+        'closing-sub':    'Bekijk alle 24 stijlen, vind je tijdslot, en ga door naar de stijlpagina om je in te schrijven.',
+        'closing-cta':    'bekijk het nieuwe schooljaar →',
+        'closing-meta':   'geen account nodig om te bladeren',
+        'footer-home':    'home',
+        'footer-schedule':'rooster',
+        'footer-teachers':'docenten',
+        'footer-contact': 'contact',
+        monthLabel: function(d) {
+          return d.toLocaleDateString('nl-BE', { day: 'numeric', month: 'short' });
+        },
+        dateRangeLabel: function(d1, d2) {
+          const sameMonth = d1.getMonth() === d2.getMonth();
+          if (sameMonth) return d1.getDate() + '–' + d2.getDate() + ' ' + d1.toLocaleDateString('nl-BE', { month: 'short' });
+          return d1.toLocaleDateString('nl-BE', { day:'numeric', month:'short' }) + ' – ' + d2.toLocaleDateString('nl-BE', { day:'numeric', month:'short' });
+        }
       }
     };
 
-    let landingLang = localStorage.getItem('shoonya-lang') || 'en';
+    let landingLang = localStorage.getItem('shoonya-lang') || (navigator.language.startsWith('nl') ? 'nl' : 'en');
 
-    /* ───────────────────────────────────────────────
-       Render a progress bar given a semester key.
-       For 'upcoming' mode: first segment vibrant purple, rest mist.
-       For 'running' mode: N segments filled black, rest mist.
-       ─────────────────────────────────────────────── */
-    function renderProgressBar(el) {
-      const semesterKey = el.dataset.semester;
-      const total = parseInt(el.dataset.total, 10);
-      const mode  = el.dataset.mode;
-      const semester = SEMESTERS[semesterKey];
-      const today = new Date();
-
-      let filled = 0;
-      if (mode === 'upcoming' && today < new Date(semester.startISO)) {
-        // Pre-semester: single vibrant-purple segment ('click-through coming')
-        el.innerHTML = '';
-        for (let i = 0; i < total; i++) {
-          const seg = document.createElement('div');
-          seg.className = 'progress__seg' + (i === 0 ? ' progress__seg--purple' : '');
-          el.appendChild(seg);
-        }
-        return;
-      }
-
-      filled = sessionsElapsed(today, semester);
-      el.innerHTML = '';
-      for (let i = 0; i < total; i++) {
-        const seg = document.createElement('div');
-        seg.className = 'progress__seg' + (i < filled ? ' progress__seg--filled' : '');
-        el.appendChild(seg);
-      }
-
-      // Update Spring's sessions-remaining sub-line if applicable
-      if (semesterKey === 'spring') {
-        const remaining = Math.max(0, total - filled);
-        const subEl = document.getElementById('spring-sessions-meta');
-        if (subEl) {
-          subEl.dataset.remaining = remaining;
-          const fn = LANDING_STRINGS[landingLang]['sessions-remaining'];
-          subEl.textContent = fn ? fn(remaining) : remaining + ' sessions remaining';
-        }
-      }
+    /* ─────────────────────────────────────────────
+       Compute state for a single milestone, given today.
+       Returns 'past' (entire event is over), 'now' (today is inside the event
+       range), or 'future' (event has not started yet).
+       Single-day events use dateISO for both start and end of the window.
+       ─────────────────────────────────────────── */
+    function milestoneState(m, today) {
+      const start = new Date(m.dateISO + 'T00:00:00');
+      const end   = new Date((m.endISO || m.dateISO) + 'T23:59:59');
+      if (today < start) return 'future';
+      if (today > end)   return 'past';
+      return 'now';
     }
 
-    /* ───────────────────────────────────────────────
-       Date-gated visibility — five phases.
+    function buildTimelineNode(m, state, strings) {
+      const isPast = state === 'past';
+      const isNow  = state === 'now';
+      const isRange = !!(m.endISO && m.endISO !== m.dateISO);
 
-       Phase 1 (default, today < May 21 2026):
-         - Yellow pill: "OPENS MAY 15"
-         - Sub-line: "Registration · May 15 returning · May 21 everyone"
-         - Opendeurdag row: "Sun 14 Jun · Sun 13 Sep"
-         - Spring card visible
+      const el = document.createElement(isPast ? 'div' : 'a');
+      el.className = 'timeline__node timeline__node--' + m.type
+        + (isPast ? ' timeline__node--past' : '')
+        + (isNow  ? ' timeline__node--now'  : '');
 
-       Phase 2 (May 21 ≤ today ≤ Jun 14):
-         - Yellow pill: "REGISTRATIONS OPEN"
-         - Sub-line: hidden (the May 15 / May 21 nuance is moot)
-         - Opendeurdag row: "Sun 14 Jun · Sun 13 Sep"
-         - Spring card still visible
+      if (!isPast) {
+        // Sem 1 milestones → the Sep schedule. Sem 2 milestones → the spring schedule.
+        if (m.id === 'trial-week-1' || m.id === 'sem-1-end') el.href = './schedule-sep-2026.html';
+        else if (m.id === 'trial-week-2' || m.id === 'school-year-end') el.href = './schedule-spring-2026.html';
+        else if (m.type === 'open-house') el.href = 'https://www.shoonyadance.com/open-house';
+        else if (m.id === 'spring-end')   el.href = './schedule-spring-2026.html';
+      }
 
-       Phase 3 (Jun 14 < today < Sep 14):
-         - Yellow pill: "REGISTRATIONS OPEN"
-         - Sub-line: still hidden
-         - Opendeurdag row: just "Sun 13 Sep" (Jun 14 has elapsed)
-         - Spring card hidden, divider hidden, grid centers
-         - Hero sub-line drops the Spring reference
+      const label = strings[m.labelKey] || m.id;
+      const start = new Date(m.dateISO + 'T00:00:00');
+      const end   = isRange ? new Date(m.endISO + 'T00:00:00') : null;
+      const dateLabel = isRange ? strings.dateRangeLabel(start, end) : strings.monthLabel(start);
 
-       Phase 4 (Sep 14 ≤ today ≤ Sep 19):
-         - Yellow pill: hidden (marker pen retired — semester is running)
-         - Eyebrow: "ongoing" (was "new school year", muted not purple)
-         - Opendeurdag row: hidden (both Open Doors past)
-         - Free trial row: still visible (the week is happening now)
+      el.innerHTML =
+        '<span class="timeline__dot" aria-hidden="true"></span>' +
+        '<span class="timeline__label">' + label + '</span>' +
+        '<span class="timeline__date">' + dateLabel + '</span>';
+      return el;
+    }
 
-       Phase 5 (today > Sep 19):
-         - Same as Phase 4, plus:
-         - Free trial row: hidden (the week has elapsed)
+    /* ─────────────────────────────────────────────
+       Build the timeline. Live: re-runs on language change and on load.
+       Past milestones older than PAST_GRACE_DAYS are hidden to keep the
+       timeline forward-looking. If a milestone is currently happening
+       (today inside the date range), it acts as the "Now" node — no
+       synthetic node is inserted.
+       ─────────────────────────────────────────── */
+    function renderTimeline() {
+      const today   = new Date();
+      const strings = LANDING_STRINGS[landingLang];
+      const past = [], happening = [], future = [];
 
-       Update these ISO dates when the equivalent gates apply to a
-       future semester (e.g. Spring 2027 registration window).
-       ─────────────────────────────────────────────── */
-    const REGISTRATION_FULLY_OPEN_ISO = '2026-05-21';
-    const SPRING_CUTOFF_ISO           = '2026-06-13';
-    const SEP_RUNNING_ISO             = '2026-09-14';
-    const FREE_TRIAL_END_ISO          = '2026-09-19';
+      for (const m of MILESTONES) {
+        const state = milestoneState(m, today);
+        if (state === 'past') {
+          const end = new Date((m.endISO || m.dateISO) + 'T23:59:59');
+          const daysSince = (today - end) / (24 * 60 * 60 * 1000);
+          if (daysSince <= PAST_GRACE_DAYS) past.push(m);
+        } else if (state === 'now') {
+          happening.push(m);
+        } else {
+          future.push(m);
+        }
+      }
 
+      const container = document.getElementById('timeline-nodes');
+      container.innerHTML = '';
+
+      past.forEach(function(m) { container.appendChild(buildTimelineNode(m, 'past', strings)); });
+
+      if (happening.length > 0) {
+        // A milestone is happening — let it be the "Now" highlight, no synthetic node.
+        happening.forEach(function(m) { container.appendChild(buildTimelineNode(m, 'now', strings)); });
+      } else {
+        // No event in progress — insert a synthetic "you are here" marker.
+        const nowNode = document.createElement('div');
+        nowNode.className = 'timeline__node timeline__node--now timeline__node--synthetic';
+        nowNode.innerHTML =
+          '<span class="timeline__dot" aria-hidden="true"></span>' +
+          '<span class="timeline__label">' + strings['now-label'] + '</span>' +
+          '<span class="timeline__date">' + strings.monthLabel(today) + '</span>';
+        container.appendChild(nowNode);
+      }
+
+      future.forEach(function(m) { container.appendChild(buildTimelineNode(m, 'future', strings)); });
+
+      // Rail-fill: fill to the centre of the "Now" node so the bar lines up
+      // visually with the You-are-here marker (nodes are evenly spaced flex
+      // children, so position == DOM index, regardless of calendar gaps).
+      const totalNodes = past.length + Math.max(happening.length, 1) + future.length;
+      const nowIndex   = past.length + 0.5;
+      const pct = (nowIndex / totalNodes) * 100;
+      document.getElementById('rail-fill').style.width = pct + '%';
+
+      // Hide the whole section if every milestone is long past — the year's done.
+      const section = document.getElementById('timeline-section');
+      section.style.display = (past.length + happening.length + future.length === 0) ? 'none' : '';
+    }
+
+    /* ─────────────────────────────────────────────
+       Card meta is phase-aware. Each phase reads the canonical dates from
+       SEMESTERS so changing a date in the config above updates the copy.
+       ─────────────────────────────────────────── */
     function applyDateBasedVisibility() {
-      const today        = new Date();
-      const may21Cutoff  = new Date(REGISTRATION_FULLY_OPEN_ISO + 'T00:00:00');
-      const springCutoff = new Date(SPRING_CUTOFF_ISO + 'T23:59:59');
+      const today   = new Date();
+      const strings = LANDING_STRINGS[landingLang];
 
-      // ── Phase 2 transition: May 21 onwards
-      if (today >= may21Cutoff) {
-        const pill   = document.querySelector('#card-sep .card__pill');
-        const sepSub = document.querySelector('#card-sep .card__sub');
-        const sepDisplay = document.querySelector('#card-sep .card__display');
-        if (pill)   pill.textContent = 'REGISTRATIONS OPEN';
-        if (sepSub) sepSub.style.display = 'none';
-        // Preserve the gap that the sub-line was providing
-        if (sepDisplay) sepDisplay.style.marginBottom = '32px';
+      const springStart    = new Date(SEMESTERS.spring.startISO + 'T00:00:00');
+      const springEnd      = new Date(SEMESTERS.spring.endISO   + 'T23:59:59');
+      const springOH       = new Date(SEMESTERS.spring.openDoorDates[0].dateISO + 'T23:59:59');
+
+      const sepOH          = new Date(SEMESTERS.sep.openDoorDates[0].dateISO + 'T00:00:00');
+      const sepOHEnd       = new Date(SEMESTERS.sep.openDoorDates[0].dateISO + 'T23:59:59');
+      const trialStart     = new Date(SEMESTERS.sep.freeTrial.startISO + 'T00:00:00');
+      const trialEnd       = new Date(SEMESTERS.sep.freeTrial.endISO   + 'T23:59:59');
+
+      // ─── Spring card ───────────────────────────────────────────────
+      const springCard = document.getElementById('card-spring');
+      const springMeta = document.getElementById('spring-meta');
+      springCard.classList.remove('card--past'); // reset on lang toggle
+
+      if (today < springStart) {
+        // Pre-spring (unlikely once spring 2026 begins, but covers historical view)
+        springMeta.textContent = strings['spring-meta'];
+      } else if (today <= springEnd) {
+        // Spring is still running — show sessions remaining
+        const elapsed   = sessionsElapsed(today, SEMESTERS.spring);
+        const remaining = Math.max(0, SEMESTERS.spring.totalSessions - elapsed);
+        const fn = strings['spring-meta-sessions'];
+        springMeta.textContent = fn ? fn(remaining) : (remaining + ' sessions left');
+        springMeta.dataset.remaining = remaining;
+      } else if (today <= springOH) {
+        // Classes done, the June open house is still ahead
+        springMeta.textContent = strings['spring-meta-ended-pre-oh'];
+      } else {
+        // Spring fully wrapped
+        springCard.classList.add('card--past');
+        springMeta.textContent = strings['spring-meta-ended'];
       }
 
-      // ── Phase 3 transition: Jun 14 onwards
-      let springHidden = false;
-      if (today > springCutoff) {
-        const grid        = document.querySelector('.diptych__grid');
-        const springCard  = document.getElementById('card-spring');
-        const divider     = document.querySelector('.diptych__divider');
-        const heroSub     = document.querySelector('.hero__sub');
-        const diptychLbl  = document.querySelector('.diptych .sr-only');
-        const opendeurdag = document.querySelector('[data-row="opendeurdag"] .stat-row__value');
-
-        if (springCard) springCard.style.display = 'none';
-        if (divider)    divider.style.display = 'none';
-        if (grid) {
-          grid.style.gridTemplateColumns = 'minmax(0, 640px)';
-          grid.style.justifyContent = 'center';
-        }
-        if (heroSub) {
-          heroSub.textContent = 'September opens a new school year — 24 styles, 22 teachers, six days a week.';
-        }
-        if (diptychLbl) {
-          diptychLbl.textContent = 'September 2026 — the upcoming school year';
-        }
-        if (opendeurdag) {
-          opendeurdag.textContent = 'Sun 13 Sep';
-        }
-        springHidden = true;
+      // ─── Sep card ──────────────────────────────────────────────────
+      const sepMeta = document.getElementById('sep-meta');
+      if (today >= sepOH && today <= sepOHEnd) {
+        sepMeta.textContent = strings['sep-meta-oh-today'];
+      } else if (today >= trialStart && today <= trialEnd) {
+        sepMeta.textContent = strings['sep-meta-trial'];
+      } else if (today > trialEnd) {
+        sepMeta.textContent = strings['sep-meta-running'];
+      } else {
+        sepMeta.textContent = strings['sep-meta'];
       }
-
-      // ── Phase 4 transition: Sep 14 onwards (semester starts running)
-      const sepRunning = new Date(SEP_RUNNING_ISO + 'T00:00:00');
-      if (today >= sepRunning) {
-        const pill           = document.querySelector('#card-sep .card__pill');
-        const sepEyebrow     = document.querySelector('#card-sep .card__eyebrow');
-        const opendeurdagRow = document.querySelector('[data-row="opendeurdag"]');
-
-        if (pill) pill.style.display = 'none';
-        if (sepEyebrow) {
-          sepEyebrow.textContent = 'ongoing';
-          sepEyebrow.classList.remove('kicker--purple');
-        }
-        if (opendeurdagRow) opendeurdagRow.style.display = 'none';
-      }
-
-      // ── Phase 5 transition: Sep 19 onwards (free trial week elapsed)
-      const freeTrialCutoff = new Date(FREE_TRIAL_END_ISO + 'T23:59:59');
-      if (today > freeTrialCutoff) {
-        const freeTrialRow = document.querySelector('[data-row="free-trial"]');
-        if (freeTrialRow) freeTrialRow.style.display = 'none';
-      }
-
-      return springHidden;
     }
 
-    const springHidden = applyDateBasedVisibility();
+    /* ─────────────────────────────────────────────
+       Language toggle.
+       ─────────────────────────────────────────── */
+    function applyLang(l) {
+      landingLang = l;
+      document.documentElement.lang = l;
+      const strings = LANDING_STRINGS[l];
+      document.querySelectorAll('[data-i18n]').forEach(function(el) {
+        const key = el.getAttribute('data-i18n');
+        const v = strings[key];
+        if (v !== undefined && typeof v !== 'function') el.innerHTML = v;
+      });
+      document.querySelectorAll('.lang-btn').forEach(function(btn) {
+        btn.classList.toggle('active', btn.dataset.lang === l);
+      });
+      localStorage.setItem('shoonya-lang', l);
+      renderTimeline();
+      applyDateBasedVisibility();
+    }
 
-    /* Render progress bars after visibility logic so hidden bars don't run. */
-    document.querySelectorAll('.progress').forEach(function (el) {
-      if (springHidden && el.dataset.semester === 'spring') return;
-      renderProgressBar(el);
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() { applyLang(btn.dataset.lang); });
     });
 
-    /* ───────────────────────────────────────────────
+    applyLang(landingLang);
+
+    /* ─────────────────────────────────────────────
        postMessage height reporting for Squarespace iframe embed.
-       Re-reports on resize and on DOM mutations.
-       ─────────────────────────────────────────────── */
+       ─────────────────────────────────────────── */
     function reportHeight() {
       const h = document.documentElement.scrollHeight;
       if (window.parent && window.parent !== window) {
@@ -969,37 +914,6 @@
     if (typeof ResizeObserver !== 'undefined') {
       new ResizeObserver(reportHeight).observe(document.body);
     }
-
-    /* ───────────────────────────────────────────────
-       Language toggle — shared localStorage key 'shoonya-lang'
-       persists across landing, sep-2026, and spring-2026 pages.
-       ─────────────────────────────────────────────── */
-    function applyLang(l) {
-      document.documentElement.lang = l;
-      const strings = LANDING_STRINGS[l];
-      document.querySelectorAll('[data-i18n]').forEach(function(el) {
-        const key = el.getAttribute('data-i18n');
-        const val = strings[key];
-        if (val !== undefined && typeof val !== 'function') el.innerHTML = val;
-      });
-      // Update sessions-remaining separately (it may have been updated by renderProgressBar)
-      const sessionsEl = document.getElementById('spring-sessions-meta');
-      if (sessionsEl && sessionsEl.dataset.remaining !== undefined) {
-        const n = parseInt(sessionsEl.dataset.remaining, 10);
-        const fn = strings['sessions-remaining'];
-        if (fn) sessionsEl.textContent = fn(n);
-      }
-      const btn = document.getElementById('lang-btn');
-      if (btn) btn.textContent = l === 'en' ? 'NL' : 'EN';
-    }
-
-    document.getElementById('lang-btn').addEventListener('click', function() {
-      landingLang = landingLang === 'en' ? 'nl' : 'en';
-      localStorage.setItem('shoonya-lang', landingLang);
-      applyLang(landingLang);
-    });
-
-    applyLang(landingLang);
   </script>
 </body>
 </html>
