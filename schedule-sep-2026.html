@@ -179,6 +179,32 @@
       letter-spacing: .02em;
     }
 
+    /* View toggle (Grid / List) */
+    .view-toggle {
+      display: inline-flex;
+      border: 1px solid #d4d0c8;
+      border-radius: 6px;
+      overflow: hidden;
+      margin-left: 8px;
+    }
+    .view-toggle__btn {
+      padding: 5px 11px;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: #fff;
+      font-family: 'PT Serif', serif;
+    }
+    .view-toggle__btn[aria-pressed="true"] {
+      background: var(--ink);
+      color: #fff;
+    }
+    .view-toggle__btn:not(:last-child) {
+      border-right: 1px solid #d4d0c8;
+    }
+
     .chip {
       display: inline-flex;
       align-items: center;
@@ -375,6 +401,104 @@
       padding: 8px 14px;
     }
 
+    /* Grid view (timetable: time axis × studio columns) */
+    .studio-grid {
+      display: grid;
+      grid-template-columns: 50px repeat(5, 1fr);
+      gap: 4px;
+      margin-top: 4px;
+    }
+    .studio-header {
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 6px 6px;
+      border-radius: 4px;
+      text-align: center;
+      font-family: 'PT Serif', serif;
+      white-space: nowrap;
+    }
+    .studio-header.studio-AKH { background: var(--studio-aakash-bg);   color: var(--studio-aakash-ink); }
+    .studio-header.studio-AN1 { background: var(--studio-ananta1-bg);  color: var(--studio-ananta1-ink); }
+    .studio-header.studio-AN2 { background: var(--studio-ananta2-bg);  color: var(--studio-ananta2-ink); }
+    .studio-header.studio-AD1 { background: var(--studio-artdeco1-bg); color: var(--studio-artdeco1-ink); }
+    .studio-header.studio-AD2 { background: var(--studio-artdeco2-bg); color: var(--studio-artdeco2-ink); }
+    .studio-header--time { background: transparent; color: var(--muted-soft); }
+    .time-gutter {
+      position: relative;
+    }
+    .time-label {
+      position: absolute;
+      font-size: .68rem;
+      color: var(--muted-soft);
+      width: 100%;
+      text-align: right;
+      padding-right: 6px;
+      white-space: nowrap;
+      transform: translateY(-50%);
+    }
+    .hour-line {
+      position: absolute;
+      left: -4px; right: 0;
+      height: 1px;
+      background: rgba(0,0,0,.06);
+    }
+    .studio-col {
+      position: relative;
+      background: #FAFAF8;
+      border-radius: 4px;
+    }
+    .studio-col__slot {
+      position: absolute;
+      left: 3px; right: 3px;
+      background: #fff;
+      border-radius: 4px;
+      padding: 5px 7px;
+      font-size: .72rem;
+      line-height: 1.25;
+      border: 1px solid rgba(0,0,0,.08);
+      text-decoration: none;
+      color: inherit;
+      overflow: hidden;
+      transition: transform .15s, box-shadow .15s;
+    }
+    .studio-col__slot:hover {
+      transform: scale(1.02);
+      box-shadow: 0 2px 6px rgba(0,0,0,.08);
+      z-index: 2;
+    }
+    .studio-col__slot--faded { opacity: .25; pointer-events: none; }
+    .studio-col__slot strong {
+      display: block;
+      font-weight: 700;
+      font-size: .74rem;
+      color: var(--ink);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .studio-col__slot .slot-time {
+      display: block;
+      font-family: 'Marcellus', serif;
+      font-size: .72rem;
+      color: var(--muted);
+    }
+    .studio-col__slot .slot-teacher {
+      display: block;
+      font-size: .68rem;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Mobile: hide grid view (impractical at < 720px) */
+    @media (max-width: 720px) {
+      .view-toggle { display: none; }
+      .studio-grid { display: none; }
+    }
+
     /* Closing CTA + footer */
     .closing-wrap { max-width: 1080px; margin: 0 auto; padding: 0 1.5rem 4rem; }
     .closing {
@@ -496,13 +620,17 @@
         <button class="search__clear" id="search-clear" type="button" aria-label="Clear search">×</button>
       </div>
 
-      <!-- Chips row: intent toggles + day chips + count -->
+      <!-- Chips row: intent toggles + day chips + count + view toggle -->
       <div class="chips-row" role="group" aria-label="Filter chips">
         <button class="chip chip--intent" id="chip-beginner" type="button" aria-pressed="false" data-i18n-attr="aria-label" data-i18n="chip-beginner">✦ Beginner</button>
         <button class="chip chip--intent" id="chip-dropin"   type="button" aria-pressed="false" data-i18n-attr="aria-label" data-i18n="chip-dropin">Drop-in</button>
         <span class="chips-row__divider" aria-hidden="true"></span>
         <div id="day-chips" style="display:contents"></div>
         <span class="chips-row__count" id="result-count" aria-live="polite"></span>
+        <div class="view-toggle" role="group" aria-label="View mode">
+          <button class="view-toggle__btn" id="view-grid" type="button" aria-pressed="true"  data-view="grid" data-i18n="view-grid">▦ Grid</button>
+          <button class="view-toggle__btn" id="view-list" type="button" aria-pressed="false" data-view="list" data-i18n="view-list">☰ List</button>
+        </div>
       </div>
 
       <!-- Active-filter summary -->
@@ -566,6 +694,8 @@
         'hero-chip':  '✦ Free trial week · Sep 14–19, 2026',
         'chip-beginner': '✦ Beginner',
         'chip-dropin':   'Drop-in',
+        'view-grid':  '▦ Grid',
+        'view-list':  '☰ List',
         'clear-all':  'clear all',
         'search-placeholder': 'Search style, teacher, day, level…',
         'closing-kicker': 'Found your class?',
@@ -594,6 +724,8 @@
         'hero-chip':  '✦ Gratis proefweek · 14–19 sep 2026',
         'chip-beginner': '✦ Beginner',
         'chip-dropin':   'Losse les',
+        'view-grid':  '▦ Rooster',
+        'view-list':  '☰ Lijst',
         'clear-all':  'alles wissen',
         'search-placeholder': 'Zoek stijl, leraar, dag, niveau…',
         'closing-kicker': 'Les gevonden?',
@@ -731,13 +863,37 @@
       return DAYS[idx] ? DAYS[idx].code : null;
     }
 
-    /* ─── Filter state ─────────────────────────────────────────── */
+    /* ─── Filter + view state ──────────────────────────────────── */
     const state = {
       days: new Set(),       // {'mon','wed',…}
       search: '',            // free-text
       beginnerOnly: false,
-      dropInOnly: false
+      dropInOnly: false,
+      view: 'grid'           // 'grid' | 'list' — grid is the desktop default
     };
+
+    /* Mobile viewport: the timetable grid is impractical below 720px, so
+       force list view regardless of state. */
+    function isNarrow() { return window.matchMedia('(max-width: 720px)').matches; }
+    function effectiveView() { return isNarrow() ? 'list' : state.view; }
+
+    /* Studios — for grid view (Sep 2026: 5 rooms, post-split) */
+    const STUDIOS = [
+      { code:'AKH', name:'Aakash' },
+      { code:'AN1', name:'Ananta 1' },
+      { code:'AN2', name:'Ananta 2' },
+      { code:'AD1', name:'Art Deco 1' },
+      { code:'AD2', name:'Art Deco 2' }
+    ];
+    const PX_PER_MIN = 1.4;
+    function toMinutes(t) {
+      const m = String(t).trim().match(/^(\d{1,2}):(\d{2})$/);
+      return m ? parseInt(m[1], 10) * 60 + parseInt(m[2], 10) : null;
+    }
+    function parseTimeRange(range) {
+      const parts = String(range).split(/[–-]/).map(s => s.trim());
+      return { startMin: toMinutes(parts[0]), endMin: toMinutes(parts[1]) };
+    }
 
     /* "Beginner-friendly" levels: L1, Foundation, Open, All Levels */
     function isBeginnerFriendly(slot) {
@@ -769,6 +925,7 @@
       if (state.search) p.set('q', state.search);
       if (state.beginnerOnly) p.set('beginner', '1');
       if (state.dropInOnly) p.set('dropin', '1');
+      if (state.view !== 'grid') p.set('view', state.view);  // grid is default — omit param
       const qs = p.toString();
       const url = qs ? '?' + qs : location.pathname;
       history.replaceState(null, '', url);
@@ -780,6 +937,7 @@
       const q = p.get('q'); if (q) state.search = q;
       if (p.get('beginner') === '1') state.beginnerOnly = true;
       if (p.get('dropin')   === '1') state.dropInOnly   = true;
+      const v = p.get('view'); if (v === 'list' || v === 'grid') state.view = v;
     }
 
     /* ─── Render: toolbar chips ────────────────────────────────── */
@@ -820,6 +978,8 @@
       slotNodes.length = 0;
       Object.keys(dayCountEls).forEach(k => delete dayCountEls[k]);
 
+      const useGrid = effectiveView() === 'grid';
+
       DAYS.forEach(d => {
         const daySlots = SLOTS.filter(s => s.day === d.code).slice().sort((a, b) => a.time.localeCompare(b.time));
         if (daySlots.length === 0) return;
@@ -842,54 +1002,137 @@
         pill.appendChild(countEl);
         section.appendChild(pill);
 
-        // Slot list
-        const list = document.createElement('div');
-        list.className = 'day-list';
-        daySlots.forEach(s => {
+        if (useGrid) section.appendChild(buildGridForDay(daySlots, section));
+        else         section.appendChild(buildListForDay(daySlots, section, d));
+
+        body.appendChild(section);
+      });
+    }
+
+    /* ─── List view (V3 day-rail + slot cards) ─────────────────── */
+    function buildListForDay(daySlots, section, d) {
+      const list = document.createElement('div');
+      list.className = 'day-list';
+      daySlots.forEach(s => {
+        const a = document.createElement('a');
+        a.className = 'slot studio-' + s.studio;
+        a.href = s.href || styleHref(s.style);
+        a.setAttribute('aria-label',
+          s.style + ' ' + s.level + ' · ' + UI[lang].dl[d.code] + ' ' + s.time + ' · ' + s.studioName);
+
+        const timeEl = document.createElement('span');
+        timeEl.className = 'slot__time';
+        timeEl.textContent = s.time;
+
+        const mainEl = document.createElement('div');
+        mainEl.className = 'slot__main';
+
+        const titleEl = document.createElement('div');
+        titleEl.className = 'slot__title' + (s.isNew ? ' slot__title--new' : '');
+        titleEl.textContent = s.style + ' · ' + s.level;
+        if (s.dropIn) {
+          const tag = document.createElement('span');
+          tag.className = 'slot__dropin-tag';
+          tag.textContent = UI[lang].dropInTag;
+          titleEl.appendChild(tag);
+        }
+
+        const metaEl = document.createElement('div');
+        metaEl.className = 'slot__meta';
+        metaEl.textContent = s.teacher + ' · ' + s.studioName;
+
+        mainEl.appendChild(titleEl);
+        mainEl.appendChild(metaEl);
+
+        const studioEl = document.createElement('span');
+        studioEl.className = 'slot__studio';
+        studioEl.textContent = s.studioName;
+
+        a.appendChild(timeEl);
+        a.appendChild(mainEl);
+        a.appendChild(studioEl);
+        list.appendChild(a);
+
+        slotNodes.push({ el: a, slot: s, daySection: section });
+      });
+      return list;
+    }
+
+    /* ─── Grid view (timetable: time axis × studio columns) ────── */
+    function buildGridForDay(daySlots, section) {
+      const parsed = daySlots
+        .map(s => Object.assign({}, s, parseTimeRange(s.time)))
+        .filter(s => s.startMin !== null && s.endMin !== null);
+      if (parsed.length === 0) return document.createElement('div');
+
+      const startHour = Math.floor(Math.min.apply(null, parsed.map(s => s.startMin)) / 60);
+      const endHour   = Math.ceil(Math.max.apply(null, parsed.map(s => s.endMin)) / 60);
+      const totalHeight = (endHour - startHour) * 60 * PX_PER_MIN;
+
+      const grid = document.createElement('div');
+      grid.className = 'studio-grid';
+      grid.style.gridTemplateColumns = '50px repeat(' + STUDIOS.length + ', 1fr)';
+
+      // Header row: time placeholder + studio names
+      const timeH = document.createElement('div');
+      timeH.className = 'studio-header studio-header--time';
+      timeH.textContent = '';
+      grid.appendChild(timeH);
+      STUDIOS.forEach(st => {
+        const h = document.createElement('div');
+        h.className = 'studio-header studio-' + st.code;
+        h.textContent = st.name;
+        grid.appendChild(h);
+      });
+
+      // Time gutter (left column)
+      const gutter = document.createElement('div');
+      gutter.className = 'time-gutter';
+      gutter.style.height = totalHeight + 'px';
+      for (let h = startHour; h <= endHour; h++) {
+        const lbl = document.createElement('div');
+        lbl.className = 'time-label';
+        lbl.textContent = String(h).padStart(2, '0') + ':00';
+        lbl.style.top = ((h - startHour) * 60 * PX_PER_MIN) + 'px';
+        gutter.appendChild(lbl);
+      }
+      grid.appendChild(gutter);
+
+      // Studio columns
+      STUDIOS.forEach(st => {
+        const col = document.createElement('div');
+        col.className = 'studio-col';
+        col.style.height = totalHeight + 'px';
+
+        // hour rules
+        for (let h = startHour + 1; h < endHour; h++) {
+          const line = document.createElement('div');
+          line.className = 'hour-line';
+          line.style.top = ((h - startHour) * 60 * PX_PER_MIN) + 'px';
+          col.appendChild(line);
+        }
+
+        parsed.filter(s => s.studio === st.code).forEach(s => {
           const a = document.createElement('a');
-          a.className = 'slot studio-' + s.studio;
+          a.className = 'studio-col__slot';
           a.href = s.href || styleHref(s.style);
+          a.style.top    = ((s.startMin - startHour * 60) * PX_PER_MIN) + 'px';
+          a.style.height = ((s.endMin - s.startMin) * PX_PER_MIN - 2) + 'px';
           a.setAttribute('aria-label',
-            s.style + ' ' + s.level + ' · ' + UI[lang].dl[d.code] + ' ' + s.time + ' · ' + s.studioName);
-
-          const timeEl = document.createElement('span');
-          timeEl.className = 'slot__time';
-          timeEl.textContent = s.time;
-
-          const mainEl = document.createElement('div');
-          mainEl.className = 'slot__main';
-
-          const titleEl = document.createElement('div');
-          titleEl.className = 'slot__title' + (s.isNew ? ' slot__title--new' : '');
-          titleEl.textContent = s.style + ' · ' + s.level;
-          if (s.dropIn) {
-            const tag = document.createElement('span');
-            tag.className = 'slot__dropin-tag';
-            tag.textContent = UI[lang].dropInTag;
-            titleEl.appendChild(tag);
-          }
-
-          const metaEl = document.createElement('div');
-          metaEl.className = 'slot__meta';
-          metaEl.textContent = s.teacher + ' · ' + s.studioName;
-
-          mainEl.appendChild(titleEl);
-          mainEl.appendChild(metaEl);
-
-          const studioEl = document.createElement('span');
-          studioEl.className = 'slot__studio';
-          studioEl.textContent = s.studioName;
-
-          a.appendChild(timeEl);
-          a.appendChild(mainEl);
-          a.appendChild(studioEl);
-          list.appendChild(a);
+            s.style + ' ' + s.level + ' · ' + s.time + ' · ' + s.studioName);
+          a.innerHTML =
+            '<strong>' + s.style + ' · ' + s.level + '</strong>' +
+            '<span class="slot-time">' + s.time + '</span>' +
+            '<span class="slot-teacher">' + s.teacher + '</span>';
+          col.appendChild(a);
 
           slotNodes.push({ el: a, slot: s, daySection: section });
         });
-        section.appendChild(list);
-        body.appendChild(section);
+
+        grid.appendChild(col);
       });
+
+      return grid;
     }
 
     /* ─── Apply filters (no rebuild — just toggles fade class) ───── */
@@ -899,7 +1142,9 @@
 
       slotNodes.forEach(({ el, slot }) => {
         const ok = matchesFilters(slot);
+        // Both views: toggle the appropriate faded class
         el.classList.toggle('slot--faded', !ok);
+        el.classList.toggle('studio-col__slot--faded', !ok);
         if (ok) {
           el.removeAttribute('aria-hidden');
           el.removeAttribute('tabindex');
@@ -963,6 +1208,8 @@
       document.getElementById('search-wrap').classList.toggle('search--has-value', state.search !== '');
       const input = document.getElementById('search-input');
       if (input.value !== state.search) input.value = state.search;
+      document.getElementById('view-grid').setAttribute('aria-pressed', state.view === 'grid' ? 'true' : 'false');
+      document.getElementById('view-list').setAttribute('aria-pressed', state.view === 'list' ? 'true' : 'false');
     }
 
     function applyAll() {
@@ -1028,6 +1275,28 @@
     });
     document.querySelectorAll('.lang-btn').forEach(btn => {
       btn.addEventListener('click', () => setLang(btn.dataset.lang));
+    });
+
+    // View toggle (Grid / List)
+    document.querySelectorAll('.view-toggle__btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (state.view === btn.dataset.view) return;
+        state.view = btn.dataset.view;
+        buildSchedule();
+        applyAll();
+      });
+    });
+
+    // Resize listener — if viewport crosses the 720px threshold the effective
+    // view changes (mobile is forced to list). Re-render only when crossing.
+    let lastNarrow = isNarrow();
+    window.addEventListener('resize', () => {
+      const nowNarrow = isNarrow();
+      if (nowNarrow !== lastNarrow) {
+        lastNarrow = nowNarrow;
+        buildSchedule();
+        applyFilters();
+      }
     });
 
     /* ─── Live sync — replace fallback with Master Schedule fetch ─── */
