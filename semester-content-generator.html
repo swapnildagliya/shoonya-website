@@ -1267,7 +1267,6 @@ const WS_STYLE_DATA = {
     photo: 'https://images.squarespace-cdn.com/content/v1/643161d3f0077c58bb466e03/0d918571-5f9f-400e-b920-ce4204c4202f/Shirley.jpeg',
     teacherOrigin: 'Antwerp, Belgium',
     teacherTags: [{text:'Classical Ballet', type:'style'},{text:'Royal Ballet School', type:'award'}],
-    teacherStats: [{v:'2014', l:'Royal Ballet School'},{v:'Ballet of Flanders', l:'apprenticed'}],
     teacherBio: 'Graduate of the Royal Ballet School of Antwerp (2014). Studied at PNSD Rosella Hightower (Cannes), Dutch National Ballet (Amsterdam), and IB Stage (Barcelona). Apprenticed with Ballet of Flanders.',
     teacherBioFull: 'Shirley is an accomplished dance instructor with a rich background in classical ballet. A 2014 graduate of the Royal Ballet School of Antwerp, she has cultivated a deep and versatile understanding of the art, which she passionately shares with her students. Shirley\'s education was further enriched through summer programs in prestigious institutions across Europe, including the PNSD Rosella Hightower in Cannes, the Dutch National Ballet in Amsterdam, IB Stage in Barcelona, and Les Étés de la Danse in Paris. These experiences exposed her to a variety of styles and techniques, significantly broadening her artistic perspective.<br><br>During her final year at the Royal Ballet School, Shirley had the unique opportunity to apprentice with the Ballet of Flanders, where she participated in productions like Romeo &amp; Juliet and Beyond the Tutu. This professional experience honed her artistic vision and provided her with a deeper understanding of the demands of a ballet career.<br><br>As a teacher, Shirley strives to instill not only technical proficiency but also a deep passion for dance in her students. Her teaching approach is both challenging and nurturing, focusing on developing a solid technical foundation, musicality, and expressiveness. Whether she\'s working with beginners or advanced dancers, Shirley is dedicated to helping each student reach their full potential while fostering a lifelong love for the art of dance.',
     social: [{ type:'instagram', url:'https://www.instagram.com/shirleymariecore', label:'@shirleymariecore' }],
@@ -2118,17 +2117,15 @@ function wsTeacherBlockHtml(wsData, prefix) {
   function renderTags(tags) {
     if (!tags || !tags.length) return '';
     return `<div class="${p}-ttags">${tags.map(tag => {
-      const bg = tag.type === 'award' ? '#B564F7' : tag.type === 'lang' ? 'rgba(30,200,160,.12)' : 'rgba(181,100,247,.12)';
-      const cl = tag.type === 'award' ? '#fff' : tag.type === 'lang' ? '#0d7a60' : '#7a3caa';
-      return `<span class="${p}-ttag" style="background:${bg};color:${cl};">${tag.text}</span>`;
+      const bg = tag.type === 'award' ? '#1a1a1a' : tag.type === 'lang' ? 'rgba(30,200,160,.12)' : 'transparent';
+      const cl = tag.type === 'award' ? '#fff' : tag.type === 'lang' ? '#0d7a60' : '#1a1a1a';
+      const border = (tag.type === 'award' || tag.type === 'lang') ? 'none' : '0.5px solid #1a1a1a';
+      return `<span class="${p}-ttag" style="background:${bg};color:${cl};border:${border};">${tag.text}</span>`;
     }).join('')}</div>`;
   }
 
   function renderStats(stats) {
-    if (!stats || !stats.length) return '';
-    return `<div class="${p}-tstats">${stats.map(s =>
-      `<div class="${p}-tstat"><div class="${p}-tstatv">${s.v}</div><div class="${p}-tstatl">${s.l}</div></div>`
-    ).join('')}</div>`;
+    return ''; // Stats suppressed — bio text carries the same info
   }
 
   // ── 2-teacher layouts (no org card, no JS, no Embedded Scripts warning) ──
@@ -2139,11 +2136,11 @@ function wsTeacherBlockHtml(wsData, prefix) {
     const sharedCss = `
 .${p}-tc{width:100%;border:0.5px solid #e4e0db;border-radius:12px;overflow:hidden;background:#fff;}
 .${p}-sbody{flex:1;padding:.9rem 1.1rem;display:flex;flex-direction:column;gap:.32rem;min-width:0;}
-.${p}-shead{display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem;}
+.${p}-shead{display:flex;align-items:flex-start;gap:.5rem;}
 .${p}-sname{font-family:'Marcellus',serif;font-size:1rem;color:#1a1a1a;line-height:1.2;}
-.${p}-badge{background:#B564F7;color:#fff;font-size:.65rem;font-weight:500;padding:2px 9px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:2px;}
-.${p}-torigin{font-size:.72rem;color:#888;margin-top:1px;}
-.${p}-ttags{display:flex;gap:.3rem;flex-wrap:wrap;}
+.${p}-badge{background:#1a1a1a;color:#fff;font-size:.65rem;font-weight:500;padding:2px 9px;border-radius:20px;white-space:nowrap;flex-shrink:0;align-self:flex-start;}
+.${p}-torigin{font-size:.72rem;color:#888;margin-top:1px;letter-spacing:.04em;text-transform:uppercase;}
+.${p}-ttags{display:flex;gap:.3rem;flex-wrap:wrap;align-items:center;}
 .${p}-ttag{font-size:.7rem;font-weight:500;padding:2px 8px;border-radius:20px;}
 .${p}-tstats{display:flex;gap:1px;border-top:0.5px solid #e4e0db;border-bottom:0.5px solid #e4e0db;padding:.42rem 0;margin:.05rem 0;}
 .${p}-tstat{display:flex;flex-direction:column;padding-right:.9rem;}
@@ -2153,32 +2150,52 @@ function wsTeacherBlockHtml(wsData, prefix) {
 .${p}-det{margin-top:.1rem;}
 .${p}-det summary{list-style:none;}
 .${p}-det summary::-webkit-details-marker{display:none;}
-.${p}-more{cursor:pointer;color:#8844cc;font-size:.76rem;font-weight:500;background:none;border:none;padding:.2rem 0;font-family:inherit;display:inline-flex;align-items:center;gap:.25rem;pointer-events:auto!important;}
-.${p}-more:hover{color:#6622aa;}
+.${p}-more{cursor:pointer;color:#1a1a1a;font-size:.76rem;font-weight:500;background:none;border:none;padding:.2rem 0;font-family:inherit;display:inline;text-decoration:underline;text-underline-offset:2px;pointer-events:auto!important;}
+.${p}-more:hover{color:#555;}
+.${p}-det[open] .${p}-arr{display:none;}
+.${p}-det:not([open]) .${p}-arr-open{display:none;}
 .${p}-full{font-size:.8rem;color:#555;line-height:1.65;padding-top:.55rem;border-top:0.5px solid #e4e0db;margin-top:.25rem;}
 .${p}-tsoc{display:flex;gap:.32rem;flex-wrap:wrap;margin-top:.2rem;}
 .${p}-tcredit{font-size:.65rem;color:#aaa;margin-top:.2rem;}
-.${p}-tc .${p}-tsl,.${p}-tc a.${p}-tsl:link,.${p}-tc a.${p}-tsl:visited,.${p}-tc a.${p}-tsl:hover,.${p}-tc a.${p}-tsl:focus,.${p}-tc a.${p}-tsl:active{display:inline-flex!important;align-items:center!important;justify-content:center!important;width:44px!important;height:44px!important;border-radius:50%!important;border:0.5px solid #d0caca!important;background:#f7f5f5!important;background-color:#f7f5f5!important;background-image:none!important;color:#555!important;text-decoration:none!important;box-shadow:none!important;font-family:inherit!important;transition:background .15s,border-color .15s,color .15s!important;flex-shrink:0!important;pointer-events:auto!important;cursor:pointer!important;}
-.${p}-tc a.${p}-tsl:hover{background:#f0e8fb!important;background-color:#f0e8fb!important;border-color:#c99ff8!important;color:#7a3caa!important;}`;
+.${p}-tc .${p}-tsl,.${p}-tc a.${p}-tsl:link,.${p}-tc a.${p}-tsl:visited,.${p}-tc a.${p}-tsl:hover,.${p}-tc a.${p}-tsl:focus,.${p}-tc a.${p}-tsl:active{display:inline-flex!important;align-items:center!important;justify-content:center!important;width:44px!important;height:44px!important;border-radius:50%!important;border:0.5px solid #ccc!important;background:#fff!important;background-color:#fff!important;background-image:none!important;color:#555!important;text-decoration:none!important;box-shadow:none!important;font-family:inherit!important;transition:background .15s,border-color .15s,color .15s!important;flex-shrink:0!important;pointer-events:auto!important;cursor:pointer!important;}
+.${p}-tc a.${p}-tsl:hover{background:#f5f5f5!important;background-color:#f5f5f5!important;border-color:#999!important;color:#1a1a1a!important;}`;
 
     // Bio section — shared between both layouts
-    const bioHalf = (t) => {
+    // slim=true: strips award badges + stats (for Option B where bio text already covers the content)
+    const bioHalf = (t, slim = false) => {
       const shortBio = t.bioShort || t.bio || '';
       const fullBio  = (t.bio && t.bio !== shortBio) ? t.bio : null;
-      const awardTag = t.tags && t.tags.find(tag => tag.type === 'award');
-      const awardBadge = awardTag ? `<span class="${p}-badge">${awardTag.text}</span>` : '';
-      const nonAwardTags = t.tags ? t.tags.filter(tag => tag.type !== 'award') : [];
       const originHtml = t.origin ? `<div class="${p}-torigin">${t.origin}</div>` : '';
       const socialHtml = (t.social && t.social.length)
         ? `<div class="${p}-tsoc" role="list">${t.social.map(s =>
             `<a href="${s.url}" target="_blank" rel="noopener" class="${p}-tsl" aria-label="${s.label}" title="${s.label}" role="listitem">${ICONS[s.type] || ICONS.website}</a>`
           ).join('')}</div>` : '';
       const fullBioHtml = fullBio
-        ? `<details class="${p}-det"><summary class="${p}-more">Read full bio &#9656;</summary><div class="${p}-full">${fullBio}</div></details>` : '';
+        ? `<details class="${p}-det"><summary class="${p}-more">Read full bio <span class="${p}-arr">&#9656;</span><span class="${p}-arr-open">&#9662;</span></summary><div class="${p}-full">${fullBio}</div></details>` : '';
       const creditHtml = t.photoCredit ? `<div class="${p}-tcredit">&#128247; ${t.photoCredit}</div>` : '';
+
+      if (slim) {
+        // Editorial: name + origin only, no badges/stats — bio text carries the full story
+        return `<div class="${p}-sbody">
+    <div class="${p}-shead"><div><div class="${p}-sname">${t.name}</div>${originHtml}</div></div>
+    <div class="${p}-sbio">${shortBio}</div>
+    ${fullBioHtml}${socialHtml}${creditHtml}
+  </div>`;
+      }
+
+      // Standard: badges, tags, stats shown (Option A)
+      const awardTag = t.tags && t.tags.find(tag => tag.type === 'award');
+      const awardBadge = awardTag ? `<span class="${p}-badge">${awardTag.text}</span>` : '';
+      const nonAwardTags = t.tags ? t.tags.filter(tag => tag.type !== 'award') : [];
+      const tagsWithBadge = nonAwardTags.length || awardBadge
+        ? `<div class="${p}-ttags">${nonAwardTags.map(tag => {
+            const bg = tag.type === 'lang' ? 'rgba(30,200,160,.12)' : 'rgba(181,100,247,.12)';
+            const cl = tag.type === 'lang' ? '#0d7a60' : '#7a3caa';
+            return `<span class="${p}-ttag" style="background:${bg};color:${cl};">${tag.text}</span>`;
+          }).join('')}${awardBadge}</div>` : '';
       return `<div class="${p}-sbody">
-    <div class="${p}-shead"><div><div class="${p}-sname">${t.name}</div>${originHtml}</div>${awardBadge}</div>
-    ${renderTags(nonAwardTags)}${renderStats(t.stats || [])}
+    <div class="${p}-shead"><div><div class="${p}-sname">${t.name}</div>${originHtml}</div></div>
+    ${tagsWithBadge}${renderStats(t.stats || [])}
     <div class="${p}-sbio">${shortBio}</div>
     ${fullBioHtml}${socialHtml}${creditHtml}
   </div>`;
@@ -2186,22 +2203,22 @@ function wsTeacherBlockHtml(wsData, prefix) {
 
     if (sharedPhoto) {
       // Option B — shared photo LEFT column, two bio cards stacked RIGHT (portrait-friendly)
-      const photoHtml = `<img src="${teachers[0].photo}" alt="${teachers[0].name} &amp; ${teachers[1].name}" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:50% 20%;display:block;">`;
+      const photoHtml = `<img src="${teachers[0].photo}" alt="${teachers[0].name} &amp; ${teachers[1].name}" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:50% 30%;display:block;">`;
       return `<link href="${WS_GOOGLE_FONTS}" rel="stylesheet">
 <style>${sharedCss}
-.${p}-tc{display:flex;align-items:stretch;}
+.${p}-tc{display:flex;align-items:stretch;border:0.5px solid #e4e0db;}
 @media(max-width:600px){.${p}-tc{flex-direction:column;}}
-.${p}-tphcol{width:240px;flex-shrink:0;overflow:hidden;background:#e8e0f0;border-right:0.5px solid #e4e0db;}
-@media(max-width:600px){.${p}-tphcol{width:100%;height:260px;border-right:none;border-bottom:0.5px solid #e4e0db;}}
+.${p}-tphcol{width:260px;flex-shrink:0;overflow:hidden;background:#1a1a1a;border-right:2px solid #1a1a1a;}
+@media(max-width:600px){.${p}-tphcol{width:100%;height:280px;border-right:none;border-bottom:2px solid #1a1a1a;}}
 .${p}-tcards{flex:1;display:flex;flex-direction:column;min-width:0;}
 .${p}-tcard{flex:1;min-width:0;}
-.${p}-tcard:first-child{border-bottom:0.5px solid #e4e0db;}
+.${p}-tcard:first-child{border-bottom:2px solid #1a1a1a;}
 </style>
 <div class="${p}-tc" role="region" aria-label="Teaching team">
   <div class="${p}-tphcol" aria-hidden="true">${photoHtml}</div>
   <div class="${p}-tcards">
-    <div class="${p}-tcard">${bioHalf(teachers[0])}</div>
-    <div class="${p}-tcard">${bioHalf(teachers[1])}</div>
+    <div class="${p}-tcard">${bioHalf(teachers[0], true)}</div>
+    <div class="${p}-tcard">${bioHalf(teachers[1], true)}</div>
   </div>
 </div>`;
     } else {
@@ -2209,7 +2226,7 @@ function wsTeacherBlockHtml(wsData, prefix) {
       const photoCol = (t) => {
         const img = t.photo
           ? `<img src="${t.photo}" alt="${t.name}" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:50% 20%;display:block;">`
-          : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#B564F7;"><span style="font-family:'Marcellus',serif;font-size:2rem;color:#fff;">${wsInitials(t.name)}</span></div>`;
+          : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#1a1a1a;"><span style="font-family:'Marcellus',serif;font-size:2rem;color:#fff;">${wsInitials(t.name)}</span></div>`;
         return `<div class="${p}-thphoto" aria-hidden="true">${img}</div>`;
       };
       return `<link href="${WS_GOOGLE_FONTS}" rel="stylesheet">
@@ -2241,7 +2258,7 @@ function wsTeacherBlockHtml(wsData, prefix) {
 
     const photoHtml = t.photo
       ? `<img src="${t.photo}" alt="${t.name}" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:50% 20%;display:block;">`
-      : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:${isOrg ? '#f0e8fb' : '#B564F7'};"><span style="font-family:'Marcellus',serif;font-size:${isOrg ? '1.1rem' : '2rem'};color:${isOrg ? '#8844cc' : '#fff'};line-height:1.2;text-align:center;padding:1rem;">${isOrg ? t.name : wsInitials(t.name)}</span></div>`;
+      : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:${isOrg ? '#f5f5f5' : '#1a1a1a'};"><span style="font-family:'Marcellus',serif;font-size:${isOrg ? '1.1rem' : '2rem'};color:${isOrg ? '#555' : '#fff'};line-height:1.2;text-align:center;padding:1rem;">${isOrg ? t.name : wsInitials(t.name)}</span></div>`;
 
     const originHtml = t.origin ? `<div class="${p}-torigin">${t.origin}</div>` : '';
 
@@ -2282,7 +2299,7 @@ function wsTeacherBlockHtml(wsData, prefix) {
 
   // Dot indicators
   const dots = teachers.map((t, i) =>
-    `<button class="${p}-dot${i === 0 ? ' ' + p + '-dot-on' : ''}" onclick="${p}TC(${i})" aria-label="${t.name}" style="width:8px;height:8px;border-radius:50%;border:none;padding:0;cursor:pointer;background:${i === 0 ? '#B564F7' : '#d8d0e8'};transition:background .2s,transform .2s;${i === 0 ? 'transform:scale(1.2);' : ''}"></button>`
+    `<button class="${p}-dot${i === 0 ? ' ' + p + '-dot-on' : ''}" onclick="${p}TC(${i})" aria-label="${t.name}" style="width:8px;height:8px;border-radius:50%;border:none;padding:0;cursor:pointer;background:${i === 0 ? '#1a1a1a' : '#ccc'};transition:background .2s,transform .2s;${i === 0 ? 'transform:scale(1.2);' : ''}"></button>`
   ).join('');
 
   return `<link href="${WS_GOOGLE_FONTS}" rel="stylesheet">
@@ -2298,8 +2315,8 @@ function wsTeacherBlockHtml(wsData, prefix) {
 .${p}-sbody{flex:1;padding:1.25rem 1.4rem;display:flex;flex-direction:column;gap:.45rem;min-width:0;}
 .${p}-shead{display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem;}
 .${p}-sname{font-family:'Marcellus',serif;font-size:1.1rem;color:#1a1a1a;line-height:1.2;}
-.${p}-badge{background:#B564F7;color:#fff;font-size:.68rem;font-weight:500;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:3px;}
-.${p}-torigin{font-size:.75rem;color:#888;margin-top:-.15rem;}
+.${p}-badge{background:#1a1a1a;color:#fff;font-size:.68rem;font-weight:500;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:3px;}
+.${p}-torigin{font-size:.72rem;color:#888;margin-top:-.15rem;letter-spacing:.04em;text-transform:uppercase;}
 .${p}-ttags{display:flex;gap:.3rem;flex-wrap:wrap;}
 .${p}-ttag{font-size:.72rem;font-weight:500;padding:2px 9px;border-radius:20px;}
 .${p}-tstats{display:flex;gap:1px;border-top:0.5px solid #e4e0db;border-bottom:0.5px solid #e4e0db;padding:.5rem 0;margin:.1rem 0;}
@@ -2308,16 +2325,16 @@ function wsTeacherBlockHtml(wsData, prefix) {
 .${p}-tstatl{font-size:.68rem;color:#888;margin-top:.05rem;}
 .${p}-sbio{font-size:.83rem;color:#444;line-height:1.65;}
 .${p}-full{font-size:.83rem;color:#555;line-height:1.65;padding-top:.6rem;border-top:0.5px solid #e4e0db;margin-top:.3rem;}
-.${p}-more{cursor:pointer;color:#8844cc;font-size:.78rem;font-weight:500;background:none;border:none;padding:.2rem 0;font-family:inherit;display:inline-flex;align-items:center;gap:.25rem;pointer-events:auto!important;}
-.${p}-more:hover{color:#6622aa;}
+.${p}-more{cursor:pointer;color:#1a1a1a;font-size:.78rem;font-weight:500;background:none;border:none;padding:.2rem 0;font-family:inherit;display:inline;text-decoration:underline;text-underline-offset:2px;pointer-events:auto!important;}
+.${p}-more:hover{color:#555;}
 .${p}-fbwrap{margin-top:-.1rem;}
 .${p}-tsoc{display:flex;gap:.35rem;flex-wrap:wrap;margin-top:.2rem;}
 .${p}-tcredit{font-size:.68rem;color:#aaa;margin-top:.25rem;}
-.${p}-tc .${p}-tsl,.${p}-tc a.${p}-tsl:link,.${p}-tc a.${p}-tsl:visited,.${p}-tc a.${p}-tsl:hover,.${p}-tc a.${p}-tsl:focus,.${p}-tc a.${p}-tsl:active{display:inline-flex!important;align-items:center!important;justify-content:center!important;width:44px!important;height:44px!important;border-radius:50%!important;border:0.5px solid #d0caca!important;background:#f7f5f5!important;background-color:#f7f5f5!important;background-image:none!important;color:#555!important;text-decoration:none!important;box-shadow:none!important;font-family:inherit!important;transition:background .15s,border-color .15s,color .15s!important;flex-shrink:0!important;pointer-events:auto!important;cursor:pointer!important;}
-.${p}-tc a.${p}-tsl:hover{background:#f0e8fb!important;background-color:#f0e8fb!important;border-color:#c99ff8!important;color:#7a3caa!important;}
+.${p}-tc .${p}-tsl,.${p}-tc a.${p}-tsl:link,.${p}-tc a.${p}-tsl:visited,.${p}-tc a.${p}-tsl:hover,.${p}-tc a.${p}-tsl:focus,.${p}-tc a.${p}-tsl:active{display:inline-flex!important;align-items:center!important;justify-content:center!important;width:44px!important;height:44px!important;border-radius:50%!important;border:0.5px solid #ccc!important;background:#fff!important;background-color:#fff!important;background-image:none!important;color:#555!important;text-decoration:none!important;box-shadow:none!important;font-family:inherit!important;transition:background .15s,border-color .15s,color .15s!important;flex-shrink:0!important;pointer-events:auto!important;cursor:pointer!important;}
+.${p}-tc a.${p}-tsl:hover{background:#f5f5f5!important;background-color:#f5f5f5!important;border-color:#999!important;color:#1a1a1a!important;}
 .${p}-tnav{display:flex;align-items:center;justify-content:space-between;padding:.65rem 1rem;background:#faf9f8;border-top:0.5px solid #e4e0db;}
-.${p}-nbtn{width:36px;height:36px;border-radius:50%;border:0.5px solid #d8d0e0;background:#fff;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;color:#444;transition:background .15s,border-color .15s;pointer-events:auto!important;cursor:pointer!important;}
-.${p}-nbtn:hover{background:#f0e8fb;border-color:#c99ff8;color:#7a3caa;}
+.${p}-nbtn{width:36px;height:36px;border-radius:50%;border:0.5px solid #ccc;background:#fff;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;color:#444;transition:background .15s,border-color .15s,color .15s;pointer-events:auto!important;cursor:pointer!important;}
+.${p}-nbtn:hover{background:#f5f5f5;border-color:#999;color:#1a1a1a;}
 .${p}-dots{display:flex;gap:6px;align-items:center;}
 </style>
 <div class="${p}-tc" role="region" aria-label="Teaching team" aria-roledescription="carousel">
@@ -2342,7 +2359,7 @@ ${slides}
     var track=document.getElementById('${p}-ttrack');
     if(track)track.style.transform='translateX(-'+(n*100)+'%)';
     var dots=document.getElementById('${p}-dots');
-    if(dots){var bs=dots.querySelectorAll('button');bs.forEach(function(b,j){b.style.background=j===n?'#B564F7':'#d8d0e8';b.style.transform=j===n?'scale(1.2)':'scale(1)';})}
+    if(dots){var bs=dots.querySelectorAll('button');bs.forEach(function(b,j){b.style.background=j===n?'#1a1a1a':'#ccc';b.style.transform=j===n?'scale(1.2)':'scale(1)';})}
   };
   var timer=setInterval(function(){window['${p}TC'](window['${p}idx']+1);},5000);
   var tc=document.querySelector('.${p}-tc');
@@ -2378,7 +2395,7 @@ function wsSoloTeacherCardHtml(wsData, teacherName, prefix) {
   // Photo column — rectangular, fills full card height
   const photoHtml = photo
     ? `<img src="${photo}" alt="${teacherName}" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:50% 20%;display:block;">`
-    : `<div style="width:100%;height:100%;min-height:200px;display:flex;align-items:center;justify-content:center;background:#B564F7;"><span style="font-family:'Marcellus',serif;font-size:2rem;color:#fff;line-height:1;">${wsInitials(teacherName)}</span></div>`;
+    : `<div style="width:100%;height:100%;min-height:200px;display:flex;align-items:center;justify-content:center;background:#1a1a1a;"><span style="font-family:'Marcellus',serif;font-size:2rem;color:#fff;line-height:1;">${wsInitials(teacherName)}</span></div>`;
 
   // Award badge — top-right of name row
   const awardTag  = tags.find(t => t.type === 'award');
@@ -2388,16 +2405,14 @@ function wsSoloTeacherCardHtml(wsData, teacherName, prefix) {
   const styleTags = tags.filter(t => t.type !== 'award');
   const tagsHtml  = styleTags.length
     ? `<div class="${p}-sc-chips">${styleTags.map(tag => {
-        const bg = tag.type === 'lang' ? 'rgba(30,200,160,.12)' : 'rgba(181,100,247,.12)';
-        const cl = tag.type === 'lang' ? '#0d7a60' : '#7a3caa';
-        return `<span class="${p}-sc-chip" style="background:${bg};color:${cl};">${tag.text}</span>`;
+        const bg = tag.type === 'lang' ? 'rgba(30,200,160,.12)' : 'transparent';
+        const cl = tag.type === 'lang' ? '#0d7a60' : '#1a1a1a';
+        const border = tag.type === 'lang' ? 'none' : '0.5px solid #1a1a1a';
+        return `<span class="${p}-sc-chip" style="background:${bg};color:${cl};border:${border};">${tag.text}</span>`;
       }).join('')}</div>` : '';
 
-  // Stats row — credential badges (was never rendered before — audit P3 fix)
-  const statsHtml = stats.length
-    ? `<div class="${p}-sc-stats">${stats.map(s =>
-        `<div class="${p}-sc-stat"><div class="${p}-sc-statv">${s.v}</div><div class="${p}-sc-statl">${s.l}</div></div>`
-      ).join('')}</div>` : '';
+  // Stats suppressed — bio text carries the same info
+  const statsHtml = '';
 
   // Full bio expand — CSS-only via <details>
   const detailsHtml = fullBio
@@ -2424,8 +2439,8 @@ function wsSoloTeacherCardHtml(wsData, teacherName, prefix) {
 .${p}-sc-body{flex:1;padding:.9rem 1.2rem;display:flex;flex-direction:column;gap:.35rem;min-width:0;}
 .${p}-sc-head{display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem;}
 .${p}-sc-name{font-family:'Marcellus',serif;font-size:1.1rem;color:#1a1a1a;line-height:1.2;}
-.${p}-sc-badge{background:#B564F7;color:#fff;font-size:.68rem;font-weight:500;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:3px;}
-.${p}-sc-origin{font-size:.75rem;color:#888;margin-top:-.2rem;}
+.${p}-sc-badge{background:#1a1a1a;color:#fff;font-size:.68rem;font-weight:500;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:3px;}
+.${p}-sc-origin{font-size:.72rem;color:#888;margin-top:-.2rem;letter-spacing:.04em;text-transform:uppercase;}
 .${p}-sc-chips{display:flex;gap:.3rem;flex-wrap:wrap;}
 .${p}-sc-chip{font-size:.72rem;font-weight:500;padding:2px 9px;border-radius:20px;}
 .${p}-sc-stats{display:flex;gap:1px;border-top:0.5px solid #e4e0db;border-bottom:0.5px solid #e4e0db;padding:.5rem 0;margin:.1rem 0;}
@@ -2434,12 +2449,12 @@ function wsSoloTeacherCardHtml(wsData, teacherName, prefix) {
 .${p}-sc-statl{font-size:.68rem;color:#888;margin-top:.05rem;}
 .${p}-sc-bio{font-size:.83rem;color:#444;line-height:1.65;flex:1;}
 .${p}-sc-det{margin:-.1rem 0;}
-.${p}-sc-more{cursor:pointer;color:#8844cc;font-size:.78rem;font-weight:500;list-style:none;display:inline-flex;align-items:center;gap:.25rem;padding:.3rem 0;user-select:none;}
+.${p}-sc-more{cursor:pointer;color:#1a1a1a;font-size:.78rem;font-weight:500;list-style:none;display:inline;text-decoration:underline;text-underline-offset:2px;padding:.3rem 0;user-select:none;}
 .${p}-sc-more::-webkit-details-marker{display:none;}
 .${p}-sc-full{font-size:.83rem;color:#555;line-height:1.65;padding-top:.65rem;border-top:0.5px solid #e4e0db;margin-top:.4rem;}
 .${p}-sc-soc{display:flex;gap:.35rem;flex-wrap:wrap;margin-top:.15rem;}
-.${p}-sc a.${p}-sc-sl,.${p}-sc a.${p}-sc-sl:link,.${p}-sc a.${p}-sc-sl:visited,.${p}-sc a.${p}-sc-sl:hover,.${p}-sc a.${p}-sc-sl:focus,.${p}-sc a.${p}-sc-sl:active{display:inline-flex!important;align-items:center!important;justify-content:center!important;width:44px!important;height:44px!important;border-radius:50%!important;border:0.5px solid #d0caca!important;background:#f7f5f5!important;background-color:#f7f5f5!important;background-image:none!important;color:#555!important;text-decoration:none!important;box-shadow:none!important;font-family:inherit!important;transition:background .15s,border-color .15s,color .15s!important;flex-shrink:0!important;pointer-events:auto!important;cursor:pointer!important;}
-.${p}-sc a.${p}-sc-sl:hover{background:#f0e8fb!important;background-color:#f0e8fb!important;border-color:#c99ff8!important;color:#7a3caa!important;}
+.${p}-sc a.${p}-sc-sl,.${p}-sc a.${p}-sc-sl:link,.${p}-sc a.${p}-sc-sl:visited,.${p}-sc a.${p}-sc-sl:hover,.${p}-sc a.${p}-sc-sl:focus,.${p}-sc a.${p}-sc-sl:active{display:inline-flex!important;align-items:center!important;justify-content:center!important;width:44px!important;height:44px!important;border-radius:50%!important;border:0.5px solid #ccc!important;background:#fff!important;background-color:#fff!important;background-image:none!important;color:#555!important;text-decoration:none!important;box-shadow:none!important;font-family:inherit!important;transition:background .15s,border-color .15s,color .15s!important;flex-shrink:0!important;pointer-events:auto!important;cursor:pointer!important;}
+.${p}-sc a.${p}-sc-sl:hover{background:#f5f5f5!important;background-color:#f5f5f5!important;border-color:#999!important;color:#1a1a1a!important;}
 </style>
 <div class="${p}-sc" role="region" aria-label="${teacherName} — teacher profile">
   <div class="${p}-sc-photo" aria-hidden="true">${photoHtml}</div>
@@ -2654,7 +2669,7 @@ function wsPerLevelCard(lv, idx, meta, prefix, isStarterSeries, levelDesc) {
           ${descBlock}
           <div class="${p}-level-meta">
             <div class="${p}-meta-item"><strong>When</strong><span>${whenHtml}</span></div>
-            <div class="${p}-meta-item"><strong>Where</strong><span>${slot.studio || '?'}</span></div>
+            <div class="${p}-meta-item"><strong>Where</strong><span>${slot.studio ? 'Studio ' + slot.studio : '?'}</span></div>
             <div class="${p}-meta-item"><strong>Teacher</strong><span>${slot.teacher || '?'}${slot.coTeachers ? ' & ' + slot.coTeachers : ''}</span></div>
             <div class="${p}-meta-item"><strong>Duration</strong><span>${slot.duration || '?'} min</span></div>
           </div>
@@ -2730,7 +2745,7 @@ function wsDayCard(dayName, dayLevels, meta, prefix, descs) {
           <hr style="border:none;border-top:1px solid #e4e0db;margin:.85rem 0;">
           <div class="${p}-level-meta">
             <div class="${p}-meta-item"><strong>When</strong><span>${dayName} ${timeRange}</span></div>
-            <div class="${p}-meta-item"><strong>Where</strong><span>${firstSlot.studio || '?'}</span></div>
+            <div class="${p}-meta-item"><strong>Where</strong><span>${firstSlot.studio ? 'Studio ' + firstSlot.studio : '?'}</span></div>
             <div class="${p}-meta-item"><strong>Teacher</strong><span>${_allSameTeacher
               ? (firstSlot.teacher || '?') + (firstSlot.coTeachers ? ' & ' + firstSlot.coTeachers : '')
               : dayLevels.map(e => `${e.lv.level}: ${e.slot.teacher || '?'}`).join('<br>')
