@@ -1424,10 +1424,14 @@
         const json = await res.json();
         if (!json.ok || !Array.isArray(json.slots) || json.slots.length === 0) return;
 
+        // API returns full Date strings like "Sat Dec 30 1899 19:00:00 GMT+0000 (...)"
+        // Extract just HH:MM to match fallback format "19:00–20:00"
+        const hhmm = str => { const m = String(str).match(/(\d{2}:\d{2}):\d{2}/); return m ? m[1] : str; };
+
         const live = json.slots.map(s => {
           const obj = {
             day:        s.day,
-            time:       s.start + '–' + s.end,
+            time:       hhmm(s.start) + '–' + hhmm(s.end),
             style:      s.style,
             level:      s.level,
             teacher:    s.teacher,
