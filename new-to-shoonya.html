@@ -125,28 +125,16 @@
   .kicker--salmon { color: var(--salmon-ink);  }
   .kicker--yellow { color: var(--yellow-ink);  }
 
-  /* Hero (video) */
+  /* Hero */
   .hero {
     position: relative;
     overflow: hidden;
-    background: #000;
+    background: linear-gradient(rgba(0,0,0,.50), rgba(0,0,0,.50)),
+                url('./images/staircase.jpg') center 40% / cover no-repeat;
     color: #fff;
     padding: 4rem 1.5rem 3.5rem;
     text-align: center;
   }
-  .hero__video {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%;
-    object-fit: cover;
-    z-index: 0;
-  }
-  .hero::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: rgba(0,0,0,.52);
-    z-index: 1;
-  }
-  .hero > *:not(.hero__video) { position: relative; z-index: 2; }
   .hero__pill {
     display: inline-block;
     background: var(--purple);
@@ -224,25 +212,29 @@
   .hero__strip strong { color: #fff; font-weight: 700; }
 
   /* Partner alert — contained salmon card with symmetric white space above + below */
-  .partner-alert-strip {
-    background: #fff;
-    padding: 1.75rem 1.5rem;
+  .step1-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    text-align: left;
   }
-  .partner-alert {
-    max-width: 1040px;
-    margin: 0 auto;
-    background: var(--salmon);
+  @media (min-width: 860px) {
+    .step1-layout { grid-template-columns: 300px 1fr; align-items: start; gap: 2.5rem; }
+  }
+  .step1-video {
+    width: 100%;
     border-radius: var(--radius);
-    padding: 1rem 1.25rem;
-    display: flex;
-    gap: .9rem;
-    align-items: flex-start;
-    color: var(--salmon-ink);
-    font-size: .92rem;
-    line-height: 1.55;
+    display: block;
+    aspect-ratio: 9 / 16;
+    object-fit: cover;
   }
-  .partner-alert__icon { font-size: 1.1rem; line-height: 1.4; flex-shrink: 0; color: var(--salmon-deep); }
-  .partner-alert strong { display: block; margin-bottom: .2rem; color: var(--salmon-deep); font-weight: 700; }
+  .style-card__note {
+    font-size: .78rem;
+    color: var(--muted-soft);
+    margin-top: .4rem;
+    font-style: italic;
+  }
 
   /* Section base */
   .section {
@@ -276,11 +268,7 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 14px;
-    margin-top: 2rem;
     text-align: left;
-  }
-  @media (min-width: 860px) {
-    .style-grid { grid-template-columns: repeat(3, 1fr); }
   }
   .style-card {
     display: flex;
@@ -413,7 +401,7 @@
 
   /* Good to know cards */
   .venue-photo { margin: 1.5rem 0; border-radius: 10px; overflow: hidden; }
-  .venue-photo img { width: 100%; height: 220px; object-fit: cover; object-position: center 60%; display: block; }
+  .venue-photo img { width: 100%; height: 300px; object-fit: cover; object-position: center 38%; display: block; }
   .venue-photo figcaption { font-size: .75rem; color: var(--muted-soft); padding: .4rem 0; letter-spacing: .04em; }
   .expect-grid {
     display: grid;
@@ -609,9 +597,7 @@
 
 <!-- ═════════ Hero ═════════ -->
 <section class="hero" id="main-content" tabindex="-1" aria-labelledby="hero-h1">
-  <video class="hero__video" autoplay muted loop playsinline aria-hidden="true">
-    <source src="./images/shoonya-tour.mp4" type="video/mp4">
-  </video>
+
   <div class="hero__pill">
     <span data-lang="en">Welcome · Shoonya · Ghent</span>
     <span data-lang="nl">Welkom · Shoonya · Gent</span>
@@ -654,19 +640,6 @@
   </div>
 </section>
 
-<!-- Partner alert (full-bleed salmon strip) -->
-<div class="partner-alert-strip">
-  <div class="partner-alert" role="note">
-    <span class="partner-alert__icon" aria-hidden="true">⚠</span>
-    <div>
-      <strong data-lang="en">Partner dances require you to register with a partner</strong>
-      <strong data-lang="nl">Partnerdansen vereisen dat je je inschrijft met een partner</strong>
-      <span data-lang="en">Cuban Salsa, Bachata, Argentine Tango, Kizomba, and Rueda de Casino require you to register with a partner. Lindy Hop and all other styles are solo — you can come alone.</span>
-      <span data-lang="nl">Cuban Salsa, Bachata, Argentine Tango, Kizomba en Rueda de Casino vereisen dat je je met een partner inschrijft. Lindy Hop en alle andere stijlen zijn solo — je kunt alleen komen.</span>
-    </div>
-  </div>
-</div>
-
 <!-- ═════════ Step 1 — Choose your world (purple band) ═════════ -->
 <section class="step1-band" id="styles" aria-labelledby="styles-h2">
   <div class="step1-inner">
@@ -681,7 +654,11 @@
     <p class="section__lead" data-lang="en">24 styles across three worlds. Pick what sounds like you — Level 1 is always for absolute beginners.</p>
     <p class="section__lead" data-lang="nl">24 stijlen in drie werelden. Kies wat bij jou past — Level 1 is altijd voor absolute beginners.</p>
 
-    <div class="style-grid" role="list">
+    <div class="step1-layout">
+      <video class="step1-video" autoplay muted loop playsinline aria-hidden="true">
+        <source src="./images/shoonya-tour.mp4" type="video/mp4">
+      </video>
+      <div class="style-grid" role="list">
 
       <a class="style-card style-card--partner" href="./dance-styles-overview.html#partner" role="listitem">
         <h3 class="style-card__h3">
@@ -694,6 +671,8 @@
         </span>
         <p class="style-card__p" data-lang="en">7 styles — Cuban Salsa, Bachata, Bachata Lady Style, Argentine Tango, Kizomba, Lindy Hop, Rueda. Dance with someone else.</p>
         <p class="style-card__p" data-lang="nl">7 stijlen — Cuban Salsa, Bachata, Bachata Lady Style, Argentine Tango, Kizomba, Lindy Hop, Rueda. Dans met iemand anders.</p>
+        <p class="style-card__note" data-lang="en">Most require a partner to register — Lindy Hop is the exception.</p>
+        <p class="style-card__note" data-lang="nl">De meeste vereisen een partner bij inschrijving — Lindy Hop is de uitzondering.</p>
         <span class="style-card__link">
           <span data-lang="en">Explore →</span>
           <span data-lang="nl">Verken →</span>
@@ -734,8 +713,9 @@
         </span>
       </a>
 
-    </div>
-  </div>
+    </div><!-- /style-grid -->
+    </div><!-- /step1-layout -->
+  </div><!-- /step1-inner -->
 </section>
 
 <!-- ═════════ Step 2 — How it works (white, numbered) ═════════ -->
@@ -794,8 +774,8 @@
           <span data-lang="en">Register when you're ready</span>
           <span data-lang="nl">Schrijf je in wanneer je er klaar voor bent</span>
         </h3>
-        <p class="step__p" data-lang="en">Create a Shoonya ID and sign up for the semester. If you join mid-semester, your price is prorated — you only pay for the remaining classes.</p>
-        <p class="step__p" data-lang="nl">Maak een Shoonya ID aan en schrijf je in voor het semester. Als je halverwege begint, betaal je alleen voor de resterende lessen.</p>
+        <p class="step__p" data-lang="en">Create a Shoonya ID and sign up for the semester. Registration stays open for the first three weeks — so there's no rush after the trial week.</p>
+        <p class="step__p" data-lang="nl">Maak een Shoonya ID aan en schrijf je in voor het semester. Inschrijvingen zijn open gedurende de eerste drie weken — er is dus geen haast na de proefweek.</p>
         <span class="step__badge">
           <span data-lang="en">Registration is open</span>
           <span data-lang="nl">Inschrijving is open</span>
@@ -817,8 +797,8 @@
       <span data-lang="en">From <em>€198</em> for a full semester</span>
       <span data-lang="nl">Vanaf <em>€198</em> voor een volledig semester</span>
     </h2>
-    <p class="step3-inner__sub" data-lang="en">16 weeks · Student tier €175 · UiTPAS 80% off · Mid-semester join is prorated</p>
-    <p class="step3-inner__sub" data-lang="nl">16 weken · Studententarief €175 · UiTPAS 80% korting · Halverwege beginnen wordt geprorateerd</p>
+    <p class="step3-inner__sub" data-lang="en">16 weeks · Student tier €175 · UiTPAS 80% off · Registration open first 3 weeks</p>
+    <p class="step3-inner__sub" data-lang="nl">16 weken · Studententarief €175 · UiTPAS 80% korting · Inschrijving open eerste 3 weken</p>
     <a href="#pricing" class="step3-inner__link">
       <span data-lang="en">See the full price breakdown ↓</span>
       <span data-lang="nl">Bekijk de volledige prijslijst ↓</span>
@@ -840,8 +820,8 @@
   <p class="section__lead" data-lang="nl">Een paar dingen die je eerste bezoek makkelijker maken.</p>
 
   <figure class="venue-photo">
-    <img src="./images/shoonya-facade.jpg" alt="Shoonya Dance Centre, Stapelplein 41, Ghent" loading="lazy">
-    <figcaption>Stapelplein 41 · 9000 Ghent · ground floor entrance on the right</figcaption>
+    <img src="./images/ntgent-finale.jpg" alt="Shoonya Dance Centre — performance evening" loading="lazy">
+    <figcaption>Stapelplein 41 · 9000 Ghent · © Stijn Dejonckheere</figcaption>
   </figure>
   <div class="expect-grid">
 
@@ -851,7 +831,7 @@
         <span data-lang="nl">Niveaus uitgelegd</span>
       </div>
       <p data-lang="en"><strong>Level 1 = absolute zero.</strong> No prior dance, no fitness requirement, no rhythm test. If you can walk, you can start. Open Level classes welcome everyone.</p>
-      <p data-lang="nl"><strong>Level 1 = absoluut nul.</strong> Geen danservaring, geen fitnesseis, geen ritmetes. Als je kunt lopen, kun je beginnen. Open Level lessen zijn voor iedereen.</p>
+      <p data-lang="nl"><strong>Level 1 = absoluut nul.</strong> Geen danservaring, geen fitness-eis, geen ritmegevoelstest. Als je kunt lopen, kun je beginnen. Open Level lessen zijn voor iedereen.</p>
     </div>
 
     <div class="expect-card">
@@ -868,8 +848,8 @@
         <span data-lang="en">Age</span>
         <span data-lang="nl">Leeftijd</span>
       </div>
-      <p data-lang="en">Most classes are <strong>age 12+</strong>. Argentine Tango is <strong>age 16+</strong>. All other classes welcome adults of any age.</p>
-      <p data-lang="nl">De meeste lessen zijn voor <strong>12 jaar en ouder</strong>. Argentine Tango is voor <strong>16 jaar en ouder</strong>. Alle andere lessen zijn welkom voor volwassenen van alle leeftijden.</p>
+      <p data-lang="en">Adults and motivated teens — most classes from age 12 upwards. Not sure about a specific class? Just ask us.</p>
+      <p data-lang="nl">Volwassenen en gemotiveerde tieners — de meeste lessen vanaf 12 jaar. Twijfel je over een specifieke les? Vraag het ons gewoon.</p>
     </div>
 
     <div class="expect-card">
@@ -892,8 +872,8 @@
       <span data-lang="en">Transparent <em>pricing</em></span>
       <span data-lang="nl">Transparante <em>prijzen</em></span>
     </h2>
-    <p class="section__lead" data-lang="en">You pay for the full semester. Mid-semester join is prorated automatically.</p>
-    <p class="section__lead" data-lang="nl">Je betaalt voor het volledige semester. Halverwege beginnen wordt automatisch geprorateerd.</p>
+    <p class="section__lead" data-lang="en">You pay for the full semester. Registration stays open for the first three weeks.</p>
+    <p class="section__lead" data-lang="nl">Je betaalt voor het volledige semester. Inschrijvingen zijn open gedurende de eerste drie weken.</p>
 
     <div style="overflow-x:auto;">
       <table class="pricing-table">
@@ -1012,8 +992,8 @@
         <span class="arrow" aria-hidden="true">▼</span>
       </button>
       <div class="faq-a" id="faq-a-3">
-        <span data-lang="en">Yes, for most classes. Your price is automatically prorated — you pay only for the sessions remaining in the semester. Some classes have a fixed group that doesn't accept mid-semester joiners (e.g. Rueda de Casino). Check the class page or ask us.</span>
-        <span data-lang="nl">Ja, voor de meeste lessen. Je prijs wordt automatisch berekend — je betaalt alleen voor de resterende sessies van het semester. Sommige lessen hebben een vaste groep die geen tussentijdse inschrijvingen accepteert (bijv. Rueda de Casino). Bekijk de lespagina of vraag het ons.</span>
+        <span data-lang="en">Registration stays open for the first three weeks of semester — so you can start late and still join a regular class. Some classes, like Dance &amp; Fit and Pilates, also offer a drop-in option throughout the year. Check the class page or ask us.</span>
+        <span data-lang="nl">Inschrijvingen zijn open gedurende de eerste drie weken van het semester — je kunt later instappen en toch een gewone les volgen. Sommige lessen, zoals Dance &amp; Fit en Pilates, bieden ook een drop-in optie het hele jaar door. Bekijk de lespagina of vraag het ons.</span>
       </div>
     </div>
 

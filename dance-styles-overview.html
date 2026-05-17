@@ -106,7 +106,7 @@
 
   /* ── Hero ─────────────────────────────────────────────────────── */
   .hero {
-    background: linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)), url('./images/alex-lenka.jpg') center/cover no-repeat;
+    background: linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)), url('./images/alex-lenka.jpg') center top/cover no-repeat;
     color: #fff;
     padding: 4rem 1.5rem 3.5rem;
     text-align: center;
@@ -203,13 +203,37 @@
     margin: -3.5rem -1.5rem 2.5rem;
     border-radius: 0;
   }
+  .cat-photo-wrap {
+    display: block;
+    position: relative;
+    width: calc(100% + 3rem);
+    height: 220px;
+    margin: -3.5rem -1.5rem 2.5rem;
+    overflow: hidden;
+  }
+  .cat-photo-wrap .cat-photo {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .cat-credit {
+    position: absolute;
+    bottom: .4rem;
+    right: .6rem;
+    font-size: .6rem;
+    letter-spacing: .04em;
+    color: rgba(255,255,255,0.72);
+    font-family: 'PT Serif', serif;
+    font-style: italic;
+    pointer-events: none;
+  }
   .cat-partner   { background: var(--purple-soft); }
   .cat-classical { background: var(--salmon); }
   .cat-culture   { background: var(--golden); }
 
   .cat-inner { max-width: 1080px; margin: 0 auto; }
 
-  .cat-header { display: flex; flex-wrap: wrap; align-items: baseline; gap: .6rem 1rem; margin-bottom: 1.5rem; }
+  .cat-header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: .6rem 1rem; margin-bottom: 1.5rem; text-align: center; }
   .cat-pill {
     display: inline-block;
     font-size: .68rem;
@@ -455,7 +479,7 @@
 
 <!-- ───────── PARTNER & SOCIAL (soft purple band) ───────── -->
 <section class="cat-band cat-partner" id="partner">
-  <img class="cat-photo" src="./images/rueda.jpg" alt="Rueda de Casino class at Shoonya" loading="lazy" style="object-position: center 30%;">
+  <img class="cat-photo" src="./images/rueda.jpg" alt="Rueda de Casino class at Shoonya" loading="lazy" style="object-position: center 45%;">
   <div class="cat-inner">
     <div class="cat-header">
       <span class="cat-pill"     data-i18n="cat_partner_pill">Partner &amp; Social</span>
@@ -534,7 +558,10 @@
 
 <!-- ───────── CLASSICAL & TECHNIQUE (soft salmon band) ───────── -->
 <section class="cat-band cat-classical" id="classical">
-  <img class="cat-photo" src="./images/flamenco.jpg" alt="Flamenco performance at Shoonya" loading="lazy" style="object-position: center 20%;">
+  <figure class="cat-photo-wrap">
+    <img class="cat-photo" src="./images/flamenco-2.jpg" alt="Flamenco class at Shoonya Dance Centre" loading="lazy" style="object-position: center 30%;">
+    <figcaption class="cat-credit">© Stijn Dejonckheere</figcaption>
+  </figure>
   <div class="cat-inner">
     <div class="cat-header">
       <span class="cat-pill"     data-i18n="cat_classical_pill">Classical &amp; Technique</span>
@@ -584,7 +611,7 @@
         <span class="strip-day" data-i18n="day_sa">Sa</span>
         <div class="strip-body">
           <h3 data-i18n="c_oriental_h">Oriental Flow <span class="badge badge-new" data-i18n="badge_new">New</span></h3>
-          <p class="strip-meta" data-i18n="c_oriental_meta">Sat 10:30 · 1h30 · Open level</p>
+          <p class="strip-meta" data-i18n="c_oriental_meta">Sat · Open level</p>
         </div>
         <span class="strip-arrow" aria-hidden="true">→</span>
       </a>
@@ -613,6 +640,10 @@
 
 <!-- ───────── CULTURE & WELLNESS (soft yellow band) ───────── -->
 <section class="cat-band cat-culture" id="culture">
+  <figure class="cat-photo-wrap">
+    <img class="cat-photo" src="./images/kathak.jpg" alt="Kathak dance class at Shoonya Dance Centre" loading="lazy" style="object-position: center 35%;">
+    <figcaption class="cat-credit">© Stijn Dejonckheere</figcaption>
+  </figure>
   <div class="cat-inner">
     <div class="cat-header">
       <span class="cat-pill"     data-i18n="cat_culture_pill">Culture &amp; Wellness</span>
@@ -781,7 +812,7 @@ const translations = {
     c_flamenco_h: "Flamenco",            c_flamenco_meta: "Tue · All levels",
     c_indian_h: "Indian Dance Technique",c_indian_meta: "Tue · Open level",
     c_kathak_h: "Indian Semi-classical (Kathak)", c_kathak_meta: "Wed · Level 2",
-    c_oriental_h: "Oriental Flow",       c_oriental_meta: "Sat 10:30 · 1h30 · Open level",
+    c_oriental_h: "Oriental Flow",       c_oriental_meta: "Sat · Open level",
     c_jazz_h: "Solo Jazz",               c_jazz_meta: "Wed · Open level",
     c_tap_h: "Tap Dance",                c_tap_meta: "Mon, Wed & Thu · 6 levels",
 
@@ -841,7 +872,7 @@ const translations = {
     c_flamenco_h: "Flamenco",             c_flamenco_meta: "Di · Alle niveaus",
     c_indian_h: "Indiase Danstechniek",   c_indian_meta: "Di · Open niveau",
     c_kathak_h: "Indiaas Semi-klassiek (Kathak)", c_kathak_meta: "Wo · Niveau 2",
-    c_oriental_h: "Oriental Flow",        c_oriental_meta: "Za 10:30 · 1u30 · Open niveau",
+    c_oriental_h: "Oriental Flow",        c_oriental_meta: "Za · Open niveau",
     c_jazz_h: "Solo Jazz",                c_jazz_meta: "Wo · Open niveau",
     c_tap_h: "Tapdans",                   c_tap_meta: "Ma, Wo & Do · 6 niveaus",
 
