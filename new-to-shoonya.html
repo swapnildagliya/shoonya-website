@@ -23,6 +23,7 @@
     --purple-soft:   #F5ECFF;
     --yellow:        #FBC70F;
     --yellow-soft:   #FDF1B8;
+    --golden:        #FFCF5A;
     --yellow-ink:    #6B4F00;
     --salmon:        #F9D9C9;
     --salmon-deep:   #C04A1F;
@@ -70,25 +71,35 @@
   body.nl [data-lang="en"] { display: none; }
   body:not(.nl) [data-lang="nl"] { display: none; }
 
-  .lang-toggle {
-    position: fixed;
-    top: 1rem; right: 1rem;
-    z-index: 100;
-    display: flex;
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: 99px;
-    overflow: hidden;
-    box-shadow: 0 1px 6px rgba(0,0,0,.1);
+  /* ── Site nav ──────────────────────────────────────────────── */
+  .site-nav {
+    position: sticky; top: 0; z-index: 200;
+    display: flex; align-items: center;
+    padding: 0 1.5rem; height: 52px;
+    background: #fff; border-bottom: 1px solid var(--border);
   }
+  .site-nav__brand {
+    font-family: 'Marcellus', serif; font-size: .85rem;
+    letter-spacing: .1em; text-transform: uppercase;
+    color: var(--ink); text-decoration: none; margin-right: auto;
+  }
+  .site-nav__links {
+    display: flex; align-items: center; gap: 1.5rem; margin-right: 1.5rem;
+  }
+  .site-nav__links a {
+    font-size: .75rem; font-weight: 700; letter-spacing: .06em;
+    text-transform: uppercase; color: var(--muted); text-decoration: none;
+    transition: color .15s; white-space: nowrap;
+  }
+  .site-nav__links a:hover, .site-nav__links a.active { color: var(--ink); }
+  .lang-toggle { display: flex; border: 1px solid var(--border); border-radius: 99px; overflow: hidden; }
   .lang-btn {
-    padding: .35rem .85rem;
-    font-size: .75rem;
-    font-weight: 700;
-    letter-spacing: .06em;
-    color: var(--muted);
+    padding: .65rem 1rem; font-size: .72rem; font-weight: 700;
+    letter-spacing: .06em; border: none; background: none;
+    cursor: pointer; color: var(--muted); font-family: 'PT Serif', serif;
   }
   .lang-btn.active { background: #000; color: #fff; border-radius: 99px; }
+  @media (max-width: 540px) { .site-nav__links { display: none; } }
 
   /* Breadcrumb */
   .breadcrumb {
@@ -114,13 +125,28 @@
   .kicker--salmon { color: var(--salmon-ink);  }
   .kicker--yellow { color: var(--yellow-ink);  }
 
-  /* Hero (black) */
+  /* Hero (video) */
   .hero {
-    background: var(--hero-bg);
+    position: relative;
+    overflow: hidden;
+    background: #000;
     color: #fff;
     padding: 4rem 1.5rem 3.5rem;
     text-align: center;
   }
+  .hero__video {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,.52);
+    z-index: 1;
+  }
+  .hero > *:not(.hero__video) { position: relative; z-index: 2; }
   .hero__pill {
     display: inline-block;
     background: var(--purple);
@@ -265,7 +291,7 @@
     transition: transform .15s, box-shadow .15s;
   }
   .style-card__p { flex: 1 1 auto; }
-  .style-card:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(0,0,0,.06); }
+  .style-card:hover { background: #f7f5f2; }
   .style-card--partner   { border-top: 3px solid var(--purple); }
   .style-card--classical { border-top: 3px solid var(--salmon-deep); }
   .style-card--culture   { border-top: 3px solid var(--yellow); }
@@ -355,7 +381,7 @@
   .step:nth-child(3) .step__badge { background: var(--yellow-soft); color: var(--yellow-ink);  }
 
   /* Step 3 — pricing teaser strip (yellow soft) */
-  .step3-band { background: var(--yellow-soft); padding: 3rem 1.5rem 3.25rem; text-align: center; }
+  .step3-band { background: var(--golden); padding: 3rem 1.5rem 3.25rem; text-align: center; }
   .step3-inner { max-width: 720px; margin: 0 auto; }
   .step3-inner .kicker--yellow { display: block; margin-bottom: .35rem; }
   .step3-inner h2 {
@@ -386,6 +412,9 @@
   }
 
   /* Good to know cards */
+  .venue-photo { margin: 1.5rem 0; border-radius: 10px; overflow: hidden; }
+  .venue-photo img { width: 100%; height: 220px; object-fit: cover; object-position: center 60%; display: block; }
+  .venue-photo figcaption { font-size: .75rem; color: var(--muted-soft); padding: .4rem 0; letter-spacing: .04em; }
   .expect-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -554,11 +583,18 @@
   <span data-lang="nl">Naar inhoud</span>
 </a>
 
-<!-- Language toggle -->
-<div class="lang-toggle" role="group" aria-label="Language selection">
-  <button class="lang-btn active" id="btn-en" onclick="setLang('en')" aria-pressed="true">EN</button>
-  <button class="lang-btn" id="btn-nl" onclick="setLang('nl')" aria-pressed="false">NL</button>
-</div>
+<header class="site-nav">
+  <a class="site-nav__brand" href="https://www.shoonyadance.com">Shoonya</a>
+  <nav class="site-nav__links" aria-label="Site navigation">
+    <a href="./schedule-landing.html"><span data-lang="en">Schedule</span><span data-lang="nl">Rooster</span></a>
+    <a href="./new-to-shoonya.html" class="active"><span data-lang="en">New here?</span><span data-lang="nl">Nieuw hier?</span></a>
+    <a href="./dance-styles-overview.html"><span data-lang="en">All styles</span><span data-lang="nl">Alle stijlen</span></a>
+  </nav>
+  <div class="lang-toggle" role="group" aria-label="Language selection">
+    <button class="lang-btn active" id="btn-en" onclick="setLang('en')" aria-pressed="true">EN</button>
+    <button class="lang-btn" id="btn-nl" onclick="setLang('nl')" aria-pressed="false">NL</button>
+  </div>
+</header>
 
 <!-- Breadcrumb -->
 <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -573,6 +609,9 @@
 
 <!-- ═════════ Hero ═════════ -->
 <section class="hero" id="main-content" tabindex="-1" aria-labelledby="hero-h1">
+  <video class="hero__video" autoplay muted loop playsinline aria-hidden="true">
+    <source src="./images/shoonya-tour.mp4" type="video/mp4">
+  </video>
   <div class="hero__pill">
     <span data-lang="en">Welcome · Shoonya · Ghent</span>
     <span data-lang="nl">Welkom · Shoonya · Gent</span>
@@ -758,8 +797,8 @@
         <p class="step__p" data-lang="en">Create a Shoonya ID and sign up for the semester. If you join mid-semester, your price is prorated — you only pay for the remaining classes.</p>
         <p class="step__p" data-lang="nl">Maak een Shoonya ID aan en schrijf je in voor het semester. Als je halverwege begint, betaal je alleen voor de resterende lessen.</p>
         <span class="step__badge">
-          <span data-lang="en">Registration opens 15 May 2026</span>
-          <span data-lang="nl">Inschrijving opent 15 mei 2026</span>
+          <span data-lang="en">Registration is open</span>
+          <span data-lang="nl">Inschrijving is open</span>
         </span>
       </div>
     </div>
@@ -800,6 +839,10 @@
   <p class="section__lead" data-lang="en">A few things that will make your first visit easier.</p>
   <p class="section__lead" data-lang="nl">Een paar dingen die je eerste bezoek makkelijker maken.</p>
 
+  <figure class="venue-photo">
+    <img src="./images/shoonya-facade.jpg" alt="Shoonya Dance Centre, Stapelplein 41, Ghent" loading="lazy">
+    <figcaption>Stapelplein 41 · 9000 Ghent · ground floor entrance on the right</figcaption>
+  </figure>
   <div class="expect-grid">
 
     <div class="expect-card">
@@ -1033,9 +1076,9 @@
     <p class="closing__sub" data-lang="en">Come to our next Open House — free, no sign-up, no obligation. Or browse all our classes.</p>
     <p class="closing__sub" data-lang="nl">Kom naar onze volgende Open Deur — gratis, geen inschrijving, geen verplichtingen. Of bekijk al onze lessen.</p>
     <div class="closing__cta-cluster">
-      <a href="./schedule-landing.html" class="closing__cta">
-        <span data-lang="en">Next Open House — 14 June 2026 →</span>
-        <span data-lang="nl">Volgende Open Deur — 14 juni 2026 →</span>
+      <a href="https://www.shoonyadance.com/try-a-class" class="closing__cta">
+        <span data-lang="en">Open House &amp; trial week →</span>
+        <span data-lang="nl">Open Deur &amp; proefweek →</span>
       </a>
       <a href="./schedule-landing.html" class="closing__cta-link">
         <span data-lang="en">See all dates on the year timeline →</span>

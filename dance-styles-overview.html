@@ -20,6 +20,7 @@
     --purple-soft:   #F5ECFF;
     --yellow:        #FBC70F;
     --yellow-soft:   #FDF1B8;
+    --golden:        #FFCF5A;
     --yellow-ink:    #6B4F00;
     --salmon:        #F9D9C9;
     --salmon-deep:   #C04A1F;
@@ -61,30 +62,35 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* ── Lang toggle ──────────────────────────────────────────────── */
-  .lang-toggle {
-    position: fixed;
-    top: 1rem; right: 1rem;
-    z-index: 100;
-    display: flex;
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: 99px;
-    overflow: hidden;
-    box-shadow: 0 1px 6px rgba(0,0,0,.1);
+  /* ── Site nav ──────────────────────────────────────────────── */
+  .site-nav {
+    position: sticky; top: 0; z-index: 200;
+    display: flex; align-items: center;
+    padding: 0 1.5rem; height: 52px;
+    background: #fff; border-bottom: 1px solid var(--border);
   }
+  .site-nav__brand {
+    font-family: 'Marcellus', serif; font-size: .85rem;
+    letter-spacing: .1em; text-transform: uppercase;
+    color: var(--ink); text-decoration: none; margin-right: auto;
+  }
+  .site-nav__links {
+    display: flex; align-items: center; gap: 1.5rem; margin-right: 1.5rem;
+  }
+  .site-nav__links a {
+    font-size: .75rem; font-weight: 700; letter-spacing: .06em;
+    text-transform: uppercase; color: var(--muted); text-decoration: none;
+    transition: color .15s; white-space: nowrap;
+  }
+  .site-nav__links a:hover, .site-nav__links a.active { color: var(--ink); }
+  .lang-toggle { display: flex; border: 1px solid var(--border); border-radius: 99px; overflow: hidden; }
   .lang-btn {
-    padding: .35rem .85rem;
-    font-size: .75rem;
-    font-weight: 700;
-    letter-spacing: .06em;
-    border: none;
-    background: none;
-    cursor: pointer;
-    color: var(--muted);
-    font-family: 'PT Serif', serif;
+    padding: .65rem 1rem; font-size: .72rem; font-weight: 700;
+    letter-spacing: .06em; border: none; background: none;
+    cursor: pointer; color: var(--muted); font-family: 'PT Serif', serif;
   }
   .lang-btn.active { background: #000; color: #fff; border-radius: 99px; }
+  @media (max-width: 540px) { .site-nav__links { display: none; } }
 
   /* ── Breadcrumb ───────────────────────────────────────────────── */
   .breadcrumb {
@@ -100,7 +106,7 @@
 
   /* ── Hero ─────────────────────────────────────────────────────── */
   .hero {
-    background: var(--hero-bg);
+    background: linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)), url('./images/alex-lenka.jpg') center/cover no-repeat;
     color: #fff;
     padding: 4rem 1.5rem 3.5rem;
     text-align: center;
@@ -189,9 +195,17 @@
 
   /* ── Category band (full-bleed) ───────────────────────────────── */
   .cat-band { padding: 3.5rem 1.5rem 3.75rem; }
+  .cat-photo {
+    display: block;
+    width: calc(100% + 3rem);
+    height: 220px;
+    object-fit: cover;
+    margin: -3.5rem -1.5rem 2.5rem;
+    border-radius: 0;
+  }
   .cat-partner   { background: var(--purple-soft); }
   .cat-classical { background: var(--salmon); }
-  .cat-culture   { background: var(--yellow-soft); }
+  .cat-culture   { background: var(--golden); }
 
   .cat-inner { max-width: 1080px; margin: 0 auto; }
 
@@ -400,11 +414,18 @@
 <!-- Skip to content (accessibility — visible only on keyboard focus) -->
 <a href="#main-content" class="skip-link" data-i18n="skip_link">Skip to content</a>
 
-<!-- Lang toggle -->
-<div class="lang-toggle" role="group" aria-label="Language">
-  <button class="lang-btn active" data-lang="en">EN</button>
-  <button class="lang-btn" data-lang="nl">NL</button>
-</div>
+<header class="site-nav">
+  <a class="site-nav__brand" href="https://www.shoonyadance.com">Shoonya</a>
+  <nav class="site-nav__links" aria-label="Site navigation">
+    <a href="./schedule-landing.html" data-i18n="snav-schedule">Schedule</a>
+    <a href="./new-to-shoonya.html" data-i18n="snav-new">New here?</a>
+    <a href="./dance-styles-overview.html" class="active" data-i18n="snav-styles">All styles</a>
+  </nav>
+  <div class="lang-toggle" role="group" aria-label="Language">
+    <button class="lang-btn active" data-lang="en">EN</button>
+    <button class="lang-btn" data-lang="nl">NL</button>
+  </div>
+</header>
 
 <!-- Breadcrumb -->
 <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -434,6 +455,7 @@
 
 <!-- ───────── PARTNER & SOCIAL (soft purple band) ───────── -->
 <section class="cat-band cat-partner" id="partner">
+  <img class="cat-photo" src="./images/rueda.jpg" alt="Rueda de Casino class at Shoonya" loading="lazy" style="object-position: center 30%;">
   <div class="cat-inner">
     <div class="cat-header">
       <span class="cat-pill"     data-i18n="cat_partner_pill">Partner &amp; Social</span>
@@ -512,6 +534,7 @@
 
 <!-- ───────── CLASSICAL & TECHNIQUE (soft salmon band) ───────── -->
 <section class="cat-band cat-classical" id="classical">
+  <img class="cat-photo" src="./images/flamenco.jpg" alt="Flamenco performance at Shoonya" loading="lazy" style="object-position: center 20%;">
   <div class="cat-inner">
     <div class="cat-header">
       <span class="cat-pill"     data-i18n="cat_classical_pill">Classical &amp; Technique</span>
@@ -720,6 +743,7 @@
 const translations = {
   en: {
     skip_link: "Skip to content",
+    'snav-schedule': "Schedule", 'snav-new': "New here?", 'snav-styles': "All styles",
     bc_home: "Home", bc_current: "All dance styles",
     hero_label: "Dance Centre · Ghent",
     hero_h1: "All dance styles at Shoonya",
@@ -779,6 +803,7 @@ const translations = {
   },
   nl: {
     skip_link: "Naar inhoud",
+    'snav-schedule': "Rooster", 'snav-new': "Nieuw hier?", 'snav-styles': "Alle stijlen",
     bc_home: "Home", bc_current: "Alle dansstijlen",
     hero_label: "Danscentrum · Gent",
     hero_h1: "Alle dansstijlen bij Shoonya",

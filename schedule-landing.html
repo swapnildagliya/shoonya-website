@@ -24,6 +24,7 @@
       --purple-soft:   #F5ECFF;
       --yellow:        #FBC70F;
       --yellow-soft:   #FDF1B8;
+      --golden:        #FFCF5A;
       --yellow-ink:    #6B4F00;
       --salmon:        #F9D9C9;
       --salmon-deep:   #C04A1F;
@@ -74,55 +75,39 @@
       clip: rect(0,0,0,0); white-space: nowrap; border: 0;
     }
 
-    /* ── Lang toggle (fixed) ──────────────────────────────────── */
-    .lang-toggle {
-      position: fixed;
-      top: 1rem; right: 1rem;
-      z-index: 100;
-      display: flex;
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 99px;
-      overflow: hidden;
-      box-shadow: 0 1px 6px rgba(0,0,0,.1);
+    /* ── Site nav ──────────────────────────────────────────────── */
+    .site-nav {
+      position: sticky; top: 0; z-index: 200;
+      display: flex; align-items: center;
+      padding: 0 1.5rem; height: 52px;
+      background: #fff; border-bottom: 1px solid var(--border);
     }
+    .site-nav__brand {
+      font-family: 'Marcellus', serif; font-size: .85rem;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--ink); text-decoration: none; margin-right: auto;
+    }
+    .site-nav__links {
+      display: flex; align-items: center; gap: 1.5rem; margin-right: 1.5rem;
+    }
+    .site-nav__links a {
+      font-size: .75rem; font-weight: 700; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--muted); text-decoration: none;
+      transition: color .15s; white-space: nowrap;
+    }
+    .site-nav__links a:hover, .site-nav__links a.active { color: var(--ink); }
+    .lang-toggle { display: flex; border: 1px solid var(--border); border-radius: 99px; overflow: hidden; }
     .lang-btn {
-      padding: .35rem .85rem;
-      font-size: .75rem;
-      font-weight: 700;
-      letter-spacing: .06em;
-      color: var(--muted);
+      padding: .65rem 1rem; font-size: .72rem; font-weight: 700;
+      letter-spacing: .06em; border: none; background: none;
+      cursor: pointer; color: var(--muted); font-family: 'PT Serif', serif;
     }
     .lang-btn.active { background: #000; color: #fff; border-radius: 99px; }
-
-    /* ── Nav actions (Back + Home, fixed top-left) ─────────────── */
-    .nav-actions {
-      position: fixed;
-      top: 1rem; left: 1rem;
-      z-index: 100;
-      display: flex;
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 99px;
-      overflow: hidden;
-      box-shadow: 0 1px 6px rgba(0,0,0,.1);
-    }
-    .nav-action-btn {
-      padding: .35rem .85rem;
-      font-size: .75rem;
-      font-weight: 700;
-      letter-spacing: .06em;
-      color: var(--muted);
-      text-decoration: none;
-      font-family: 'PT Serif', serif;
-      cursor: pointer;
-    }
-    .nav-action-btn:hover { color: var(--ink); }
-    .nav-action-btn + .nav-action-btn { border-left: 1px solid var(--border); }
+    @media (max-width: 540px) { .site-nav__links { display: none; } }
 
     /* ── Hero ─────────────────────────────────────────────────── */
     .hero {
-      background: var(--hero-bg);
+      background: linear-gradient(rgba(0,0,0,.50), rgba(0,0,0,.50)), url('./images/social-event.jpg') center/cover no-repeat;
       color: #fff;
       padding: 4rem 1.5rem 3.5rem;
       text-align: center;
@@ -171,7 +156,7 @@
     }
 
     /* ── Timeline section ─────────────────────────────────────── */
-    .timeline-wrap { padding: 4rem 1.5rem 3rem; }
+    .timeline-wrap { padding: 4rem 1.5rem 5rem; background: var(--golden); }
     .timeline-header {
       max-width: 720px;
       margin: 0 auto 3rem;
@@ -309,20 +294,28 @@
     a.timeline__node:hover .timeline__dot { transform: scale(1.1); }
 
     /* ── Semester cards ───────────────────────────────────────── */
-    .cards-wrap { max-width: 760px; margin: 0 auto; padding: 0 1.5rem 4rem; }
+    .cards-wrap { max-width: 760px; margin: 0 auto; padding: 4rem 1.5rem 4rem; }
+    .cards-wrap__label {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted-soft);
+      margin-bottom: 1.25rem;
+    }
     .card {
       display: flex;
       align-items: center;
-      gap: 14px;
-      padding: 16px 20px;
+      gap: 20px;
+      padding: 36px 32px;
       border-radius: var(--radius);
-      margin-bottom: 10px;
+      margin-bottom: 16px;
       text-decoration: none;
       color: inherit;
-      transition: transform .15s, box-shadow .15s;
+      transition: opacity .15s;
     }
     .card:last-child { margin-bottom: 0; }
-    .card:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,0,0,.06); }
+    .card:hover { opacity: .88; }
     .card:hover .card__arrow { transform: translateX(4px); }
 
     .card--spring { background: var(--salmon); }
@@ -345,12 +338,12 @@
     .card__title {
       font-family: 'Marcellus', serif;
       font-weight: 400;
-      font-size: 1.18rem;
+      font-size: 1.55rem;
       line-height: 1.2;
-      margin-bottom: 3px;
+      margin-bottom: 5px;
     }
     .card__meta {
-      font-size: .82rem;
+      font-size: .88rem;
       color: var(--muted);
       line-height: 1.4;
     }
@@ -359,7 +352,7 @@
 
     .card__arrow {
       flex-shrink: 0;
-      font-size: 1.25rem;
+      font-size: 1.6rem;
       font-family: 'Marcellus', serif;
       transition: transform .15s;
     }
@@ -482,7 +475,7 @@
     @media (max-width: 480px) {
       .hero { padding: 3rem 1rem 2.75rem; }
       .timeline-wrap { padding: 2.75rem 1rem 2rem; }
-      .cards-wrap { padding: 0 1rem 3rem; }
+      .cards-wrap { padding: 3rem 1rem 3rem; }
       .closing { padding: 0 1rem 4rem; }
       .closing__band { padding: 2.5rem 1.25rem; }
       .card { padding: 14px 16px; gap: 10px; }
@@ -495,17 +488,18 @@
   <!-- Skip to content (accessibility — visible only on keyboard focus) -->
   <a href="#main-content" class="skip-link" data-i18n="skip-link">Skip to content</a>
 
-  <!-- Lang toggle -->
-  <div class="lang-toggle" role="group" aria-label="Language">
-    <button class="lang-btn active" data-lang="en">EN</button>
-    <button class="lang-btn" data-lang="nl">NL</button>
-  </div>
-
-  <!-- Navigation actions (Back + Home) -->
-  <div class="nav-actions" role="group" aria-label="Navigation">
-    <button class="nav-action-btn" id="nav-back" type="button" data-i18n="nav-back">← Back</button>
-    <a class="nav-action-btn" href="https://www.shoonyadance.com" data-i18n="nav-home">Home ↗</a>
-  </div>
+  <header class="site-nav">
+    <a class="site-nav__brand" href="https://www.shoonyadance.com">Shoonya</a>
+    <nav class="site-nav__links" aria-label="Site navigation">
+      <a href="./schedule-landing.html" class="active" data-i18n="snav-schedule">Schedule</a>
+      <a href="./new-to-shoonya.html" data-i18n="snav-new">New here?</a>
+      <a href="./dance-styles-overview.html" data-i18n="snav-styles">All styles</a>
+    </nav>
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button class="lang-btn active" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="nl">NL</button>
+    </div>
+  </header>
 
   <!-- Hero -->
   <header class="hero" id="main-content" tabindex="-1">
@@ -535,7 +529,7 @@
 
   <!-- Two compact semester cards -->
   <section class="cards-wrap" aria-label="Semesters">
-    <h2 class="sr-only">Browse Spring 2026 or September 2026</h2>
+    <p class="cards-wrap__label" data-i18n="cards-label">Pick your semester</p>
 
     <a class="card card--spring" id="card-spring" href="./schedule-spring-2026.html">
       <span class="card__chip" data-i18n="spring-chip">Spring</span>
@@ -573,6 +567,8 @@
     <nav class="footer__nav">
       <a href="https://www.shoonyadance.com" data-i18n="footer-home">home</a>
       <a href="./schedule-sep-2026.html" data-i18n="footer-schedule">schedule</a>
+      <a href="./new-to-shoonya.html" data-i18n="footer-new">new to shoonya</a>
+      <a href="./dance-styles-overview.html" data-i18n="footer-styles">all styles</a>
       <a href="https://www.shoonyadance.com/about" data-i18n="footer-teachers">about</a>
       <a href="https://www.shoonyadance.com/contact" data-i18n="footer-contact">contact</a>
     </nav>
@@ -685,12 +681,14 @@
         'hero-pill':      'The dance year',
         'hero-h1':        'Where are you on <em>the calendar?</em>',
         'hero-sub':       'Two semesters, an open house, and a free trial week. Pick where to land.',
+        'cards-label':    'Pick your semester',
         'tl-kicker':      'Your year ahead',
         'tl-h2':          'A few <em>moments</em> in the year',
         'tl-sub':         'Where you are now, and what\'s next.',
         'skip-link':           'Skip to content',
-        'nav-back':            '← Back',
-        'nav-home':            'Home ↗',
+        'snav-schedule':       'Schedule',
+        'snav-new':            'New here?',
+        'snav-styles':         'All styles',
         'now-label':           'You are here',
         'spring-end-label':    'Spring semester ends',
         'open-house-label':    'Open House',
@@ -717,6 +715,8 @@
         'closing-meta':   'no account required to browse',
         'footer-home':    'home',
         'footer-schedule':'schedule',
+        'footer-new':     'new to shoonya',
+        'footer-styles':  'all styles',
         'footer-teachers':'about',
         'footer-contact': 'contact',
         monthLabel: function(d) {
@@ -732,12 +732,14 @@
         'hero-pill':      'Het dansjaar',
         'hero-h1':        'Waar sta jij op <em>de kalender?</em>',
         'hero-sub':       'Twee semesters, een open deurdag, en een gratis proefweek. Kies waar je begint.',
+        'cards-label':    'Kies je semester',
         'tl-kicker':      'Het jaar in beeld',
         'tl-h2':          'Een paar <em>momenten</em> in het jaar',
         'tl-sub':         'Waar je nu staat, en wat volgt.',
         'skip-link':           'Naar inhoud',
-        'nav-back':            '← Terug',
-        'nav-home':            'Home ↗',
+        'snav-schedule':       'Rooster',
+        'snav-new':            'Nieuw hier?',
+        'snav-styles':         'Alle stijlen',
         'now-label':           'Je bent hier',
         'spring-end-label':    'Lentesemester eindigt',
         'open-house-label':    'Open Deurdag',
@@ -764,6 +766,8 @@
         'closing-meta':   'geen account nodig om te bladeren',
         'footer-home':    'home',
         'footer-schedule':'rooster',
+        'footer-new':     'nieuw bij shoonya',
+        'footer-styles':  'alle stijlen',
         'footer-teachers':'over ons',
         'footer-contact': 'contact',
         monthLabel: function(d) {
@@ -960,14 +964,6 @@
       btn.addEventListener('click', function() { applyLang(btn.dataset.lang); });
     });
 
-    // Back button — history.back() if there's any history, else home as fallback
-    document.getElementById('nav-back').addEventListener('click', function() {
-      if (document.referrer && window.history.length > 1) {
-        window.history.back();
-      } else {
-        window.location.href = 'https://www.shoonyadance.com';
-      }
-    });
 
     applyLang(landingLang);
 

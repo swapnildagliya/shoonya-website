@@ -75,51 +75,35 @@
       clip: rect(0,0,0,0); white-space: nowrap; border: 0;
     }
 
-    /* Lang toggle */
-    .lang-toggle {
-      position: fixed;
-      top: 1rem; right: 1rem;
-      z-index: 100;
-      display: flex;
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 99px;
-      overflow: hidden;
-      box-shadow: 0 1px 6px rgba(0,0,0,.1);
+    /* ── Site nav ──────────────────────────────────────────────── */
+    .site-nav {
+      position: sticky; top: 0; z-index: 200;
+      display: flex; align-items: center;
+      padding: 0 1.5rem; height: 52px;
+      background: #fff; border-bottom: 1px solid var(--border);
     }
+    .site-nav__brand {
+      font-family: 'Marcellus', serif; font-size: .85rem;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--ink); text-decoration: none; margin-right: auto;
+    }
+    .site-nav__links {
+      display: flex; align-items: center; gap: 1.5rem; margin-right: 1.5rem;
+    }
+    .site-nav__links a {
+      font-size: .75rem; font-weight: 700; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--muted); text-decoration: none;
+      transition: color .15s; white-space: nowrap;
+    }
+    .site-nav__links a:hover, .site-nav__links a.active { color: var(--ink); }
+    .lang-toggle { display: flex; border: 1px solid var(--border); border-radius: 99px; overflow: hidden; }
     .lang-btn {
-      padding: .35rem .85rem;
-      font-size: .75rem;
-      font-weight: 700;
-      letter-spacing: .06em;
-      color: var(--muted);
+      padding: .65rem 1rem; font-size: .72rem; font-weight: 700;
+      letter-spacing: .06em; border: none; background: none;
+      cursor: pointer; color: var(--muted); font-family: 'PT Serif', serif;
     }
     .lang-btn.active { background: #000; color: #fff; border-radius: 99px; }
-
-    /* Nav actions (Back + Home, fixed top-left mirroring lang toggle) */
-    .nav-actions {
-      position: fixed;
-      top: 1rem; left: 1rem;
-      z-index: 100;
-      display: flex;
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 99px;
-      overflow: hidden;
-      box-shadow: 0 1px 6px rgba(0,0,0,.1);
-    }
-    .nav-action-btn {
-      padding: .35rem .85rem;
-      font-size: .75rem;
-      font-weight: 700;
-      letter-spacing: .06em;
-      color: var(--muted);
-      text-decoration: none;
-      font-family: 'PT Serif', serif;
-      cursor: pointer;
-    }
-    .nav-action-btn:hover { color: var(--ink); }
-    .nav-action-btn + .nav-action-btn { border-left: 1px solid var(--border); }
+    @media (max-width: 540px) { .site-nav__links { display: none; } }
 
     /* Hero — salmon-deep band */
     .hero {
@@ -184,10 +168,10 @@
       transition: border-color .15s, background .15s;
     }
     .search__input:focus {
-      outline: none;
+      outline: 2px solid var(--salmon-deep);
+      outline-offset: 2px;
       border-color: var(--salmon-deep);
       background: #fff;
-      box-shadow: 0 0 0 3px rgba(192,74,31,.15);
     }
     .search__clear {
       position: absolute; right: 10px; top: 50%;
@@ -450,18 +434,10 @@
     .day-section--sat .day-pill { background: var(--salmon-deep); color: #fff; }
 
     .day-list {
-      border-left: 2px solid;
-      padding-left: 14px;
       display: flex;
       flex-direction: column;
       gap: 6px;
     }
-    .day-section--mon .day-list,
-    .day-section--fri .day-list { border-color: var(--purple); }
-    .day-section--tue .day-list { border-color: var(--yellow); }
-    .day-section--wed .day-list,
-    .day-section--sat .day-list { border-color: var(--salmon-deep); }
-    .day-section--thu .day-list { border-color: var(--ink); }
 
     .slot {
       display: grid;
@@ -618,17 +594,18 @@
   <!-- Skip to content (accessibility — visible only on keyboard focus) -->
   <a href="#main-content" class="skip-link" data-i18n="skip-link">Skip to content</a>
 
-  <div class="lang-toggle" role="group" aria-label="Language">
-    <button class="lang-btn active" data-lang="en">EN</button>
-    <button class="lang-btn" data-lang="nl">NL</button>
-  </div>
-
-  <!-- Navigation actions (Back + Home) -->
-  <div class="nav-actions" role="group" aria-label="Navigation">
-    <button class="nav-action-btn" id="nav-back" type="button" data-i18n="nav-back">← Back</button>
-    <a class="nav-action-btn" href="./schedule-landing.html" data-i18n="nav-hub">↑ School year</a>
-    <a class="nav-action-btn" href="https://www.shoonyadance.com" data-i18n="nav-home">Home ↗</a>
-  </div>
+  <header class="site-nav">
+    <a class="site-nav__brand" href="https://www.shoonyadance.com">Shoonya</a>
+    <nav class="site-nav__links" aria-label="Site navigation">
+      <a href="./schedule-landing.html" class="active" data-i18n="snav-schedule">Schedule</a>
+      <a href="./new-to-shoonya.html" data-i18n="snav-new">New here?</a>
+      <a href="./dance-styles-overview.html" data-i18n="snav-styles">All styles</a>
+    </nav>
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button class="lang-btn active" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="nl">NL</button>
+    </div>
+  </header>
 
   <header class="hero">
     <div class="hero__pill" data-i18n="hero-pill">Spring 2026 · Final weeks</div>
@@ -717,9 +694,9 @@
         'view-list':  '☰ List',
         'clear-all':  'clear all',
         'skip-link':  'Skip to schedule',
-        'nav-back':   '← Back',
-        'nav-hub':    '↑ School year',
-        'nav-home':   'Home ↗',
+        'snav-schedule': 'Schedule',
+        'snav-new':      'New here?',
+        'snav-styles':   'All styles',
         'search-placeholder': 'Search style, teacher, day, level…',
         'closing-kicker': 'Looking ahead?',
         'closing-h1':     'September brings <em>a new school year.</em>',
@@ -747,9 +724,9 @@
         'view-list':  '☰ Lijst',
         'clear-all':  'alles wissen',
         'skip-link':  'Naar rooster',
-        'nav-back':   '← Terug',
-        'nav-hub':    '↑ Schooljaar',
-        'nav-home':   'Home ↗',
+        'snav-schedule': 'Rooster',
+        'snav-new':      'Nieuw hier?',
+        'snav-styles':   'Alle stijlen',
         'search-placeholder': 'Zoek stijl, leraar, dag, niveau…',
         'closing-kicker': 'Vooruit kijken?',
         'closing-h1':     'September brengt <em>een nieuw schooljaar.</em>',
@@ -1320,14 +1297,6 @@
       btn.addEventListener('click', () => setLang(btn.dataset.lang));
     });
 
-    // Back: history.back() with fallback to the school-year hub
-    document.getElementById('nav-back').addEventListener('click', function() {
-      if (document.referrer && window.history.length > 1) {
-        window.history.back();
-      } else {
-        window.location.href = './schedule-landing.html';
-      }
-    });
 
     // View toggle — manual click locks the choice (auto-switch off for this session)
     document.querySelectorAll('.view-toggle__btn').forEach(btn => {
