@@ -751,7 +751,7 @@
 <div class="footer-wrap">
   <div class="footer-band">
     <h2 data-i18n="footer_h">Not sure where to start?</h2>
-    <p  data-i18n="footer_p">Come to the free trial week (Sep 14–19, 2026) and try any class — no registration, no commitment. The teachers will help you find your level.</p>
+    <p  data-i18n="footer_p">Come to the free trial week and try any class — no registration, no commitment. The teachers will help you find your level.</p>
     <div class="footer-btns">
       <a class="btn"         href="./new-to-shoonya.html"  data-i18n="footer_btn">Start here →</a>
       <a class="btn-outline" href="./schedule-landing.html" data-i18n="footer_btn2">See the full school year</a>
@@ -770,7 +770,11 @@
   </nav>
 </footer>
 
+<script src="./data/site-config.js"></script>
 <script>
+var S = window.SHOONYA;
+var _c = S ? S.cfg.counts : {};
+var _d = S ? S.display : {};
 const translations = {
   en: {
     skip_link: "Skip to content",
@@ -779,21 +783,24 @@ const translations = {
     hero_label: "Dance Centre · Ghent",
     hero_h1: "All dance styles at Shoonya",
     hero_p: "Over 40 weekly classes across three families of dance. Browse by family below — every style links to its full page with prices, dates and teachers.",
-    hero_trial: "✦ Free trial week: Sep 14–19, 2026",
+    hero_trial: "✦ Free trial week: " + (_d.en ? _d.en.trial_week_short : "Sep 14–19, 2026"),
     nav_all: "All styles", nav_partner: "Partner & Social", nav_classical: "Classical & Technique",
     nav_culture: "Culture & Wellness", nav_schoolyear: "School year →",
 
     cat_partner_pill: "Partner & Social",
     cat_partner_h2: "Connect, lead, follow, improvise",
+    cat_partner_count: (_c.partner_social || 7) + " styles",
     cat_browse: "Browse category →",
     cat_partner_sub: "Dance with someone in your arms or in a circle of dancers. Most classes welcome solo or partner registrations.",
 
     cat_classical_pill: "Classical & Technique",
     cat_classical_h2: "Build your craft, level by level",
+    cat_classical_count: (_c.classical_technique || 7) + " styles",
     cat_classical_sub: "Structured progression — start at Foundation or Level 1 and grow over years.",
 
     cat_culture_pill: "Culture & Wellness",
     cat_culture_h2: "Move with story, music, and breath",
+    cat_culture_count: (_c.culture_wellness || 10) + " styles",
     cat_culture_sub: "Cultural traditions, expressive performance forms, and movement practices for your wellbeing.",
 
     badge_new: "New", badge_mini: "Miniseries",
@@ -828,7 +835,7 @@ const translations = {
     c_yoga_h: "Yoga",                    c_yoga_meta: "Tue · Open level",
 
     footer_h: "Not sure where to start?",
-    footer_p: "Come to the free trial week (Sep 14–19, 2026) and try any class — no registration, no commitment. The teachers will help you find your level.",
+    footer_p: "Come to the free trial week (" + (_d.en ? _d.en.trial_week_short : "Sep 14–19, 2026") + ") and try any class — no registration, no commitment. The teachers will help you find your level.",
     footer_btn: "Start here →",
     footer_btn2: "See the full school year"
   },
@@ -839,21 +846,24 @@ const translations = {
     hero_label: "Danscentrum · Gent",
     hero_h1: "Alle dansstijlen bij Shoonya",
     hero_p: "Meer dan 40 wekelijkse lessen in drie families. Blader per familie hieronder — elke stijl linkt naar de volledige pagina met prijzen, data en leraars.",
-    hero_trial: "✦ Gratis proefweek: 14–19 sep 2026",
+    hero_trial: "✦ Gratis proefweek: " + (_d.nl ? _d.nl.trial_week_short : "14–19 sep 2026"),
     nav_all: "Alle stijlen", nav_partner: "Partner & Sociaal", nav_classical: "Klassiek & Techniek",
     nav_culture: "Cultuur & Wellness", nav_schoolyear: "Schooljaar →",
 
     cat_partner_pill: "Partner & Sociaal",
     cat_partner_h2: "Verbinden, leiden, volgen, improviseren",
+    cat_partner_count: (_c.partner_social || 7) + " stijlen",
     cat_browse: "Verken categorie →",
     cat_partner_sub: "Dans met iemand in je armen of in een cirkel. De meeste lessen zijn open voor solo's en koppels.",
 
     cat_classical_pill: "Klassiek & Techniek",
     cat_classical_h2: "Bouw je techniek, niveau na niveau",
+    cat_classical_count: (_c.classical_technique || 7) + " stijlen",
     cat_classical_sub: "Gestructureerde opbouw — begin op Foundation of Niveau 1 en groei door de jaren.",
 
     cat_culture_pill: "Cultuur & Wellness",
     cat_culture_h2: "Beweeg met verhaal, muziek en adem",
+    cat_culture_count: (_c.culture_wellness || 10) + " stijlen",
     cat_culture_sub: "Culturele tradities, expressieve vormen en bewegingspraktijken voor je welzijn.",
 
     badge_new: "Nieuw", badge_mini: "Minireeks",
@@ -888,7 +898,7 @@ const translations = {
     c_yoga_h: "Yoga",                     c_yoga_meta: "Di · Open niveau",
 
     footer_h: "Weet je niet waar te beginnen?",
-    footer_p: "Kom naar de gratis proefweek (14–19 sep 2026) en probeer elke les — geen inschrijving, geen verplichting. De leraars helpen je je niveau te vinden.",
+    footer_p: "Kom naar de gratis proefweek (" + (_d.nl ? _d.nl.trial_week_short : "14–19 sep 2026") + ") en probeer elke les — geen inschrijving, geen verplichting. De leraars helpen je je niveau te vinden.",
     footer_btn: "Begin hier →",
     footer_btn2: "Bekijk het volledige schooljaar"
   }

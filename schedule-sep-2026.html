@@ -732,7 +732,9 @@
     </nav>
   </footer>
 
+  <script src="./data/site-config.js"></script>
   <script>
+    var _S = window.SHOONYA, _c = _S ? _S.cfg.counts : {}, _d = _S ? _S.display : {};
     /* ─── Language ──────────────────────────────────────────────── */
     let lang = localStorage.getItem('shoonya-lang') || (navigator.language && navigator.language.startsWith('nl') ? 'nl' : 'en');
 
@@ -741,10 +743,10 @@
         d:   { mon:'Mon',  tue:'Tue',  wed:'Wed',  thu:'Thu',  fri:'Fri',  sat:'Sat' },
         dl:  { mon:'Monday', tue:'Tuesday', wed:'Wednesday', thu:'Thursday', fri:'Friday', sat:'Saturday' },
         today: '(today)',
-        'hero-pill':  'Weekly schedule · 2026 / 2027',
+        'hero-pill':  'Weekly schedule · ' + (_S ? _S.cfg.schoolYear : '2026–2027'),
         'hero-h1':    'September → <em>January</em>',
         'hero-sub':   'A typical week at Shoonya. Search a style, teacher, or day; tap a slot for full details.',
-        'hero-chip':  '✦ Free trial week · Sep 14–19, 2026',
+        'hero-chip':  '✦ Free trial week · ' + (_d.en ? _d.en.trial_week_short : 'Sep 14–19, 2026'),
         'chip-beginner': '✦ Beginner',
         'view-grid':  '▦ Grid',
         'view-list':  '☰ List',
@@ -757,7 +759,7 @@
         'closing-kicker': 'Found your class?',
         'closing-h1':     'The style page handles <em>the rest.</em>',
         'closing-sub':    'Click a slot to jump to its style page — pricing, teacher bio, registration, all there.',
-        'closing-cta':    'browse all 24 styles →',
+        'closing-cta':    'browse all ' + (_c.styles || 24) + ' styles →',
         'footer-landing': 'school year', 'footer-spring': 'spring 2026', 'footer-styles': 'all styles',
         countAll:      (n) => n + (n === 1 ? ' class' : ' classes'),
         countFiltered: (n, t) => n + ' of ' + t,
@@ -773,10 +775,10 @@
         d:   { mon:'Ma',  tue:'Di',  wed:'Wo',  thu:'Do',  fri:'Vr',  sat:'Za' },
         dl:  { mon:'Maandag', tue:'Dinsdag', wed:'Woensdag', thu:'Donderdag', fri:'Vrijdag', sat:'Zaterdag' },
         today: '(vandaag)',
-        'hero-pill':  'Weekrooster · 2026 / 2027',
+        'hero-pill':  'Weekrooster · ' + (_S ? _S.cfg.schoolYear : '2026–2027'),
         'hero-h1':    'September → <em>januari</em>',
         'hero-sub':   'Een typische week bij Shoonya. Zoek een stijl, leraar of dag; klik op een tijdslot voor details.',
-        'hero-chip':  '✦ Gratis proefweek · 14–19 sep 2026',
+        'hero-chip':  '✦ Gratis proefweek · ' + (_d.nl ? _d.nl.trial_week_short : '14–19 sep 2026'),
         'chip-beginner': '✦ Beginner',
         'view-grid':  '▦ Rooster',
         'view-list':  '☰ Lijst',
@@ -789,7 +791,7 @@
         'closing-kicker': 'Les gevonden?',
         'closing-h1':     'De stijlpagina regelt <em>de rest.</em>',
         'closing-sub':    'Klik op een tijdslot voor de stijlpagina — prijzen, leraarsprofiel, inschrijving, alles daar.',
-        'closing-cta':    'bekijk alle 24 stijlen →',
+        'closing-cta':    'bekijk alle ' + (_c.styles || 24) + ' stijlen →',
         'footer-landing': 'schooljaar', 'footer-spring': 'lente 2026', 'footer-styles': 'alle stijlen',
         countAll:      (n) => n + (n === 1 ? ' les' : ' lessen'),
         countFiltered: (n, t) => n + ' van ' + t,

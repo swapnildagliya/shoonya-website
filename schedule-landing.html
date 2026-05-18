@@ -506,7 +506,7 @@
     <div class="hero__pill" data-i18n="hero-pill">The dance year</div>
     <h1 data-i18n="hero-h1">Where are you on <em>the calendar?</em></h1>
     <p class="hero__sub" data-i18n="hero-sub">Two semesters, an open house, and a free trial week. Pick where to land.</p>
-    <span class="hero__year">2026 — 2027</span>
+    <span class="hero__year" data-cfg="schoolYearWide">2026 — 2027</span>
   </header>
 
   <!-- Timeline -->
@@ -574,7 +574,9 @@
     </nav>
   </footer>
 
+  <script src="./data/site-config.js"></script>
   <script>
+    var _S = window.SHOONYA, _c = _S ? _S.cfg.counts : {}, _d = _S ? _S.display : {};
     /* ─────────────────────────────────────────────
        Semester data — inlined from config/semester-config.json
        so the page is self-contained for static hosting.
@@ -704,13 +706,13 @@
         'spring-meta-sessions': function(n) { return n + (n === 1 ? ' session left · final stretch' : ' sessions left · final stretch'); },
         'sep-chip':            'Sep',
         'sep-title':           'Sep 2026 → Jan 2027',
-        'sep-meta':            'registration open · 24 styles · trial week 14–19 Sep',
-        'sep-meta-oh-today':   'Open House today · trial week 14–19 Sep',
+        'sep-meta':            'registration open · ' + (_c.styles || 24) + ' styles · trial week ' + (_d.en ? _d.en.trial_week_short : '14–19 Sep 2026'),
+        'sep-meta-oh-today':   'Open House today · trial week ' + (_d.en ? _d.en.trial_week_short : '14–19 Sep 2026'),
         'sep-meta-trial':      'trial week running · try any class free',
         'sep-meta-running':    'school year in progress · live schedule',
         'closing-kicker': 'Next on stage',
         'closing-h1':     'September brings <em>a new school year.</em>',
-        'closing-sub':    'Browse all 24 styles, find your slot, click through to register on the style page.',
+        'closing-sub':    'Browse all ' + (_c.styles || 24) + ' styles, find your slot, click through to register on the style page.',
         'closing-cta':    'browse the new school year →',
         'closing-meta':   'no account required to browse',
         'footer-home':    'home',
@@ -755,13 +757,13 @@
         'spring-meta-sessions': function(n) { return n === 1 ? '1 sessie te gaan · laatste week' : (n + ' sessies te gaan · laatste weken'); },
         'sep-chip':            'Sep',
         'sep-title':           'Sep 2026 → Jan 2027',
-        'sep-meta':            'inschrijvingen open · 24 stijlen · proefweek 14–19 sep',
-        'sep-meta-oh-today':   'Open Deurdag vandaag · proefweek 14–19 sep',
+        'sep-meta':            'inschrijvingen open · ' + (_c.styles || 24) + ' stijlen · proefweek ' + (_d.nl ? _d.nl.trial_week_short : '14–19 sep 2026'),
+        'sep-meta-oh-today':   'Open Deurdag vandaag · proefweek ' + (_d.nl ? _d.nl.trial_week_short : '14–19 sep 2026'),
         'sep-meta-trial':      'proefweek bezig · probeer elke les gratis',
         'sep-meta-running':    'schooljaar bezig · live rooster',
         'closing-kicker': 'Volgende op het podium',
         'closing-h1':     'September brengt <em>een nieuw schooljaar.</em>',
-        'closing-sub':    'Bekijk alle 24 stijlen, vind je tijdslot, en ga door naar de stijlpagina om je in te schrijven.',
+        'closing-sub':    'Bekijk alle ' + (_c.styles || 24) + ' stijlen, vind je tijdslot, en ga door naar de stijlpagina om je in te schrijven.',
         'closing-cta':    'bekijk het nieuwe schooljaar →',
         'closing-meta':   'geen account nodig om te bladeren',
         'footer-home':    'home',

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Studios — Section Snippets (Squarespace Code Blocks)</title>
+<style>
+  /* Preview shell only — not pasted into Squarespace */
+  body { margin: 0; background: #f0ede8; font-family: sans-serif; }
+  .preview-label {
+    background: #1a1a1a; color: #fbc70f; font-size: .72rem; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase; padding: .5rem 1.5rem;
+    margin: 0;
+  }
+  .preview-divider { height: 3px; background: #fbc70f; margin: 0; }
+</style>
+</head>
+<body>
+
+
+<!-- ================================================================
+     BLOCK 1 — INTRO
+     Paste as the first code block on the /our-studios page.
+     ================================================================ -->
+<p class="preview-label">Block 1 — Intro (paste first)</p>
+<div class="preview-divider"></div>
+
+<!-- COPY FROM HERE -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Marcellus&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap');
+.stu-intro {
+  padding: 3.5rem 1.5rem 4rem;
+  background: #fff;
+  font-family: 'PT Serif', Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+}
+.stu-intro-inner {
+  max-width: 1040px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr; gap: 2.5rem;
+}
+@media (min-width: 720px) {
+  .stu-intro-inner { grid-template-columns: 1fr 340px; gap: 3rem; align-items: start; }
+}
+.stu-intro-kicker {
+  display: block; font-size: .72rem; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: #7E4FBF; margin-bottom: .35rem;
+  font-family: 'PT Serif', Georgia, serif;
+}
+.stu-intro-h2 {
+  font-family: 'Marcellus', Georgia, serif; font-weight: 400;
+  font-size: clamp(1.6rem, 3vw, 2.2rem); line-height: 1.15;
+  color: #1a1a1a; margin: 0 0 .75rem;
+}
+.stu-intro-h2 em { color: #B564F7; font-style: italic; }
+.stu-intro-body p {
+  font-size: .95rem; color: #444; line-height: 1.7; margin: 0 0 1rem;
+}
+.stu-intro-body p:last-child { margin-bottom: 0; }
+.stu-intro-body strong { color: #1a1a1a; }
+.stu-intro-img {
+  width: 100%; border-radius: 10px; display: block;
+  object-fit: cover; height: 280px; object-position: 50% 40%;
+}
+@media (max-width: 480px) {
+  .stu-intro { padding: 2.5rem 1rem 3rem; }
+  .stu-intro-img { height: 200px; }
+}
+</style>
+
+<section class="stu-intro">
+  <div class="stu-intro-inner">
+    <div>
+      <span class="stu-intro-kicker">Our spaces</span>
+      <h2 class="stu-intro-h2">Five studios, one <em>home</em></h2>
+      <div class="stu-intro-body">
+        <p>At Shoonya Dance Centre, we have dedicated ourselves to creating exceptional studios that prioritize the well-being of our dance community. With great attention to detail, we have crafted these spaces to meet the highest standards.</p>
+        <p>To maintain this level of excellence, we have chosen <strong>not to rent out our studios</strong> to outside individuals or organizations on an hourly or weekly basis. If you wish to utilize our space, we believe in the power of collaboration. We carefully evaluate each project to ensure it aligns with our mission, goals, and benefits our existing dance community.</p>
+        <p>We also have a <strong>dormitory space</strong> available for up to 10 dancers, equipped with a kitchen, showers, and toilets — primarily reserved for our own projects and artistic residencies.</p>
+      </div>
+    </div>
+    <img class="stu-intro-img" src="https://images.squarespace-cdn.com/content/v1/643161d3f0077c58bb466e03/28f92d39-1676-42c2-bf32-07cbe82887a9/IMG_9277.jpg" alt="Shoonya Dance Centre building, Stapelplein 41, Ghent" loading="lazy">
+  </div>
+</section>
+<!-- COPY TO HERE -->
+
+
+<!-- ================================================================
+     BLOCK 2 — THE THREE STUDIOS
+     Paste after Block 1.
+     ================================================================ -->
+<p class="preview-label">Block 2 — The three studios (paste after Block 1)</p>
+<div class="preview-divider"></div>
+
+<!-- COPY FROM HERE -->
+<style>
+.stu-rooms {
+  padding: 3.5rem 1.5rem 4rem;
+  background: #F5ECFF;
+  font-family: 'PT Serif', Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+}
+.stu-rooms-inner { max-width: 1040px; margin: 0 auto; }
+.stu-rooms-kicker {
+  display: block; font-size: .72rem; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: #7E4FBF; margin-bottom: .35rem;
+}
+.stu-rooms-h2 {
+  font-family: 'Marcellus', Georgia, serif; font-weight: 400;
+  font-size: clamp(1.5rem, 3vw, 2.1rem); line-height: 1.15;
+  color: #1a1a1a; margin: 0 0 2rem;
+}
+.stu-rooms-h2 em { color: #B564F7; font-style: italic; }
+.stu-rooms-grid {
+  display: grid; grid-template-columns: 1fr; gap: 20px;
+}
+@media (min-width: 960px) { .stu-rooms-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.stu-card {
+  background: #fff; border-radius: 12px; overflow: hidden;
+  display: flex; flex-direction: column;
+}
+.stu-card__photo {
+  width: 100%; height: 220px; object-fit: cover; display: block;
+  object-position: 50% 40%;
+}
+.stu-card__body { padding: 1.4rem 1.5rem 1.6rem; }
+.stu-card__name {
+  font-family: 'Marcellus', Georgia, serif; font-weight: 400;
+  font-size: 1.2rem; color: #1a1a1a; margin: 0 0 1rem; line-height: 1.2;
+}
+.stu-card__row {
+  display: flex; justify-content: space-between; gap: .75rem;
+  padding: .65rem 0; border-top: 1px solid #ece7e2;
+}
+.stu-card__row:last-child { border-bottom: 1px solid #ece7e2; }
+.stu-card__label {
+  font-size: .68rem; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: #7E4FBF; flex-shrink: 0;
+  padding-top: .1rem;
+}
+.stu-card__val {
+  font-size: .85rem; color: #444; line-height: 1.5; text-align: right;
+}
+@media (max-width: 480px) {
+  .stu-rooms { padding: 2.5rem 1rem 3rem; }
+  .stu-card__photo { height: 180px; }
+}
+</style>
+
+<section class="stu-rooms">
+  <div class="stu-rooms-inner">
+    <span class="stu-rooms-kicker">The studios</span>
+    <h2 class="stu-rooms-h2">Three spaces, <em>three characters</em></h2>
+    <div class="stu-rooms-grid">
+
+      <div class="stu-card">
+        <img class="stu-card__photo" src="https://images.squarespace-cdn.com/content/v1/643161d3f0077c58bb466e03/6888b2cd-37fe-452a-8995-1bc380ce725b/IMG_9423.jpg" alt="Studio Ananta 1 & 2" loading="lazy">
+        <div class="stu-card__body">
+          <h3 class="stu-card__name">Studio Ananta 1 &amp; 2</h3>
+          <div class="stu-card__row">
+            <span class="stu-card__label">Size</span>
+            <span class="stu-card__val">140 m&sup2; (80 + 60)</span>
+          </div>
+          <div class="stu-card__row">
+            <span class="stu-card__label">Floor</span>
+            <span class="stu-card__val">Multi-purpose top layer for flamenco, tap, partner &amp; solo dances</span>
+          </div>
+          <div class="stu-card__row">
+            <span class="stu-card__label">Footwear</span>
+            <span class="stu-card__val">Bare feet, socks, dance shoes, tap shoes, flamenco shoes</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="stu-card">
+        <img class="stu-card__photo" src="https://images.squarespace-cdn.com/content/v1/643161d3f0077c58bb466e03/7ea5a9db-4826-4fd1-9803-30aae8e55598/IMG_1881.JPG" alt="Studio Art Deco" loading="lazy">
+        <div class="stu-card__body">
+          <h3 class="stu-card__name">Studio Art Deco</h3>
+          <div class="stu-card__row">
+            <span class="stu-card__label">Size</span>
+            <span class="stu-card__val">240 m&sup2;</span>
+          </div>
+          <div class="stu-card__row">
+            <span class="stu-card__label">Floor</span>
+            <span class="stu-card__val">Restored 1914 parquet, adapted as floating floor with 6 mm cushioning</span>
+          </div>
+          <div class="stu-card__row">
+            <span class="stu-card__label">Footwear</span>
+            <span class="stu-card__val">Bare feet, socks, classical dance shoes, ballet shoes</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="stu-card">
+        <img class="stu-card__photo" src="https://images.squarespace-cdn.com/content/v1/643161d3f0077c58bb466e03/c5c615cd-ebad-4157-ac74-6dcb38e7269a/FullSizeRender.jpg" alt="Studio Aakash" loading="lazy" style="object-position:50% 30%;">
+        <div class="stu-card__body">
+          <h3 class="stu-card__name">Studio Aakash</h3>
+          <div class="stu-card__row">
+            <span class="stu-card__label">Size</span>
+            <span class="stu-card__val">140 m&sup2;</span>
+          </div>
+          <div class="stu-card__row">
+            <span class="stu-card__label">Floor</span>
+            <span class="stu-card__val">Top layer for ballet, contemporary, Bollywood, belly dance</span>
+          </div>
+          <div class="stu-card__row">
+            <span class="stu-card__label">Footwear</span>
+            <span class="stu-card__val">Bare feet, socks, ballet shoes</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- COPY TO HERE -->
+
+
+<!-- ================================================================
+     BLOCK 3 — INFRASTRUCTURE
+     Paste after Block 2.
+     ================================================================ -->
+<p class="preview-label">Block 3 — Infrastructure (paste after Block 2)</p>
+<div class="preview-divider"></div>
+
+<!-- COPY FROM HERE -->
+<style>
+.stu-infra {
+  padding: 3.5rem 1.5rem 4rem;
+  background: #fff;
+  font-family: 'PT Serif', Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+}
+.stu-infra-inner { max-width: 1040px; margin: 0 auto; }
+.stu-infra-kicker {
+  display: block; font-size: .72rem; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: #7E4FBF; margin-bottom: .35rem;
+}
+.stu-infra-h2 {
+  font-family: 'Marcellus', Georgia, serif; font-weight: 400;
+  font-size: clamp(1.5rem, 3vw, 2.1rem); line-height: 1.15;
+  color: #1a1a1a; margin: 0 0 1.75rem;
+}
+.stu-infra-h2 em { color: #B564F7; font-style: italic; }
+.stu-infra-grid {
+  display: grid; grid-template-columns: 1fr; gap: 14px;
+}
+@media (min-width: 600px)  { .stu-infra-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 960px)  { .stu-infra-grid { grid-template-columns: repeat(4, 1fr); } }
+.stu-infra-card {
+  background: #faf9f7; border-radius: 10px; padding: 1.3rem 1.4rem;
+}
+.stu-infra-card__icon {
+  font-size: 1.3rem; margin-bottom: .6rem; display: block; line-height: 1;
+}
+.stu-infra-card__h3 {
+  font-family: 'Marcellus', Georgia, serif; font-weight: 400;
+  font-size: 1rem; color: #1a1a1a; margin: 0 0 .35rem; line-height: 1.2;
+}
+.stu-infra-card p {
+  font-size: .82rem; color: #666; line-height: 1.55; margin: 0;
+}
+@media (max-width: 480px) {
+  .stu-infra { padding: 2.5rem 1rem 3rem; }
+}
+</style>
+
+<section class="stu-infra">
+  <div class="stu-infra-inner">
+    <span class="stu-infra-kicker">Built for dancers</span>
+    <h2 class="stu-infra-h2">Infrastructure &amp; <em>amenities</em></h2>
+    <div class="stu-infra-grid">
+
+      <div class="stu-infra-card">
+        <span class="stu-infra-card__icon" aria-hidden="true">&#127744;</span>
+        <h3 class="stu-infra-card__h3">Ventilation</h3>
+        <p>CO2-controlled, filtering ventilation system.</p>
+      </div>
+
+      <div class="stu-infra-card">
+        <span class="stu-infra-card__icon" aria-hidden="true">&#10052;&#65039;</span>
+        <h3 class="stu-infra-card__h3">Air-conditioning</h3>
+        <p>Cooling and heating individually regulated per studio.</p>
+      </div>
+
+      <div class="stu-infra-card">
+        <span class="stu-infra-card__icon" aria-hidden="true">&#129526;</span>
+        <h3 class="stu-infra-card__h3">Dance Floor</h3>
+        <p>Floating and resilient Harlequin dance floors for optimal joint protection.</p>
+      </div>
+
+      <div class="stu-infra-card">
+        <span class="stu-infra-card__icon" aria-hidden="true">&#127925;</span>
+        <h3 class="stu-infra-card__h3">Sound System</h3>
+        <p>High-end speakers and amplifiers designed for spatial concert-hall sound.</p>
+      </div>
+
+      <div class="stu-infra-card">
+        <span class="stu-infra-card__icon" aria-hidden="true">&#129691;</span>
+        <h3 class="stu-infra-card__h3">Mirrors</h3>
+        <p>Tall mirrors spanning the entire length of the halls.</p>
+      </div>
+
+      <div class="stu-infra-card">
+        <span class="stu-infra-card__icon" aria-hidden="true">&#127908;</span>
+        <h3 class="stu-infra-card__h3">Acoustics</h3>
+        <p>Acoustically designed halls for a pleasant and intelligible sound experience.</p>
+      </div>
+
+      <div class="stu-infra-card">
+        <span class="stu-infra-card__icon" aria-hidden="true">&#128090;</span>
+        <h3 class="stu-infra-card__h3">Dressing Rooms</h3>
+        <p>Spacious dressing rooms with multiple showers.</p>
+      </div>
+
+      <div class="stu-infra-card">
+        <span class="stu-infra-card__icon" aria-hidden="true">&#9749;</span>
+        <h3 class="stu-infra-card__h3">Shoonya Art Caf&eacute;</h3>
+        <p>Cozy and atmospheric setting with exclusive organic beverages.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- COPY TO HERE -->
+
+
+<!-- ================================================================
+     BLOCK 4 — CTA
+     Paste at the bottom of the page.
+     ================================================================ -->
+<p class="preview-label">Block 4 — CTA (paste at bottom)</p>
+<div class="preview-divider"></div>
+
+<!-- COPY FROM HERE -->
+<style>
+.stu-cta {
+  padding: 0 1.5rem 4rem; padding-top: 1rem;
+  background: #fff;
+  font-family: 'PT Serif', Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+}
+.stu-cta-band {
+  max-width: 1040px; margin: 0 auto;
+  background: #1a1a1a; color: #fff;
+  border-radius: 12px; padding: 3rem 2rem;
+  text-align: center;
+}
+.stu-cta-kicker {
+  display: block; font-size: .72rem; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: #B564F7; margin-bottom: .75rem;
+}
+.stu-cta-h2 {
+  font-family: 'Marcellus', Georgia, serif; font-weight: 400;
+  font-size: clamp(1.5rem, 3vw, 2.1rem); line-height: 1.15;
+  color: #fff; margin: 0 0 .75rem;
+}
+.stu-cta-h2 em { color: #B564F7; font-style: italic; }
+.stu-cta-sub {
+  font-size: .95rem; color: rgba(255,255,255,.7);
+  max-width: 480px; margin: 0 auto 1.75rem; line-height: 1.55;
+}
+a.stu-cta-btn, a.stu-cta-btn:link, a.stu-cta-btn:visited, a.stu-cta-btn:hover, a.stu-cta-btn:focus, a.stu-cta-btn:active {
+  display: inline-block !important; background: #B564F7 !important; color: #fff !important;
+  font-family: 'PT Serif', Georgia, serif !important;
+  font-size: .82rem !important; font-weight: 700 !important; letter-spacing: .06em !important;
+  text-transform: uppercase !important; padding: .85rem 1.85rem !important;
+  border-radius: 6px !important; text-decoration: none !important;
+  pointer-events: auto !important; cursor: pointer !important;
+}
+a.stu-cta-btn:hover { opacity: .88 !important; }
+@media (max-width: 480px) {
+  .stu-cta { padding: 0 1rem 3rem; padding-top: 1rem; }
+  .stu-cta-band { padding: 2.5rem 1.25rem; }
+}
+</style>
+
+<div class="stu-cta">
+  <div class="stu-cta-band">
+    <span class="stu-cta-kicker">Come see for yourself</span>
+    <h2 class="stu-cta-h2">Try a class <em>for free</em></h2>
+    <p class="stu-cta-sub">Walk in during an Open Door Day or the first week of the semester. Experience the space, the floor, and the vibe.</p>
+    <a href="https://www.shoonyadance.com/try-a-class" class="stu-cta-btn">Try a class for free &#8594;</a>
+  </div>
+</div>
+<!-- COPY TO HERE -->
+
+
+</body>
+</html>

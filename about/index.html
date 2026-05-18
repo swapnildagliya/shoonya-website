@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Section Snippets (Squarespace Code Blocks)</title>
+<style>
+  /* Preview shell only — not pasted into Squarespace */
+  body { margin: 0; background: #f0ede8; font-family: sans-serif; }
+  .preview-label {
+    background: #1a1a1a; color: #fbc70f; font-size: .72rem; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase; padding: .5rem 1.5rem;
+    margin: 0;
+  }
+  .preview-divider { height: 3px; background: #fbc70f; margin: 0; }
+</style>
+</head>
+<body>
+
+
+<!-- ================================================================
+     BLOCK 1 — HERO
+     Paste as the first code block on the /about page.
+     ================================================================ -->
+<p class="preview-label">Block 1 — Hero (paste first)</p>
+<div class="preview-divider"></div>
+
+<!-- COPY FROM HERE -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Marcellus&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap');
+.abt-hero {
+  background: #1a1a1a; color: #fff;
+  padding: 5rem 1.5rem 4.5rem;
+  font-family: 'PT Serif', Georgia, serif;
+  text-align: center;
+  position: relative; overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+.abt-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: url('https://images.squarespace-cdn.com/content/v1/643161d3f0077c58bb466e03/7ea5a9db-4826-4fd1-9803-30aae8e55598/IMG_1881.JPG') center/cover no-repeat;
+  opacity: .18;
+}
+.abt-hero-inner { max-width: 720px; margin: 0 auto; position: relative; z-index: 1; }
+.abt-hero-kicker {
+  display: block; font-size: .68rem; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: #B564F7; margin-bottom: 1.25rem;
+}
+.abt-hero-h1 {
+  font-family: 'Marcellus', Georgia, serif; font-weight: 400;
+  font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.1;
+  margin: 0 0 1rem;
+}
+.abt-hero-h1 em { color: #B564F7; font-style: italic; }
+.abt-hero-lead {
+  font-size: 1.05rem; color: rgba(255,255,255,.65);
+  max-width: 540px; margin: 0 auto; line-height: 1.6;
+}
+@media(max-width:480px){ .abt-hero { padding: 3.5rem 1rem 3.5rem; } }
+</style>
+
+<section class="abt-hero">
+  <div class="abt-hero-inner">
+    <span class="abt-hero-kicker">About us</span>
+    <h1 class="abt-hero-h1">Where every body <em>dances</em></h1>
+    <p class="abt-hero-lead">Shoonya Dance Centre is a home for 24 dance styles under one roof in Ghent. We welcome every background, every body, every level — because dance connects what words cannot.</p>
+  </div>
+</section>
+<!-- COPY TO HERE -->
+
+
+<!-- ================================================================
+     BLOCK 2 — PHILOSOPHY + VALUES + PHOTO BANNER
+     Paste after Block 1.
+     ================================================================ -->
+<p class="preview-label">Block 2 — Philosophy + Values + Photo (paste after Block 1)</p>
+<div class="preview-divider"></div>
+
+<!-- COPY FROM HERE -->
+<style>
+.abt-why {
+  padding: 4rem 1.5rem;
+  background: #fff;
+  font-family: 'PT Serif', Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+}
+.abt-why-inner {
+  max-width: 860px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr; gap: 2.5rem;
+}
+@media(min-width:720px){
+  .abt-why-inner { grid-template-columns: 280px 1fr; gap: 3rem; align-items: start; }
+}
+.abt-why-kicker {
+  display: block; font-size: .68rem; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: #7E4FBF; margin-bottom: .5rem;
+}
+.abt-why-h2 {
+  font-family: 'Marcellus', Georgia, serif; font-weight: 400;
+  font-size: clamp(1.5rem, 3vw, 2rem); line-height: 1.15;
+  color: #1a1a1a; margin: 0 0 .75rem;
+}
+.abt-why-h2 em { color: #B564F7; font-style: italic; }
+.abt-why-sanskrit {
+  font-size: .82rem; color: #999; line-height: 1.5; font-style: italic;
+}
+.abt-why-body p {
+  font-size: .95rem; color: #444; line-height: 1.7; margin: 0 0 1.1rem;
+}
+.abt-why-body p:last-child { margin-bottom: 0; }
+.abt-why-body strong { color: #1a1a1a; }
+@media(max-width:480px){ .abt-why { padding: 3rem 1rem; } }
+
+.abt-val {
+  padding: 3.5rem 1.5rem 4rem;
+  background: #F5ECFF;
+  font-family: 'PT Serif', Georgia, serif;
+}
+.abt-val-inner { max-width: 1040px; margin: 0 auto; }
+.abt-val-kicker {
+  display: block; font-size: .68rem; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: #7E4FBF; margin-bottom: .35rem;
+}
+.abt-val-h2 {
+  font-family: 'Marcellus', Georgia, serif; font-weight: 400;
+  font-size: clamp(1.5rem, 3vw, 2.1rem); line-height: 1.15;
+  color: #1a1a1a; margin: 0 0 1.75rem;
+}
+.abt-val-h2 em { color: #B564F7; font-style: italic; }
+.abt-val-grid {
+  display: grid; grid-template-columns: 1fr; gap: 14px;
+}
+@media(min-width:600px){ .abt-val-grid { grid-template-columns: repeat(2,1fr); } }
+@media(min-width:960px){ .abt-val-grid { grid-template-columns: repeat(3,1fr); } }
+.abt-val-card { background: #fff; border-radius: 12px; padding: 1.4rem 1.5rem; }
+.abt-val-card__num {
+  font-size: .62rem; font-weight: 700; letter-spacing: .14em;
+  color: #B564F7; margin-bottom: .5rem; display: block;
+}
+.abt-val-card__h3 {
+  font-family: 'Marcellus', Georgia, serif; font-weight: 400;
+  font-size: 1.15rem; color: #1a1a1a; margin: 0 0 .45rem; line-height: 1.2;
+}
+.abt-val-card p { font-size: .88rem; color: #555; line-height: 1.6; margin: 0; }
+@media(max-width:480px){ .abt-val { padding: 2.5rem 1rem 3rem; } }
+
+.abt-banner { width: 100%; height: 320px; overflow: hidden; }
+.abt-banner img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  object-position: 50% 55%;
+}
+@media(max-width:480px){ .abt-banner { height: 200px; } }
+</style>
+
+<section class="abt-why">
+  <div class="abt-why-inner">
+    <div>
+      <span class="abt-why-kicker">The name</span>
+      <h2 class="abt-why-h2">Why <em>Shoonya</em>?</h2>
+      <p class="abt-why-sanskrit">Sanskrit — "void", "zero", "the space from which everything begins"</p>
+    </div>
+    <div class="abt-why-body">
+      <p><strong>Shoonya</strong> is a Sanskrit word that means both zero and the infinite potential it carries. In the philosophies of India and China, it points to a deeper truth: that everything in existence is interconnected, and that emptiness is not absence — it is possibility.</p>
+      <p>We chose the name because dance starts the same way. A single step. An empty floor. From that zero, complexity and meaning grow — one movement at a time, one class at a time, one connection at a time.</p>
+      <p>At Shoonya Dance Centre, we believe dance is a way to tap into that interconnectedness — to explore parts of the human experience that words cannot reach. The name is both a beginning and a reminder: even the most intricate choreography is built on simple, honest steps.</p>
+    </div>
+  </div>
+</section>
+
+<section class="abt-val">
+  <div class="abt-val-inner">
+    <span class="abt-val-kicker">What drives us</span>
+    <h2 class="abt-val-h2">Built on <em>three beliefs</em></h2>
+    <div class="abt-val-grid">
+      <div class="abt-val-card">
+        <span class="abt-val-card__num">01</span>
+        <h3 class="abt-val-card__h3">Diversity is the repertoire</h3>
+        <p>24 styles from Bollywood to Ballet, Tango to Tap, Flamenco to Burlesque. We don't teach one tradition — we celebrate the full spectrum of movement, under one roof, side by side.</p>
+      </div>
+      <div class="abt-val-card">
+        <span class="abt-val-card__num">02</span>
+        <h3 class="abt-val-card__h3">Everyone belongs</h3>
+        <p>Every background, orientation, shape, and experience level. Our classes are designed so that beginners feel welcome and advanced dancers stay challenged — in the same community.</p>
+      </div>
+      <div class="abt-val-card">
+        <span class="abt-val-card__num">03</span>
+        <h3 class="abt-val-card__h3">Growth through community</h3>
+        <p>Dance is personal, but it doesn't happen alone. We invest in teachers, spaces, and shared experiences — from weekly classes to festivals — so that every step forward is taken together.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="abt-banner" aria-hidden="true">
+  <img src="https://images.squarespace-cdn.com/content/v1/643161d3f0077c58bb466e03/6888b2cd-37fe-452a-8995-1bc380ce725b/IMG_9423.jpg" alt="" loading="lazy">
+</div>
+<!-- COPY TO HERE -->
+
+
+<!-- ================================================================
+     BLOCK 3 — FOUNDERS
+     Paste after Block 2.
+     ================================================================ -->
+<p class="preview-label">Block 3 — Founders (paste after Block 2)</p>
+<div class="preview-divider"></div>
+
+<!-- COPY FROM HERE -->
+<style>
+.abt-team {
+  padding: 4rem 1.5rem;
+  background: #fff;
+  font-family: 'PT Serif', Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+}
+.abt-team-inner { max-width: 1040px; margin: 0 auto; }
+.abt-team-kicker {
+  display: block; font-size: .68rem; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: #7E4FBF; margin-bottom: .35rem;
+}
+.abt-team-h2 {
+  font-family: 'Marcellus', Georgia, serif; font-weight: 400;
+  font-size: clamp(1.5rem, 3vw, 2.1rem); line-height: 1.15;
+  color: #1a1a1a; margin: 0 0 2rem;
+}
+.abt-team-h2 em { color: #B564F7; font-style: italic; }
+.abt-team-grid {
+  display: grid; grid-template-columns: 1fr; gap: 24px;
+}
+@media(min-width:720px){ .abt-team-grid { grid-template-columns: 1fr 1fr; } }
+
+.abt-person {
+  display: flex; flex-direction: column;
+  background: #faf9f7; border-radius: 12px; overflow: hidden;
+}
+.abt-person__photo {
+  width: 100%; height: 320px; object-fit: cover; object-position: 50% 20%; display: block;
+}
+.abt-person__body { padding: 1.5rem 1.75rem 1.75rem; }
+.abt-person__name {
+  font-family: 'Marcellus', Georgia, serif; font-weight: 400;
+  font-size: 1.3rem; color: #1a1a1a; margin: 0 0 .15rem; line-height: 1.2;
+}
+.abt-person__role {
+  font-size: .72rem; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: #7E4FBF; margin-bottom: .75rem; display: block;
+}
+.abt-person__bio {
+  font-size: .88rem; color: #555; line-height: 1.65; margin: 0;
+}
+.abt-person__det { margin-top: .5rem; }
+.abt-person__toggle {
+  cursor: pointer; color: #1a1a1a; font-size: .78rem; font-weight: 500;
+  list-style: none; display: inline; text-decoration: underline;
+  text-underline-offset: 2px; padding: .3rem 0; user-select: none;
+}
+.abt-person__toggle::-webkit-details-marker { display: none; }
+.abt-person__full {
+  font-size: .85rem; color: #666; line-height: 1.65;
+  padding-top: .75rem; border-top: 1px solid #e4e0db; margin-top: .5rem;
+}
+.abt-person__full p { margin: 0 0 .75rem; }
+.abt-person__full p:last-child { margin-bottom: 0; }
+@media(max-width:480px){
+  .abt-team { padding: 3rem 1rem; }
+  .abt-person__photo { height: 260px; }
+  .abt-person__body { padding: 1.25rem 1.25rem 1.5rem; }
+}
+</style>
+
+<section class="abt-team">
+  <div class="abt-team-inner">
+    <span class="abt-team-kicker">The founders</span>
+    <h2 class="abt-team-h2">Two paths, <em>one vision</em></h2>
+    <div class="abt-team-grid">
+
+      <div class="abt-person">
+        <img class="abt-person__photo" src="https://images.squarespace-cdn.com/content/v1/643161d3f0077c58bb466e03/95289349-2c80-4366-b39b-1180fc72de3b/DIHP+swapnil+small.jpg" alt="Swapnil Dagliya" loading="lazy">
+        <div class="abt-person__body">
+          <h3 class="abt-person__name">Swapnil Dagliya</h3>
+          <span class="abt-person__role">Artistic Director &amp; Co-founder</span>
+          <p class="abt-person__bio">Born in Pune, India — near Mumbai, the heart of Bollywood — Swapnil blends his Indian roots with training in ballet, jazz, modern, and contemporary dance. He co-founded Shoonya in 2015 to make the world's dance traditions accessible in one place.</p>
+          <details class="abt-person__det">
+            <summary class="abt-person__toggle">Full bio</summary>
+            <div class="abt-person__full">
+              <p>Swapnil holds a diploma in Indian folk dance and is a certified Learn Bhangra&reg; instructor, with deep expertise in Garba, Ghoomar, Kalbeliya, and other folk traditions from across India. He graduated from Broadway Dance Center in New York and completed advanced training at Opus Ballet in Florence, Italy.</p>
+              <p>From 2008 to 2018, he directed his own school in India — SPACE (Swapnil's Performing Arts &amp; Contemporary Ensemble) — and taught dance and theory at the University of Pune and Flame University. His movement journey started in childhood through yoga, guided by his grandmother, a student of B.K.S. Iyengar. He completed his yoga teacher training in Pune in 2011.</p>
+              <p>Now based in Belgium, Swapnil teaches six styles at Shoonya, leads ABC a Bollywood Company, and curates the annual Gent India Dans Festival.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <div class="abt-person">
+        <img class="abt-person__photo" src="https://images.squarespace-cdn.com/content/v1/643161d3f0077c58bb466e03/3320d570-7687-4f1d-8666-794eccc45227/Wim.png" alt="Wim Boussery" loading="lazy" style="background:#d4c8a8;">
+        <div class="abt-person__body">
+          <h3 class="abt-person__name">Wim Boussery</h3>
+          <span class="abt-person__role">Co-founder &amp; Director</span>
+          <p class="abt-person__bio">Wim discovered salsa in the late 1980s, when the style was still largely unknown in Belgium. He started teaching in 1999, went full-time in 2004, and co-founded Shoonya Dance Centre in 2015.</p>
+          <details class="abt-person__det">
+            <summary class="abt-person__toggle">Full bio</summary>
+            <div class="abt-person__full">
+              <p>Driven by curiosity and passion, Wim trained with teachers across Belgium and internationally, helping shape the salsa scene in Ghent over two decades. In 2025, as Shoonya continued to expand, he stepped back from active teaching. He remains deeply involved behind the scenes — contributing to the organisation, development, and long-term direction of the dance centre.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- COPY TO HERE -->
+
+
+<!-- ================================================================
+     BLOCK 4 — NUMBERS + QUOTE + CTA
+     Paste after Block 3.
+     ================================================================ -->
+<p class="preview-label">Block 4 — Numbers + Quote + CTA (paste after Block 3)</p>
+<div class="preview-divider"></div>
+
+<!-- COPY FROM HERE -->
+<style>
+.abt-num {
+  padding: 3rem 1.5rem 3.5rem;
+  background: #1a1a1a;
+  font-family: 'PT Serif', Georgia, serif;
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+}
+.abt-num-inner { max-width: 900px; margin: 0 auto; }
+.abt-num-grid {
+  display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap;
+}
+.abt-num-val {
+  font-family: 'Marcellus', Georgia, serif;
+  font-size: clamp(2rem, 4vw, 2.8rem); color: #B564F7;
+  line-height: 1; margin-bottom: .25rem; display: block;
+}
+.abt-num-label {
+  font-size: .72rem; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: rgba(255,255,255,.5);
+}
+@media(max-width:480px){
+  .abt-num { padding: 2.5rem 1rem; }
+  .abt-num-grid { gap: 2rem; }
+}
+
+.abt-voice {
+  padding: 3.5rem 1.5rem;
+  background: #fff;
+  font-family: 'PT Serif', Georgia, serif;
+  text-align: center;
+}
+.abt-voice-inner { max-width: 640px; margin: 0 auto; }
+.abt-voice-mark {
+  font-family: 'Marcellus', Georgia, serif;
+  font-size: 3.5rem; line-height: 1; color: #B564F7;
+  margin-bottom: -.5rem; display: block;
+}
+.abt-voice-quote {
+  font-size: 1.15rem; color: #1a1a1a; line-height: 1.6;
+  font-style: italic; margin: 0 0 1rem;
+}
+.abt-voice-attr {
+  font-size: .78rem; color: #999; letter-spacing: .06em;
+}
+.abt-voice-note {
+  font-size: .72rem; color: #bbb; margin-top: 1.5rem; font-style: italic;
+}
+@media(max-width:480px){ .abt-voice { padding: 2.5rem 1rem; } }
+
+.abt-cta {
+  padding: 0 1.5rem 4rem; padding-top: 4rem;
+  background: #fff;
+  font-family: 'PT Serif', Georgia, serif;
+}
+.abt-cta-band {
+  max-width: 1040px; margin: 0 auto;
+  background: #F5ECFF; border-radius: 12px;
+  padding: 3rem 2rem; text-align: center;
+}
+.abt-cta-kicker {
+  display: block; font-size: .72rem; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: #7E4FBF; margin-bottom: .75rem;
+}
+.abt-cta-h2 {
+  font-family: 'Marcellus', Georgia, serif; font-weight: 400;
+  font-size: clamp(1.5rem, 3vw, 2.1rem); line-height: 1.15;
+  color: #1a1a1a; margin: 0 0 .75rem;
+}
+.abt-cta-h2 em { color: #B564F7; font-style: italic; }
+.abt-cta-sub {
+  font-size: .95rem; color: #555;
+  max-width: 480px; margin: 0 auto 1.75rem; line-height: 1.55;
+}
+.abt-cta-cluster { display: flex; flex-direction: column; align-items: center; gap: .65rem; }
+a.abt-cta-btn, a.abt-cta-btn:link, a.abt-cta-btn:visited, a.abt-cta-btn:hover, a.abt-cta-btn:focus, a.abt-cta-btn:active {
+  display: inline-block !important; background: #B564F7 !important; color: #fff !important;
+  font-family: 'PT Serif', Georgia, serif !important;
+  font-size: .82rem !important; font-weight: 700 !important; letter-spacing: .06em !important;
+  text-transform: uppercase !important; padding: .85rem 1.85rem !important;
+  border-radius: 6px !important; text-decoration: none !important;
+  pointer-events: auto !important; cursor: pointer !important;
+}
+a.abt-cta-btn:hover { opacity: .88 !important; }
+a.abt-cta-link, a.abt-cta-link:link, a.abt-cta-link:visited, a.abt-cta-link:hover, a.abt-cta-link:focus, a.abt-cta-link:active {
+  font-size: .82rem !important; font-weight: 700 !important; letter-spacing: .06em !important;
+  text-transform: uppercase !important; color: #7E4FBF !important;
+  border-bottom: 1.5px solid rgba(126,79,191,.4) !important;
+  padding-bottom: 2px !important; text-decoration: none !important;
+  pointer-events: auto !important; cursor: pointer !important;
+}
+a.abt-cta-link:hover { color: #1a1a1a !important; border-color: #1a1a1a !important; }
+@media(max-width:480px){
+  .abt-cta { padding: 0 1rem 3rem; padding-top: 3rem; }
+  .abt-cta-band { padding: 2.5rem 1.25rem; }
+}
+</style>
+
+<section class="abt-num">
+  <div class="abt-num-inner">
+    <div class="abt-num-grid">
+      <div class="abt-num-item">
+        <span class="abt-num-val">2015</span>
+        <span class="abt-num-label">Founded</span>
+      </div>
+      <div class="abt-num-item">
+        <span class="abt-num-val" data-cfg="counts.styles">24</span>
+        <span class="abt-num-label">Dance styles</span>
+      </div>
+      <div class="abt-num-item">
+        <span class="abt-num-val" data-cfg="counts.teachers">20+</span>
+        <span class="abt-num-label">Teachers</span>
+      </div>
+      <div class="abt-num-item">
+        <span class="abt-num-val" data-cfg="counts.studios">5</span>
+        <span class="abt-num-label">Studios</span>
+      </div>
+      <div class="abt-num-item">
+        <span class="abt-num-val">Ghent</span>
+        <span class="abt-num-label">Stapelplein 41</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="abt-voice">
+  <div class="abt-voice-inner">
+    <span class="abt-voice-mark" aria-hidden="true">&ldquo;</span>
+    <p class="abt-voice-quote">I came for one class and somehow ended up in three. There's something about this place — you walk in as a stranger and leave feeling like you belong.</p>
+    <span class="abt-voice-attr">&mdash; Shoonya student</span>
+    <p class="abt-voice-note">Replace with a real student quote when available.</p>
+  </div>
+</section>
+
+<section class="abt-cta">
+  <div class="abt-cta-band">
+    <span class="abt-cta-kicker">Come dance with us</span>
+    <h2 class="abt-cta-h2">Your first class is <em>free</em></h2>
+    <p class="abt-cta-sub">Walk in during an Open Door Day or the first week of the semester. No registration, no commitment — just show up.</p>
+    <div class="abt-cta-cluster">
+      <a href="https://www.shoonyadance.com/try-a-class" class="abt-cta-btn">Try a class for free &#8594;</a>
+      <a href="https://www.shoonyadance.com/courses" class="abt-cta-link">Browse all <span data-cfg="counts.styles">24</span> styles &#8594;</a>
+    </div>
+  </div>
+</section>
+<!-- COPY TO HERE -->
+
+
+<script src="../data/site-config.js"></script>
+</body>
+</html>

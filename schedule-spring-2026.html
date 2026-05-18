@@ -677,7 +677,9 @@
     </nav>
   </footer>
 
+  <script src="./data/site-config.js"></script>
   <script>
+    var _S = window.SHOONYA, _c = _S ? _S.cfg.counts : {}, _d = _S ? _S.display : {};
     let lang = localStorage.getItem('shoonya-lang') || (navigator.language && navigator.language.startsWith('nl') ? 'nl' : 'en');
 
     const UI = {
@@ -700,7 +702,7 @@
         'search-placeholder': 'Search style, teacher, day, level…',
         'closing-kicker': 'Looking ahead?',
         'closing-h1':     'September brings <em>a new school year.</em>',
-        'closing-sub':    '24 styles, 22 teachers, six days a week. Registration is open.',
+        'closing-sub':    (_c.styles || 24) + ' styles, ' + (_c.teachers || 22) + ' teachers, six days a week. Registration is open.',
         'closing-cta':    'browse Sep 2026 →',
         'footer-landing': 'school year', 'footer-sep': 'sep 2026', 'footer-styles': 'all styles',
         countAll:      (n) => n + (n === 1 ? ' class' : ' classes'),
@@ -730,7 +732,7 @@
         'search-placeholder': 'Zoek stijl, leraar, dag, niveau…',
         'closing-kicker': 'Vooruit kijken?',
         'closing-h1':     'September brengt <em>een nieuw schooljaar.</em>',
-        'closing-sub':    '24 stijlen, 22 docenten, zes dagen per week. Inschrijvingen zijn open.',
+        'closing-sub':    (_c.styles || 24) + ' stijlen, ' + (_c.teachers || 22) + ' docenten, zes dagen per week. Inschrijvingen zijn open.',
         'closing-cta':    'bekijk sep 2026 →',
         'footer-landing': 'schooljaar', 'footer-sep': 'sep 2026', 'footer-styles': 'alle stijlen',
         countAll:      (n) => n + (n === 1 ? ' les' : ' lessen'),

@@ -3,42 +3,98 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Try a Class — Section Snippets (Squarespace Code Blocks)</title>
+<title>Try a Class — Full Page Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-  /* Preview shell only — not pasted into Squarespace */
-  body { margin: 0; background: #f0ede8; font-family: sans-serif; }
-  .preview-label {
-    background: #1a1a1a; color: #fbc70f; font-size: .72rem; font-weight: 700;
-    letter-spacing: .12em; text-transform: uppercase; padding: .5rem 1.5rem;
-    margin: 0;
-  }
-  .preview-divider { height: 3px; background: #fbc70f; margin: 0; }
+  body { margin: 0; background: #fff; -webkit-font-smoothing: antialiased; }
 </style>
 </head>
 <body>
 
 
-<!-- ================================================================
-     SECTION 1 — TWO WAYS TO TRY
-     Place this BEFORE the Squarespace events calendar block.
-     ================================================================ -->
-<p class="preview-label">Section 1 — Two ways to try (paste BEFORE the events calendar)</p>
-<div class="preview-divider"></div>
+<!-- ─── OPTION A: WITH HERO ─── -->
+<section id="hero-option" style="
+  background: #1a1a1a;
+  color: #fff;
+  padding: 5rem 1.5rem 4.5rem;
+  font-family: 'PT Serif', Georgia, serif;
+  text-align: center;
+">
+  <div style="max-width: 720px; margin: 0 auto;">
+    <span style="
+      display: inline-block;
+      font-size: .68rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: #B564F7;
+      margin-bottom: 1.25rem;
+    ">Shoonya Dance Centre · Ghent</span>
+    <h1 style="
+      font-family: 'Marcellus', Georgia, serif; font-weight: 400;
+      font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.1;
+      margin: 0 0 1rem; color: #fff;
+    ">Try a class <em style='color: #B564F7; font-style: italic;'>for free</em></h1>
+    <p style="
+      font-size: 1.05rem; color: rgba(255,255,255,.65);
+      max-width: 520px; margin: 0 auto 2rem; line-height: 1.6;
+    ">Walk into any class during an Open Door Day or the first week of the semester. No registration, no payment — just show up and dance.</p>
+    <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+      <div style="text-align: center;">
+        <span style="display: block; font-size: .62rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: .3rem;">01</span>
+        <span style="font-size: .85rem; color: rgba(255,255,255,.8);">No registration required</span>
+      </div>
+      <div style="text-align: center;">
+        <span style="display: block; font-size: .62rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: .3rem;">02</span>
+        <span style="font-size: .85rem; color: rgba(255,255,255,.8);">All levels welcome</span>
+      </div>
+      <div style="text-align: center;">
+        <span style="display: block; font-size: .62rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: .3rem;">03</span>
+        <span style="font-size: .85rem; color: rgba(255,255,255,.8);">24 styles to explore</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-<!-- COPY FROM HERE -->
+
+<!-- ─── OPTION B TOGGLE ─── -->
+<div id="toggle-bar" style="
+  position: fixed; top: 12px; right: 12px; z-index: 999;
+  display: flex; gap: 6px;
+  background: rgba(26,26,26,.92); padding: 6px 10px; border-radius: 8px;
+  font-family: 'PT Serif', Georgia, serif; font-size: .72rem;
+">
+  <button onclick="toggleHero(true)" id="btn-with" style="
+    background: #B564F7; color: #fff; border: 0; border-radius: 4px;
+    padding: 5px 10px; cursor: pointer; font-size: .72rem; font-family: inherit;
+  ">With hero</button>
+  <button onclick="toggleHero(false)" id="btn-without" style="
+    background: transparent; color: rgba(255,255,255,.6); border: 1px solid rgba(255,255,255,.2);
+    border-radius: 4px; padding: 5px 10px; cursor: pointer; font-size: .72rem; font-family: inherit;
+  ">No hero</button>
+</div>
+
+<script>
+function toggleHero(show) {
+  document.getElementById('hero-option').style.display = show ? 'block' : 'none';
+  document.getElementById('btn-with').style.background = show ? '#B564F7' : 'transparent';
+  document.getElementById('btn-with').style.color = show ? '#fff' : 'rgba(255,255,255,.6)';
+  document.getElementById('btn-with').style.border = show ? '0' : '1px solid rgba(255,255,255,.2)';
+  document.getElementById('btn-without').style.background = show ? 'transparent' : '#B564F7';
+  document.getElementById('btn-without').style.color = show ? 'rgba(255,255,255,.6)' : '#fff';
+  document.getElementById('btn-without').style.border = show ? '1px solid rgba(255,255,255,.2)' : '0';
+}
+</script>
+
+
+<!-- ─── SECTION 1: TWO WAYS TO TRY ─── -->
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Marcellus&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap');
 .tac-ways {
   padding: 3.5rem 1.5rem 4rem;
   background: #ffffff;
   font-family: 'PT Serif', Georgia, serif;
-  -webkit-font-smoothing: antialiased;
 }
 .tac-ways-inner { max-width: 1040px; margin: 0 auto; }
 .tac-ways-kicker {
   display: block; font-size: .72rem; font-weight: 700; letter-spacing: .12em;
   text-transform: uppercase; color: #7E4FBF; margin-bottom: .35rem;
-  font-family: 'PT Serif', Georgia, serif;
 }
 .tac-ways-h2 {
   font-family: 'Marcellus', Georgia, serif; font-weight: 400;
@@ -87,41 +143,45 @@
     <h2 class="tac-ways-h2">Two ways to try <em>for free</em></h2>
     <p class="tac-ways-lead">We make it easy to experience a class before you commit. No account, no payment, no risk.</p>
     <div class="tac-ways-grid">
-
       <div class="tac-way-card tac-way-card--opendoor">
         <span class="tac-way-card__icon" aria-hidden="true">🚪</span>
         <h3 class="tac-way-card__h3">Open Door Day</h3>
         <p class="tac-way-card__p">Three times a year we open our doors to everyone. Walk in, try any class, meet the teachers — no booking, no cost, no obligation. Arrive 10 minutes before a class starts and join in.</p>
-        <div class="tac-way-card__dates"><span data-cfg="open_door_all">14 Jun 2026 · 13 Sep 2026 · 31 Jan 2027 · 13 Jun 2027</span><br>10:00–17:00 · Stapelplein 41, Ghent</div>
+        <div class="tac-way-card__dates">14 Jun 2026 · 13 Sep 2026 · 31 Jan 2027 · 13 Jun 2027<br>10:00–17:00 · Stapelplein 41, Ghent</div>
       </div>
-
       <div class="tac-way-card tac-way-card--trial">
         <span class="tac-way-card__icon" aria-hidden="true">🎁</span>
         <h3 class="tac-way-card__h3">Free trial week</h3>
         <p class="tac-way-card__p">The first week of every new semester, every class is free for everyone. Drop into any class that fits your schedule — no sign-up, just show up. The full experience before you register.</p>
-        <div class="tac-way-card__dates"><span data-cfg="trial_weeks_all">14–19 Sep 2026 · 15–20 Feb 2027</span></div>
+        <div class="tac-way-card__dates">14–19 Sep 2026 · 15–20 Feb 2027</div>
       </div>
-
     </div>
   </div>
 </section>
-<!-- COPY TO HERE -->
 
 
-<!-- ================================================================
-     SECTION 2 — WHAT TO EXPECT
-     Place this AFTER the Squarespace events calendar block.
-     ================================================================ -->
-<p class="preview-label">Section 2 — What to expect (paste AFTER the events calendar)</p>
-<div class="preview-divider"></div>
+<!-- ─── CALENDAR PLACEHOLDER ─── -->
+<section style="
+  padding: 2.5rem 1.5rem;
+  background: #faf9f7;
+  text-align: center;
+  font-family: 'PT Serif', Georgia, serif;
+  border: 2px dashed #ccc;
+  margin: 0;
+">
+  <div style="max-width: 1040px; margin: 0 auto; color: #999;">
+    <p style="font-size: .85rem; margin: 0 0 .25rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;">↕ Your Squarespace events calendar block goes here ↕</p>
+    <p style="font-size: .82rem; margin: 0; color: #bbb;">Opendeurdag + Free Trial Week events — native Squarespace summary block</p>
+  </div>
+</section>
 
-<!-- COPY FROM HERE -->
+
+<!-- ─── SECTION 2: WHAT TO EXPECT ─── -->
 <style>
 .tac-know {
   background: #F5ECFF;
   padding: 3.5rem 1.5rem 4rem;
   font-family: 'PT Serif', Georgia, serif;
-  -webkit-font-smoothing: antialiased;
 }
 .tac-know-inner { max-width: 1040px; margin: 0 auto; }
 .tac-know-kicker {
@@ -155,47 +215,33 @@
     <span class="tac-know-kicker">What to expect</span>
     <h2 class="tac-know-h2">Good to know <em>before you come</em></h2>
     <div class="tac-know-grid">
-
       <div class="tac-know-card">
         <span class="tac-know-card__label">Registration</span>
         <p><strong>None needed.</strong> Open Door Days and the trial week are walk-in. No booking, no Shoonya ID required. Check the schedule, show up 10 minutes early, and join in.</p>
       </div>
-
       <div class="tac-know-card">
         <span class="tac-know-card__label">What to wear</span>
         <p>Comfortable clothing you can move and sweat in. Bring <strong>clean indoor shoes</strong> — street shoes aren't allowed on the dance floor. Socks are fine for a first visit.</p>
       </div>
-
       <div class="tac-know-card">
         <span class="tac-know-card__label">Partner dances</span>
         <p>For Cuban Salsa, Bachata, Tango, Kizomba, and Rueda we recommend bringing a partner. <strong>Solo visitors are welcome</strong> on Open Door Days.</p>
       </div>
-
       <div class="tac-know-card">
         <span class="tac-know-card__label">After the trial</span>
         <p>Ready to continue? Create a Shoonya ID and register for the semester. <strong>Registration stays open for 3 weeks</strong> — same semester fee, and you'll catch up faster than you think.</p>
       </div>
-
     </div>
   </div>
 </section>
-<!-- COPY TO HERE -->
 
 
-<!-- ================================================================
-     SECTION 3 — FAQ
-     Place this after Section 2.
-     ================================================================ -->
-<p class="preview-label">Section 3 — FAQ (paste after Section 2)</p>
-<div class="preview-divider"></div>
-
-<!-- COPY FROM HERE -->
+<!-- ─── SECTION 3: FAQ ─── -->
 <style>
 .tac-faq {
   padding: 3.5rem 1.5rem 4rem;
   background: #ffffff;
   font-family: 'PT Serif', Georgia, serif;
-  -webkit-font-smoothing: antialiased;
 }
 .tac-faq-inner { max-width: 760px; margin: 0 auto; }
 .tac-faq-kicker {
@@ -232,7 +278,6 @@
     <span class="tac-faq-kicker">FAQ</span>
     <h2 class="tac-faq-h2">Common <em>questions</em></h2>
     <div class="tac-faq-list">
-
       <div class="tac-faq-item">
         <button class="tac-faq-q" aria-expanded="false" onclick="tacToggleFaq(this)">
           <span>Do I need to register in advance?</span>
@@ -240,7 +285,6 @@
         </button>
         <div class="tac-faq-a">No reservation is needed for Open Door Days or the first week of the semester. Just check the schedule, arrive 10 minutes early, and join in. Only regular semester registration requires a Shoonya ID.</div>
       </div>
-
       <div class="tac-faq-item">
         <button class="tac-faq-q" aria-expanded="false" onclick="tacToggleFaq(this)">
           <span>What if I don't have a dance partner?</span>
@@ -248,7 +292,6 @@
         </button>
         <div class="tac-faq-a">For most classes — Ballet, Tap, Bollywood, Flamenco, Burlesque, Lindy Hop, and more — you come alone and that's perfectly normal. For partner dances (Cuban Salsa, Bachata, Tango, Kizomba, Rueda) we recommend bringing a partner, but solo visitors are still welcome on Open Door Days.</div>
       </div>
-
       <div class="tac-faq-item">
         <button class="tac-faq-q" aria-expanded="false" onclick="tacToggleFaq(this)">
           <span>Can I join mid-semester after the trial week?</span>
@@ -256,7 +299,6 @@
         </button>
         <div class="tac-faq-a">Yes — registration stays open for the first three weeks, so you can start late and jump right in. The semester fee stays the same, and you'll catch up faster than you think. Some classes, like Dance &amp; Fit and Pilates, also offer a drop-in option throughout the year.</div>
       </div>
-
       <div class="tac-faq-item">
         <button class="tac-faq-q" aria-expanded="false" onclick="tacToggleFaq(this)">
           <span>What if I missed both the Open Door and the trial week?</span>
@@ -264,7 +306,6 @@
         </button>
         <div class="tac-faq-a">You can still register during the first three weeks of the semester — even if you missed the trial events. After that window closes, Dance &amp; Fit and Pilates still accept drop-ins all year. For other classes, contact us and we'll help you find the best option.</div>
       </div>
-
     </div>
   </div>
 </section>
@@ -283,23 +324,14 @@ function tacToggleFaq(btn) {
   }
 }
 </script>
-<!-- COPY TO HERE -->
 
 
-<!-- ================================================================
-     SECTION 4 — CLOSING CTA  (optional)
-     Place at the very bottom of the page.
-     ================================================================ -->
-<p class="preview-label">Section 4 — Closing CTA (optional, paste at bottom)</p>
-<div class="preview-divider"></div>
-
-<!-- COPY FROM HERE -->
+<!-- ─── SECTION 4: CLOSING CTA ─── -->
 <style>
 .tac-cta {
   padding: 0 1.5rem 4rem;
   background: #ffffff;
   font-family: 'PT Serif', Georgia, serif;
-  -webkit-font-smoothing: antialiased;
 }
 .tac-cta-band {
   max-width: 1040px; margin: 0 auto;
@@ -322,21 +354,25 @@ function tacToggleFaq(btn) {
   max-width: 480px; margin: 0 auto 1.75rem; line-height: 1.55;
 }
 .tac-cta-cluster { display: flex; flex-direction: column; align-items: center; gap: .65rem; }
-.tac-cta-btn {
-  display: inline-block; background: #B564F7; color: #fff;
-  font-family: 'PT Serif', Georgia, serif;
-  font-size: .82rem; font-weight: 700; letter-spacing: .06em;
-  text-transform: uppercase; padding: .85rem 1.85rem;
-  border-radius: 6px; text-decoration: none; transition: opacity .15s;
+.tac-cta-btn,
+a.tac-cta-btn, a.tac-cta-btn:link, a.tac-cta-btn:visited, a.tac-cta-btn:hover, a.tac-cta-btn:focus, a.tac-cta-btn:active {
+  display: inline-block !important; background: #B564F7 !important; color: #fff !important;
+  font-family: 'PT Serif', Georgia, serif !important;
+  font-size: .82rem !important; font-weight: 700 !important; letter-spacing: .06em !important;
+  text-transform: uppercase !important; padding: .85rem 1.85rem !important;
+  border-radius: 6px !important; text-decoration: none !important;
+  pointer-events: auto !important; cursor: pointer !important;
 }
-.tac-cta-btn:hover { opacity: .88; color: #fff; }
-.tac-cta-link {
-  font-size: .82rem; font-weight: 700; letter-spacing: .06em;
-  text-transform: uppercase; color: rgba(255,255,255,.8);
-  border-bottom: 1.5px solid rgba(255,255,255,.4);
-  padding-bottom: 2px; text-decoration: none; transition: color .15s, border-color .15s;
+a.tac-cta-btn:hover { opacity: .88 !important; }
+.tac-cta-link,
+a.tac-cta-link, a.tac-cta-link:link, a.tac-cta-link:visited, a.tac-cta-link:hover, a.tac-cta-link:focus, a.tac-cta-link:active {
+  font-size: .82rem !important; font-weight: 700 !important; letter-spacing: .06em !important;
+  text-transform: uppercase !important; color: rgba(255,255,255,.8) !important;
+  border-bottom: 1.5px solid rgba(255,255,255,.4) !important;
+  padding-bottom: 2px !important; text-decoration: none !important;
+  pointer-events: auto !important; cursor: pointer !important;
 }
-.tac-cta-link:hover { color: #fff; border-color: #fff; }
+a.tac-cta-link:hover { color: #fff !important; border-color: #fff !important; }
 @media (max-width: 480px) {
   .tac-cta { padding: 0 1rem 3rem; }
   .tac-cta-band { padding: 2.5rem 1.25rem; }
@@ -346,7 +382,7 @@ function tacToggleFaq(btn) {
 <div class="tac-cta">
   <div class="tac-cta-band">
     <span class="tac-cta-kicker">Ready to find your style?</span>
-    <h2 class="tac-cta-h2">Browse all <em><span data-cfg="counts.styles">24</span> styles</em></h2>
+    <h2 class="tac-cta-h2">Browse all <em>24 styles</em></h2>
     <p class="tac-cta-sub">From Ballet to Bollywood, Tango to Tap. Find your world and see what's on in September.</p>
     <div class="tac-cta-cluster">
       <a href="https://www.shoonyadance.com/courses" class="tac-cta-btn">Browse all styles →</a>
@@ -354,9 +390,7 @@ function tacToggleFaq(btn) {
     </div>
   </div>
 </div>
-<!-- COPY TO HERE -->
 
 
-<script src="../data/site-config.js"></script>
 </body>
 </html>
