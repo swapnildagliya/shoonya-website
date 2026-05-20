@@ -44,6 +44,21 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     /* Skip-to-content (visible only on keyboard focus) */
+    .opendeur-banner {
+      display: flex; align-items: center; justify-content: center; gap: .75rem; flex-wrap: wrap;
+      background: var(--yellow, #FBC70F); color: var(--ink, #1a1a1a);
+      padding: .6rem 1.25rem;
+      font-family: 'Inter', sans-serif; font-size: .82rem; font-weight: 600; letter-spacing: .03em;
+      text-align: center; line-height: 1.4;
+    }
+    .opendeur-banner a {
+      color: var(--ink, #1a1a1a); text-decoration: underline; white-space: nowrap;
+      pointer-events: auto !important; cursor: pointer !important;
+    }
+    .opendeur-banner a, .opendeur-banner a:link, .opendeur-banner a:visited,
+    .opendeur-banner a:hover, .opendeur-banner a:focus, .opendeur-banner a:active {
+      color: var(--ink, #1a1a1a) !important;
+    }
     .skip-link {
       position: absolute; top: 0; left: 0;
       transform: translateY(-100%);
@@ -635,6 +650,19 @@
 
   <!-- Skip to content (accessibility — visible only on keyboard focus) -->
   <a href="#main-content" class="skip-link" data-i18n="skip-link">Skip to content</a>
+
+  <!-- Open Deurdag banner — auto-hides after June 14 2026 -->
+  <div class="opendeur-banner" id="opendeur-banner">
+    <span data-lang="en">✦ Open House · Sun 14 June · 10:00–17:00 · Free · No registration needed</span>
+    <span data-lang="nl" style="display:none">✦ Open Deurdag · zo 14 juni · 10:00–17:00 · Gratis · Geen inschrijving</span>
+    <a href="https://www.shoonyadance.com/calendar/movement-without-borders-open-door-day-june-14th-" target="_blank" rel="noopener noreferrer" data-lang-en="Full programme →" data-lang-nl="Volledig programma →">Full programme →</a>
+  </div>
+  <script>
+    (function() {
+      var b = document.getElementById('opendeur-banner');
+      if (b && new Date() > new Date('2026-06-14T23:59:00')) b.style.display = 'none';
+    })();
+  </script>
 
   <header class="site-nav">
     <a class="site-nav__brand" href="https://www.shoonyadance.com">Shoonya</a>

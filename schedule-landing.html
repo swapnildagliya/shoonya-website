@@ -813,7 +813,9 @@
         // Sem 1 milestones → the Sep schedule. Sem 2 milestones → the spring schedule.
         if (m.id === 'trial-week-1' || m.id === 'sem-1-end') el.href = './schedule-sep-2026.html';
         else if (m.id === 'trial-week-2' || m.id === 'school-year-end') el.href = './schedule-spring-2026.html';
-        else if (m.type === 'open-house') el.href = 'https://www.shoonyadance.com/open-house';
+        else if (m.type === 'open-house') el.href = m.id === 'open-house-1'
+          ? 'https://www.shoonyadance.com/calendar/movement-without-borders-open-door-day-june-14th-'
+          : 'https://www.shoonyadance.com/try-a-class';
         else if (m.id === 'spring-end')   el.href = './schedule-spring-2026.html';
       }
 
