@@ -234,7 +234,7 @@
         '<div class="wsep-pi-row">' +
           '<span class="wsep-pi-icon" aria-hidden="true">👫</span>' +
           '<span class="wsep-pi-text"><strong>Partner registration required</strong> — please register together with your dance partner. ' +
-          'Looking for a partner? <a href="' + forumUrl + '">Join the Shoonya Dance Forum →</a></span>' +
+          'Looking for a partner? <a href="' + forumUrl + '" target="_blank" rel="noopener noreferrer">Join the Shoonya Dance Forum →</a></span>' +
         '</div>'
       );
     }
