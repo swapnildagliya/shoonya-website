@@ -61,7 +61,7 @@
     },
     '/ballet-voor-volwassenen-in-gent': {
       wear:  'Comfortable, form-fitting dancewear. Ballet shoes or socks — no street shoes in the studio.',
-      bring: 'Water bottle.',
+      bring: 'Water bottle. Small hand towel for sweat.',
       also:  [['Yoga','Tuesday · Open'],['Flamenco','Tuesday · L1/L2/L3'],['Indian Dance Technique','Tuesday · Open']]
     },
     '/kizomba-danslessen-in-gent': {
