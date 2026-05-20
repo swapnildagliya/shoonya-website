@@ -60,7 +60,7 @@
       also:  [['Ballet','Friday · L1/L2/L3'],['Indian Semi-Classical','Wednesday · L2'],['Tap Dance','Mon–Sat · L1–L4']]
     },
     '/ballet-voor-volwassenen-in-gent': {
-      wear:  'Comfortable, form-fitting dancewear. Appropriate dance shoes or socks.',
+      wear:  'Comfortable, form-fitting dancewear. Ballet shoes or socks — no street shoes in the studio.',
       bring: 'Water bottle.',
       also:  [['Yoga','Tuesday · Open'],['Flamenco','Tuesday · L1/L2/L3'],['Indian Dance Technique','Tuesday · Open']]
     },
