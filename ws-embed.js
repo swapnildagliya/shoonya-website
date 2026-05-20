@@ -99,13 +99,13 @@
       also:  [['Lindy Hop','Wednesday · L1/L2'],['Tap Dance','Mon–Sat · L1–L4'],['Burlesque','Monday · L1/L2']]
     },
     '/tapdans-lessen-in-gent': {
-      wear:  'Comfortable, form-fitting dancewear. Appropriate dance shoes or socks.',
+      wear:  'Tap dance shoes. Beginners: shoes are available to borrow free of charge for your first year — no purchase needed to start.',
       bring: 'Water bottle.',
       also:  [['Lindy Hop','Wednesday · L1/L2'],['Solo Jazz','Wednesday · Open'],['Flamenco','Tuesday · L1/L2/L3']]
     },
     '/raqs-sharqi-danslessen-in-gent': {
-      wear:  'Comfortable, stretchy clothing. Barefoot or grip socks.',
-      bring: 'Water bottle. Yoga mat if you have one — mats available at Shoonya.',
+      wear:  'Comfortable, stretchy clothing. Come barefoot.',
+      bring: 'Water bottle.',
       also:  [['Flamenco','Tuesday · L1/L2/L3'],['Bachata','Tuesday · L1/L2/L3'],['Bollywood','Thursday · L2 & L3']]
     },
     '/afrikaanse-congolese-dans-gent': {
@@ -140,12 +140,12 @@
     },
     '/indian-semi-classical-gent': {
       wear:  'Comfortable dancewear. Come barefoot — no shoes in Studio Aakash.',
-      bring: 'Water bottle.',
+      bring: 'Water bottle. Ghungroo (ankle bells) if you have them.',
       also:  [['Indian Dance Technique','Tuesday · Open'],['Bollyfolk','Tuesday · Open'],['Bollywood','Thursday · L2 & L3']]
     },
     '/yoga-lessen-in-gent': {
       wear:  'Comfortable, stretchy clothing. Come barefoot.',
-      bring: 'Water bottle. Yoga mat if you have one — mats available at Shoonya.',
+      bring: 'Water bottle. Yoga mat if you have one — mats available at Shoonya. Using a studio mat? Bring a yoga towel to lay over it. Small hand towel for sweat.',
       also:  [['Indian Dance Technique','Tuesday · Open'],['Bollyfolk','Tuesday · Open'],['Pilates for Dancers','Tue & Wed · Open']]
     },
     '/indian-dance-in-belgium': {
