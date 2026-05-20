@@ -2124,7 +2124,7 @@ function wsTeacherAvatarSwitcherHtml(wsData, prefix) {
       : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#1a1a1a;color:#fff;font-family:'Marcellus',serif;font-size:1.2rem;">${wsInitials(t.name)}</div>`;
     return `<button class="${p}-av-btn${i === 0 ? ' ' + p + '-av-active' : ''}" onclick="${p}AS(${i})" aria-label="${t.name}" title="${t.name}" type="button">
       <span class="${p}-av-circle">${img}</span>
-      <span class="${p}-av-name">${t.name}</span>
+      <span class="${p}-av-name" translate="no">${t.name}</span>
     </button>`;
   }).join('\n');
 
@@ -2152,7 +2152,7 @@ function wsTeacherAvatarSwitcherHtml(wsData, prefix) {
     const creditHtml = t.photoCredit ? `<div class="${p}-av-credit">&#128247; ${t.photoCredit}</div>` : '';
 
     return `  <div class="${p}-av-panel${i === 0 ? ' ' + p + '-av-active' : ''}" data-idx="${i}">
-    <div class="${p}-av-name-lg">${t.name}</div>
+    <div class="${p}-av-name-lg" translate="no">${t.name}</div>
     ${originHtml}
     ${tagsHtml}
     <p class="${p}-av-bio">${shortBio}</p>
@@ -2254,7 +2254,7 @@ function wsTeacherEditorialHtml(wsData, prefix) {
     <div class="${p}-ted-head">
       <div class="${p}-ted-avatar" aria-hidden="true">${avatar}</div>
       <div class="${p}-ted-namecol">
-        <div class="${p}-ted-name">${t.name}</div>
+        <div class="${p}-ted-name" translate="no">${t.name}</div>
         ${originHtml}
         ${tagsHtml}
       </div>
@@ -2392,7 +2392,7 @@ function wsTeacherBlockHtml(wsData, prefix) {
       if (slim) {
         // Editorial: name + origin only, no badges/stats — bio text carries the full story
         return `<div class="${p}-sbody">
-    <div class="${p}-shead"><div><div class="${p}-sname">${t.name}</div>${originHtml}</div></div>
+    <div class="${p}-shead"><div><div class="${p}-sname" translate="no">${t.name}</div>${originHtml}</div></div>
     <div class="${p}-sbio">${shortBio}</div>
     ${fullBioHtml}${socialHtml}${creditHtml}
   </div>`;
@@ -2409,7 +2409,7 @@ function wsTeacherBlockHtml(wsData, prefix) {
             return `<span class="${p}-ttag" style="background:${bg};color:${cl};">${tag.text}</span>`;
           }).join('')}${awardBadge}</div>` : '';
       return `<div class="${p}-sbody">
-    <div class="${p}-shead"><div><div class="${p}-sname">${t.name}</div>${originHtml}</div></div>
+    <div class="${p}-shead"><div><div class="${p}-sname" translate="no">${t.name}</div>${originHtml}</div></div>
     ${tagsWithBadge}${renderStats(t.stats || [])}
     <div class="${p}-sbio">${shortBio}</div>
     ${fullBioHtml}${socialHtml}${creditHtml}
@@ -2475,7 +2475,7 @@ function wsTeacherBlockHtml(wsData, prefix) {
 
     const photoHtml = t.photo
       ? `<img src="${t.photo}" alt="${t.name}" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:50% 20%;display:block;">`
-      : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:${isOrg ? '#f5f5f5' : '#1a1a1a'};"><span style="font-family:'Marcellus',serif;font-size:${isOrg ? '1.1rem' : '2rem'};color:${isOrg ? '#555' : '#fff'};line-height:1.2;text-align:center;padding:1rem;">${isOrg ? t.name : wsInitials(t.name)}</span></div>`;
+      : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:${isOrg ? '#f5f5f5' : '#1a1a1a'};"><span style="font-family:'Marcellus',serif;font-size:${isOrg ? '1.1rem' : '2rem'};color:${isOrg ? '#555' : '#fff'};line-height:1.2;text-align:center;padding:1rem;" ${isOrg ? 'translate="no"' : ''}>${isOrg ? t.name : wsInitials(t.name)}</span></div>`;
 
     const originHtml = t.origin ? `<div class="${p}-torigin">${t.origin}</div>` : '';
 
@@ -2499,7 +2499,7 @@ function wsTeacherBlockHtml(wsData, prefix) {
   <div class="${p}-sbody">
     <div class="${p}-shead">
       <div>
-        <div class="${p}-sname">${t.name}</div>
+        <div class="${p}-sname" translate="no">${t.name}</div>
         ${originHtml}
       </div>
       ${awardBadge}
@@ -2681,7 +2681,7 @@ function wsSoloTeacherCardHtml(wsData, teacherName, prefix) {
   <div class="${p}-sc-body">
     <div class="${p}-sc-head">
       <div>
-        <div class="${p}-sc-name">${teacherName}</div>
+        <div class="${p}-sc-name" translate="no">${teacherName}</div>
         ${originHtml}
       </div>
       ${awardBadge}
@@ -2857,7 +2857,7 @@ function wsPerLevelCard(lv, idx, meta, prefix, isStarterSeries, levelDesc) {
   const _allDates = [...new Set(slots.flatMap(s => s.dates || []))].sort();
   const datesHtml = _allDates.length
     ? `<details class="${p}-date-list"><summary>${sc} sessions · Sep–Jan · see all dates</summary>
-          <div class="${p}-date-grid">${_allDates.map(d => {
+          <div class="${p}-date-grid" translate="no">${_allDates.map(d => {
             const dt = new Date(d + 'T12:00:00');
             const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
             const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -2945,7 +2945,7 @@ function wsDayCard(dayName, dayLevels, meta, prefix, descs) {
 
   const datesHtml = (firstSlot.dates && firstSlot.dates.length)
     ? `<details class="${p}-date-list"><summary>${dayLevels[0].lv.sessionCount || 14} sessions · Sep–Jan · see all dates</summary>
-          <div class="${p}-date-grid">${[...firstSlot.dates].sort().map(d => {
+          <div class="${p}-date-grid" translate="no">${[...firstSlot.dates].sort().map(d => {
             const dt = new Date(d + 'T12:00:00');
             const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
             const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -3316,10 +3316,15 @@ function renderWebsiteSection(style) {
     <div class="ws-block">
       <div class="ws-block-head">
         <div class="ws-block-title">Practical + Also at Shoonya <span class="ws-badge code">Code block</span></div>
-        ${copyBtn('ws-practical-html', 'Copy HTML')}
+        <div style="display:flex;gap:.5rem;">
+          ${copyBtn('ws-practical-html', 'Copy HTML')}
+          ${copyBtn('ws-prac-embed', 'Copy Embed Snippet')}
+        </div>
       </div>
       <div id="ws-practical-html" class="ws-code-area" style="max-height:360px;">${escHtml(practicalHtml)}</div>
-      <div class="ws-note-box" style="margin-top:.5rem;">Edit the <strong>Also at Shoonya</strong> cards at the bottom — choose 3 related styles and fill in their slugs, day, and level. Use the barefoot note at the top of the block to confirm the attire rule for this style.</div>
+      <div id="ws-prac-embed" class="ws-code-area" style="max-height:80px;margin-top:.5rem;font-size:.82rem;">&lt;div id=&quot;ws-prac-root&quot;&gt;&lt;/div&gt;
+&lt;script src=&quot;https://schooljaar.shoonyadance.com/ws-embed.js&quot;&gt;&lt;/script&gt;</div>
+      <div class="ws-note-box" style="margin-top:.5rem;"><strong>Embed option (recommended):</strong> Use <em>Copy Embed Snippet</em> to replace the Practical code block in Squarespace with just 2 lines. The script auto-detects the style page and injects the correct content — no manual HTML updates needed. Update <code>ws-embed.js</code> once → all pages get the change. <strong>Full HTML</strong> still works for one-offs or overrides.</div>
     </div>
 
     <hr class="ws-divider">
