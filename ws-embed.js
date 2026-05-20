@@ -172,12 +172,12 @@
     },
     '/pilates-voor-dansers-gent': {
       wear:  'Comfortable, stretchy clothing. Barefoot or grip socks.',
-      bring: 'Water bottle. Yoga mat if you have one — mats available at Shoonya.',
+      bring: 'Water bottle. Yoga mat if you have one — mats available at Shoonya. Using a studio mat? Bring a yoga towel to lay over it. Small hand towel for sweat.',
       also:  [['Dance & Fit','Wednesday · Open'],['Yoga','Tuesday · Open'],['Raqs Sharqi','Monday · L1/L2/L3']]
     },
     '/dance-fit-gent': {
       wear:  'Comfortable sportswear. Indoor shoes or barefoot.',
-      bring: 'Water bottle.',
+      bring: 'Water bottle. Small hand towel for sweat.',
       also:  [['Pilates for Dancers','Tue & Wed · Open'],['Raqs Sharqi','Monday · L1/L2/L3'],['Yoga','Tuesday · Open']]
     },
     '/bachata-solo-style-gent': {
