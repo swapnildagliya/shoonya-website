@@ -55,8 +55,8 @@
       also:  [['Bachata','Tuesday · L1/L2/L3'],['Cuban Salsa','Monday · L1/L2/L3/L4'],['Flamenco','Tuesday · L1/L2/L3']]
     },
     '/flamenco-danslessen-in-gent': {
-      wear:  'Flamenco dress or skirt, flamenco shoes (heels recommended). Never barefoot.',
-      bring: 'Water bottle. First class? A sturdy closed-toe heel is fine to start — see the shoe guide below.',
+      wear:  'Comfortable clothing you can move freely in. A flamenco skirt is welcome but not required. Flamenco heels or chapins (lace boots) — change into dance shoes outside the studio, no street shoes inside.',
+      bring: 'Water bottle.',
       shoeGuide: {
         brands: [
           { name: 'Senovilla',      note: 'Professional, excellent sound',  badge: 'BEST' },
@@ -68,7 +68,7 @@
           { name: 'Sodanza',        note: 'Semi-professional, lower price' },
           { name: 'Gladys',         note: 'Not recommended — avoid', warn: true }
         ],
-        advice: 'Invest in a professional-level shoe — it improves your dancing immediately. Women: avoid open-sided models. Men: boots or chapins (lace shoes). Max heel height 5 cm. Width: normal (A) or extra wide (AA). Material: leather lasts longer, suede adapts faster. Some shoes take weeks to break in — borrow from a classmate before buying online.',
+        advice: 'Invest in a professional-level shoe — it improves your dancing immediately. Avoid open-sided models. Chapins (lace boots) are a great alternative to heels. Max heel height 5 cm. Width: normal (A) or extra wide (AA). Material: leather lasts longer, suede adapts faster. Some shoes take weeks to break in — borrow from a classmate before buying online.',
         whereToBuy: [
           { name: 'Flamencoschool La Juana', location: 'Houthalen-Helchteren (has a shop)' },
           { name: 'The Danceshop',           location: 'Lille, France (Begoña Cervera)' }
