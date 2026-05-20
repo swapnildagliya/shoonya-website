@@ -236,17 +236,35 @@
   }
 
   // ── Entry point ───────────────────────────────────────────────────────────
+  // Squarespace injects code blocks asynchronously, so #ws-prac-root may not
+  // exist when DOMContentLoaded fires. Poll until it appears (max 3 seconds).
 
-  function init() {
+  function render() {
     var path = (window.location.pathname || '').replace(/\/$/, '').toLowerCase();
+    var data = PAGES[path];
+    if (!data) return; // no entry for this URL — do nothing
 
     var pracRoot = document.getElementById('ws-prac-root');
     if (pracRoot) {
-      var data = PAGES[path];
-      if (data) {
-        injectStyles();
-        pracRoot.innerHTML = buildPractical(data);
-      }
+      injectStyles();
+      pracRoot.innerHTML = buildPractical(data);
+    }
+  }
+
+  function init() {
+    render();
+    // If the div wasn't in the DOM yet, poll every 100ms for up to 3 seconds
+    if (!document.getElementById('ws-prac-root')) {
+      var attempts = 0;
+      var poll = setInterval(function () {
+        attempts++;
+        if (document.getElementById('ws-prac-root')) {
+          clearInterval(poll);
+          render();
+        } else if (attempts >= 30) {
+          clearInterval(poll); // give up after 3s
+        }
+      }, 100);
     }
   }
 
