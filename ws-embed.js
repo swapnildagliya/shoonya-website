@@ -56,7 +56,24 @@
     },
     '/flamenco-danslessen-in-gent': {
       wear:  'Flamenco dress or skirt, flamenco shoes (heels recommended). Never barefoot.',
-      bring: 'Water bottle.',
+      bring: 'Water bottle. First class? A sturdy closed-toe heel is fine to start — see the shoe guide below.',
+      shoeGuide: {
+        brands: [
+          { name: 'Senovilla',      note: 'Professional, excellent sound',  badge: 'BEST' },
+          { name: 'Gallardo',       note: 'Oldest brand, very reliable' },
+          { name: 'Antonio Garcia', note: 'Solid professional option' },
+          { name: 'Begoña Cervera', note: 'Beautiful — mostly high heels' },
+          { name: 'Menkes',         note: 'Reliable professional brand' },
+          { name: 'Artefyl',        note: 'Sturdy but hard sole' },
+          { name: 'Sodanza',        note: 'Semi-professional, lower price' },
+          { name: 'Gladys',         note: 'Not recommended — avoid', warn: true }
+        ],
+        advice: 'Invest in a professional-level shoe — it improves your dancing immediately. Women: avoid open-sided models. Men: boots or chapins (lace shoes). Max heel height 5 cm. Width: normal (A) or extra wide (AA). Material: leather lasts longer, suede adapts faster. Some shoes take weeks to break in — borrow from a classmate before buying online.',
+        whereToBuy: [
+          { name: 'Flamencoschool La Juana', location: 'Houthalen-Helchteren (has a shop)' },
+          { name: 'The Danceshop',           location: 'Lille, France (Begoña Cervera)' }
+        ]
+      },
       also:  [['Ballet','Friday · L1/L2/L3'],['Indian Semi-Classical','Wednesday · L2'],['Tap Dance','Mon–Sat · L1–L4']]
     },
     '/ballet-voor-volwassenen-in-gent': {
@@ -192,6 +209,18 @@
     '.wsep-prac .also-card .also-meta{font-size:.78rem;color:rgba(255,255,255,.85);margin:0 0 .9rem;}',
     '.wsep-prac .also-card .also-cta{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#fff;}',
     '.wsep-prac a.also-link,.wsep-prac a.also-link:link,.wsep-prac a.also-link:visited,.wsep-prac a.also-link:hover,.wsep-prac a.also-link:focus,.wsep-prac a.also-link:active{position:absolute;inset:0;display:block;z-index:1;background:transparent!important;background-color:transparent!important;background-image:none!important;color:transparent!important;text-decoration:none!important;border:0!important;box-shadow:none!important;outline:none!important;pointer-events:auto!important;cursor:pointer!important;}',
+    '.wsep-prac .wsep-shoe{margin-bottom:2rem;}',
+    '.wsep-prac .wsep-shoe-sub{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#888;margin:0 0 .75rem;}',
+    '.wsep-prac .wsep-shoe-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem .75rem;margin-bottom:1rem;}',
+    '@media(max-width:700px){.wsep-prac .wsep-shoe-grid{grid-template-columns:repeat(2,1fr);}}',
+    '.wsep-prac .wsep-shoe-item{padding:.5rem .65rem;border-radius:6px;background:#faf8f4;}',
+    '.wsep-prac .wsep-shoe-name{font-size:.83rem;font-weight:700;color:#1a1a1a;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;}',
+    '.wsep-prac .wsep-shoe-badge{font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:#1a1a1a;color:#fff;padding:.1rem .35rem;border-radius:3px;}',
+    '.wsep-prac .wsep-shoe-note{font-size:.75rem;color:#666;margin-top:.15rem;line-height:1.4;}',
+    '.wsep-prac .wsep-shoe-warn .wsep-shoe-note{color:#c0392b;}',
+    '.wsep-prac .wsep-shoe-advice{font-size:.83rem;color:#444;line-height:1.6;margin-bottom:.75rem;}',
+    '.wsep-prac .wsep-shoe-buy-label{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#888;margin-bottom:.35rem;}',
+    '.wsep-prac .wsep-shoe-buy-list{font-size:.83rem;color:#444;line-height:1.6;}',
     '.wsep-prac .wsep-pi-info{border:1.5px solid #e8dcf8;border-radius:8px;padding:.65rem .9rem;margin-bottom:2rem;display:flex;flex-direction:column;gap:0;}',
     '.wsep-prac .wsep-pi-row{display:flex;gap:.65rem;align-items:flex-start;padding:.55rem 0;border-bottom:1px solid #f0e8fb;}',
     '.wsep-prac .wsep-pi-row:last-child{border-bottom:none;padding-bottom:0;}',
@@ -223,6 +252,32 @@
     style.id = 'wsep-css';
     style.textContent = COMP_CSS;
     document.head.appendChild(style);
+  }
+
+  function buildShoeGuide(guide) {
+    if (!guide) return '';
+    var brandsHtml = guide.brands.map(function (b) {
+      var badge = b.badge ? '<span class="wsep-shoe-badge">' + esc(b.badge) + '</span>' : '';
+      return '<div class="wsep-shoe-item' + (b.warn ? ' wsep-shoe-warn' : '') + '">' +
+        '<div class="wsep-shoe-name">' + esc(b.name) + badge + '</div>' +
+        '<div class="wsep-shoe-note">' + esc(b.note) + '</div>' +
+        '</div>';
+    }).join('');
+    var buyHtml = '';
+    if (guide.whereToBuy && guide.whereToBuy.length) {
+      var items = guide.whereToBuy.map(function (s) {
+        return '<strong>' + esc(s.name) + '</strong> — ' + esc(s.location);
+      }).join(' &nbsp;·&nbsp; ');
+      buyHtml = '<p class="wsep-shoe-buy-label">Where to buy</p>' +
+        '<p class="wsep-shoe-buy-list">' + items + '</p>';
+    }
+    return '<div class="wsep-shoe">' +
+      '<p class="sec-label">Flamenco shoes</p>' +
+      '<p class="wsep-shoe-sub">Recommended brands</p>' +
+      '<div class="wsep-shoe-grid">' + brandsHtml + '</div>' +
+      (guide.advice ? '<p class="wsep-shoe-advice">' + esc(guide.advice) + '</p>' : '') +
+      buyHtml +
+      '</div>';
   }
 
   function buildPartnerStrip(partner) {
@@ -280,6 +335,7 @@
         '<div class="prac-item"><h4>What to wear</h4><p>' + esc(data.wear) + '</p></div>' +
         '<div class="prac-item"><h4>What to bring</h4><p>' + esc(data.bring) + '</p></div>' +
       '</div>' +
+      buildShoeGuide(data.shoeGuide) +
       buildPartnerStrip(data.partner) +
       '<p class="sec-label">Also at Shoonya</p>' +
       '<h2 class="section-h">You might also like</h2>' +
