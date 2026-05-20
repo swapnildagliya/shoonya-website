@@ -35,7 +35,7 @@
     'Bollyfolk':               '/bollyfolk-danslessen-in-gent',
     'Bollywood':               '/bollywood-danslessen-in-gent',
     'Bhangra':                 '/bhangra-danslessen-in-gent',
-    'Indian Semi-Classical':   '/indian-semi-classical-gent',
+    'Indian Semi-Classical':   '/kathak-danslessen-in-gent',
     'Yoga':                    '/yoga-lessen-in-gent',
     'Indian Dance Technique':  '/indian-dance-in-belgium',
     'Pilates for Dancers':     '/pilates-voor-dansers-gent',
@@ -155,7 +155,7 @@
       bring: 'Water bottle.',
       also:  [['Bollyfolk','Tuesday · Open'],['Bollywood','Thursday · L2 & L3'],['Indian Semi-Classical','Wednesday · L2']]
     },
-    '/indian-semi-classical-gent': {
+    '/kathak-danslessen-in-gent': {
       wear:  'Comfortable dancewear. Come barefoot — no shoes in Studio Aakash.',
       bring: 'Water bottle. Ghungroo (ankle bells) if you have them.',
       also:  [['Indian Dance Technique','Tuesday · Open'],['Bollyfolk','Tuesday · Open'],['Bollywood','Thursday · L2 & L3']]
