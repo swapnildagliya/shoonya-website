@@ -49,8 +49,9 @@
   // also[] = [styleName, meta] — styleName must match a key in SLUGS above.
   var PAGES = {
     '/argentijnse-tango-danslessen-gent': {
-      wear:  'Indoor dance shoes with suede or smooth leather soles — or socks.',
-      bring: 'Water bottle.',
+      wear:  'Comfortable, form-fitting dancewear. Smooth-soled indoor shoes that allow you to pivot easily — thick socks work fine for beginners. Change into dance shoes outside the studio.',
+      bring: 'Water bottle. Dance shoes (or thick socks to start).',
+      partner: { required: true },
       also:  [['Bachata','Tuesday · L1/L2/L3'],['Cuban Salsa','Monday · L1/L2/L3/L4'],['Flamenco','Tuesday · L1/L2/L3']]
     },
     '/flamenco-danslessen-in-gent': {
@@ -66,21 +67,25 @@
     '/kizomba-danslessen-in-gent': {
       wear:  'Comfortable, form-fitting dancewear. Appropriate dance shoes or socks.',
       bring: 'Water bottle.',
+      partner: { required: true },
       also:  [['African Congolese Dance','Saturday · Open'],['Argentine Tango','Thursday · L1 & L2'],['Bachata','Tuesday · L1/L2/L3']]
     },
     '/bachata-dance-classes-in-ghent': {
-      wear:  'Comfortable, form-fitting dancewear. Appropriate dance shoes or socks.',
-      bring: 'Water bottle.',
+      wear:  'Indoor dance shoes with suede or smooth leather soles — or socks. No street shoes in the studio.',
+      bring: 'Water bottle. Dance shoes (or thick socks to start).',
+      partner: { required: true, evening: { text: '2nd Friday of the month, 20:00–01:00', url: '/calendar' }, guide: 'No prior Bachata? Start at Level 1. Some experience? Level 2. Speak with us before joining Level 3.' },
       also:  [['Cuban Salsa','Monday · L1/L2/L3/L4'],['Rueda de Casino','Thursday · L1/L2'],['Argentine Tango','Thursday · L1 & L2']]
     },
     '/cuban-salsa-in-gent': {
       wear:  'Comfortable, form-fitting dancewear. Appropriate dance shoes or socks.',
       bring: 'Water bottle.',
+      partner: { required: true, evening: { text: '2nd Friday of the month, 20:00–01:00', url: '/calendar' } },
       also:  [['Bachata','Tuesday · L1/L2/L3'],['Rueda de Casino','Thursday · L1/L2'],['Flamenco','Tuesday · L1/L2/L3']]
     },
     '/rueda-de-casino-danslessen-gent': {
       wear:  'Comfortable, form-fitting dancewear. Appropriate dance shoes or socks.',
       bring: 'Water bottle.',
+      partner: { required: true, evening: { text: '2nd Friday of the month, 20:00–01:00', url: '/calendar' }, guide: 'Pre-requisite: You must have completed at least 2 seasons of Cuban Salsa classes to join this group. Note: Only current students can join the Rueda de Casino level 2/3 batches.' },
       also:  [['Bachata','Tuesday · L1/L2/L3'],['Lindy Hop','Wednesday · L1/L2'],['African Congolese Dance','Saturday · Open']]
     },
     '/lindy-hop-danslessen-in-gent': {
@@ -186,7 +191,16 @@
     '.wsep-prac .also-card h3{font-family:\'Marcellus\',serif;font-weight:400;font-size:1.1rem;color:#fff;margin:0 0 .35rem;}',
     '.wsep-prac .also-card .also-meta{font-size:.78rem;color:rgba(255,255,255,.85);margin:0 0 .9rem;}',
     '.wsep-prac .also-card .also-cta{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#fff;}',
-    '.wsep-prac a.also-link,.wsep-prac a.also-link:link,.wsep-prac a.also-link:visited,.wsep-prac a.also-link:hover,.wsep-prac a.also-link:focus,.wsep-prac a.also-link:active{position:absolute;inset:0;display:block;z-index:1;background:transparent!important;background-color:transparent!important;background-image:none!important;color:transparent!important;text-decoration:none!important;border:0!important;box-shadow:none!important;outline:none!important;pointer-events:auto!important;cursor:pointer!important;}'
+    '.wsep-prac a.also-link,.wsep-prac a.also-link:link,.wsep-prac a.also-link:visited,.wsep-prac a.also-link:hover,.wsep-prac a.also-link:focus,.wsep-prac a.also-link:active{position:absolute;inset:0;display:block;z-index:1;background:transparent!important;background-color:transparent!important;background-image:none!important;color:transparent!important;text-decoration:none!important;border:0!important;box-shadow:none!important;outline:none!important;pointer-events:auto!important;cursor:pointer!important;}',
+    '.wsep-prac .wsep-pi-info{border:1.5px solid #e8dcf8;border-radius:8px;padding:.65rem .9rem;margin-bottom:2rem;display:flex;flex-direction:column;gap:0;}',
+    '.wsep-prac .wsep-pi-row{display:flex;gap:.65rem;align-items:flex-start;padding:.55rem 0;border-bottom:1px solid #f0e8fb;}',
+    '.wsep-prac .wsep-pi-row:last-child{border-bottom:none;padding-bottom:0;}',
+    '.wsep-prac .wsep-pi-row:first-child{padding-top:0;}',
+    '.wsep-prac .wsep-pi-icon{font-size:.9rem;margin-top:.1rem;flex-shrink:0;}',
+    '.wsep-prac .wsep-pi-text{font-size:.83rem;color:#444;line-height:1.55;}',
+    '.wsep-prac .wsep-pi-text strong{color:#1a1a1a;font-weight:700;}',
+    '.wsep-prac .wsep-pi-text a,.wsep-prac .wsep-pi-text a:link,.wsep-prac .wsep-pi-text a:visited{color:#B564F7;text-decoration:none;pointer-events:auto!important;cursor:pointer!important;}',
+    '.wsep-prac .wsep-pi-text a:hover{text-decoration:underline;}'
   ].join('\n');
 
   // ── Helpers ───────────────────────────────────────────────────────────────
@@ -211,6 +225,43 @@
     document.head.appendChild(style);
   }
 
+  function buildPartnerStrip(partner) {
+    if (!partner) return '';
+    var rows = [];
+    var forumUrl = 'https://www.facebook.com/groups/1405926722822445';
+    if (partner.required) {
+      rows.push(
+        '<div class="wsep-pi-row">' +
+          '<span class="wsep-pi-icon" aria-hidden="true">👫</span>' +
+          '<span class="wsep-pi-text"><strong>Partner registration required</strong> — please register together with your dance partner. ' +
+          'Looking for a partner? <a href="' + forumUrl + '">Join the Shoonya Dance Forum →</a></span>' +
+        '</div>'
+      );
+    }
+    if (partner.evening) {
+      var pe = partner.evening;
+      var peLink = pe.url
+        ? '<a href="' + esc(pe.url) + '">' + esc(pe.text) + '</a>'
+        : esc(pe.text);
+      rows.push(
+        '<div class="wsep-pi-row">' +
+          '<span class="wsep-pi-icon" aria-hidden="true">🎵</span>' +
+          '<span class="wsep-pi-text"><strong>Practice evening</strong> — Salsa &amp; Bachata social: ' + peLink + '</span>' +
+        '</div>'
+      );
+    }
+    if (partner.guide) {
+      rows.push(
+        '<div class="wsep-pi-row">' +
+          '<span class="wsep-pi-icon" aria-hidden="true">💬</span>' +
+          '<span class="wsep-pi-text"><strong>Which level?</strong> — ' + esc(partner.guide) + '</span>' +
+        '</div>'
+      );
+    }
+    if (!rows.length) return '';
+    return '<div class="wsep-pi-info">' + rows.join('') + '</div>';
+  }
+
   function buildPractical(data) {
     var cards = data.also.map(function (pair) {
       var name = pair[0], meta = pair[1];
@@ -229,6 +280,7 @@
         '<div class="prac-item"><h4>What to wear</h4><p>' + esc(data.wear) + '</p></div>' +
         '<div class="prac-item"><h4>What to bring</h4><p>' + esc(data.bring) + '</p></div>' +
       '</div>' +
+      buildPartnerStrip(data.partner) +
       '<p class="sec-label">Also at Shoonya</p>' +
       '<h2 class="section-h">You might also like</h2>' +
       '<div class="also-grid">' + cards + '</div>' +
