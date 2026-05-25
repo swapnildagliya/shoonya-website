@@ -378,6 +378,15 @@
   .step:nth-child(2) .step__badge { background: var(--salmon);      color: var(--salmon-ink);  }
   .step:nth-child(3) .step__badge { background: var(--yellow-soft); color: var(--yellow-ink);  }
 
+  /* Step CTAs */
+  .step__actions { display: flex; gap: .6rem; flex-wrap: wrap; margin: .4rem 0 .5rem; }
+  .step__cta,
+  .step__cta:link,
+  .step__cta:visited { font-size: .85rem; font-weight: 600; color: #1a1a1a; text-decoration: underline; text-underline-offset: 3px; }
+  .step__cta:hover,
+  .step__cta:focus,
+  .step__cta:active { color: var(--purple); text-decoration: underline; }
+
   /* Step 3 — pricing teaser strip (yellow soft) */
   .step3-band { background: var(--golden); padding: 3rem 1.5rem 3.25rem; text-align: center; }
   .step3-inner { max-width: 720px; margin: 0 auto; }
@@ -784,8 +793,20 @@
           <span data-lang="en">Register when you're ready</span>
           <span data-lang="nl">Schrijf je in wanneer je er klaar voor bent</span>
         </h3>
-        <p class="step__p" data-lang="en">Create a Shoonya ID and sign up for the semester. Registration stays open for the first three weeks — so there's no rush after the trial week.</p>
-        <p class="step__p" data-lang="nl">Maak een Shoonya ID aan en schrijf je in voor het semester. Inschrijvingen zijn open gedurende de eerste drie weken — er is dus geen haast na de proefweek.</p>
+        <p class="step__p" data-lang="en">Create a Shoonya ID once — you'll receive it by email. Then log in, choose your class, and complete your registration online. Registration stays open for the first three weeks.</p>
+        <p class="step__p" data-lang="nl">Maak eenmalig een Shoonya ID aan — je ontvangt het per e-mail. Log daarna in, kies je les en voltooi je inschrijving online. Inschrijvingen blijven open gedurende de eerste drie weken.</p>
+        <p class="step__p" data-lang="en"><strong>Partner dances:</strong> your dance partner also needs a Shoonya ID — have it ready when you register. If a class is full, you'll be placed on the waiting list.</p>
+        <p class="step__p" data-lang="nl"><strong>Partnerdansen:</strong> je danspartner heeft ook een Shoonya ID nodig — zorg dat je dit bij de hand hebt. Bij een volle les kom je op de wachtlijst.</p>
+        <div class="step__actions">
+          <a class="step__cta" href="https://creatorapp.zohopublic.eu/developer_shoonyadance/shoonya-dance-studio/form-perma/Shoonya_ID/UrhOBSntgxQw9NmJAuwefjF4KDAAB8aam9rpDy0vxrbG92gjDyzbj6fzQQzsrMqEAk86BHC86TTtTM1eUsU1AVpjsGMH1wNDdnSy" target="_blank" rel="noopener">
+            <span data-lang="en">Create your Shoonya ID →</span>
+            <span data-lang="nl">Maak een Shoonya ID aan →</span>
+          </a>
+          <a class="step__cta" href="https://creatorapp.zohopublic.eu/developer_shoonyadance/shoonya-dance-studio/form-perma/Registration_Form/qTe3pCXurpemuBZnkQmKn0AG2a3TJGfqAGth6b3v61GG91y8DAPsBkhHBmTjYhPfK0sbPbb7UCRXryNV9QnybU04QBBjvnesRU3A" target="_blank" rel="noopener">
+            <span data-lang="en">Register for a course →</span>
+            <span data-lang="nl">Schrijf je in voor een les →</span>
+          </a>
+        </div>
         <span class="step__badge">
           <span data-lang="en">Registration is open</span>
           <span data-lang="nl">Inschrijving is open</span>
@@ -866,6 +887,15 @@
       <div class="expect-card__label">UiTPAS</div>
       <p data-lang="en">Shoonya is a UiTPAS partner. With a UiTPAS kansentarief card, you get an <strong>80% discount</strong> on all classes. Mention it when registering.</p>
       <p data-lang="nl">Shoonya is UiTPAS-partner. Met een UiTPAS kansentariefkaart krijg je <strong>80% korting</strong> op alle lessen. Vermeld dit bij inschrijving.</p>
+    </div>
+
+    <div class="expect-card">
+      <div class="expect-card__label">
+        <span data-lang="en">How to pay</span>
+        <span data-lang="nl">Hoe betalen</span>
+      </div>
+      <p data-lang="en">Online only — Bancontact or Visa. No bank transfers. Student discount (under 25 or 2+ classes) and UiTPAS rates are applied at registration.</p>
+      <p data-lang="nl">Alleen online — Bancontact of Visa. Geen overschrijvingen. Studentenkorting (onder 25 of 2+ lessen) en UiTPAS-tarief worden bij inschrijving toegepast.</p>
     </div>
 
   </div>
@@ -1016,8 +1046,8 @@
         <span class="arrow" aria-hidden="true">▼</span>
       </button>
       <div class="faq-a" id="faq-a-4">
-        <span data-lang="en">It's your personal account on the Shoonya platform — you use it to register for classes and manage your enrolment. You don't need one to visit an Open House. Only create it when you're ready to register.</span>
-        <span data-lang="nl">Het is je persoonlijk account op het Shoonya-platform — je gebruikt het om je in te schrijven voor lessen en je inschrijving te beheren. Je hebt er geen nodig voor een Open Deur. Maak het pas aan wanneer je klaar voor bent om je in te schrijven.</span>
+        <span data-lang="en">It's your personal account on the Shoonya platform — you use it to register for classes and manage your enrolment. You don't need one to visit an Open House. Only create it when you're ready to register. <a href="https://creatorapp.zohopublic.eu/developer_shoonyadance/shoonya-dance-studio/form-perma/Shoonya_ID/UrhOBSntgxQw9NmJAuwefjF4KDAAB8aam9rpDy0vxrbG92gjDyzbj6fzQQzsrMqEAk86BHC86TTtTM1eUsU1AVpjsGMH1wNDdnSy" target="_blank" rel="noopener">Create your Shoonya ID →</a></span>
+        <span data-lang="nl">Het is je persoonlijk account op het Shoonya-platform — je gebruikt het om je in te schrijven voor lessen en je inschrijving te beheren. Je hebt er geen nodig voor een Open Deur. Maak het pas aan wanneer je klaar voor bent om je in te schrijven. <a href="https://creatorapp.zohopublic.eu/developer_shoonyadance/shoonya-dance-studio/form-perma/Shoonya_ID/UrhOBSntgxQw9NmJAuwefjF4KDAAB8aam9rpDy0vxrbG92gjDyzbj6fzQQzsrMqEAk86BHC86TTtTM1eUsU1AVpjsGMH1wNDdnSy" target="_blank" rel="noopener">Maak een Shoonya ID aan →</a></span>
       </div>
     </div>
 
