@@ -1,10 +1,10 @@
 // ws-embed.js — Shoonya style page embed
-// Served from: https://classes.shoonyadance.com/ws-embed.js
+// Served from: https://schooljaar.shoonyadance.com/ws-embed.js
 // v1 · 2026-05-20
 //
 // Usage — replace the Practical code block on any style page with:
 //   <div id="ws-prac-root"></div>
-//   <script src="https://classes.shoonyadance.com/ws-embed.js"></script>
+//   <script src="https://schooljaar.shoonyadance.com/ws-embed.js"></script>
 //
 // The script reads window.location.pathname, finds the matching page data,
 // and injects the Practical + Also at Shoonya block automatically.
