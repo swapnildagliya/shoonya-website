@@ -1,10 +1,11 @@
 // ws-embed.js — Shoonya style page embed
-// Served from: https://schooljaar.shoonyadance.com/ws-embed.js
-// v1 · 2026-05-20
+// Served from: https://classes.shoonyadance.com/ws-embed.js
+// v3 · 2026-06-09 — drop-in packs moved to the Block Studio levels block (not the
+//                   embed); Yoga "also" card now reads "Tue & Wed · Open"
 //
 // Usage — replace the Practical code block on any style page with:
 //   <div id="ws-prac-root"></div>
-//   <script src="https://schooljaar.shoonyadance.com/ws-embed.js"></script>
+//   <script src="https://classes.shoonyadance.com/ws-embed.js"></script>
 //
 // The script reads window.location.pathname, finds the matching page data,
 // and injects the Practical + Also at Shoonya block automatically.
@@ -44,9 +45,21 @@
     'Oriental Flow':           '/oriental-flow-gent'
   };
 
+  // ── Drop-in packs ─────────────────────────────────────────────────────────
+  // The casual-attendance classes (Pilates, Dance & Fit, Wednesday Yoga) offer
+  // 3- and 5-session packs instead of single drop-ins. Same Zoho workshop form
+  // for all three — the pack/event is selected inside the form.
+  // NB: Zoho lists these under "Festivals & Events" (no native drop-in type yet).
+  var DROPIN_URL = 'https://creatorapp.zohopublic.eu/developer_shoonyadance/shoonya-dance-studio/form-perma/Workshop_Registration_Form/uOO7GVYHQEJn5dSVDz7z1nTXXeEfD0AZ4PJvtQJ0ZbMRum3tBX30zxQHC02n9b3bvTO6ORFDsVCfS4bJQF1VOZdBMZquYuPb4xx8';
+  var DROPIN_PACKS = [
+    { label: '3 sessions', price: '€40.50' },
+    { label: '5 sessions', price: '€67.50' }
+  ];
+
   // ── Per-page data ─────────────────────────────────────────────────────────
   // Keys = Squarespace page path (no trailing slash, lowercase).
   // also[] = [styleName, meta] — styleName must match a key in SLUGS above.
+  // dropinPacks = { note, packs, url } — renders the drop-in pack section.
   var PAGES = {
     '/argentijnse-tango-danslessen-gent': {
       wear:  'Comfortable, form-fitting dancewear. Smooth-soled indoor shoes that allow you to pivot easily — thick socks work fine for beginners. Change into dance shoes outside the studio.',
@@ -79,7 +92,7 @@
     '/ballet-voor-volwassenen-in-gent': {
       wear:  'Comfortable, form-fitting dancewear. Ballet shoes or socks — no street shoes in the studio.',
       bring: 'Water bottle. Small hand towel for sweat.',
-      also:  [['Yoga','Tuesday · Open'],['Flamenco','Tuesday · L1/L2/L3'],['Indian Dance Technique','Tuesday · Open']]
+      also:  [['Yoga','Tue & Wed · Open'],['Flamenco','Tuesday · L1/L2/L3'],['Indian Dance Technique','Tuesday · Open']]
     },
     '/kizomba-danslessen-in-gent': {
       wear:  'Comfortable, form-fitting dancewear. Appropriate dance shoes or socks.',
@@ -143,7 +156,7 @@
     '/bollyfolk-danslessen-in-gent': {
       wear:  'Comfortable dancewear. Come barefoot — no shoes in Studio Aakash.',
       bring: 'Water bottle.',
-      also:  [['Yoga','Tuesday · Open'],['Bollywood','Thursday · L2 & L3'],['Flamenco','Tuesday · L1/L2/L3']]
+      also:  [['Yoga','Tue & Wed · Open'],['Bollywood','Thursday · L2 & L3'],['Flamenco','Tuesday · L1/L2/L3']]
     },
     '/bollywood-danslessen-in-gent': {
       wear:  'Comfortable dancewear. Come barefoot — no shoes in Studio Aakash.',
@@ -163,22 +176,37 @@
     '/yoga-lessen-in-gent': {
       wear:  'Comfortable, stretchy clothing. Come barefoot.',
       bring: 'Water bottle. Yoga mat if you have one — mats available at Shoonya. Using a studio mat? Bring a yoga towel to lay over it. Small hand towel for sweat.',
+      dropinPacks: {
+        note:  'Prefer flexibility? Choose any dates from the Wednesday schedule above and come for 3 or 5 sessions — no semester commitment needed.',
+        packs: DROPIN_PACKS,
+        url:   DROPIN_URL
+      },
       also:  [['Indian Dance Technique','Tuesday · Open'],['Bollyfolk','Tuesday · Open'],['Pilates for Dancers','Tue & Wed · Open']]
     },
     '/indian-dance-in-belgium': {
       wear:  'Comfortable dancewear. Come barefoot — no shoes in Studio Aakash.',
       bring: 'Water bottle.',
-      also:  [['Yoga','Tuesday · Open'],['Bollyfolk','Tuesday · Open'],['Ballet','Friday · L1/L2/L3']]
+      also:  [['Yoga','Tue & Wed · Open'],['Bollyfolk','Tuesday · Open'],['Ballet','Friday · L1/L2/L3']]
     },
     '/pilates-voor-dansers-gent': {
       wear:  'Comfortable, stretchy clothing. Barefoot or grip socks.',
       bring: 'Water bottle. Yoga mat if you have one — mats available at Shoonya. Using a studio mat? Bring a yoga towel to lay over it. Small hand towel for sweat.',
-      also:  [['Dance & Fit','Wednesday · Open'],['Yoga','Tuesday · Open'],['Raqs Sharqi','Monday · L1/L2/L3']]
+      dropinPacks: {
+        note:  'Prefer flexibility? Choose any dates from the schedule above and come for 3 or 5 sessions — no semester commitment needed.',
+        packs: DROPIN_PACKS,
+        url:   DROPIN_URL
+      },
+      also:  [['Dance & Fit','Wednesday · Open'],['Yoga','Tue & Wed · Open'],['Raqs Sharqi','Monday · L1/L2/L3']]
     },
     '/dance-fit-gent': {
       wear:  'Comfortable sportswear. Indoor shoes or barefoot.',
       bring: 'Water bottle. Small hand towel for sweat.',
-      also:  [['Pilates for Dancers','Tue & Wed · Open'],['Raqs Sharqi','Monday · L1/L2/L3'],['Yoga','Tuesday · Open']]
+      dropinPacks: {
+        note:  'Prefer flexibility? Choose any dates from the schedule above and come for 3 or 5 sessions — no semester commitment needed.',
+        packs: DROPIN_PACKS,
+        url:   DROPIN_URL
+      },
+      also:  [['Pilates for Dancers','Tue & Wed · Open'],['Raqs Sharqi','Monday · L1/L2/L3'],['Yoga','Tue & Wed · Open']]
     },
     '/bachata-solo-style-gent': {
       wear:  'Indoor dance shoes with suede or smooth leather soles — or socks.',
@@ -229,7 +257,16 @@
     '.wsep-prac .wsep-pi-text{font-size:.83rem;color:#444;line-height:1.55;}',
     '.wsep-prac .wsep-pi-text strong{color:#1a1a1a;font-weight:700;}',
     '.wsep-prac .wsep-pi-text a,.wsep-prac .wsep-pi-text a:link,.wsep-prac .wsep-pi-text a:visited{color:#B564F7;text-decoration:none;pointer-events:auto!important;cursor:pointer!important;}',
-    '.wsep-prac .wsep-pi-text a:hover{text-decoration:underline;}'
+    '.wsep-prac .wsep-pi-text a:hover{text-decoration:underline;}',
+    '.wsep-prac .wsep-dropin{border-top:1.5px dashed #d4bef7;padding-top:1.1rem;margin:0 0 2rem;}',
+    '.wsep-prac .wsep-dropin-label{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#B564F7;margin:0 0 .4rem;}',
+    '.wsep-prac .wsep-dropin-note{font-size:.85rem;color:#444;line-height:1.55;margin:0 0 .9rem;}',
+    '.wsep-prac .wsep-dropin-packs{display:flex;gap:.65rem;margin-bottom:.9rem;}',
+    '.wsep-prac .wsep-dropin-pack{flex:1;border:1.5px solid #d4bef7;border-radius:8px;padding:.7rem .75rem;text-align:center;background:#faf4ff;}',
+    '.wsep-prac .wsep-dropin-sessions{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#B564F7;margin-bottom:.2rem;}',
+    '.wsep-prac .wsep-dropin-price{font-family:\'Marcellus\',serif;font-size:1.2rem;color:#1a1a1a;}',
+    '.wsep-prac a.wsep-dropin-btn,.wsep-prac a.wsep-dropin-btn:link,.wsep-prac a.wsep-dropin-btn:visited,.wsep-prac a.wsep-dropin-btn:hover,.wsep-prac a.wsep-dropin-btn:focus,.wsep-prac a.wsep-dropin-btn:active{display:block;text-align:center;background:transparent!important;color:#B564F7!important;font-family:\'PT Serif\',Georgia,serif!important;font-size:.85rem;font-weight:700;letter-spacing:.04em;text-decoration:none!important;border:1.5px solid #B564F7!important;border-radius:7px;padding:.6rem 1rem;pointer-events:auto!important;cursor:pointer!important;box-shadow:none!important;outline:none!important;}',
+    '.wsep-prac a.wsep-dropin-btn:hover{background:#B564F7!important;color:#fff!important;}'
   ].join('\n');
 
   // ── Helpers ───────────────────────────────────────────────────────────────
@@ -317,6 +354,22 @@
     return '<div class="wsep-pi-info">' + rows.join('') + '</div>';
   }
 
+  function buildDropinPacks(dp) {
+    if (!dp || !dp.packs || !dp.packs.length) return '';
+    var tiles = dp.packs.map(function (p) {
+      return '<div class="wsep-dropin-pack">' +
+        '<div class="wsep-dropin-sessions">' + esc(p.label) + '</div>' +
+        '<div class="wsep-dropin-price">' + esc(p.price) + '</div>' +
+        '</div>';
+    }).join('');
+    return '<div class="wsep-dropin">' +
+      '<p class="wsep-dropin-label">Drop-in packs</p>' +
+      (dp.note ? '<p class="wsep-dropin-note">' + esc(dp.note) + '</p>' : '') +
+      '<div class="wsep-dropin-packs">' + tiles + '</div>' +
+      '<a class="wsep-dropin-btn" href="' + esc(dp.url) + '" target="_blank" rel="noopener noreferrer">Book drop-in pack →</a>' +
+      '</div>';
+  }
+
   function buildPractical(data) {
     var cards = data.also.map(function (pair) {
       var name = pair[0], meta = pair[1];
@@ -337,6 +390,8 @@
       '</div>' +
       buildShoeGuide(data.shoeGuide) +
       buildPartnerStrip(data.partner) +
+      // Drop-in packs now live in the Block Studio levels block (per-day cards),
+      // NOT here — rendering them in the embed too would duplicate them on the page.
       '<p class="sec-label">Also at Shoonya</p>' +
       '<h2 class="section-h">You might also like</h2>' +
       '<div class="also-grid">' + cards + '</div>' +
