@@ -1,5 +1,7 @@
 // ws-embed.js — Shoonya style page embed
 // Served from: https://classes.shoonyadance.com/ws-embed.js
+// v4 · 2026-06-10 — auto-hide stale "Spring 2026 classes still running" notes
+//                   baked into older Level/Pricing blocks, from 14 Jun onward
 // v3 · 2026-06-09 — drop-in packs moved to the Block Studio levels block (not the
 //                   embed); Yoga "also" card now reads "Tue & Wed · Open"
 //
@@ -398,6 +400,20 @@
       '</div>';
   }
 
+  // ── Seasonal note auto-hide ───────────────────────────────────────────────
+  // Older pasted Level/Pricing blocks have a static <p class="spring-note"> baked
+  // in at generation time (no build-time date logic). Once spring 2026 has ended
+  // (last class 13 Jun 2026) that note reads wrong, so hide it everywhere from
+  // 14 Jun onward. Runs on a few delayed passes because Squarespace injects code
+  // blocks asynchronously. Safe no-op before the cutoff and on pages with no note.
+  function hideExpiredSpringNotes() {
+    try {
+      if (new Date() < new Date('2026-06-14T00:00:00')) return;
+      var notes = document.querySelectorAll('.spring-note');
+      for (var i = 0; i < notes.length; i++) notes[i].style.display = 'none';
+    } catch (e) {}
+  }
+
   // ── Entry point ───────────────────────────────────────────────────────────
   // Squarespace injects code blocks asynchronously, so #ws-prac-root may not
   // exist when DOMContentLoaded fires. Poll until it appears (max 3 seconds).
@@ -416,6 +432,12 @@
 
   function init() {
     render();
+    // Hide expired seasonal notes now and on a few delayed passes (the static
+    // spring-note block is a separate Squarespace code block, injected async).
+    hideExpiredSpringNotes();
+    setTimeout(hideExpiredSpringNotes, 500);
+    setTimeout(hideExpiredSpringNotes, 1500);
+    setTimeout(hideExpiredSpringNotes, 3000);
     // If the div wasn't in the DOM yet, poll every 100ms for up to 3 seconds
     if (!document.getElementById('ws-prac-root')) {
       var attempts = 0;
