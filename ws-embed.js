@@ -1,5 +1,9 @@
 // ws-embed.js — Shoonya style page embed
 // Served from: https://classes.shoonyadance.com/ws-embed.js
+// v5.1 · 2026-06-19 — match buttons to cards by day + START TIME (was day-only,
+//                   which piled both same-day levels onto one per-level card).
+//                   Time parsing accepts ":" / "." / "u"/"h" (NL Weglot renders
+//                   "18.30 uur"). Card-title level number as fallback if no time.
 // v5 · 2026-06-19 — add inline "Add your classes to your calendar" buttons after
 //                   the date list: one direct .ics download per class/level, built
 //                   from the live publicSchedule feed (holiday + teacher-break aware).
@@ -73,7 +77,8 @@
     return _feedPromise;
   }
 
-  function hhmm(s) { var m = String(s).match(/(\d{1,2}):(\d{2})/); return m ? (('0' + m[1]).slice(-2) + ':' + m[2]) : ''; }
+  // Accept ":" (feed/EN), "." and "u"/"h" (NL/Weglot renders "18.30 uur" / "18u30").
+  function hhmm(s) { var m = String(s).match(/(\d{1,2})[:.uh](\d{2})/i); return m ? (('0' + m[1]).slice(-2) + ':' + m[2]) : ''; }
 
   // Empty slotDates in the feed = full-term class → compute the STANDARD calendar
   // (school holidays only), exactly as the schedule page does. NOT "no dates".
@@ -535,9 +540,22 @@
     var card = details.closest('[class*="level-card"]') || details.closest('[class*="card"]') || details.parentElement;
     var set = {};
     var txt = card ? card.textContent : '';
-    var re = /(\d{1,2}:\d{2})\s*[–\-—]\s*\d{1,2}:\d{2}/g, m;
-    while ((m = re.exec(txt))) set[hhmm(m[1])] = 1;
+    // Time separators: ":" (EN/feed), "." and "u"/"h" (NL/Weglot). Requires a range
+    // (two times + dash) so prices like "€34.6" never register as a time.
+    var re = /(\d{1,2}[:.uh]\d{2})\s*[–\-—]\s*\d{1,2}[:.uh]\d{2}/gi, m;
+    while ((m = re.exec(txt))) { var t = hhmm(m[1]); if (t) set[t] = 1; }
     return set;
+  }
+
+  // Level number from the card's TITLE only (e.g. "Niveau 2" / "Level 2") — not the
+  // whole card, because descriptions reference other levels ("…eerst niveau 2…").
+  // Fallback signal for per-level cards if the time format ever fails to parse.
+  function cardLevel(details) {
+    var card = details.closest('[class*="level-card"]') || details.closest('[class*="card"]') || details.parentElement;
+    var t = card && (card.querySelector('[class*="level-title"]') || card.querySelector('h1,h2,h3,h4'));
+    var txt = t ? t.textContent.toLowerCase() : '';
+    var m = txt.match(/(?:niveau|level)\s*(\d)/) || txt.match(/\bl(\d)\b/);
+    return m ? m[1] : null;
   }
 
   function calButton(slot, nl) {
@@ -580,34 +598,30 @@
           list.forEach(function (s) { var b = calButton(s, nl); if (b) { g.appendChild(b); rendered[key(s)] = 1; } });
           return g;
         }
-        // Attach buttons to each date-list block, matched by the block's day +
-        // the class start-times shown in its card. Works for both layouts:
-        //  • per-level card (one time)  → one button
-        //  • day card (several rows)    → that day's buttons
+        // Attach buttons to each date-list block. Match the block's classes by:
+        //  1) day (from the block's first date) + class START time shown in its card
+        //     → handles per-level cards (one time) and day cards (several rows).
+        //  2) if no time parses, fall back to the card's TITLE level number + day.
+        // If neither signal is present, render nothing for that block (safe — never
+        // dump all-day buttons onto one card, which mis-assigned same-day levels).
         anchors.forEach(function (a) {
           var sum = a.querySelector('summary');
           var nl = /bekijk|sessies/.test((sum ? sum.textContent : '').toLowerCase());
           var day = blockDay(a);
           var starts = cardStarts(a);
           var hasStarts = Object.keys(starts).length > 0;
+          var lvl = hasStarts ? null : cardLevel(a);
           var list = mine.filter(function (s) {
             if (rendered[key(s)]) return false;
             if (day && s.day !== day) return false;
-            return hasStarts ? !!starts[hhmm(s.start)] : true;
+            if (hasStarts) return !!starts[hhmm(s.start)];
+            if (lvl) { var n = (String(s.level).match(/\d/) || [])[0]; return n === lvl; }
+            return false;
           });
           if (!list.length) return;
           var g = makeGroup(list, nl);
           if (g.children.length > 1 && a.parentNode) a.parentNode.insertBefore(g, a.nextSibling);
         });
-        // Safety: any class not matched to a day block → append under the last list.
-        var leftover = mine.filter(function (s) { return !rendered[key(s)]; });
-        if (leftover.length) {
-          var last = anchors[anchors.length - 1];
-          var sumL = last.querySelector('summary');
-          var nlL = /bekijk|sessies/.test((sumL ? sumL.textContent : '').toLowerCase());
-          var g2 = makeGroup(leftover, nlL);
-          if (g2.children.length > 1 && last.parentNode) last.parentNode.insertBefore(g2, last.nextSibling);
-        }
       });
     } catch (e) {}
   }
