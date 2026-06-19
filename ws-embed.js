@@ -1,5 +1,9 @@
 // ws-embed.js — Shoonya style page embed
 // Served from: https://classes.shoonyadance.com/ws-embed.js
+// v6 · 2026-06-19 — inject Course/CourseInstance JSON-LD per style page from the
+//                   feed (style/level/day/time/dates/teacher/studio), so weekly
+//                   classes are machine-readable for search + answer engines.
+//                   No price/Offer yet (prices are computed tiers — add later).
 // v5.1 · 2026-06-19 — match buttons to cards by day + START TIME (was day-only,
 //                   which piled both same-day levels onto one per-level card).
 //                   Time parsing accepts ":" / "." / "u"/"h" (NL Weglot renders
@@ -626,6 +630,82 @@
     } catch (e) {}
   }
 
+  // ── Course / CourseInstance schema (F-07) ─────────────────────────────────
+  // Inject Course + CourseInstance JSON-LD built from the same feed, so weekly
+  // classes are machine-readable for search + answer engines (style/level/day/
+  // time/dates/teacher/studio). No price/Offer yet — prices are computed tiers;
+  // add later from a sync-safe source. One graph per style page, injected once.
+  var _courseDone = false;
+  var COURSE_DAYNAME = { mon: 'Monday', tue: 'Tuesday', wed: 'Wednesday', thu: 'Thursday', fri: 'Friday', sat: 'Saturday', sun: 'Sunday' };
+  function toMin(t) { var m = String(t).match(/(\d{1,2}):(\d{2})/); return m ? (+m[1] * 60 + +m[2]) : 0; }
+
+  function injectCourseSchema() {
+    try {
+      if (_courseDone || document.getElementById('wsep-course-jsonld')) return;
+      var path = (window.location.pathname || '').replace(/\/$/, '').toLowerCase();
+      var styleName = styleForPath(path);
+      if (!styleName) return;
+      fetchSchedule().then(function (slots) {
+        if (_courseDone || document.getElementById('wsep-course-jsonld') || !slots) return;
+        var mine = slots.filter(function (s) { return (s.style || '').toLowerCase() === styleName.toLowerCase(); });
+        if (!mine.length) return;
+        mine.sort(function (a, b) { return (DAY_ORDER[a.day] || 9) - (DAY_ORDER[b.day] || 9) || hhmm(a.start).localeCompare(hhmm(b.start)); });
+        var base = (location.origin + location.pathname).replace(/\/$/, '');
+        var levels = [], days = [];
+        mine.forEach(function (s) {
+          var lv = (s.level || '').trim(); if (lv && levels.indexOf(lv) < 0) levels.push(lv);
+          var d = COURSE_DAYNAME[s.day]; if (d && days.indexOf(d) < 0) days.push(d);
+        });
+        var instances = mine.map(function (s) {
+          var dates = sessionDates(s); if (!dates.length) return null;
+          var start = hhmm(s.start), end = hhmm(s.end), dur = toMin(end) - toMin(start);
+          var teacher = (s.teacher || '').split('(')[0].trim();
+          var ci = {
+            '@type': 'CourseInstance',
+            '@id': base + '/#instance-' + s.day + '-' + start.replace(':', ''),
+            name: s.style + (s.level ? (' — ' + s.level) : ''),
+            courseMode: 'onsite',
+            startDate: dates[0],
+            endDate: dates[dates.length - 1],
+            location: {
+              '@type': 'Place',
+              name: (s.studioName || s.studio || 'Shoonya Dance Centre') + ' · Shoonya Dance Centre',
+              address: { '@type': 'PostalAddress', streetAddress: 'Stapelplein 41', postalCode: '9000', addressLocality: 'Gent', addressCountry: 'BE' }
+            }
+          };
+          if (dur > 0) ci.courseWorkload = 'PT' + dur + 'M';
+          if (teacher) ci.instructor = { '@type': 'Person', name: teacher };
+          return ci;
+        }).filter(Boolean);
+        if (!instances.length) return;
+        _courseDone = true;
+        var descr = 'Weekly ' + styleName + ' classes for adults in Ghent at Shoonya Dance Centre'
+          + (levels.length ? (' — levels: ' + levels.join(', ')) : '')
+          + (days.length ? (' · ' + days.join(', ')) : '') + '. Sep 2026 to Jan 2027.';
+        var graph = {
+          '@context': 'https://schema.org',
+          '@graph': [
+            { '@type': 'Organization', '@id': 'https://www.shoonyadance.com/#organization', name: 'Shoonya Dance Centre', url: 'https://www.shoonyadance.com/' },
+            {
+              '@type': 'Course',
+              '@id': base + '/#course',
+              name: styleName + ' classes in Ghent',
+              description: descr,
+              provider: { '@id': 'https://www.shoonyadance.com/#organization' },
+              inLanguage: 'en',
+              hasCourseInstance: instances
+            }
+          ]
+        };
+        var sc = document.createElement('script');
+        sc.type = 'application/ld+json';
+        sc.id = 'wsep-course-jsonld';
+        sc.textContent = JSON.stringify(graph);
+        document.head.appendChild(sc);
+      });
+    } catch (e) {}
+  }
+
   // ── Entry point ───────────────────────────────────────────────────────────
   // Squarespace injects code blocks asynchronously, so #ws-prac-root may not
   // exist when DOMContentLoaded fires. Poll until it appears (max 3 seconds).
@@ -648,6 +728,7 @@
     // spring-note block is a separate Squarespace code block, injected async).
     hideExpiredSpringNotes();
     injectCalendarButtons();
+    injectCourseSchema();
     setTimeout(hideExpiredSpringNotes, 500);
     setTimeout(hideExpiredSpringNotes, 1500);
     setTimeout(hideExpiredSpringNotes, 3000);
