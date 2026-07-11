@@ -3240,7 +3240,7 @@ function renderWebsiteSection(style) {
         ${copyBtn('ws-hero-native', 'Copy all')}
       </div>
       <textarea id="ws-hero-native" class="ws-text-area" rows="4" spellcheck="false">${escHtml(heroNative)}</textarea>
-      <div class="ws-note-box" style="margin-top:.5rem;">H1 title → native heading. Facts line in ALL CAPS → native text. One-sentence hook → native paragraph. CTA → native button linking to <code>#register</code>.</div>
+      <div class="ws-note-box" style="margin-top:.5rem;">H1 title → native heading. Facts line in ALL CAPS → native text. One-sentence hook → native paragraph. CTA → native button linking to <code>#register</code>. Do not link this button to another style page.</div>
     </div>
 
     <hr class="ws-divider">
@@ -3296,7 +3296,7 @@ function renderWebsiteSection(style) {
       ${layoutLabel}
       <div id="ws-levels-html" class="ws-code-area" style="max-height:360px;">${escHtml(levelsHtml)}</div>
       <div class="ws-note-box" style="margin-top:.5rem;">
-        Set Section ID = <code>register</code> in Squarespace (Edit Section → Section ID) so the hero CTA button's <code>#register</code> link works.
+        Set Section ID = <code>register</code> in Squarespace (Edit Section → Section ID) so the hero CTA button's <code>#register</code> link works. If the button opens another course page, the native button URL is wrong — set it back to <code>#register</code>.
         Each code block includes a Google Fonts <code>&lt;link&gt;</code> — keep only <strong>one</strong> per page (e.g. in the Teacher block); remove duplicates from Levels and Practical blocks after pasting.
         ${!levels.length ? '<br><strong>⚠ No level data yet</strong> — teacher needs to submit a weekly class form first.' : ''}
         ${layout === 'day' ? '<br><strong>Day-based layout</strong> — ≥5 levels or back-to-back same day. Each card = one day of the week.' : ''}
