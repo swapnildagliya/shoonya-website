@@ -495,12 +495,17 @@
   // in at generation time (no build-time date logic). Once spring 2026 has ended
   // (last class 13 Jun 2026) that note reads wrong, so hide it everywhere from
   // 14 Jun onward. Runs on a few delayed passes because Squarespace injects code
-  // blocks asynchronously. Safe no-op before the cutoff and on pages with no note.
+  // blocks asynchronously. Safe no-op before the cutoff and on pages with no
+  // stale spring note.
   function hideExpiredSpringNotes() {
     try {
       if (new Date() < new Date('2026-06-14T00:00:00')) return;
       var notes = document.querySelectorAll('.spring-note');
-      for (var i = 0; i < notes.length; i++) notes[i].style.display = 'none';
+      for (var i = 0; i < notes.length; i++) {
+        if (/spring 2026 classes still running/i.test(notes[i].textContent || '')) {
+          notes[i].style.display = 'none';
+        }
+      }
     } catch (e) {}
   }
 
