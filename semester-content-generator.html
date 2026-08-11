@@ -590,7 +590,7 @@ function selectOpenDeurdag(date) {
   if (!currentData || !currentData.openDeurdag) return;
   const dates = Object.keys(currentData.openDeurdag).sort();
   if (!dates.length) return;
-  const targetDate = date || (currentSelection && currentSelection.kind === 'opendeurdag' && currentSelection.date) || dates[0];
+  const targetDate = date || (currentSelection && currentSelection.kind === 'opendeurdag' && currentSelection.date) || _odDefaultDate(dates);
   currentSelection = { kind: 'opendeurdag', date: targetDate };
   applyActiveSelection();
   renderOpenDeurdag(currentData.openDeurdag, targetDate);
@@ -922,6 +922,14 @@ function _odBucketKey(entry) {
   return 'unk';
 }
 
+// Keys are ISO (YYYY-MM-DD), so a string compare against today is safe and the
+// array is already sorted. Default to the next open door still AHEAD — picking
+// dates[0] meant the tool opened on 14 Jun 2026 two months after it had passed.
+function _odDefaultDate(dates) {
+  const today = new Date().toISOString().slice(0, 10);
+  return dates.find(d => d >= today) || dates[dates.length - 1];
+}
+
 function _odFmtDate(iso) {
   const d = new Date(iso + 'T12:00:00');
   const days   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
@@ -953,7 +961,7 @@ function renderOpenDeurdag(openDeurdag, activeDate) {
       <p>No Opendeurdag submissions yet.</p></div>`;
     return;
   }
-  if (!activeDate || allDates.indexOf(activeDate) === -1) activeDate = allDates[0];
+  if (!activeDate || allDates.indexOf(activeDate) === -1) activeDate = _odDefaultDate(allDates);
 
   const entries = openDeurdag[activeDate] || [];
   // Group by bucket
