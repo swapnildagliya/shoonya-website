@@ -3224,7 +3224,10 @@ function renderWebsiteSection(style) {
   const socialLinksHtml = wsSocialLinksHtml(wsData.social || []);
 
   // Section label blocks — About/Teacher/Coming Up labels removed (blocks self-label)
-  const trialPillHtml    = wsTrialPillHtml();
+  // Pass-priced styles (Tono's Int/Adv mornings) sit outside the semester term,
+  // so the free trial week does not apply to them. Emitting the pill invited a
+  // paste that would have been wrong on the page — Swapnil, 2026-08-11.
+  const trialPillHtml    = wsData.passPricing ? '' : wsTrialPillHtml();
   const levelsHtml       = wsLevelsHtml(style, wsData.descriptionsByLevel || null, wsData);
   const practicalHtml    = wsPracticalHtml(style, prefix, wsData);
 
@@ -3262,6 +3265,7 @@ function renderWebsiteSection(style) {
       ${(!meta.description || meta.descriptionTruncated) && wsData.description ? `<div class="ws-note-box" style="margin-bottom:.4rem;">ℹ ${meta.descriptionTruncated ? 'Sheet description is truncated (old submission) — using pre-filled text.' : 'Teacher has not submitted a description — using pre-filled text.'} Update once teacher re-submits via the form.</div>` : ''}
       <textarea id="ws-about-native" class="ws-text-area" rows="${descRows}" spellcheck="false">${escHtml(aboutNative)}</textarea>
     </div>
+    ${trialPillHtml ? `
     <div class="ws-block">
       <div class="ws-block-head">
         <div class="ws-block-title">About — free trial week pill <span class="ws-badge code">Code block</span> <span class="ws-badge note">Delete after Sep 19</span></div>
@@ -3270,7 +3274,7 @@ function renderWebsiteSection(style) {
       <div id="ws-trial-pill" class="ws-code-area">${escHtml(trialPillHtml)}</div>
     </div>
 
-    <hr class="ws-divider">
+    <hr class="ws-divider">` : ''}
 
     <!-- ── TEACHER ── -->
     ${wsData.teachers && wsData.teachers.length ? `
