@@ -496,7 +496,7 @@ function renderSidebar(data) {
     var odLabel = odCount ? (odCount + ' date' + (odCount > 1 ? 's' : '')) : 'no data yet';
     specialHtml += `<div class="item" data-kind="opendeurdag" onclick="selectOpenDeurdag()" style="border-left-color: #1a7a6e;">
         <span class="ico">🏠</span>
-        <span style="flex:1;">Open Deurdag</span>
+        <span style="flex:1;">Opendeurdag</span>
         <span style="font-size:.7rem;color:#888;">${odLabel}</span>
       </div>`;
   }
@@ -950,7 +950,7 @@ function renderOpenDeurdag(openDeurdag, activeDate) {
   const allDates = Object.keys(openDeurdag).sort();
   if (!allDates.length) {
     pane.innerHTML = `<div class="empty-state"><div class="ico">🏠</div>
-      <p>No Open Deurdag submissions yet.</p></div>`;
+      <p>No Opendeurdag submissions yet.</p></div>`;
     return;
   }
   if (!activeDate || allDates.indexOf(activeDate) === -1) activeDate = allDates[0];
@@ -985,7 +985,7 @@ function renderOpenDeurdag(openDeurdag, activeDate) {
     .filter(s => !styleIdsWithData.has(s.name))
     .map(s => s.name);
 
-  document.getElementById('topbar-title').textContent = 'Open Deurdag — ' + _odFmtDate(activeDate);
+  document.getElementById('topbar-title').textContent = 'Opendeurdag — ' + _odFmtDate(activeDate);
   document.getElementById('topbar-sub').textContent =
     `${totalAvailable} available · ${totalNot} not available${unknownCount ? ' · ' + unknownCount + ' missing preference (re-submit or check email)' : ''}`;
 
@@ -1063,7 +1063,7 @@ async function copyOpenDeurdagText(activeDate) {
   });
   Object.keys(buckets).forEach(k => buckets[k].sort((a, b) => a.style.localeCompare(b.style)));
 
-  const lines = ['Open Deurdag — ' + _odFmtDate(activeDate), ''];
+  const lines = ['Opendeurdag — ' + _odFmtDate(activeDate), ''];
   Object.keys(OD_BUCKET_META).sort((a, b) => OD_BUCKET_META[a].order - OD_BUCKET_META[b].order).forEach(k => {
     const items = buckets[k];
     if (!items || !items.length) return;
