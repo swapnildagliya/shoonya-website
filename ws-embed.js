@@ -792,17 +792,25 @@
     setTimeout(injectCalendarButtons, 600);
     setTimeout(injectCalendarButtons, 1600);
     setTimeout(injectCalendarButtons, 3200);
-    // If the div wasn't in the DOM yet, poll every 100ms for up to 3 seconds
-    if (!document.getElementById('ws-prac-root')) {
+    // If a root div wasn't in the DOM yet, poll every 100ms until it appears.
+    //
+    // ⚠️ #ws-levels-root MUST be polled for, exactly like #ws-prac-root. Squarespace injects
+    // code blocks asynchronously, so on a real page the div frequently does not exist when
+    // init() runs. injectLevelsBlock() bails on its FIRST line when the root is missing —
+    // and that is the one exit path that logs no warning, so the failure looks like "the
+    // feed broke" when it is really "the div wasn't there yet". This cost a blank Kizomba
+    // block on 2026-08-12: it passed every local test because a static fixture always has
+    // the div before the script runs, which is the one condition Squarespace never meets.
+    var _pracSeen  = !!document.getElementById('ws-prac-root');
+    var _levelSeen = !!document.getElementById('ws-levels-root');
+    if (!_pracSeen || !_levelSeen) {
       var attempts = 0;
       var poll = setInterval(function () {
         attempts++;
-        if (document.getElementById('ws-prac-root')) {
-          clearInterval(poll);
-          render();
-        } else if (attempts >= 30) {
-          clearInterval(poll); // give up after 3s
-        }
+        if (!_pracSeen && document.getElementById('ws-prac-root')) { _pracSeen = true; render(); }
+        // injectLevelsBlock() self-guards via data-ws-done, so a repeat call is harmless.
+        if (!_levelSeen && document.getElementById('ws-levels-root')) { _levelSeen = true; injectLevelsBlock(); }
+        if ((_pracSeen && _levelSeen) || attempts >= 100) clearInterval(poll); // give up after 10s
       }, 100);
     }
   }
