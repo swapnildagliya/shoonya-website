@@ -85,18 +85,63 @@
   function fetchSchedule() {
     if (_feedPromise) return _feedPromise;
     var url = SCHED_FEED + '?action=publicSchedule&semester=' + encodeURIComponent(SCHED_SEMESTER);
+    // 4 attempts with widening backoff (0.6s / 1.2s / 2.4s). The endpoint 404s often enough
+    // that three was not always sufficient.
+    // Per-attempt timeout. Measured 2026-08-12: a SUCCESSFUL response takes 3–9s, but a
+    // failing one sat for ~14s before returning 404. Without a cap, one bad attempt costs
+    // more than the whole retry chain. 12s is above the slowest observed success and below
+    // the observed failure, so it cuts dead requests without killing slow-but-good ones.
     var attempt = function (n) {
-      return fetch(url)
-        .then(function (r) { return r.ok ? r.json() : null; })
+      var ctl = (typeof AbortController === 'function') ? new AbortController() : null;
+      var timer = setTimeout(function () { if (ctl) try { ctl.abort(); } catch (e) {} }, 12000);
+      return fetch(url, ctl ? { signal: ctl.signal } : undefined)
+        .then(function (r) { clearTimeout(timer); return r.ok ? r.json() : null; })
         .then(function (j) { return (j && j.ok && Array.isArray(j.slots)) ? j.slots : null; })
-        .catch(function () { return null; })
+        .catch(function () { clearTimeout(timer); return null; })
         .then(function (slots) {
-          if (slots || n >= 3) return slots;
-          return new Promise(function (res) { setTimeout(res, 600); }).then(function () { return attempt(n + 1); });
+          if (slots || n >= 4) return slots;
+          var wait = 600 * Math.pow(2, n - 1);
+          return new Promise(function (res) { setTimeout(res, wait); }).then(function () { return attempt(n + 1); });
         });
     };
-    _feedPromise = attempt(1);
+
+    // Cache, for two distinct reasons:
+    //  1. SPEED — the Apps Script round-trip is ~4s on a good run and longer when it retries,
+    //     which a visitor reads as "there is nothing here". A fresh cache paints instantly,
+    //     including when moving between style pages.
+    //  2. RESILIENCE — when every retry fails (it happens), a STALE cache is served rather
+    //     than nothing. Slightly old class times beat a blank section by a mile. Only a
+    //     first-ever visitor during an outage now sees no block at all.
+    // The schedule changes a few times a semester, so 30 min of staleness is harmless.
+    var fresh = _readFeedCache(false);
+    if (fresh) { _feedPromise = Promise.resolve(fresh); return _feedPromise; }
+
+    _feedPromise = attempt(1).then(function (slots) {
+      if (slots) { _writeFeedCache(slots); return slots; }
+      var stale = _readFeedCache(true);          // any age — better than an empty section
+      if (stale) { try { console.warn('[ws-levels] feed unreachable — serving cached schedule'); } catch (e) {} }
+      return stale;
+    });
     return _feedPromise;
+  }
+
+  var FEED_CACHE_KEY = 'ws_sched_v1_' + SCHED_SEMESTER;
+  var FEED_CACHE_TTL = 30 * 60 * 1000;
+
+  // allowStale=true ignores the TTL — used only as the last resort when the feed is down.
+  function _readFeedCache(allowStale) {
+    try {
+      var raw = localStorage.getItem(FEED_CACHE_KEY);
+      if (!raw) return null;
+      var o = JSON.parse(raw);
+      if (!o || !Array.isArray(o.slots) || !o.slots.length || !o.t) return null;
+      if (!allowStale && Date.now() - o.t > FEED_CACHE_TTL) return null;   // keep it: may serve stale later
+      return o.slots;
+    } catch (e) { return null; }   // private mode / quota / bad JSON → just fetch
+  }
+
+  function _writeFeedCache(slots) {
+    try { localStorage.setItem(FEED_CACHE_KEY, JSON.stringify({ t: Date.now(), slots: slots })); } catch (e) {}
   }
 
   // Accept ":" (feed/EN), "." and "u"/"h" (NL/Weglot renders "18.30 uur" / "18u30").
