@@ -596,7 +596,56 @@ function selectOpenDeurdag(date) {
   renderOpenDeurdag(currentData.openDeurdag, targetDate);
 }
 
+// The inverse of `mergeStyles`. A style whose slots are shown on ANOTHER page —
+// Tono Ferriol's Int/Adv mornings live on /professional-morning-training-gent —
+// must not also list them here, or the same class appears on two pages under two
+// different pricing models (semester vs class pass). Levels left with no slots
+// after filtering are dropped entirely. Added 2026-08-11.
+function wsExcludeTeachers(style) {
+  const names = (WS_STYLE_DATA[style.name] || {}).excludeTeachers;
+  if (!Array.isArray(names) || !names.length) return style;
+  const levels = (style.levels || []).map(lv => Object.assign({}, lv, {
+    slots: (lv.slots || []).filter(s => !names.includes(s.teacher))
+  })).filter(lv => (lv.slots || []).length);
+  return Object.assign({}, style, { levels });
+}
+
+// A style whose WS_STYLE_DATA entry sets `mergeStyles` renders one page covering
+// slots from more than one sheet style — used where a single product spans two
+// styles (Tono Ferriol's Int/Adv mornings: one pass, Ballet + Contemporary).
+// `mergeStyles: [{ style, teacher }]` pulls that style's levels from the same
+// feed, keeps only the named teacher's slots, and appends them to this style's
+// levels. Non-destructive: the source style still renders its own page.
+function wsMergedStyle(style) {
+  style = wsExcludeTeachers(style);
+  const cfg = (WS_STYLE_DATA[style.name] || {}).mergeStyles;
+  if (!Array.isArray(cfg) || !cfg.length) return style;
+  const extra = [];
+  cfg.forEach(m => {
+    const src = (currentData.styles || []).find(s => s.name === m.style);
+    if (!src) { console.warn('[mergeStyles] style not in feed:', m.style); return; }
+    (src.levels || []).forEach(lv => {
+      const slots = (lv.slots || []).filter(s => !m.teacher || s.teacher === m.teacher);
+      if (slots.length) extra.push(Object.assign({}, lv, {
+        level: m.label || (m.style + ' — ' + (lv.level || '')),
+        _realLevel: lv.level,   // keep the feed level so the badge stays truthful
+        slots: slots
+      }));
+    });
+  });
+  if (!extra.length) return style;
+  // Once a page carries two styles, the feed's own level name ("Int/Adv") no
+  // longer tells the cards apart — `nativeLevelLabel` renames this style's own
+  // levels so every card reads "<style> · <day> morning".
+  const nativeLabel = (WS_STYLE_DATA[style.name] || {}).nativeLevelLabel;
+  const own = nativeLabel
+    ? (style.levels || []).map(lv => Object.assign({}, lv, { level: nativeLabel, _realLevel: lv.level }))
+    : (style.levels || []);
+  return Object.assign({}, style, { levels: own.concat(extra) });
+}
+
 function renderStyle(style) {
+  style = wsMergedStyle(style);
   document.getElementById('topbar-title').textContent = style.name;
   document.getElementById('topbar-sub').textContent =
     `${style.teachers?.join(' · ') || '—'} · ${style.sessionCount || '?'} sessions · ${style.semester}`;
@@ -1271,6 +1320,10 @@ const WS_STYLE_DATA = {
     ]
   },
   'Ballet': {
+    // Tono Ferriol's Int/Adv mornings are listed on /professional-morning-training-gent
+    // instead — different term (ends 10 Dec) and pricing (class passes, not semester).
+    // Without this they would appear on both pages. Swapnil, 2026-08-11.
+    excludeTeachers: ['Tono Ferriol'],
     hook: 'Classical ballet for adults — building strength, posture, and a technique that lifts everything else you dance.',
     description: 'Adult ballet at Shoonya is about building a solid technical foundation — alignment, musicality, and expressiveness — with encouragement at every level. Shirley focuses on developing strength, posture, and a love of movement rather than pre-professional pressure. Whether you are stepping into a studio for the first time or returning after years away, she guides every student with patience and personal attention.',
     photo: 'https://images.squarespace-cdn.com/content/v1/643161d3f0077c58bb466e03/0d918571-5f9f-400e-b920-ce4204c4202f/Shirley.jpeg',
@@ -1282,9 +1335,59 @@ const WS_STYLE_DATA = {
     wear: 'Comfortable, form-fitting dancewear. Ballet shoes or socks — no street shoes in the studio.',
     bring: 'Water bottle. Small hand towel for sweat.',
     alsoStyles: [
-      { name: 'Yoga',     slug: '/yoga-lessen-in-gent',          meta: 'Tuesday · Open' },
+      { name: 'Yoga',     slug: '/yoga-lessen-in-gent',          meta: 'Tue & Wed · Open' },
       { name: 'Flamenco', slug: '/flamenco-danslessen-in-gent',   meta: 'Tuesday · L1/L2/L3' },
       { name: 'Indian Dance Technique', slug: '/indian-dance-in-belgium', meta: 'Tuesday · Open' }
+    ]
+  },
+  // Style #25, added 2026-08-02. One page carries Tono Ferriol's whole morning
+  // offer — Contemporary AND Ballet, Int/Adv, Mon + Thu — because a single pass
+  // is spendable across all four classes (see passPricing + mergeStyles).
+  // Copy is his own submitted class_description (weekly-class form, 2026-06-22);
+  // bio + socials from truth/teachers.md §27. Level reads Int/Adv per the
+  // 2026-06-23 decision — his form said "Open Level", overridden with Tono.
+  'Contemporary dance': {
+    hook: 'A professional class without the pressure — stay in shape, sharpen technique, and find your own movement again.',
+    description: 'Open Contemporary Training with Tono Ferriol\nJoin a professional yet pressure-free contemporary class designed for professional and semi-professional dancers. Our focus is to stay in shape and refine technique in a warm, welcoming environment. Beyond the structured training, there will be space to explore and connect with your own personal movement.',
+    nativeLevelLabel: 'Contemporary',
+    mergeStyles: [{ style: 'Ballet', teacher: 'Tono Ferriol', label: 'Ballet' }],
+    descriptionsByLevel: {
+      'Contemporary': 'Join a professional yet pressure-free contemporary class designed for professional and semi-professional dancers. Our focus is to stay in shape and refine technique in a warm, welcoming environment. Beyond the structured training, there will be space to explore and connect with your own personal movement.',
+      'Ballet': 'Join a professional yet pressure-free classical ballet class designed for professional and semi-professional dancers. Our focus is to stay in shape and refine technique in a warm, welcoming environment. Beyond the structured training, there will be space to explore and connect with your own personal movement.'
+    },
+    passPricing: {
+      // packs omitted on purpose — the renderer defaults to WS_PASS_PACKS, which
+      // is declared further down the file. Referencing it here would evaluate
+      // inside its temporal dead zone and throw before WS_STYLE_DATA is built.
+      label: 'Class passes',
+      cta:   'Book a pass →',
+      note:  'One pass, all four classes — spend it on ballet, contemporary, or any mix of the two. No semester commitment. In the registration form choose <strong>Festivals &amp; Events</strong>, then this class, then your pass size.'
+    },
+    // 2026-08-11: the Summer Intensive was cancelled and its page removed, so the
+    // old workshop-hosted URL 404s and the card rendered a broken image. Re-hosted
+    // on the classes repo (images/teachers/), which is a stable Shoonya domain we
+    // control. Source: _Assets/.../tono-ferriol/main.jpg © Rasmus Kull.
+    photo: 'https://classes.shoonyadance.com/images/teachers/tono-ferriol.jpg',
+    // main.jpg is © Rasmus Kull — NOT Koen De Clerck, who shot 2/3/4 only
+    // (truth/teachers.md §27). D-051: real names, never invented.
+    photoCredit: 'Rasmus Kull',
+    teacherOrigin: 'Spain',
+    teacherTags: [{text:'Ballet', type:'style'},{text:'Contemporary', type:'style'},{text:'English National Ballet', type:'award'}],
+    teacherStats: [{v:'2020', l:'Conservatorio Mariemma'},{v:'ENB', l:'guest artist, 2023'}],
+    teacherBio: 'A Spanish dancer and choreographer, shaped by renowned European companies, sharing the passion for classical and contemporary dance with Ghent\'s community of dance lovers.',
+    teacherBioFull: 'Tono Ferriol began his professional dance training at the Elisa Escuela de Danza in Oviedo. In 2018, he continued his studies at the Conservatorio de Música y Danza de Gijón, and in 2020, he graduated from the Real Conservatorio Profesional de Danza Mariemma in Madrid.<br><br>In 2021, Tono joined the Europa Danse Company in Brussels, performing works by Marco Goecke and Laurent Drousie. That same year, he collaborated with Peter Schaufuss for the production of The Nutcracker, touring in Edinburgh and Denmark. He later joined the Croatian National Theatre Split (HNK Split), where he performed in Vasily Medvedev\'s Onegin and danced a demi-soloist role in Leo Mujić\'s The Great Gatsby.<br><br>From August 2022 to May 2024, Tono danced with the Moravian Theatre Olomouc in the Czech Republic, participating in productions such as Giselle, The Nutcracker, La Bayadère, Giorgio Madia\'s Carmen, and Paul Chalmer\'s The Picture of Dorian Gray, as well as performing a soloist role in Alena Pešková\'s Blood Wedding. During this tenure, he also ventured into choreography, creating pieces for the opera Bluebeard\'s Castle and the musical Sugar.<br><br>In May 2023, he performed as a guest artist with the English National Ballet in Christopher Wheeldon\'s Cinderella. During the 2025/26 season, Tono worked as a dancer with the Vanemuine Estonian National Theatre.<br><br>Currently, Tono works as a freelance teacher and dancer across Europe, collaborating with prominent companies and brands including Cartier, Davydiuk Dance Company, Luxembourg Ballet, and Glen Lambrecht Ballet. He is also expanding his choreographic vision, having presented pieces for the Asturias Symphony Orchestra (OSPA), Glen Lambrecht Ballet, Moravian Theatre Olomouc, and the Vanemuine National Ballet.',
+    // Facebook omitted on purpose: the profile submission gives only the display
+    // name "Tono Ferriol", no URL. Never construct one — ask Tono for the link.
+    social: [
+      { type:'instagram', url:'https://www.instagram.com/tonoferriol', label:'@tonoferriol' },
+      { type:'youtube',   url:'https://www.youtube.com/@tono_ferriol', label:'YouTube' }
+    ],
+    wear: 'Whatever you feel comfortable moving in — this is a space to just be yourself. Socks or bare feet for contemporary, ballet shoes for ballet; whatever you are used to. No street shoes in the studio.',
+    bring: 'Water bottle. Small hand towel for sweat.',
+    alsoStyles: [
+      { name: 'Ballet',              slug: '/ballet-voor-volwassenen-in-gent', meta: 'Friday · L1/L2/L3' },
+      { name: 'Pilates for Dancers', slug: '/pilates-voor-dansers-gent',       meta: 'Tue & Wed · Open' },
+      { name: 'Yoga',                slug: '/yoga-lessen-in-gent',             meta: 'Tue & Wed · Open' }
     ]
   },
   'Kizomba': {
@@ -1635,7 +1738,7 @@ const WS_STYLE_DATA = {
         photo: 'https://images.squarespace-cdn.com/content/v1/643161d3f0077c58bb466e03/062d01d3-98f3-4e25-bf3a-d4183029e5df/Zoe+Bizoe.jpg',
         origin: 'Belgium',
         tags: [{text:'Burlesque', type:'style'},{text:'9× Intl Champion', type:'award'},{text:'BGT finalist', type:'award'}],
-        stats: [{v:'9', l:'intl awards'},{v:'2017', l:'Cabaresque premiere'}],
+        stats: [{v:'7', l:'intl titles'},{v:'2017', l:'Cabaresque premiere'}],
         bioShort: 'International burlesque champion with 9 international awards. Belgium Got Talent finalist. Founder of &#8220;Cabaresque.&#8221; Motivational speaker focused on justice, equality, and self-love.',
         bio: 'Zoe Bizoe (real name Zoe Blyau) is an international burlesque champion with 9 international awards and a Belgium Got Talent finalist. Despite lacking formal dance training, her passion for theatre and drama propelled her to the top of the international burlesque scene. In November 2017 she premiered her one-woman show &#8220;Cabaresque,&#8221; blending cabaret, comedy, and burlesque. Beyond performing and teaching, she is a motivational speaker focused on themes of justice, equality, and self-love, helping students discover their power through performance presence.',
         social: [
@@ -1716,7 +1819,7 @@ const WS_STYLE_DATA = {
     wear: 'Comfortable dancewear. Come barefoot — no shoes in Studio Aakash.',
     bring: 'Water bottle.',
     alsoStyles: [
-      { name: 'Yoga',      slug: '/yoga-lessen-in-gent',              meta: 'Tuesday · Open' },
+      { name: 'Yoga',      slug: '/yoga-lessen-in-gent',              meta: 'Tue & Wed · Open' },
       { name: 'Bollywood', slug: '/bollywood-danslessen-in-gent',     meta: 'Thursday · L2 & L3' },
       { name: 'Flamenco',  slug: '/flamenco-danslessen-in-gent',      meta: 'Tuesday · L1/L2/L3' }
     ]
@@ -1746,6 +1849,7 @@ const WS_STYLE_DATA = {
     ]
   },
   'Bhangra': {
+    starterSeries: { label: '4-Week Starter Series', sessions: 4 },   // still runs — Swapnil 2026-08-12
     hook: 'The most exuberant folk dance of Punjab — big arms, big energy, and a beat you can\'t resist.',
     photo: 'https://images.squarespace-cdn.com/content/v1/643161d3f0077c58bb466e03/36f8a145-1fb0-4be8-97ba-9d39fb70e349/20240602-015.jpg',
     teacherLabel: 'Swapnil Dagliya',
@@ -1770,6 +1874,7 @@ const WS_STYLE_DATA = {
     ]
   },
   'Indian Semi-Classical': {
+    starterSeries: { label: '4-Week Starter Series', sessions: 4 },   // still runs — Swapnil 2026-08-12
     hook: 'Classical Indian dance vocabulary — Kathak footwork, expressive gestures, and stories told through movement.',
     photo: 'https://images.squarespace-cdn.com/content/v1/643161d3f0077c58bb466e03/29b6fe81-f8f8-4cfb-b111-aa04259cbac2/Swapnil-31.jpg',
     teacherLabel: 'Swapnil Dagliya',
@@ -1795,6 +1900,7 @@ const WS_STYLE_DATA = {
   },
   'Yoga': {
     hook: 'A grounded, movement-based yoga practice for dancers and non-dancers alike.',
+    dropinDays: ['Wednesday'],   // Wed Yoga has drop-in packs; Tue is semester-only
     photo: 'https://images.squarespace-cdn.com/content/v1/643161d3f0077c58bb466e03/caac7860-3825-4aef-8f7e-eb3dd133c181/Dihp+yoga_Original.jpg',
     teacherLabel: 'Swapnil Dagliya',
     teacherOrigin: 'Pune, India / Ghent, Belgium',
@@ -1813,7 +1919,7 @@ const WS_STYLE_DATA = {
     alsoStyles: [
       { name: 'Indian Dance Technique', slug: '/indian-dance-in-belgium',        meta: 'Tuesday · Open' },
       { name: 'Bollyfolk',              slug: '/bollyfolk-danslessen-in-gent',   meta: 'Tuesday · Open' },
-      { name: 'Pilates voor Dansers',   slug: '/pilates-voor-dansers-gent',      meta: 'Coming soon' }
+      { name: 'Pilates for Dancers',     slug: '/pilates-voor-dansers-gent',      meta: 'Tue & Wed · Open' }
     ]
   },
   'Indian Dance Technique': {
@@ -1834,13 +1940,18 @@ const WS_STYLE_DATA = {
     wear: 'Comfortable dancewear. Come barefoot — no shoes in Studio Aakash.',
     bring: 'Water bottle.',
     alsoStyles: [
-      { name: 'Yoga',      slug: '/yoga-lessen-in-gent',             meta: 'Tuesday · Open' },
+      { name: 'Yoga',      slug: '/yoga-lessen-in-gent',             meta: 'Tue & Wed · Open' },
       { name: 'Bollyfolk', slug: '/bollyfolk-danslessen-in-gent',    meta: 'Tuesday · Open' },
       { name: 'Ballet',    slug: '/ballet-voor-volwassenen-in-gent', meta: 'Friday · L1/L2/L3' }
     ]
   },
   'Pilates for Dancers': {
     hook: 'What you learn on the mat stays with you on the dance floor.',
+    dropinDays: ['Tuesday', 'Wednesday'],   // both Pilates days offer drop-in packs
+    // Description now comes from the sheet (doGet meta.descByLevel['Open Level']).
+    // The static override was removed 2026-06-09 after the source fix:
+    // runFixWellnessDescriptions restored the full text + _normalizeStyleNamesInText
+    // no longer doubles "Pilates for Dancers". Re-add only if the sheet regresses.
     teachers: [
       { name: 'Lenka Badriyah', pageSlug: null,
         photo: 'https://images.squarespace-cdn.com/content/v1/643161d3f0077c58bb466e03/fe4cab00-85d3-484d-8b81-c279d67693b4/IsabelleHanneuse+%284%29.jpg',
@@ -1855,12 +1966,17 @@ const WS_STYLE_DATA = {
     bring: 'Water bottle. Yoga mat if you have one — mats available at Shoonya. Using a studio mat? Bring a yoga towel to lay over it. Small hand towel for sweat.',
     alsoStyles: [
       { name: 'Dance & Fit',  slug: '/dance-fit-gent',                    meta: 'Wednesday · Open' },
-      { name: 'Yoga',         slug: '/yoga-lessen-in-gent',               meta: 'Tuesday · Open' },
+      { name: 'Yoga',         slug: '/yoga-lessen-in-gent',               meta: 'Tue & Wed · Open' },
       { name: 'Raqs Sharqi',  slug: '/raqs-sharqi-danslessen-in-gent',    meta: 'Monday · L1/L2/L3' }
     ]
   },
   'Dance & Fit': {
     hook: 'A fresh and energising class that combines the joy of dance with the benefits of a full-body workout.',
+    dropinDays: ['Wednesday'],   // Dance & Fit (Wed only) offers drop-in packs
+    // Description now comes from the sheet (doGet meta.descByLevel['Open Level']).
+    // The static override was removed 2026-06-09 after runFixWellnessDescriptions
+    // added the full Dance & Fit copy to the teacher profile. Re-add only if the
+    // sheet regresses to an empty description.
     teachers: [
       { name: 'Lenka Badriyah', pageSlug: null,
         photo: 'https://images.squarespace-cdn.com/content/v1/643161d3f0077c58bb466e03/fe4cab00-85d3-484d-8b81-c279d67693b4/IsabelleHanneuse+%284%29.jpg',
@@ -1876,7 +1992,7 @@ const WS_STYLE_DATA = {
     alsoStyles: [
       { name: 'Pilates for Dancers', slug: '/pilates-voor-dansers-gent',      meta: 'Tue & Wed · Open' },
       { name: 'Raqs Sharqi',         slug: '/raqs-sharqi-danslessen-in-gent', meta: 'Monday · L1/L2/L3' },
-      { name: 'Yoga',                slug: '/yoga-lessen-in-gent',            meta: 'Tuesday · Open' }
+      { name: 'Yoga',                slug: '/yoga-lessen-in-gent',            meta: 'Tue & Wed · Open' }
     ]
   },
   'Bachata Solo Style': {
@@ -1925,6 +2041,7 @@ const WS_SEO = {
   'Flamenco':              { title: 'Flamenco Classes in Ghent | Shoonya Dance Centre',                 description: 'Authentic flamenco in Ghent with La Liz — trained in Seville and Jerez, 25+ years experience. Braceos, zapateado, choreography. All levels, September 2026.' },
   'Flamenco & Sevillanas': { title: 'Flamenco and Sevillanas in Ghent | Shoonya Dance Centre',         description: 'Flamenco and Sevillanas classes in Ghent with La Liz. Monthly Sevillanas practice evenings included. Trained in Seville and Jerez. All levels welcome.' },
   'Ballet':                { title: 'Adult Ballet Classes in Ghent | Shoonya Dance Centre',             description: 'Ballet for adults in Ghent with Shirley De Muer — graduate of the Royal Ballet School of Antwerp. Technique, posture, and musicality for all levels.' },
+  'Contemporary dance':    { title: 'Contemporary & Ballet Training in Ghent | Shoonya Dance Centre',   description: 'Morning contemporary and ballet training in Ghent for professional and semi-professional dancers, with Tono Ferriol. Monday and Thursday, flexible class passes.' },
   'Kizomba':               { title: 'Kizomba Classes in Ghent | Shoonya Dance Centre',                 description: 'Kizomba in Ghent with Sonja KikiZomba — Belgium\'s pioneer of Kizomba teaching since 2006. Levels 2, 3 and 4. Authentic Angolan partner dance, Ghent.' },
   'Bachata':               { title: 'Bachata Classes in Ghent | Shoonya Dance Centre',                 description: 'Bachata classes in Ghent with World Champion Alex and Lenka Badriyah. Dominican partner dance — rhythm, connection, and confidence. All levels, Gent.' },
   'Cuban Salsa':           { title: 'Cuban Salsa Classes in Ghent | Shoonya Dance Centre',             description: 'Cuban Salsa (Casino) in Ghent with 3× World Champion Alex and Ioanna. Circular partner dance rooted in son cubano. All levels from beginner to advanced.' },
@@ -1964,6 +2081,98 @@ const WS_STD_SESSIONS = 16;
 // Compute full/student/uitpas price for a slot.
 // Uses canonical tier from duration when available; falls back to meta prices.
 // Prorates when sessionCount differs from WS_STD_SESSIONS (16).
+// ─── Date grid, with holiday skip rows ──────────────────────────────────────
+// A gap in the dates list is invisible without an explanation, so the grid marks it.
+// Restored 2026-08-12: `.date-skip` had survived as CSS while nothing emitted it any
+// more, so every block generated after the regression silently dropped the markers
+// that older pasted blocks still carry.
+//
+// Holidays are mirrored from `config/semester-config.json` → semesters[2026-autumn].
+// UPDATE BOTH when the school calendar changes.
+// Standing wording for a non-holiday gap. Matches what is already published on the
+// Bhangra + Indian Semi-Classical pages.
+const WS_ABSENCE_REASON = 'teacher away';
+
+const WS_HOLIDAYS = [
+  { name: 'Herfstvakantie', start: '2026-11-01', end: '2026-11-08' },
+  { name: 'Kerstvakantie', start: '2026-12-20', end: '2027-01-10' }
+];
+
+// A gap that is NOT a school holiday is a per-class exclusion (teacher away, venue
+// clash…). The feed carries no reason for those, so the row states only what the dates
+// themselves prove — it must never guess a cause. Older blocks say "(teacher away)";
+// that wording needs a real field in the sheet before it can come back.
+// Non-holiday gaps are teacher absences. Swapnil's call (2026-08-12): a single standing
+// wording is enough — no per-exclusion reason field, and therefore no sheet column, no feed
+// change and no Apps Script deploy. Change WS_ABSENCE_REASON if the wording should differ.
+function wsDateGridHtml(dates, p) {
+  const DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const MON  = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const fmt  = d => MON[d.getMonth()] + ' ' + d.getDate();
+  const holidayFor = d => WS_HOLIDAYS.find(h =>
+    d >= new Date(h.start + 'T00:00:00') && d <= new Date(h.end + 'T23:59:59')) || null;
+
+  const sorted = [...dates].sort();
+  const out = [];
+  sorted.forEach((iso, i) => {
+    if (i > 0) {
+      const prev = new Date(sorted[i - 1] + 'T12:00:00');
+      const cur  = new Date(iso + 'T12:00:00');
+      // Every weekly slot that falls between two consecutive class dates.
+      const skipped = [];
+      for (const t = new Date(prev); ; ) {
+        t.setDate(t.getDate() + 7);
+        if (t >= cur) break;
+        skipped.push(new Date(t));
+      }
+      // A single gap can be BOTH a school holiday and a teacher absence — exclusions are
+      // per teacher, so two teachers on the same weekday can have different gaps. Group the
+      // skipped weeks by cause, in order, and emit one row per run.
+      let run = [];
+      const flush = () => {
+        if (!run.length) return;
+        const hol = run[0].hol;
+        if (hol) {
+          const hs = new Date(hol.start + 'T12:00:00'), he = new Date(hol.end + 'T12:00:00');
+          const range = hs.getMonth() === he.getMonth()
+            ? MON[hs.getMonth()] + ' ' + hs.getDate() + '\u2013' + he.getDate()
+            : fmt(hs) + ' \u2013 ' + fmt(he);
+          out.push(`<span class="date-skip">\u2014 ${hol.name} (${range}) \u2014</span>`);
+        } else {
+          // "Dec 9 & 16", not "Dec 9 & Dec 16" — repeat the month only when it changes.
+          let lastMon = -1;
+          const label = run.map(x => {
+            const t = x.d.getMonth() === lastMon ? String(x.d.getDate()) : fmt(x.d);
+            lastMon = x.d.getMonth();
+            return t;
+          }).join(' & ');
+          out.push(`<span class="date-skip">\u2014 ${label}: no class (${WS_ABSENCE_REASON}) \u2014</span>`);
+        }
+        run = [];
+      };
+      skipped.forEach(d => {
+        const hol = holidayFor(d);
+        if (run.length && (run[0].hol || null) !== hol) flush();
+        run.push({ d, hol });
+      });
+      flush();
+    }
+    const dt = new Date(iso + 'T12:00:00');
+    out.push(`<span>${DAYS[dt.getDay()]} ${dt.getDate()} ${MON[dt.getMonth()]}</span>`);
+  });
+  return out.join('');
+}
+
+// Money formatting: whole euros print bare, fractions always print two decimals.
+// UiTPAS is 20% of full, so it is routinely fractional — it was rendering as "34.6",
+// while the canonical table (docs/sep-2026-canonical.md) and every previously pasted
+// block say "34.60". Restored 2026-08-12.
+function wsEur(n) {
+  const v = Number(n);
+  if (!isFinite(v)) return n;
+  return Number.isInteger(v) ? String(v) : v.toFixed(2);
+}
+
 function wsComputePrice(duration, sessionCount, fallbackFull, fallbackStudent) {
   const tier = WS_PRICE_TIERS[duration];
   const sc   = sessionCount || WS_STD_SESSIONS;
@@ -1994,11 +2203,32 @@ function wsGetStyleData(styleName) {
 // ═══════════════════════════════════════════════════════════
 
 const WS_REG_URL = '/register/';
-const WS_SPRING_SCHEDULE_URL = 'https://schooljaar.shoonyadance.com/schedule-spring-2026';
+const WS_SPRING_SCHEDULE_URL = 'https://classes.shoonyadance.com/schedule-spring-2026';
 const WS_SEMESTER_DATES = 'Sep 14 – Jan 30';
-// Set to null at the start of the main semester (Sep) to hide the spring carry-over note.
-const WS_SPRING_NOTE = 'Spring 2026 classes still running';
+// Set to null once spring classes have ended to hide the spring carry-over note
+// from ALL generated blocks. Cleared 2026-06-09 — spring 2026 finished (last classes 13 Jun).
+const WS_SPRING_NOTE = null;
 const WS_ZOHO_STARTER_URL = 'https://creatorapp.zohopublic.eu/developer_shoonyadance/shoonya-dance-studio/form-perma/Workshop_Registration_Form/uOO7GVYHQEJn5dSVDz7z1nTXXeEfD0AZ4PJvtQJ0ZbMRum3tBX30zxQHC02n9b3bvTO6ORFDsVCfS4bJQF1VOZdBMZquYuPb4xx8';
+// Drop-in packs (Pilates, Dance & Fit, Wednesday Yoga). Same Zoho workshop form —
+// Zoho lists them under Festivals & Events. A style opts in via `dropinDays` in
+// WS_STYLE_DATA; the day-card for each matching day gets a drop-in pack block.
+const WS_DROPIN_URL = WS_ZOHO_STARTER_URL;
+const WS_DROPIN_PACKS = [{ n: '3 sessions', price: '€40.50' }, { n: '5 sessions', price: '€67.50' }];
+const WS_DROPIN_NOTE = 'Prefer flexibility? Pick any 3 or 5 dates from the schedule above — no semester commitment needed.';
+// Pass-priced styles: sold as flexible passes instead of a semester term. A style
+// opts in via `passPricing` in WS_STYLE_DATA; every day-card then hides the term
+// price and ONE shared pass table renders below the cards. Passes are FLAT — no
+// member/student discount (same rule as the drop-in packs above; this is the
+// pack track, and it sidesteps the Zoho "member discount not applied on pass
+// path" bug). Same Zoho workshop form → listed under Festivals & Events.
+// Added 2026-08-02 for Tono Ferriol's Int/Adv morning classes.
+const WS_PASS_URL = WS_ZOHO_STARTER_URL;
+const WS_PASS_PACKS = [
+  { n: '5 classes',  price: '€80'  },
+  { n: '10 classes', price: '€150' },
+  { n: '15 classes', price: '€215' },
+  { n: '20 classes', price: '€280' }
+];
 const WS_GOOGLE_FONTS = "https://fonts.googleapis.com/css2?family=Marcellus&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap";
 
 // CSS prefix: short slug from style name, e.g. "Flamenco & Sevillanas" → "fs"
@@ -2750,7 +2980,7 @@ function wsPracticalHtml(style, prefix, wsData) {
     const rows = [];
     if (ws.partnerRequired) {
       rows.push(`<div class="${p}-pi-row">
-      <span class="${p}-pi-icon" aria-hidden="true">👫</span>
+      <span class="${p}-pi-icon" aria-hidden="true">&#128107;</span>
       <span class="${p}-pi-text"><strong>Partner registration required</strong> — please register together with your dance partner. Looking for a partner? <a href="${partnerForumUrl}">Join the Shoonya Dance Forum →</a></span>
     </div>`);
     }
@@ -2760,13 +2990,13 @@ function wsPracticalHtml(style, prefix, wsData) {
         ? `<a href="${pe.url}">${pe.text}</a>`
         : pe.text;
       rows.push(`<div class="${p}-pi-row">
-      <span class="${p}-pi-icon" aria-hidden="true">🎵</span>
+      <span class="${p}-pi-icon" aria-hidden="true">&#127925;</span>
       <span class="${p}-pi-text"><strong>Practice evening</strong> — Salsa & Bachata social: ${peText}</span>
     </div>`);
     }
     if (ws.levelGuide) {
       rows.push(`<div class="${p}-pi-row">
-      <span class="${p}-pi-icon" aria-hidden="true">💬</span>
+      <span class="${p}-pi-icon" aria-hidden="true">&#128172;</span>
       <span class="${p}-pi-text"><strong>Which level?</strong> — ${ws.levelGuide}</span>
     </div>`);
     }
@@ -2823,10 +3053,34 @@ ${alsoCards}
 </div>`;
 }
 
-// ─── Per-level card HTML ───────────────────────────────────────────────────
-function wsPerLevelCard(lv, idx, meta, prefix, isStarterSeries, levelDesc) {
+// ─── Drop-in pack block (rendered under a day-card on drop-in days) ─────────
+// cfg (optional) swaps the packs/label/CTA/url so the same markup can render a
+// pass table (see WS_PASS_* below) instead of the standard drop-in packs.
+function wsDropinSectionHtml(prefix, note, cfg) {
   const p = prefix;
-  const slots = lv.slots || [];
+  cfg = cfg || {};
+  const packs = cfg.packs || WS_DROPIN_PACKS;
+  const label = cfg.label || 'Drop-in packs';
+  const cta   = cfg.cta   || 'Book drop-in pack →';
+  const url   = cfg.url   || WS_DROPIN_URL;
+  const tiles = packs.map(pk =>
+    `<div class="${p}-dropin-pack"><div class="${p}-dropin-sessions">${pk.n}</div><div class="${p}-dropin-price">${pk.price}</div></div>`
+  ).join('');
+  return `<div class="${p}-dropin-section">
+            <div><p class="${p}-dropin-label">${label}</p>
+            <p class="${p}-dropin-note">${note || WS_DROPIN_NOTE}</p></div>
+            <div class="${p}-dropin-packs">${tiles}</div>
+            <a class="${p}-dropin-register dropin-register" href="${url}" target="_blank" rel="noopener">${cta}</a>
+          </div>`;
+}
+
+// ─── Per-level card HTML ───────────────────────────────────────────────────
+// opts (optional): { slotOverride, title, dropinHtml, semesterOnly } — used by
+// drop-in styles to render one card per day-slot with a drop-in / semester note.
+function wsPerLevelCard(lv, idx, meta, prefix, isStarterSeries, levelDesc, opts) {
+  opts = opts || {};
+  const p = prefix;
+  const slots = (opts.slotOverride ? [opts.slotOverride] : lv.slots) || [];
   const slot = slots[0] || {};
   const sc    = lv.sessionCount || WS_STD_SESSIONS;
   // Canonical price from slot duration (correct even when multiple levels share one meta.fullPrice)
@@ -2836,25 +3090,42 @@ function wsPerLevelCard(lv, idx, meta, prefix, isStarterSeries, levelDesc) {
   const isMultiSlot = slots.length > 1;
 
   let priceLabel = '';
-  if (price) {
+  // Pass-priced styles carry no semester term price — the shared pass table below
+  // the cards is the only pricing. Never fall through to wsComputePrice here: the
+  // tier price would be flatly wrong for a pass product.
+  if (opts.passOnly) {
+    priceLabel = `<p class="${p}-semester-only-note">Sold as a flexible pass — see pricing below</p>`;
+  } else if (price) {
     const { full: fp, student: sp, uitpas: up } = price;
     if (isStarterSeries) {
       priceLabel = `<div class="${p}-price-row">
-          <div class="${p}-price-col"><div class="${p}-price-amount">€${fp}</div><div class="${p}-price-label">Full price</div></div>
+          <div class="${p}-price-col"><div class="${p}-price-amount">€${wsEur(fp)}</div><div class="${p}-price-label">Full price</div></div>
         </div>`;
     } else {
       priceLabel = `<div class="${p}-price-row">
-          <div class="${p}-price-col"><div class="${p}-price-amount">€${fp}</div><div class="${p}-price-label">Full</div></div>
-          <div class="${p}-price-col"><div class="${p}-price-amount">€${sp || '—'}</div><div class="${p}-price-label">Student / 2+</div></div>
-          <div class="${p}-price-col"><div class="${p}-price-amount">€${up}</div><div class="${p}-price-label">UiTPAS −80%</div></div>
+          <div class="${p}-price-col"><div class="${p}-price-amount">€${wsEur(fp)}</div><div class="${p}-price-label">Full</div></div>
+          <div class="${p}-price-col"><div class="${p}-price-amount">€${sp ? wsEur(sp) : '—'}</div><div class="${p}-price-label">Student / 2+</div></div>
+          <div class="${p}-price-col"><div class="${p}-price-amount">€${wsEur(up)}</div><div class="${p}-price-label">UiTPAS −80%</div></div>
         </div>`;
     }
   }
 
-  const levelName = lv.level || ('Level ' + (idx + 1));
-  const isL2plus = /level [2-9]|l[2-9]/i.test(levelName);
+  const levelName = opts.title || lv.level || ('Level ' + (idx + 1));
+  // Level source for the badge: `_realLevel` is the feed's own level, preserved
+  // by wsMergedStyle when a merged page relabels its cards. Without it an
+  // "Int/Adv" class relabelled to "Ballet" would look unlevelled.
+  const _lvlSrc = lv._realLevel || (opts.title ? (lv.level || '') : levelName);
+  // Word-based levels ("Int/Adv", "Advanced", "Intermediate") are NOT beginner
+  // classes. Before 2026-08-02 only "Level N" was recognised, so every one of
+  // them rendered "Beginners welcome" + "No experience needed. Start here." —
+  // the exact opposite of the truth for an Int/Adv professional class.
+  const _isAdvWord = /int\s*\/?\s*adv|advanced|intermediate|gevorderd/i.test(_lvlSrc);
+  const isL2plus = /level [2-9]|l[2-9]/i.test(_lvlSrc) || _isAdvWord;
   const _lvNum = parseInt((levelName.match(/\d+/) || [])[0]);
-  const _l2Label = _lvNum >= 4 ? 'Advanced' : _lvNum === 3 ? 'Intermediate' : 'Prior experience needed';
+  const _l2Label = _isAdvWord
+    ? (/int\s*\/?\s*adv/i.test(_lvlSrc) ? 'Int / Adv'
+       : /advanced/i.test(_lvlSrc) ? 'Advanced' : 'Intermediate')
+    : (_lvNum >= 4 ? 'Advanced' : _lvNum === 3 ? 'Intermediate' : 'Prior experience needed');
   const badgeClass = isStarterSeries ? '' : (isL2plus ? `${p}-badge-l2` : '');
   const badgeText = isStarterSeries ? '4-week series' : (isL2plus ? _l2Label : 'Beginners welcome');
   const cardClass = isStarterSeries ? `${p}-level-card ${p}-starter` : `${p}-level-card`;
@@ -2866,14 +3137,18 @@ function wsPerLevelCard(lv, idx, meta, prefix, isStarterSeries, levelDesc) {
 
   // Dates: merge all slots' dates, dedupe, sort
   const _allDates = [...new Set(slots.flatMap(s => s.dates || []))].sort();
+  // Month span of THIS card's dates. Was hardcoded "Sep–Jan", which is wrong for
+  // any class that stops early (Tono's mornings end 10 Dec).
+  const _mAbbr = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const _mOf = d => _mAbbr[new Date(d + 'T12:00:00').getMonth()];
+  const _runMonths = _allDates.length
+    ? (_mOf(_allDates[0]) === _mOf(_allDates[_allDates.length - 1])
+        ? _mOf(_allDates[0])
+        : _mOf(_allDates[0]) + '–' + _mOf(_allDates[_allDates.length - 1]))
+    : 'Sep–Jan';
   const datesHtml = _allDates.length
-    ? `<details class="${p}-date-list"><summary>${sc} sessions · Sep–Jan · see all dates</summary>
-          <div class="${p}-date-grid" translate="no">${_allDates.map(d => {
-            const dt = new Date(d + 'T12:00:00');
-            const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-            const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-            return `<span>${dayNames[dt.getDay()]} ${dt.getDate()} ${months[dt.getMonth()]}</span>`;
-          }).join('')}</div>
+    ? `<details class="${p}-date-list"><summary>${sc} sessions · ${_runMonths} · see all dates</summary>
+          <div class="${p}-date-grid" translate="no">${wsDateGridHtml(_allDates, p)}</div>
         </details>`
     : `<!-- dates not yet in sheet — run runApplyPersonalExclusions() to populate col S -->`;
 
@@ -2901,13 +3176,15 @@ function wsPerLevelCard(lv, idx, meta, prefix, isStarterSeries, levelDesc) {
           ${descBlock}
           <div class="${p}-level-meta">
             <div class="${p}-meta-item"><strong>When</strong><span>${whenHtml}</span></div>
-            <div class="${p}-meta-item"><strong>Where</strong><span>${slot.studio ? 'Studio ' + slot.studio : '?'}</span></div>
+            <div class="${p}-meta-item"><strong>Where</strong><span>${slot.studio ? 'Studio ' + String(slot.studio).replace(/^Studio\s+/i, '') : '?'}</span></div>
             <div class="${p}-meta-item"><strong>Teacher</strong><span>${slot.teacher || '?'}${slot.coTeachers ? ' & ' + slot.coTeachers : ''}</span></div>
             <div class="${p}-meta-item"><strong>Duration</strong><span>${slot.duration || '?'} min</span></div>
           </div>
           ${datesHtml}
           ${priceLabel}
-          <a class="${p}-register-link register-link" href="${registerUrl}">Register →</a>
+          ${opts.semesterOnly ? `<p class="${p}-semester-only-note">Semester registration only</p>` : ''}
+          ${opts.passOnly ? '' : `<a class="${p}-register-link register-link" href="${registerUrl}">${opts.dropinHtml ? 'Register for semester →' : 'Register →'}</a>`}
+          ${opts.dropinHtml || ''}
         </div>`;
 }
 
@@ -2932,9 +3209,17 @@ function wsDayCard(dayName, dayLevels, meta, prefix, descs) {
     const fp = price ? price.full    : null;
     const sp = price ? price.student : null;
     const up = price ? price.uitpas  : null;
-    const isL2plus = /level [2-9]|l[2-9]/i.test(lv.level || '');
-    const _dNum = parseInt(((lv.level || '').match(/\d+/) || [])[0]);
-    const _dLabel = isL2plus ? (_dNum >= 4 ? 'Advanced' : _dNum === 3 ? 'Intermediate' : 'Prior experience needed') : 'Beginners welcome';
+    // Same word-based-level fix as wsPerLevelCard: "Int/Adv" is not a beginner
+    // class. Ballet carries Shirley's Level 1/2/3 alongside Tono's Int/Adv, so
+    // this path renders both and must label each correctly.
+    const _dSrc = lv._realLevel || lv.level || '';
+    const _dAdvWord = /int\s*\/?\s*adv|advanced|intermediate|gevorderd/i.test(_dSrc);
+    const isL2plus = /level [2-9]|l[2-9]/i.test(_dSrc) || _dAdvWord;
+    const _dNum = parseInt((_dSrc.match(/\d+/) || [])[0]);
+    const _dLabel = _dAdvWord
+      ? (/int\s*\/?\s*adv/i.test(_dSrc) ? 'Int / Adv'
+         : /advanced/i.test(_dSrc) ? 'Advanced' : 'Intermediate')
+      : (isL2plus ? (_dNum >= 4 ? 'Advanced' : _dNum === 3 ? 'Intermediate' : 'Prior experience needed') : 'Beginners welcome');
     const levelDesc = descs ? (descs[lv.level] || descs['Level ' + _dNum] || '') : '';
     return `<div class="${p}-day-level">
               <div class="${p}-day-level-row">
@@ -2942,7 +3227,7 @@ function wsDayCard(dayName, dayLevels, meta, prefix, descs) {
                 <span class="${p}-day-level-time">${slot.start || ''}–${slot.end || ''} · ${slot.duration || '?'} min</span>
                 <span class="${p}-day-level-badge ${isL2plus ? p + '-badge-l2' : ''}">${_dLabel}</span>
               </div>
-              ${fp ? `<div class="${p}-day-pricing">€${fp}${sp ? ' · €' + sp + ' student' : ''} · €${up} UiTPAS</div>` : ''}
+              ${fp ? `<div class="${p}-day-pricing">€${wsEur(fp)}${sp ? ' · €' + wsEur(sp) + ' student' : ''} · €${wsEur(up)} UiTPAS</div>` : ''}
               ${!_allSameTeacher ? `<div class="${p}-day-level-teacher">Teacher: ${slot.teacher || '?'}</div>` : ''}
               ${levelDesc ? `<details class="${p}-day-desc"${i === 0 ? ' open' : ''}><summary class="${p}-day-desc-sum">About this level</summary><p class="${p}-day-desc-text">${levelDesc}</p></details>` : ''}
             </div>`;
@@ -2956,12 +3241,7 @@ function wsDayCard(dayName, dayLevels, meta, prefix, descs) {
 
   const datesHtml = (firstSlot.dates && firstSlot.dates.length)
     ? `<details class="${p}-date-list"><summary>${dayLevels[0].lv.sessionCount || 14} sessions · Sep–Jan · see all dates</summary>
-          <div class="${p}-date-grid" translate="no">${[...firstSlot.dates].sort().map(d => {
-            const dt = new Date(d + 'T12:00:00');
-            const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-            const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-            return `<span>${dayNames[dt.getDay()]} ${dt.getDate()} ${months[dt.getMonth()]}</span>`;
-          }).join('')}</div>
+          <div class="${p}-date-grid" translate="no">${wsDateGridHtml(firstSlot.dates, p)}</div>
         </details>`
     : '';
 
@@ -2977,7 +3257,7 @@ function wsDayCard(dayName, dayLevels, meta, prefix, descs) {
           <hr style="border:none;border-top:1px solid #e4e0db;margin:.85rem 0;">
           <div class="${p}-level-meta">
             <div class="${p}-meta-item"><strong>When</strong><span>${dayName} ${timeRange}</span></div>
-            <div class="${p}-meta-item"><strong>Where</strong><span>${firstSlot.studio ? 'Studio ' + firstSlot.studio : '?'}</span></div>
+            <div class="${p}-meta-item"><strong>Where</strong><span>${firstSlot.studio ? 'Studio ' + String(firstSlot.studio).replace(/^Studio\s+/i, '') : '?'}</span></div>
             <div class="${p}-meta-item"><strong>Teacher</strong><span>${_allSameTeacher
               ? (firstSlot.teacher || '?') + (firstSlot.coTeachers ? ' & ' + firstSlot.coTeachers : '')
               : dayLevels.map(e => `${e.lv.level}: ${e.slot.teacher || '?'}`).join('<br>')
@@ -2991,10 +3271,55 @@ function wsDayCard(dayName, dayLevels, meta, prefix, descs) {
 // ─── Full Levels & Registration code block ─────────────────────────────────
 function wsLevelsHtml(style, descsByLevel, wsData) {
   const meta   = style.meta   || {};
-  const levels = Array.isArray(style.levels) ? style.levels : [];
+  let   levels = Array.isArray(style.levels) ? style.levels : [];
+
+  // ── Starter Series ────────────────────────────────────────────────────────
+  // A 4-week on-ramp sold alongside the semester course (Bhangra EUR 50, ISC EUR 58).
+  // It is NOT a level in the sheet, so it has to be synthesised: same day / time /
+  // teacher / studio as the style's first slot, the first `sessions` dates of that
+  // slot, and the standard tier prorated 4/16 — which is exactly where 50 and 58 come
+  // from, so nothing is hardcoded.
+  //
+  // Restored 2026-08-12. It had vanished from both the generator and the feed while the
+  // offering was still running and still advertised in the pages' own About text; the
+  // pasted blocks were the only place it survived. Confirmed still running by Swapnil.
+  // `isStarterSeries` is keyed on /starter/i in the level name, so the label must
+  // contain the word "Starter".
+  const _starter = wsData && wsData.starterSeries;
+  if (_starter && levels.length) {
+    const _base = (levels[0].slots || [])[0];
+    if (_base) {
+      const _n = _starter.sessions || 4;
+      levels = levels.concat([{
+        level: _starter.label || (_n + '-Week Starter Series'),
+        sessionCount: _n,
+        slots: [Object.assign({}, _base, { dates: (_base.dates || []).slice(0, _n) })]
+      }]);
+    }
+  }
   const _descs = (descsByLevel && Object.keys(descsByLevel).length ? descsByLevel : null) || meta.descByLevel || {};
   const p      = wsMakePrefix(style.name);
-  const layout = wsClassifyLayout(levels);
+  // Pass-priced styles always render per-level (one card per day-slot) so each
+  // class gets its own card above the shared pass table. Without this override
+  // wsClassifyLayout sees two levels back-to-back on the same day (Tono's Ballet
+  // 10:00 + Contemporary 11:30) and picks the day-based layout, which has no
+  // pass-table branch.
+  const layout = (wsData && wsData.passPricing) ? 'per-level' : wsClassifyLayout(levels);
+
+  // The "Semester" stat used to print the WS_SEMESTER_DATES constant on every
+  // block, which is wrong for any class that does not run the whole semester
+  // (Tono's mornings are Sep 28 – Dec 10, not Sep 14 – Jan 30). Derive it from
+  // this style's own slot dates and fall back to the constant only when the
+  // sheet has no dates yet.
+  const _runDates = [...new Set(levels.flatMap(lv => (lv.slots || []).flatMap(s => s.dates || [])))].sort();
+  const _fmtRun = d => {
+    const dt = new Date(d + 'T12:00:00');
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    return months[dt.getMonth()] + ' ' + dt.getDate();
+  };
+  const _styleRunRange = _runDates.length
+    ? _fmtRun(_runDates[0]) + ' – ' + _fmtRun(_runDates[_runDates.length - 1])
+    : WS_SEMESTER_DATES;
 
   // Collect all unique days for semester-tag
   const allDays = [];
@@ -3010,17 +3335,66 @@ function wsLevelsHtml(style, descsByLevel, wsData) {
   };
   const semesterTagDays = allDays.map(d => wsShortDay(d) + ' ' + (_slotsByDay[d] ? _timeLabel(_slotsByDay[d]) : 'evenings')).join(' + ');
 
-  // Count how many cards will actually render — per-level: one per level; day-based: one per unique day
+  // Drop-in styles (Pilates / Dance & Fit / Wed Yoga) render one card per day-slot.
+  // Pass-priced styles reuse the drop-in day-card machinery: every day they run on
+  // is a "pass day", so each slot gets its own card and ONE shared pass table
+  // renders below them (the pass is spendable across all of them).
+  const _passCfg = (wsData && wsData.passPricing) ? wsData.passPricing : null;
+  const _dropinDays = _passCfg
+    ? [...new Set(levels.flatMap(lv => (lv.slots || []).map(s => s.day)).filter(Boolean))]
+    : ((wsData && Array.isArray(wsData.dropinDays)) ? wsData.dropinDays : null);
+  const _totalSlots = levels.reduce((n, lv) => n + ((lv.slots || []).length), 0);
+  // Count how many cards will actually render — per-level: one per level (or one per
+  // day-slot for drop-in styles); day-based: one per unique day.
   const renderedCardCount = layout === 'day'
     ? dayOrder.filter(d => allDays.includes(d)).length
-    : levels.length;
+    : (_dropinDays ? _totalSlots : levels.length);
   const isSingleCard = renderedCardCount === 1;
   const gridCols = isSingleCard ? '1fr' : '1fr 1fr';
   const gridExtra = isSingleCard ? 'max-width:640px;margin:0 auto;' : '';
 
   // Generate cards
   let cardsHtml = '';
-  if (layout === 'per-level') {
+  let dropinBelowHtml = '';   // shared drop-in section rendered below the cards (multi-day drop-in styles)
+  if (layout === 'per-level' && _dropinDays) {
+    // Drop-in styles: one card per day-slot.
+    // • Single drop-in day (e.g. Wed Yoga): drop-in block under that day's card,
+    //   "Semester registration only" note on the others.
+    // • Multiple drop-in days (e.g. Pilates Tue+Wed): ONE shared drop-in section
+    //   below both cards — the pack covers any day, so don't repeat it per card.
+    const _tod = s => { const h = parseInt((s.start || '0').split(':')[0]); return h < 12 ? 'morning' : h < 17 ? 'afternoon' : 'evening'; };
+    const _multiDropin = _dropinDays.length > 1;
+    const cards = [];
+    levels.forEach((lv, i) => {
+      const levelDesc = _descs[lv.level] || _descs['Level ' + (i + 1)] || '';
+      (lv.slots || []).forEach(s => {
+        const isDropin = _dropinDays.includes(s.day);
+        cards.push(wsPerLevelCard(lv, i, meta, p, false, levelDesc, {
+          slotOverride: s,
+          // Pass/merged pages carry more than one style, so the card title leads
+          // with the level label; drop-in pages keep the plain "Monday morning".
+          title: (_passCfg && lv.level ? lv.level + ' · ' : '') + (s.day || '') + ' ' + _tod(s),
+          dropinHtml: (!_passCfg && !_multiDropin && isDropin) ? wsDropinSectionHtml(p) : '',
+          semesterOnly: (!_passCfg && !_multiDropin && !isDropin),
+          passOnly: !!_passCfg
+        }));
+      });
+    });
+    cardsHtml = cards.join('\n');
+    if (_passCfg) {
+      dropinBelowHtml = '\n  <div style="max-width:640px;margin:1.5rem auto 0;">' +
+        wsDropinSectionHtml(p, _passCfg.note, {
+          packs: _passCfg.packs || WS_PASS_PACKS,
+          label: _passCfg.label || 'Class passes',
+          cta:   _passCfg.cta   || 'Book a pass →',
+          url:   _passCfg.url   || WS_PASS_URL
+        }) + '</div>';
+    } else if (_multiDropin) {
+      const _note = 'Prefer flexibility? Come to any ' + _dropinDays.join(' or ') +
+        ' session — pick 3 or 5 dates, no semester commitment needed.';
+      dropinBelowHtml = '\n  <div style="max-width:640px;margin:1.5rem auto 0;">' + wsDropinSectionHtml(p, _note) + '</div>';
+    }
+  } else if (layout === 'per-level') {
     cardsHtml = levels.map((lv, i) => {
       const isStarter = /starter/i.test(lv.level || '');
       const levelDesc = _descs[lv.level] || _descs['Level ' + (i + 1)] || '';
@@ -3101,6 +3475,21 @@ function wsLevelsHtml(style, descsByLevel, wsData) {
 .${p}-reg .spring-note{display:flex;align-items:center;gap:.5rem;font-size:.8rem;color:#5a3a7a;background:#f5ecff;border:1px solid #e0ccf8;border-radius:6px;padding:.55rem .9rem;margin-top:1.25rem;}
 .${p}-reg .spring-note a{color:#B564F7;text-decoration:none;font-weight:700;}
 .${p}-reg .spring-note a:hover{text-decoration:underline;}
+.${p}-reg .${p}-semester-only-note{font-size:.75rem;color:#6b6b6b;text-align:center;padding:.35rem 0 0;margin:0;}
+.${p}-reg .${p}-dropin-section{border-top:1.5px dashed #d4bef7;padding-top:1rem;margin-top:.25rem;display:flex;flex-direction:column;gap:.75rem;}
+.${p}-reg .${p}-dropin-label{font-size:.68rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#B564F7;margin:0 0 .35rem;}
+.${p}-reg .${p}-dropin-note{font-size:.78rem;color:#6b6b6b;margin:0;line-height:1.5;}
+.${p}-reg .${p}-dropin-packs{display:flex;gap:.65rem;}
+.${p}-reg .${p}-dropin-pack{flex:1;border:1.5px solid #d4bef7;border-radius:8px;padding:.7rem .75rem;text-align:center;background:#faf4ff;}
+.${p}-reg .${p}-dropin-sessions{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#B564F7;margin-bottom:.2rem;}
+.${p}-reg .${p}-dropin-price{font-family:'Marcellus',serif;font-size:1.2rem;color:#1a1a1a;}
+.${p}-reg a.dropin-register,
+.${p}-reg a.dropin-register:link,
+.${p}-reg a.dropin-register:visited,
+.${p}-reg a.dropin-register:hover,
+.${p}-reg a.dropin-register:focus,
+.${p}-reg a.dropin-register:active{display:block!important;text-align:center!important;background:transparent!important;background-color:transparent!important;background-image:none!important;color:#B564F7!important;font-family:'PT Serif',Georgia,serif!important;font-size:.85rem!important;font-weight:700!important;letter-spacing:.04em!important;text-decoration:none!important;border:1.5px solid #B564F7!important;border-radius:7px!important;padding:.6rem 1rem!important;box-shadow:none!important;outline:none!important;pointer-events:auto!important;cursor:pointer!important;}
+.${p}-reg a.dropin-register:hover{background:#B564F7!important;background-color:#B564F7!important;color:#fff!important;}
 .${p}-reg .${p}-partner-callout{display:flex;gap:.6rem;align-items:flex-start;background:#F5ECFF;border:1.5px solid #dbc5f8;border-radius:8px;padding:.7rem 1rem;margin-bottom:1.25rem;font-size:.83rem;color:#3a1a5c;line-height:1.55;}
 .${p}-reg .${p}-partner-callout strong{font-weight:700;}
 .${p}-reg .${p}-partner-callout a{color:#B564F7;text-decoration:none;}
@@ -3110,7 +3499,7 @@ function wsLevelsHtml(style, descsByLevel, wsData) {
   ${isSingleCard ? `<div style="max-width:640px;margin:0 auto;">` : ''}
   <h2 class="section-h">Levels &amp; registration</h2>
   <div class="stat-row">
-    <div class="stat-item"><span class="stat-val">${WS_SEMESTER_DATES}</span><span class="stat-key">Semester</span></div>
+    <div class="stat-item"><span class="stat-val">${_styleRunRange}</span><span class="stat-key">Semester</span></div>
     <div class="stat-div"></div>
     <div class="stat-item"><span class="stat-val">${Math.max(...levels.map(lv => lv.sessionCount || 16))} sessions</span><span class="stat-key">Classes</span></div>
     <div class="stat-div"></div>
@@ -3119,12 +3508,12 @@ function wsLevelsHtml(style, descsByLevel, wsData) {
     <div class="stat-item"><span class="stat-val">${levels.length} ${levels.length === 1 ? 'level' : 'levels'}</span><span class="stat-key">Levels</span></div>
   </div>
   ${wsData && wsData.partnerRequired ? `<div class="${p}-partner-callout">
-    <span aria-hidden="true">👫</span>
+    <span aria-hidden="true">&#128107;</span>
     <span><strong>Partner required</strong> — please register together with your dance partner.${wsData.partnerForumUrl ? ` Looking for one? <a href="${wsData.partnerForumUrl}">Join the Shoonya Dance Forum →</a>` : ''}</span>
   </div>` : ''}
   <div class="level-cards">
-${cardsHtml}  </div>
-  ${WS_SPRING_NOTE ? `<p class="spring-note"><span aria-hidden="true">🌸</span><span>${WS_SPRING_NOTE} — <a href="${WS_SPRING_SCHEDULE_URL}">view the spring schedule →</a></span></p>` : ''}
+${cardsHtml}  </div>${dropinBelowHtml}
+  ${WS_SPRING_NOTE ? `<p class="spring-note"><span aria-hidden="true">&#127800;</span><span>${WS_SPRING_NOTE} — <a href="${WS_SPRING_SCHEDULE_URL}">view the spring schedule →</a></span></p>` : ''}
   ${isSingleCard ? `</div>` : ''}
 </div>`;
 
@@ -3200,11 +3589,22 @@ function renderWebsiteSection(style) {
   const dayOrder = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
   allDays.sort((a, b) => dayOrder.indexOf(a) - dayOrder.indexOf(b));
   const studios  = [...new Set(allSlots.map(s => s.studio).filter(Boolean))];
-  const factsLine = [
+  const factsParts = [
     allDays.join(' + ').toUpperCase(),
     studios.join(' + ').toUpperCase() || '?',
     (displayTeacher || teacherName || '?').toUpperCase()
-  ].filter(Boolean).join(' · ');
+  ];
+  // Drop-in styles flag it in the facts line — day-aware: "(WED)" only when not
+  // every day of the style is drop-in (e.g. Yoga is Tue-semester + Wed-dropin).
+  const _heroDropinDays = (wsData.dropinDays || []);
+  if (wsData.passPricing) {
+    factsParts.push('CLASS PASSES');
+  } else if (_heroDropinDays.length) {
+    const _allDropin = allDays.length && allDays.every(d => _heroDropinDays.includes(d));
+    factsParts.push(_allDropin ? 'DROP-IN PACKS'
+      : 'DROP-IN PACKS (' + _heroDropinDays.map(d => wsShortDay(d).toUpperCase()).join('/') + ')');
+  }
+  const factsLine = factsParts.filter(Boolean).join(' · ');
   const hookLine = wsData.hook || '[One-sentence hook — what makes this style worth trying?]';
   const heroNative = `${style.name}\n\n${factsLine}\n\n${hookLine}\n\n[Button] REGISTER FOR SEP 2026 ↓ → #register`;
 
@@ -3224,10 +3624,10 @@ function renderWebsiteSection(style) {
   const socialLinksHtml = wsSocialLinksHtml(wsData.social || []);
 
   // Section label blocks — About/Teacher/Coming Up labels removed (blocks self-label)
-  // Pass-priced styles (Tono's Int/Adv mornings) sit outside the semester term,
-  // so the free trial week does not apply to them. Emitting the pill invited a
-  // paste that would have been wrong on the page — Swapnil, 2026-08-11.
-  const trialPillHtml    = wsData.passPricing ? '' : wsTrialPillHtml();
+  // NOTE: do NOT gate this on passPricing. A class pass does not exclude a trial
+  // week — that was a wrong inference (Swapnil, 2026-08-11). Whether to advertise
+  // a trial is an operational call per class, not a property of the pricing model.
+  const trialPillHtml    = wsTrialPillHtml();
   const levelsHtml       = wsLevelsHtml(style, wsData.descriptionsByLevel || null, wsData);
   const practicalHtml    = wsPracticalHtml(style, prefix, wsData);
 
@@ -3251,7 +3651,7 @@ function renderWebsiteSection(style) {
         ${copyBtn('ws-hero-native', 'Copy all')}
       </div>
       <textarea id="ws-hero-native" class="ws-text-area" rows="4" spellcheck="false">${escHtml(heroNative)}</textarea>
-      <div class="ws-note-box" style="margin-top:.5rem;">H1 title → native heading. Facts line in ALL CAPS → native text. One-sentence hook → native paragraph. CTA → native button linking to <code>#register</code>. Do not link this button to another style page.</div>
+      <div class="ws-note-box" style="margin-top:.5rem;">H1 title → native heading. Facts line in ALL CAPS → native text. One-sentence hook → native paragraph. CTA → native button linking to <code>#register</code>.</div>
     </div>
 
     <hr class="ws-divider">
@@ -3308,7 +3708,7 @@ function renderWebsiteSection(style) {
       ${layoutLabel}
       <div id="ws-levels-html" class="ws-code-area" style="max-height:360px;">${escHtml(levelsHtml)}</div>
       <div class="ws-note-box" style="margin-top:.5rem;">
-        Set Section ID = <code>register</code> in Squarespace (Edit Section → Section ID) so the hero CTA button's <code>#register</code> link works. If the button opens another course page, the native button URL is wrong — set it back to <code>#register</code>.
+        Set Section ID = <code>register</code> in Squarespace (Edit Section → Section ID) so the hero CTA button's <code>#register</code> link works.
         Each code block includes a Google Fonts <code>&lt;link&gt;</code> — keep only <strong>one</strong> per page (e.g. in the Teacher block); remove duplicates from Levels and Practical blocks after pasting.
         ${!levels.length ? '<br><strong>⚠ No level data yet</strong> — teacher needs to submit a weekly class form first.' : ''}
         ${layout === 'day' ? '<br><strong>Day-based layout</strong> — ≥5 levels or back-to-back same day. Each card = one day of the week.' : ''}
@@ -3338,7 +3738,7 @@ function renderWebsiteSection(style) {
       </div>
       <div id="ws-practical-html" class="ws-code-area" style="max-height:360px;">${escHtml(practicalHtml)}</div>
       <div id="ws-prac-embed" class="ws-code-area" style="max-height:80px;margin-top:.5rem;font-size:.82rem;">&lt;div id=&quot;ws-prac-root&quot;&gt;&lt;/div&gt;
-&lt;script src=&quot;https://schooljaar.shoonyadance.com/ws-embed.js&quot;&gt;&lt;/script&gt;</div>
+&lt;script src=&quot;https://classes.shoonyadance.com/ws-embed.js&quot;&gt;&lt;/script&gt;</div>
       <div class="ws-note-box" style="margin-top:.5rem;"><strong>Embed option (recommended):</strong> Use <em>Copy Embed Snippet</em> to replace the Practical code block in Squarespace with just 2 lines. The script auto-detects the style page and injects the correct content — no manual HTML updates needed. Update <code>ws-embed.js</code> once → all pages get the change. <strong>Full HTML</strong> still works for one-offs or overrides.</div>
     </div>
 
@@ -3445,7 +3845,11 @@ function wsShowValidationBanner(containerId, issues) {
 // Code-block editor (which often mis-decodes UTF-8 as MacRoman/Latin-1)
 // renders €/–/→/·/emoji correctly instead of as mojibake (,Äì ,Üí ,Ç).
 function wsAsciiSafe(str) {
-  return String(str || '').replace(/[^\x00-\x7F]/g, c => '&#' + c.codePointAt(0) + ';');
+    // The /u flag is REQUIRED: without it the regex matches per UTF-16 code unit, so an
+  // astral char (emoji) is split into its two surrogate halves and each is encoded
+  // separately — '&#55357;&#56427;' instead of '&#128107;'. Lone surrogates are invalid
+  // characters, so the browser renders them as two U+FFFD boxes. (Kizomba, 2026-08-12.)
+  return String(str || '').replace(/[^\x00-\x7F]/gu, c => '&#' + c.codePointAt(0) + ';');
 }
 
 async function wscopyCb(btn, id) {

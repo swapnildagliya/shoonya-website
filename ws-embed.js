@@ -176,6 +176,11 @@
       },
       also:  [['Ballet','Friday · L1/L2/L3'],['Indian Semi-Classical','Wednesday · L2'],['Tap Dance','Mon–Sat · L1–L4']]
     },
+    '/professional-morning-training-gent': {
+      wear:  'Whatever you feel comfortable moving in — this is a space to just be yourself. Socks or bare feet; whatever you are used to. No street shoes in the studio.',
+      bring: 'Water bottle. Small hand towel for sweat.',
+      also:  [['Ballet','Mon & Thu mornings · Int/Adv'],['Pilates for Dancers','Tue & Wed · Open'],['Yoga','Tue & Wed · Open']]
+    },
     '/ballet-voor-volwassenen-in-gent': {
       wear:  'Comfortable, form-fitting dancewear. Ballet shoes or socks — no street shoes in the studio.',
       bring: 'Water bottle. Small hand towel for sweat.',
@@ -751,6 +756,9 @@
 
   function init() {
     render();
+    // Levels block first: injectCalendarButtons() anchors on the dates list it renders, so
+    // ordering matters. injectLevelsBlock re-runs the calendar pass itself once it has painted.
+    injectLevelsBlock();
     repairHeroRegisterLinks();
     // Hide expired seasonal notes now and on a few delayed passes (the static
     // spring-note block is a separate Squarespace code block, injected async).
@@ -786,5 +794,856 @@
   } else {
     init();
   }
+
+  // ── Levels & Registration, rendered live ──────────────────────────────────
+  // Replaces the pasted, frozen Levels block. The renderer is extracted from
+  // semester-content-generator.html into the GENERATED region below by
+  // scripts/build-ws-embed.mjs, so the generator stays the single source of truth.
+  //
+  // ⚠️ This uses the BLOCK STUDIO feed (no `action` param), NOT `publicSchedule`.
+  // publicSchedule is a thinner projection: it omits level descriptions, uses raw sheet level
+  // labels, and returns no slotDates for 11 of the 24 styles. The Block Studio endpoint returns
+  // precisely the shape the renderer expects — levels[].slots[].dates, meta.descByLevel,
+  // displayLabel — so no field mapping is needed at all.
+  var WS_BS_SEMESTER = 'Sep 2026 – Jan 2027';
+  var _bsPromise = null;
+
+  function fetchBlockData() {
+    if (_bsPromise) return _bsPromise;
+    _bsPromise = fetch(SCHED_FEED + '?semester=' + encodeURIComponent(WS_BS_SEMESTER))
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (j) { return (j && Array.isArray(j.styles)) ? j.styles : null; })
+      .catch(function () { return null; });   // offline / CORS → page unchanged
+    return _bsPromise;
+  }
+
+  // Same two rules the generator applies before rendering:
+  //  · excludeTeachers — a teacher moved to their own page must not appear here too
+  //  · mergeStyles     — one page may carry a second style's slots
+  function wsPrepareStyle(styleName, styles) {
+    var ws = (WS_LEVELS.styleData && WS_LEVELS.styleData[styleName]) || {};
+    var style = null;
+    for (var i = 0; i < styles.length; i++) if (styles[i].name === styleName) { style = styles[i]; break; }
+    if (!style) return null;
+
+    var levels = (style.levels || []).map(function (lv) { return { level: lv.level, displayLabel: lv.displayLabel, sessionCount: lv.sessionCount, slots: (lv.slots || []).slice() }; });
+
+    if (ws.excludeTeachers && ws.excludeTeachers.length) {
+      levels = levels.map(function (lv) {
+        lv.slots = lv.slots.filter(function (sl) { return ws.excludeTeachers.indexOf(sl.teacher) < 0; });
+        return lv;
+      }).filter(function (lv) { return lv.slots.length; });
+    }
+    (ws.mergeStyles || []).forEach(function (other) {
+      for (var i = 0; i < styles.length; i++) {
+        if (styles[i].name === other) levels = levels.concat(styles[i].levels || []);
+      }
+    });
+    if (!levels.length) return null;
+    return { name: style.name, meta: style.meta || {}, levels: levels };
+  }
+
+  function injectLevelsBlock() {
+    var root = document.getElementById('ws-levels-root');
+    if (!root || root.getAttribute('data-ws-done')) return;
+    // Every failure path says WHY. A silent catch is what let the first version fail invisibly.
+    var warn = function (m) { try { console.warn('[ws-levels] ' + m); } catch (e) {} };
+    var styleName = styleForPath((window.location.pathname || '').replace(/\/$/, '').toLowerCase());
+    if (!styleName) return warn('no style mapped to ' + window.location.pathname);
+    fetchBlockData().then(function (styles) {
+      if (!styles) return warn('Block Studio feed unavailable');
+      try {
+        var style = wsPrepareStyle(styleName, styles);
+        if (!style) return warn('no levels in the feed for "' + styleName + '"');
+        var ws = (WS_LEVELS.styleData && WS_LEVELS.styleData[styleName]) || {};
+        root.innerHTML = WS_LEVELS.render(style, style.meta.descByLevel || ws.descriptionsByLevel || null, ws);
+        root.setAttribute('data-ws-done', '1');
+        if (typeof injectCalendarButtons === 'function') { _calDone = false; injectCalendarButtons(); }
+      } catch (e) { warn('render failed: ' + (e && e.message)); }
+    });
+  }
+
+  // ─── BEGIN GENERATED — from semester-content-generator.html · do not hand-edit ───
+  // Regenerate with: node scripts/build-ws-embed.mjs — never hand-edit inside the markers.
+  var WS_LEVELS = (function () {
+
+  var WS_STYLE_DATA = {
+    "Argentine Tango": {
+      "descriptionsByLevel": {
+        "Level 1": "An unpredictable encounter unfolds between two individuals — a unique and privileged moment filled with spontaneity. In Level 1, our exploration centers on unveiling the true essence of tango: a floating, intense, and timeless dance where two bodies gracefully unite in space, merging into a single rhythmic harmony. You will discover this social, sensual, and improvisational couple's dance, learning how to connect in a comfortable embrace while smoothly navigating the dance floor in the traditional counterclockwise direction.",
+        "Level 2": "A breeze from Buenos Aires rustles through Ghent. Building on your foundations, Level 2 introduces the intricate rules and codes that govern the traditional milonga. You will learn the conventional signs of the mirada and cabeceo — the gentle exchanges affirming a mutual invitation to dance. We will also deepen your musicality by exploring Tandas (sets of four pieces) and Cortinas (musical interludes). In this realm, barriers of age or language dissolve; what matters most is your shared experience of this deeply improvised dance for two."
+      },
+      "partnerRequired": true,
+      "partnerForumUrl": "https://www.facebook.com/groups/1405926722822445",
+      "teacherLabel": "Gisela & Sergio"
+    },
+    "Ballet": {
+      "excludeTeachers": [
+        "Tono Ferriol"
+      ]
+    },
+    "Contemporary dance": {
+      "descriptionsByLevel": {
+        "Contemporary": "Join a professional yet pressure-free contemporary class designed for professional and semi-professional dancers. Our focus is to stay in shape and refine technique in a warm, welcoming environment. Beyond the structured training, there will be space to explore and connect with your own personal movement.",
+        "Ballet": "Join a professional yet pressure-free classical ballet class designed for professional and semi-professional dancers. Our focus is to stay in shape and refine technique in a warm, welcoming environment. Beyond the structured training, there will be space to explore and connect with your own personal movement."
+      },
+      "passPricing": {
+        "label": "Class passes",
+        "cta": "Book a pass →",
+        "note": "One pass, all four classes — spend it on ballet, contemporary, or any mix of the two. No semester commitment. In the registration form choose <strong>Festivals &amp; Events</strong>, then this class, then your pass size."
+      },
+      "mergeStyles": [
+        {
+          "style": "Ballet",
+          "teacher": "Tono Ferriol",
+          "label": "Ballet"
+        }
+      ]
+    },
+    "Kizomba": {
+      "partnerRequired": true,
+      "partnerForumUrl": "https://www.facebook.com/groups/1405926722822445"
+    },
+    "Bachata": {
+      "partnerRequired": true,
+      "partnerForumUrl": "https://www.facebook.com/groups/1405926722822445"
+    },
+    "Cuban Salsa": {
+      "partnerRequired": true,
+      "partnerForumUrl": "https://www.facebook.com/groups/1405926722822445"
+    },
+    "Rueda de Casino": {
+      "partnerRequired": true,
+      "partnerForumUrl": "https://www.facebook.com/groups/1405926722822445"
+    },
+    "Lindy Hop": {
+      "descriptionsByLevel": {
+        "Level 1": "Foundation is the entry point to Lindy Hop at Shoonya. No experience needed — the class builds from scratch: the pulse, the basic footwork patterns, and the connection between lead and follow. Following Upside Down's Everybody Leads, Everybody Follows principle, both roles are taught from day one.",
+        "Foundation": "Foundation is the entry point to Lindy Hop at Shoonya. No experience needed — the class builds from scratch: the pulse, the basic footwork patterns, and the connection between lead and follow. Following Upside Down's Everybody Leads, Everybody Follows principle, both roles are taught from day one.",
+        "Level 2": "Open is for dancers who have completed Foundation or have equivalent social dance experience. The focus moves to developing personal style, musicality, and the improvisational vocabulary that makes every dance feel unique. Both roles are always welcome.",
+        "Open": "Open is for dancers who have completed Foundation or have equivalent social dance experience. The focus moves to developing personal style, musicality, and the improvisational vocabulary that makes every dance feel unique. Both roles are always welcome."
+      },
+      "teacherLabel": "Upside Down"
+    },
+    "Solo Jazz": {
+      "teacherLabel": "Upside Down"
+    },
+    "Tap Dance": {
+      "teacherLabel": "Tapdance Promotion"
+    },
+    "Raqs Sharqi": {
+      "descriptionsByLevel": {
+        "Level 1": "This class is your entry point into the world of raqs sharqi — the elegant classical dance of Egypt. We work on building solid foundations: correct posture and alignment, essential body mechanics, and the basic vocabulary of movement that Raqs Sharqi (oriental dance / bellydance) is built on. Alongside technique, we begin developing musical awareness — learning to listen to the music and respond to it with our bodies. Through dance combinations and guided movement exploration, you'll start to discover what your body is capable of and how to move with intention and ease. No previous dance experience is required.",
+        "Level 2": "This class is for dancers who already have a solid grounding in raqs sharqi fundamentals (equivalent to Level 1 or comparable experience). Each year, the group focuses on a specific thematic topic. This year, we work with a variety of Egyptian rhythmic patterns — saidi, baladi, malfuf, ayoub, fellahi, vox, masmoudi kabir, samai and others — and through them, we explore the distinct dance styles, aesthetics and characters that belong to each tradition. Hip technique is refined and deepened in context, so the body learns not just how to move, but why.",
+        "Level 3": "This is the most advanced group, and a space for dancers who are ready to expand beyond the familiar. This year, building on a strong foundation in traditional raqs sharqi, we explore a conscious, feeling-full approach to movement — bringing sensitivity and personal artistry into dialogue with the dance. This year, we are drawn into the world of contemporary qanun music, moving to the lyrical and luminous sounds of artists such as Farah Fersi and Maya Youssef. Here, tradition and innovation meet, and you are invited to shape your own dance expression — refined, personal, and alive."
+      }
+    },
+    "Bollyfolk": {
+      "descriptionsByLevel": {
+        "Level 2": "<strong>This semester: Cheraw & Lavani.</strong> Cheraw is the bamboo dance of Mizoram — dancers step in and out of clapping bamboo poles, light feet and sharp timing. Lavani comes from Maharashtra: bold, theatrical, full of hip work and strong eye expression. Deeper material, longer choreography, more cultural context. Builds on Bollyfolk Open. Age 12+.",
+        "Open": "<strong>This semester: Garba Choreography & Khoriya.</strong> Garba comes from Gujarat — a Navratri circle dance built on light footwork, gentle claps, and community. Khoriya is the women's celebration dance of Haryana — strong, grounded footwork, swinging arms, and the joy of the village square. Age 12+.",
+        "Open Level": "<strong>This semester: Garba Choreography & Khoriya.</strong> Garba comes from Gujarat — a Navratri circle dance built on light footwork, gentle claps, and community. Khoriya is the women's celebration dance of Haryana — strong, grounded footwork, swinging arms, and the joy of the village square. Age 12+.",
+        "Level 1": "<strong>This semester: Garba Choreography & Khoriya.</strong> Garba comes from Gujarat — a Navratri circle dance built on light footwork, gentle claps, and community. Khoriya is the women's celebration dance of Haryana — strong, grounded footwork, swinging arms, and the joy of the village square. Age 12+."
+      },
+      "teacherLabel": "Swapnil Dagliya"
+    },
+    "Bollywood": {
+      "teacherLabel": "Swapnil Dagliya"
+    },
+    "Bhangra": {
+      "starterSeries": {
+        "label": "4-Week Starter Series",
+        "sessions": 4
+      },
+      "teacherLabel": "Swapnil Dagliya"
+    },
+    "Indian Semi-Classical": {
+      "starterSeries": {
+        "label": "4-Week Starter Series",
+        "sessions": 4
+      },
+      "teacherLabel": "Swapnil Dagliya"
+    },
+    "Yoga": {
+      "dropinDays": [
+        "Wednesday"
+      ],
+      "teacherLabel": "Swapnil Dagliya"
+    },
+    "Indian Dance Technique": {
+      "teacherLabel": "Swapnil Dagliya"
+    },
+    "Pilates for Dancers": {
+      "dropinDays": [
+        "Tuesday",
+        "Wednesday"
+      ]
+    },
+    "Dance & Fit": {
+      "dropinDays": [
+        "Wednesday"
+      ]
+    },
+    "Oriental Flow": {
+      "descriptionsByLevel": {
+        "Open": "Oriental Flow is a technique that sits at the intersection of several practices I have been working with for years: contemporary dance and oriental dance, yoga, and somatic techniques that have helped me reconnect with my body, release tension, and find some flow. The first part of this training, which will last 90 mins in each session, will focus on preparing the physical body to connect with the breath, the spine, and the joints, encouraging freedom in the joints, so that we can move into the second part of the class. In the second part, we will begin working with oriental dance technique itself and its fundamental principles, such as isolations, fragmentations, and spirals.",
+        "Level 1": "Oriental Flow is a technique that sits at the intersection of several practices I have been working with for years: contemporary dance and oriental dance, yoga, and somatic techniques that have helped me reconnect with my body, release tension, and find some flow. The first part of this training, which will last 90 mins in each session, will focus on preparing the physical body to connect with the breath, the spine, and the joints, encouraging freedom in the joints, so that we can move into the second part of the class. In the second part, we will begin working with oriental dance technique itself and its fundamental principles, such as isolations, fragmentations, and spirals."
+      }
+    }
+  };
+
+const WS_PRICE_TIERS = {
+  30:  { full: 124, student: 110 },  // 10-session starter / miniseries baseline
+  60:  { full: 198, student: 175 },
+  70:  { full: 223, student: 197 },
+  75:  { full: 231, student: 204 },
+  90:  { full: 248, student: 219 },
+  105: { full: 272, student: 240 },
+};
+
+const WS_STD_SESSIONS = 16;
+
+const WS_REG_URL = '/register/';
+
+const WS_SPRING_SCHEDULE_URL = 'https://classes.shoonyadance.com/schedule-spring-2026';
+
+const WS_SPRING_NOTE = null;
+
+const WS_SEMESTER_DATES = 'Sep 14 – Jan 30';
+
+const WS_ZOHO_STARTER_URL = 'https://creatorapp.zohopublic.eu/developer_shoonyadance/shoonya-dance-studio/form-perma/Workshop_Registration_Form/uOO7GVYHQEJn5dSVDz7z1nTXXeEfD0AZ4PJvtQJ0ZbMRum3tBX30zxQHC02n9b3bvTO6ORFDsVCfS4bJQF1VOZdBMZquYuPb4xx8';
+
+const WS_DROPIN_URL = WS_ZOHO_STARTER_URL;
+
+const WS_DROPIN_PACKS = [{ n: '3 sessions', price: '€40.50' }, { n: '5 sessions', price: '€67.50' }];
+
+const WS_DROPIN_NOTE = 'Prefer flexibility? Pick any 3 or 5 dates from the schedule above — no semester commitment needed.';
+
+const WS_PASS_URL = WS_ZOHO_STARTER_URL;
+
+const WS_PASS_PACKS = [
+  { n: '5 classes',  price: '€80'  },
+  { n: '10 classes', price: '€150' },
+  { n: '15 classes', price: '€215' },
+  { n: '20 classes', price: '€280' }
+];
+
+const WS_GOOGLE_FONTS = "https://fonts.googleapis.com/css2?family=Marcellus&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap";
+
+const WS_SEO = {
+  'Argentine Tango':       { title: 'Argentine Tango Classes in Ghent | Shoonya Dance Centre',          description: 'Argentine Tango in Ghent with Gisela & Sergio, co-founders of Estación Tango Brussels. All levels — from first embrace to social milonga. Register for September 2026.' },
+  'Flamenco':              { title: 'Flamenco Classes in Ghent | Shoonya Dance Centre',                 description: 'Authentic flamenco in Ghent with La Liz — trained in Seville and Jerez, 25+ years experience. Braceos, zapateado, choreography. All levels, September 2026.' },
+  'Flamenco & Sevillanas': { title: 'Flamenco and Sevillanas in Ghent | Shoonya Dance Centre',         description: 'Flamenco and Sevillanas classes in Ghent with La Liz. Monthly Sevillanas practice evenings included. Trained in Seville and Jerez. All levels welcome.' },
+  'Ballet':                { title: 'Adult Ballet Classes in Ghent | Shoonya Dance Centre',             description: 'Ballet for adults in Ghent with Shirley De Muer — graduate of the Royal Ballet School of Antwerp. Technique, posture, and musicality for all levels.' },
+  'Contemporary dance':    { title: 'Contemporary & Ballet Training in Ghent | Shoonya Dance Centre',   description: 'Morning contemporary and ballet training in Ghent for professional and semi-professional dancers, with Tono Ferriol. Monday and Thursday, flexible class passes.' },
+  'Kizomba':               { title: 'Kizomba Classes in Ghent | Shoonya Dance Centre',                 description: 'Kizomba in Ghent with Sonja KikiZomba — Belgium\'s pioneer of Kizomba teaching since 2006. Levels 2, 3 and 4. Authentic Angolan partner dance, Ghent.' },
+  'Bachata':               { title: 'Bachata Classes in Ghent | Shoonya Dance Centre',                 description: 'Bachata classes in Ghent with World Champion Alex and Lenka Badriyah. Dominican partner dance — rhythm, connection, and confidence. All levels, Gent.' },
+  'Cuban Salsa':           { title: 'Cuban Salsa Classes in Ghent | Shoonya Dance Centre',             description: 'Cuban Salsa (Casino) in Ghent with 3× World Champion Alex and Ioanna. Circular partner dance rooted in son cubano. All levels from beginner to advanced.' },
+  'Rueda de Casino':       { title: 'Rueda de Casino Classes in Ghent | Shoonya Dance Centre',         description: 'Rueda de Casino in Ghent — Cuban Salsa in a circle with partner changes. With World Champion Alex and Ioanna. Pre-req: 2 seasons of Cuban Salsa.' },
+  'Lindy Hop':             { title: 'Lindy Hop Classes in Ghent | Shoonya Dance Centre',               description: 'Lindy Hop swing dance classes in Ghent with Upside Down — Ghent\'s own swing & jazz organisation. All levels, everybody leads and follows. September 2026.' },
+  'Solo Jazz':             { title: 'Solo Jazz Dance Classes in Ghent | Shoonya Dance Centre',         description: 'Solo Jazz in Ghent — Harlem steps, swing vocabulary and improvisation with the Upside Down team. Open level, no experience needed. September 2026, Gent.' },
+  'Jazzy Workout':         { title: 'Jazzy Workout Classes in Ghent | Shoonya Dance Centre',           description: 'Jazzy Workout in Ghent — jazz dance and swing movement in a feel-good fitness class. Taught by the Upside Down team. No partner needed, all levels welcome.' },
+  'Tap Dance':             { title: 'Tap Dance Classes in Ghent | Shoonya Dance Centre',               description: 'Tap dance classes in Ghent with Tapdance Promotion — Lut Vermeulen and team. Levels 1–4, home of the annual Ghent Tap Festival. Register September 2026.' },
+  'Raqs Sharqi':           { title: 'Belly Dance Classes in Ghent | Shoonya Dance Centre',             description: 'Raqs Sharqi (belly dance) in Ghent with Lenka Badriyah — Silver Belly Dancer of the Universe 2012. Egyptian classical bellydance, all levels. September 2026.' },
+  'African Congolese Dance':{ title: 'African Dance Classes in Ghent | Shoonya Dance Centre',          description: 'Congolese traditional dance and Congolese Rumba in Ghent with Joseph Simako Said — choreographer from DR Congo. Body rhythm, energy, and community spirit.' },
+  'Burlesque':             { title: 'Burlesque Classes in Ghent | Shoonya Dance Centre',               description: 'Burlesque performance classes in Ghent for adults 18+. Stage presence, storytelling and confidence with Zoe Bizoe, Hendrik Lebon and Tine De Pauw.' },
+  'Cissy Ball':            { title: 'Cissy Ball Classes in Ghent | Shoonya Dance Centre',              description: 'Cissy Ball in Ghent — dance from your inner joy with Hendrik Lebon. No steps to memorise, no counts. Performance skills and pure expression for all levels.' },
+  'Bollyfolk':             { title: 'Bollyfolk Dance Classes in Ghent | Shoonya Dance Centre',         description: 'Bollyfolk in Ghent — Bollywood and Indian folk dance in one feel-good class with Swapnil Dagliya. Open level, no experience needed. September 2026.' },
+  'Bollywood':             { title: 'Bollywood Dance Classes in Ghent | Shoonya Dance Centre',         description: 'Bollywood dance classes in Ghent with Swapnil Dagliya. Indian cinema dance — energetic, expressive, and always moving. Levels 2 and 3, September 2026.' },
+  'Bhangra':               { title: 'Bhangra Dance Classes in Ghent | Shoonya Dance Centre',           description: 'Bhangra in Ghent with certified Learn Bhangra® instructor Swapnil Dagliya. The most exuberant folk dance of Punjab — big arms, big energy. Level 2.' },
+  'Indian Semi-Classical': { title: 'Indian Classical Dance Classes in Ghent | Shoonya',              description: 'Indian Semi-Classical dance in Ghent — Kathak footwork, expressive gestures, and storytelling through movement. Taught by Swapnil Dagliya. Level 2.' },
+  'Yoga':                  { title: 'Yoga Classes in Ghent | Shoonya Dance Centre',                   description: 'Yoga classes in Ghent for dancers and non-dancers. Iyengar-lineage practice taught by Swapnil Dagliya, certified yoga teacher since 2011, Pune.' },
+  'Indian Dance Technique':{ title: 'Indian Dance Technique in Ghent | Shoonya Dance Centre',         description: 'Indian Dance Technique in Ghent — foundation of Indian classical and folk dance. Vocabulary, posture, and coordination. Open level, Shoonya Dance Centre.' },
+  'Pilates for Dancers':   { title: 'Pilates for Dancers in Ghent | Shoonya Dance Centre',            description: 'Pilates for Dancers in Ghent with Lenka Badriyah. Core stability, joint mobility, and deep strength for movers of all backgrounds. Shoonya Dance Centre.' },
+  'Dance & Fit':           { title: 'Dance & Fit Classes in Ghent | Shoonya Dance Centre',            description: 'Dance & Fit in Ghent with Lenka Badriyah — energetic dance fitness for all levels. Morning classes that set you up for the day. No experience needed.' },
+  'Bachata Solo Style':  { title: 'Bachata Solo Style in Ghent | Shoonya Dance Centre',           description: 'Bachata Solo Style classes in Ghent with Ioanna — 10-session miniseries, October to December. Body movement, arm styling, and footwork. No partner needed. All genders welcome.' },
+  'Oriental Flow':         { title: 'Oriental Flow Classes in Ghent | Shoonya Dance Centre',          description: 'Oriental Flow in Ghent — traditional Middle Eastern dance meets contemporary movement. Taught by Nathalie El Ghoul, dance artist with 30+ years experience.' },
+};
+
+const WS_ABSENCE_REASON = 'teacher away';
+
+const WS_HOLIDAYS = [
+  { name: 'Herfstvakantie', start: '2026-11-01', end: '2026-11-08' },
+  { name: 'Kerstvakantie', start: '2026-12-20', end: '2027-01-10' }
+];
+
+function wsDateGridHtml(dates, p) {
+  const DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const MON  = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const fmt  = d => MON[d.getMonth()] + ' ' + d.getDate();
+  const holidayFor = d => WS_HOLIDAYS.find(h =>
+    d >= new Date(h.start + 'T00:00:00') && d <= new Date(h.end + 'T23:59:59')) || null;
+
+  const sorted = [...dates].sort();
+  const out = [];
+  sorted.forEach((iso, i) => {
+    if (i > 0) {
+      const prev = new Date(sorted[i - 1] + 'T12:00:00');
+      const cur  = new Date(iso + 'T12:00:00');
+      // Every weekly slot that falls between two consecutive class dates.
+      const skipped = [];
+      for (const t = new Date(prev); ; ) {
+        t.setDate(t.getDate() + 7);
+        if (t >= cur) break;
+        skipped.push(new Date(t));
+      }
+      // A single gap can be BOTH a school holiday and a teacher absence — exclusions are
+      // per teacher, so two teachers on the same weekday can have different gaps. Group the
+      // skipped weeks by cause, in order, and emit one row per run.
+      let run = [];
+      const flush = () => {
+        if (!run.length) return;
+        const hol = run[0].hol;
+        if (hol) {
+          const hs = new Date(hol.start + 'T12:00:00'), he = new Date(hol.end + 'T12:00:00');
+          const range = hs.getMonth() === he.getMonth()
+            ? MON[hs.getMonth()] + ' ' + hs.getDate() + '\u2013' + he.getDate()
+            : fmt(hs) + ' \u2013 ' + fmt(he);
+          out.push(`<span class="date-skip">\u2014 ${hol.name} (${range}) \u2014</span>`);
+        } else {
+          // "Dec 9 & 16", not "Dec 9 & Dec 16" — repeat the month only when it changes.
+          let lastMon = -1;
+          const label = run.map(x => {
+            const t = x.d.getMonth() === lastMon ? String(x.d.getDate()) : fmt(x.d);
+            lastMon = x.d.getMonth();
+            return t;
+          }).join(' & ');
+          out.push(`<span class="date-skip">\u2014 ${label}: no class (${WS_ABSENCE_REASON}) \u2014</span>`);
+        }
+        run = [];
+      };
+      skipped.forEach(d => {
+        const hol = holidayFor(d);
+        if (run.length && (run[0].hol || null) !== hol) flush();
+        run.push({ d, hol });
+      });
+      flush();
+    }
+    const dt = new Date(iso + 'T12:00:00');
+    out.push(`<span>${DAYS[dt.getDay()]} ${dt.getDate()} ${MON[dt.getMonth()]}</span>`);
+  });
+  return out.join('');
+}
+
+function wsEur(n) {
+  const v = Number(n);
+  if (!isFinite(v)) return n;
+  return Number.isInteger(v) ? String(v) : v.toFixed(2);
+}
+
+function wsComputePrice(duration, sessionCount, fallbackFull, fallbackStudent) {
+  const tier = WS_PRICE_TIERS[duration];
+  const sc   = sessionCount || WS_STD_SESSIONS;
+  const base = tier || (fallbackFull ? { full: fallbackFull, student: fallbackStudent || null } : null);
+  if (!base || !base.full) return null;
+  const isStd = sc === WS_STD_SESSIONS;
+  const fp = isStd ? base.full    : Math.round(base.full    * sc / WS_STD_SESSIONS);
+  const sp = base.student ? (isStd ? base.student : Math.ceil(base.student * sc / WS_STD_SESSIONS)) : null;
+  const up = Math.round(fp * 0.2 * 100) / 100;
+  return { full: fp, student: sp, uitpas: up };
+}
+
+function wsMakePrefix(styleName) {
+  return (styleName || '').toLowerCase()
+    .replace(/[^a-z0-9\s]/g, ' ').trim().split(/\s+/)
+    .map(w => w[0] || '').join('').slice(0, 5) || 'st';
+}
+
+function wsShortDay(day) {
+  return (day || '').slice(0, 3);
+}
+
+function wsClassifyLayout(levels) {
+  if (!levels || !levels.length) return 'none';
+  const dayCounts = {};
+  levels.forEach(lv => {
+    (lv.slots || []).forEach(s => {
+      if (s.day) dayCounts[s.day] = (dayCounts[s.day] || 0) + 1;
+    });
+  });
+  const distinctDays = Object.keys(dayCounts).length;
+  // Day-based: 5+ levels
+  if (levels.length >= 5) return 'day';
+  // Day-based: single day with 3+ levels (e.g. Bachata L1/L2/L3 all Tuesday)
+  if (distinctDays === 1 && levels.length >= 3) return 'day';
+  // Day-based: multiple days where at least one day has 2+ levels
+  if (distinctDays > 1 && Object.values(dayCounts).some(c => c > 1)) return 'day';
+  return 'per-level';
+}
+
+function wsTrialPillHtml() {
+  return `<link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<div style="display:flex;align-items:center;gap:1rem;border-left:4px solid #D85A30;padding:.85rem 1.25rem;background:#FAECE7;border-radius:0 10px 10px 0;">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D85A30" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+  <div>
+    <div style="font-size:.85rem;font-weight:700;color:#4A1B0C;font-family:'PT Serif',serif;line-height:1.4;">Free trial week · 14–19 September</div>
+    <div style="font-size:.75rem;color:#993C1D;font-family:'PT Serif',serif;margin-top:.1rem;line-height:1.4;">Drop in to any class, no registration needed — subject to availability</div>
+  </div>
+</div>`;
+}
+
+function wsDropinSectionHtml(prefix, note, cfg) {
+  const p = prefix;
+  cfg = cfg || {};
+  const packs = cfg.packs || WS_DROPIN_PACKS;
+  const label = cfg.label || 'Drop-in packs';
+  const cta   = cfg.cta   || 'Book drop-in pack →';
+  const url   = cfg.url   || WS_DROPIN_URL;
+  const tiles = packs.map(pk =>
+    `<div class="${p}-dropin-pack"><div class="${p}-dropin-sessions">${pk.n}</div><div class="${p}-dropin-price">${pk.price}</div></div>`
+  ).join('');
+  return `<div class="${p}-dropin-section">
+            <div><p class="${p}-dropin-label">${label}</p>
+            <p class="${p}-dropin-note">${note || WS_DROPIN_NOTE}</p></div>
+            <div class="${p}-dropin-packs">${tiles}</div>
+            <a class="${p}-dropin-register dropin-register" href="${url}" target="_blank" rel="noopener">${cta}</a>
+          </div>`;
+}
+
+function wsPerLevelCard(lv, idx, meta, prefix, isStarterSeries, levelDesc, opts) {
+  opts = opts || {};
+  const p = prefix;
+  const slots = (opts.slotOverride ? [opts.slotOverride] : lv.slots) || [];
+  const slot = slots[0] || {};
+  const sc    = lv.sessionCount || WS_STD_SESSIONS;
+  // Canonical price from slot duration (correct even when multiple levels share one meta.fullPrice)
+  const price = wsComputePrice(slot.duration || null, sc, meta.fullPrice, meta.studentPrice);
+
+  // Multi-slot: parallel timings (same level, different days e.g. Tue + Wed)
+  const isMultiSlot = slots.length > 1;
+
+  let priceLabel = '';
+  // Pass-priced styles carry no semester term price — the shared pass table below
+  // the cards is the only pricing. Never fall through to wsComputePrice here: the
+  // tier price would be flatly wrong for a pass product.
+  if (opts.passOnly) {
+    priceLabel = `<p class="${p}-semester-only-note">Sold as a flexible pass — see pricing below</p>`;
+  } else if (price) {
+    const { full: fp, student: sp, uitpas: up } = price;
+    if (isStarterSeries) {
+      priceLabel = `<div class="${p}-price-row">
+          <div class="${p}-price-col"><div class="${p}-price-amount">€${wsEur(fp)}</div><div class="${p}-price-label">Full price</div></div>
+        </div>`;
+    } else {
+      priceLabel = `<div class="${p}-price-row">
+          <div class="${p}-price-col"><div class="${p}-price-amount">€${wsEur(fp)}</div><div class="${p}-price-label">Full</div></div>
+          <div class="${p}-price-col"><div class="${p}-price-amount">€${sp ? wsEur(sp) : '—'}</div><div class="${p}-price-label">Student / 2+</div></div>
+          <div class="${p}-price-col"><div class="${p}-price-amount">€${wsEur(up)}</div><div class="${p}-price-label">UiTPAS −80%</div></div>
+        </div>`;
+    }
+  }
+
+  const levelName = opts.title || lv.level || ('Level ' + (idx + 1));
+  // Level source for the badge: `_realLevel` is the feed's own level, preserved
+  // by wsMergedStyle when a merged page relabels its cards. Without it an
+  // "Int/Adv" class relabelled to "Ballet" would look unlevelled.
+  const _lvlSrc = lv._realLevel || (opts.title ? (lv.level || '') : levelName);
+  // Word-based levels ("Int/Adv", "Advanced", "Intermediate") are NOT beginner
+  // classes. Before 2026-08-02 only "Level N" was recognised, so every one of
+  // them rendered "Beginners welcome" + "No experience needed. Start here." —
+  // the exact opposite of the truth for an Int/Adv professional class.
+  const _isAdvWord = /int\s*\/?\s*adv|advanced|intermediate|gevorderd/i.test(_lvlSrc);
+  const isL2plus = /level [2-9]|l[2-9]/i.test(_lvlSrc) || _isAdvWord;
+  const _lvNum = parseInt((levelName.match(/\d+/) || [])[0]);
+  const _l2Label = _isAdvWord
+    ? (/int\s*\/?\s*adv/i.test(_lvlSrc) ? 'Int / Adv'
+       : /advanced/i.test(_lvlSrc) ? 'Advanced' : 'Intermediate')
+    : (_lvNum >= 4 ? 'Advanced' : _lvNum === 3 ? 'Intermediate' : 'Prior experience needed');
+  const badgeClass = isStarterSeries ? '' : (isL2plus ? `${p}-badge-l2` : '');
+  const badgeText = isStarterSeries ? '4-week series' : (isL2plus ? _l2Label : 'Beginners welcome');
+  const cardClass = isStarterSeries ? `${p}-level-card ${p}-starter` : `${p}-level-card`;
+
+  // When field: show all slots if parallel timings, otherwise just slot[0]
+  const whenHtml = isMultiSlot
+    ? slots.map(s => `<span style="display:block;">${s.day || '?'} ${s.start || ''}–${s.end || ''}</span>`).join('')
+    : `${slot.day || '?'} ${slot.start || ''}–${slot.end || ''}`;
+
+  // Dates: merge all slots' dates, dedupe, sort
+  const _allDates = [...new Set(slots.flatMap(s => s.dates || []))].sort();
+  // Month span of THIS card's dates. Was hardcoded "Sep–Jan", which is wrong for
+  // any class that stops early (Tono's mornings end 10 Dec).
+  const _mAbbr = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const _mOf = d => _mAbbr[new Date(d + 'T12:00:00').getMonth()];
+  const _runMonths = _allDates.length
+    ? (_mOf(_allDates[0]) === _mOf(_allDates[_allDates.length - 1])
+        ? _mOf(_allDates[0])
+        : _mOf(_allDates[0]) + '–' + _mOf(_allDates[_allDates.length - 1]))
+    : 'Sep–Jan';
+  const datesHtml = _allDates.length
+    ? `<details class="${p}-date-list"><summary>${sc} sessions · ${_runMonths} · see all dates</summary>
+          <div class="${p}-date-grid" translate="no">${wsDateGridHtml(_allDates, p)}</div>
+        </details>`
+    : `<!-- dates not yet in sheet — run runApplyPersonalExclusions() to populate col S -->`;
+
+  const teacherAnchor = (slot.teacher || '').toLowerCase().split(' ')[0] || 'teacher';
+
+  const registerUrl = isStarterSeries ? WS_ZOHO_STARTER_URL : WS_REG_URL;
+
+  const descBlock = levelDesc
+    ? `<div class="${p}-level-desc">${levelDesc}</div>`
+    : '';
+
+  return `        <div class="${cardClass}">
+          <div class="${p}-card-top">
+            <div>
+              <div class="${p}-level-title">${levelName}</div>
+              ${isStarterSeries
+                ? `<div class="${p}-level-who">4-week intro — enrol any semester start</div>`
+                : isL2plus
+                  ? `<div class="${p}-level-who"><!-- tagline e.g. "Building on the foundation." --></div>`
+                  : `<div class="${p}-level-who">No experience needed. Start here.</div>`
+              }
+            </div>
+            <div class="${p}-level-badge ${badgeClass}">${badgeText}</div>
+          </div>
+          ${descBlock}
+          <div class="${p}-level-meta">
+            <div class="${p}-meta-item"><strong>When</strong><span>${whenHtml}</span></div>
+            <div class="${p}-meta-item"><strong>Where</strong><span>${slot.studio ? 'Studio ' + String(slot.studio).replace(/^Studio\s+/i, '') : '?'}</span></div>
+            <div class="${p}-meta-item"><strong>Teacher</strong><span>${slot.teacher || '?'}${slot.coTeachers ? ' & ' + slot.coTeachers : ''}</span></div>
+            <div class="${p}-meta-item"><strong>Duration</strong><span>${slot.duration || '?'} min</span></div>
+          </div>
+          ${datesHtml}
+          ${priceLabel}
+          ${opts.semesterOnly ? `<p class="${p}-semester-only-note">Semester registration only</p>` : ''}
+          ${opts.passOnly ? '' : `<a class="${p}-register-link register-link" href="${registerUrl}">${opts.dropinHtml ? 'Register for semester →' : 'Register →'}</a>`}
+          ${opts.dropinHtml || ''}
+        </div>`;
+}
+
+function wsDayCard(dayName, dayLevels, meta, prefix, descs) {
+  const p = prefix;
+
+  // Sort chronologically by start time so cards read in clock order
+  dayLevels = [...dayLevels].sort((a, b) => (a.slot.start || '').localeCompare(b.slot.start || ''));
+
+  // Detect whether all levels share the same teacher
+  const _uniqueTeachers = [...new Set(dayLevels.map(e => (e.slot.teacher || '').trim()).filter(Boolean))];
+  const _allSameTeacher = _uniqueTeachers.length <= 1;
+
+  // Build level-by-level time rows
+  const levelRows = dayLevels.map((entry, i) => {
+    const lv = entry.lv;
+    const slot = entry.slot;
+    const sc = lv.sessionCount || WS_STD_SESSIONS;
+    // Canonical price from slot duration — correct even for mixed-duration day cards
+    const price = wsComputePrice(slot.duration || null, sc, meta.fullPrice, meta.studentPrice);
+    const fp = price ? price.full    : null;
+    const sp = price ? price.student : null;
+    const up = price ? price.uitpas  : null;
+    // Same word-based-level fix as wsPerLevelCard: "Int/Adv" is not a beginner
+    // class. Ballet carries Shirley's Level 1/2/3 alongside Tono's Int/Adv, so
+    // this path renders both and must label each correctly.
+    const _dSrc = lv._realLevel || lv.level || '';
+    const _dAdvWord = /int\s*\/?\s*adv|advanced|intermediate|gevorderd/i.test(_dSrc);
+    const isL2plus = /level [2-9]|l[2-9]/i.test(_dSrc) || _dAdvWord;
+    const _dNum = parseInt((_dSrc.match(/\d+/) || [])[0]);
+    const _dLabel = _dAdvWord
+      ? (/int\s*\/?\s*adv/i.test(_dSrc) ? 'Int / Adv'
+         : /advanced/i.test(_dSrc) ? 'Advanced' : 'Intermediate')
+      : (isL2plus ? (_dNum >= 4 ? 'Advanced' : _dNum === 3 ? 'Intermediate' : 'Prior experience needed') : 'Beginners welcome');
+    const levelDesc = descs ? (descs[lv.level] || descs['Level ' + _dNum] || '') : '';
+    return `<div class="${p}-day-level">
+              <div class="${p}-day-level-row">
+                <span class="${p}-day-level-name">${lv.level || 'Level'}</span>
+                <span class="${p}-day-level-time">${slot.start || ''}–${slot.end || ''} · ${slot.duration || '?'} min</span>
+                <span class="${p}-day-level-badge ${isL2plus ? p + '-badge-l2' : ''}">${_dLabel}</span>
+              </div>
+              ${fp ? `<div class="${p}-day-pricing">€${wsEur(fp)}${sp ? ' · €' + wsEur(sp) + ' student' : ''} · €${wsEur(up)} UiTPAS</div>` : ''}
+              ${!_allSameTeacher ? `<div class="${p}-day-level-teacher">Teacher: ${slot.teacher || '?'}</div>` : ''}
+              ${levelDesc ? `<details class="${p}-day-desc"${i === 0 ? ' open' : ''}><summary class="${p}-day-desc-sum">About this level</summary><p class="${p}-day-desc-text">${levelDesc}</p></details>` : ''}
+            </div>`;
+  }).join('');
+
+  // Use first slot for When/Where/Teacher
+  const firstSlot = (dayLevels[0] && dayLevels[0].slot) || {};
+  const lastSlot  = (dayLevels[dayLevels.length - 1] && dayLevels[dayLevels.length - 1].slot) || {};
+  const timeRange = `${firstSlot.start || ''}–${lastSlot.end || ''}`;
+  const teacherAnchor = (firstSlot.teacher || '').toLowerCase().split(' ')[0] || 'teacher';
+
+  const datesHtml = (firstSlot.dates && firstSlot.dates.length)
+    ? `<details class="${p}-date-list"><summary>${dayLevels[0].lv.sessionCount || 14} sessions · Sep–Jan · see all dates</summary>
+          <div class="${p}-date-grid" translate="no">${wsDateGridHtml(firstSlot.dates, p)}</div>
+        </details>`
+    : '';
+
+  return `        <div class="${p}-level-card">
+          <div class="${p}-card-top">
+            <div>
+              <div class="${p}-level-title">${dayName} evenings</div>
+              <div class="${p}-level-who">${dayLevels.map(e => e.lv.level || 'Level').join(' + ')}</div>
+            </div>
+            <div class="${p}-level-badge">${dayLevels.length} classes</div>
+          </div>
+          <div class="${p}-day-levels">${levelRows}</div>
+          <hr style="border:none;border-top:1px solid #e4e0db;margin:.85rem 0;">
+          <div class="${p}-level-meta">
+            <div class="${p}-meta-item"><strong>When</strong><span>${dayName} ${timeRange}</span></div>
+            <div class="${p}-meta-item"><strong>Where</strong><span>${firstSlot.studio ? 'Studio ' + String(firstSlot.studio).replace(/^Studio\s+/i, '') : '?'}</span></div>
+            <div class="${p}-meta-item"><strong>Teacher</strong><span>${_allSameTeacher
+              ? (firstSlot.teacher || '?') + (firstSlot.coTeachers ? ' & ' + firstSlot.coTeachers : '')
+              : dayLevels.map(e => `${e.lv.level}: ${e.slot.teacher || '?'}`).join('<br>')
+            }</span></div>
+          </div>
+          ${datesHtml}
+          <a class="${p}-register-link register-link" href="${WS_REG_URL}">Register →</a>
+        </div>`;
+}
+
+function wsLevelsHtml(style, descsByLevel, wsData) {
+  const meta   = style.meta   || {};
+  let   levels = Array.isArray(style.levels) ? style.levels : [];
+
+  // ── Starter Series ────────────────────────────────────────────────────────
+  // A 4-week on-ramp sold alongside the semester course (Bhangra EUR 50, ISC EUR 58).
+  // It is NOT a level in the sheet, so it has to be synthesised: same day / time /
+  // teacher / studio as the style's first slot, the first `sessions` dates of that
+  // slot, and the standard tier prorated 4/16 — which is exactly where 50 and 58 come
+  // from, so nothing is hardcoded.
+  //
+  // Restored 2026-08-12. It had vanished from both the generator and the feed while the
+  // offering was still running and still advertised in the pages' own About text; the
+  // pasted blocks were the only place it survived. Confirmed still running by Swapnil.
+  // `isStarterSeries` is keyed on /starter/i in the level name, so the label must
+  // contain the word "Starter".
+  const _starter = wsData && wsData.starterSeries;
+  if (_starter && levels.length) {
+    const _base = (levels[0].slots || [])[0];
+    if (_base) {
+      const _n = _starter.sessions || 4;
+      levels = levels.concat([{
+        level: _starter.label || (_n + '-Week Starter Series'),
+        sessionCount: _n,
+        slots: [Object.assign({}, _base, { dates: (_base.dates || []).slice(0, _n) })]
+      }]);
+    }
+  }
+  const _descs = (descsByLevel && Object.keys(descsByLevel).length ? descsByLevel : null) || meta.descByLevel || {};
+  const p      = wsMakePrefix(style.name);
+  // Pass-priced styles always render per-level (one card per day-slot) so each
+  // class gets its own card above the shared pass table. Without this override
+  // wsClassifyLayout sees two levels back-to-back on the same day (Tono's Ballet
+  // 10:00 + Contemporary 11:30) and picks the day-based layout, which has no
+  // pass-table branch.
+  const layout = (wsData && wsData.passPricing) ? 'per-level' : wsClassifyLayout(levels);
+
+  // The "Semester" stat used to print the WS_SEMESTER_DATES constant on every
+  // block, which is wrong for any class that does not run the whole semester
+  // (Tono's mornings are Sep 28 – Dec 10, not Sep 14 – Jan 30). Derive it from
+  // this style's own slot dates and fall back to the constant only when the
+  // sheet has no dates yet.
+  const _runDates = [...new Set(levels.flatMap(lv => (lv.slots || []).flatMap(s => s.dates || [])))].sort();
+  const _fmtRun = d => {
+    const dt = new Date(d + 'T12:00:00');
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    return months[dt.getMonth()] + ' ' + dt.getDate();
+  };
+  const _styleRunRange = _runDates.length
+    ? _fmtRun(_runDates[0]) + ' – ' + _fmtRun(_runDates[_runDates.length - 1])
+    : WS_SEMESTER_DATES;
+
+  // Collect all unique days for semester-tag
+  const allDays = [];
+  levels.forEach(lv => (lv.slots || []).forEach(s => { if (s.day && !allDays.includes(s.day)) allDays.push(s.day); }));
+  const dayOrder = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+  allDays.sort((a, b) => dayOrder.indexOf(a) - dayOrder.indexOf(b));
+  // Determine time-of-day label per day from first matching slot
+  const _slotsByDay = {};
+  levels.forEach(lv => (lv.slots || []).forEach(s => { if (s.day && !_slotsByDay[s.day]) _slotsByDay[s.day] = s; }));
+  const _timeLabel = s => {
+    const h = parseInt((s.start || '00:00').split(':')[0]);
+    return h < 12 ? 'mornings' : h < 17 ? 'afternoons' : 'evenings';
+  };
+  const semesterTagDays = allDays.map(d => wsShortDay(d) + ' ' + (_slotsByDay[d] ? _timeLabel(_slotsByDay[d]) : 'evenings')).join(' + ');
+
+  // Drop-in styles (Pilates / Dance & Fit / Wed Yoga) render one card per day-slot.
+  // Pass-priced styles reuse the drop-in day-card machinery: every day they run on
+  // is a "pass day", so each slot gets its own card and ONE shared pass table
+  // renders below them (the pass is spendable across all of them).
+  const _passCfg = (wsData && wsData.passPricing) ? wsData.passPricing : null;
+  const _dropinDays = _passCfg
+    ? [...new Set(levels.flatMap(lv => (lv.slots || []).map(s => s.day)).filter(Boolean))]
+    : ((wsData && Array.isArray(wsData.dropinDays)) ? wsData.dropinDays : null);
+  const _totalSlots = levels.reduce((n, lv) => n + ((lv.slots || []).length), 0);
+  // Count how many cards will actually render — per-level: one per level (or one per
+  // day-slot for drop-in styles); day-based: one per unique day.
+  const renderedCardCount = layout === 'day'
+    ? dayOrder.filter(d => allDays.includes(d)).length
+    : (_dropinDays ? _totalSlots : levels.length);
+  const isSingleCard = renderedCardCount === 1;
+  const gridCols = isSingleCard ? '1fr' : '1fr 1fr';
+  const gridExtra = isSingleCard ? 'max-width:640px;margin:0 auto;' : '';
+
+  // Generate cards
+  let cardsHtml = '';
+  let dropinBelowHtml = '';   // shared drop-in section rendered below the cards (multi-day drop-in styles)
+  if (layout === 'per-level' && _dropinDays) {
+    // Drop-in styles: one card per day-slot.
+    // • Single drop-in day (e.g. Wed Yoga): drop-in block under that day's card,
+    //   "Semester registration only" note on the others.
+    // • Multiple drop-in days (e.g. Pilates Tue+Wed): ONE shared drop-in section
+    //   below both cards — the pack covers any day, so don't repeat it per card.
+    const _tod = s => { const h = parseInt((s.start || '0').split(':')[0]); return h < 12 ? 'morning' : h < 17 ? 'afternoon' : 'evening'; };
+    const _multiDropin = _dropinDays.length > 1;
+    const cards = [];
+    levels.forEach((lv, i) => {
+      const levelDesc = _descs[lv.level] || _descs['Level ' + (i + 1)] || '';
+      (lv.slots || []).forEach(s => {
+        const isDropin = _dropinDays.includes(s.day);
+        cards.push(wsPerLevelCard(lv, i, meta, p, false, levelDesc, {
+          slotOverride: s,
+          // Pass/merged pages carry more than one style, so the card title leads
+          // with the level label; drop-in pages keep the plain "Monday morning".
+          title: (_passCfg && lv.level ? lv.level + ' · ' : '') + (s.day || '') + ' ' + _tod(s),
+          dropinHtml: (!_passCfg && !_multiDropin && isDropin) ? wsDropinSectionHtml(p) : '',
+          semesterOnly: (!_passCfg && !_multiDropin && !isDropin),
+          passOnly: !!_passCfg
+        }));
+      });
+    });
+    cardsHtml = cards.join('\n');
+    if (_passCfg) {
+      dropinBelowHtml = '\n  <div style="max-width:640px;margin:1.5rem auto 0;">' +
+        wsDropinSectionHtml(p, _passCfg.note, {
+          packs: _passCfg.packs || WS_PASS_PACKS,
+          label: _passCfg.label || 'Class passes',
+          cta:   _passCfg.cta   || 'Book a pass →',
+          url:   _passCfg.url   || WS_PASS_URL
+        }) + '</div>';
+    } else if (_multiDropin) {
+      const _note = 'Prefer flexibility? Come to any ' + _dropinDays.join(' or ') +
+        ' session — pick 3 or 5 dates, no semester commitment needed.';
+      dropinBelowHtml = '\n  <div style="max-width:640px;margin:1.5rem auto 0;">' + wsDropinSectionHtml(p, _note) + '</div>';
+    }
+  } else if (layout === 'per-level') {
+    cardsHtml = levels.map((lv, i) => {
+      const isStarter = /starter/i.test(lv.level || '');
+      const levelDesc = _descs[lv.level] || _descs['Level ' + (i + 1)] || '';
+      return wsPerLevelCard(lv, i, meta, p, isStarter, levelDesc);
+    }).join('\n');
+  } else {
+    // Day-based: group slots by day
+    const byDay = {};
+    levels.forEach(lv => {
+      (lv.slots || []).forEach(slot => {
+        const day = slot.day || 'Unknown';
+        if (!byDay[day]) byDay[day] = [];
+        byDay[day].push({ lv, slot });
+      });
+    });
+    dayOrder.filter(d => byDay[d]).forEach(day => {
+      cardsHtml += wsDayCard(day, byDay[day], meta, p, _descs) + '\n';
+    });
+  }
+
+  const fullCss = `<link href="${WS_GOOGLE_FONTS}" rel="stylesheet">
+<style>
+.${p}-reg{width:100%;font-family:'PT Serif',Georgia,serif;}
+.${p}-reg .section-label{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#1a1a1a;font-family:'Marcellus',serif;margin:0 0 .5rem;}
+.${p}-reg h2.section-h{font-family:'Marcellus',serif;font-weight:400;font-size:1.6rem;color:#1a1a1a;margin:0 0 .5rem;}
+.${p}-reg .stat-row{display:flex;flex-wrap:wrap;gap:.75rem 2rem;margin:.65rem 0 1.5rem;align-items:flex-start;}
+.${p}-reg .stat-item{display:flex;flex-direction:column;gap:.15rem;}
+.${p}-reg .stat-val{font-size:.85rem;font-weight:400;color:#1a1a1a;font-family:'Marcellus',serif;}
+.${p}-reg .stat-key{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#6b6b6b;}
+.${p}-reg .stat-div{width:1px;background:rgba(0,0,0,.12);align-self:stretch;margin:.1rem 0;}
+@media(max-width:500px){.${p}-reg .stat-div{display:none;}}
+.${p}-reg .level-cards{display:grid;grid-template-columns:${gridCols};gap:1rem;width:100%;${gridExtra}}
+@media(max-width:700px){.${p}-reg .level-cards{grid-template-columns:1fr;}}
+@media(max-width:480px){.${p}-reg .${p}-level-meta{grid-template-columns:1fr;}}
+.${p}-reg .${p}-level-card{background:#fff;border:1.5px solid #e4e0db;border-radius:10px;padding:1.35rem 1.4rem;display:flex;flex-direction:column;gap:.85rem;}
+.${p}-reg .${p}-starter{background:#F5ECFF;border-color:#B564F7;}
+.${p}-reg .${p}-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:.75rem;}
+.${p}-reg .${p}-level-title{font-family:'Marcellus',serif;font-weight:400;font-size:1.15rem;color:#1a1a1a;margin:0;}
+.${p}-reg .${p}-level-who{font-size:.8rem;color:#6b6b6b;margin-top:.2rem;}
+.${p}-reg .${p}-level-badge{font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:#F5ECFF;color:#B564F7;border-radius:99px;padding:.25rem .75rem;white-space:nowrap;flex-shrink:0;}
+.${p}-reg .${p}-badge-l2{background:#1a1a1a;color:#fff;}
+.${p}-reg .${p}-level-prereq{font-size:.78rem;color:#555;line-height:1.55;font-style:italic;background:#FAF8F4;border-left:3px solid #B564F7;padding:.55rem .8rem;border-radius:0 4px 4px 0;}
+.${p}-reg .${p}-level-desc{font-size:.82rem;color:#555;line-height:1.55;margin-bottom:.25rem;}
+.${p}-reg .${p}-level-meta{display:grid;grid-template-columns:1fr 1fr;gap:.5rem .75rem;}
+.${p}-reg .${p}-meta-item{font-size:.8rem;color:#6b6b6b;display:flex;flex-direction:column;gap:.1rem;}
+.${p}-reg .${p}-meta-item strong{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#1a1a1a;}
+.${p}-reg .${p}-meta-item a{color:#1a1a1a;text-decoration:underline;}
+.${p}-reg .${p}-date-list{border:1px solid #e4e0db;border-radius:6px;overflow:hidden;}
+.${p}-reg .${p}-date-list summary{padding:.55rem .85rem;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#B564F7;cursor:pointer;min-height:44px;display:flex;align-items:center;}
+.${p}-reg .${p}-date-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.3rem;padding:.65rem .85rem;background:#faf8f4;}
+.${p}-reg .${p}-date-grid span{font-size:.72rem;color:#444;}
+.${p}-reg .${p}-date-grid .date-skip{grid-column:1/-1;text-align:center;font-size:.7rem;color:#B564F7;font-style:italic;padding:.25rem 0;border-top:1px dashed #e4e0db;}
+.${p}-reg .${p}-price-row{display:flex;border:1.5px solid #e4e0db;border-radius:8px;overflow:hidden;}
+.${p}-reg .${p}-price-col{flex:1;padding:.65rem .75rem;text-align:center;border-right:1px solid #e4e0db;}
+.${p}-reg .${p}-price-col:last-child{border-right:none;}
+@media(max-width:480px){.${p}-reg .${p}-price-row{flex-direction:column;}.${p}-reg .${p}-price-col{border-right:none;border-bottom:1px solid #e4e0db;}.${p}-reg .${p}-price-col:last-child{border-bottom:none;}}
+.${p}-reg .${p}-price-amount{font-family:'Marcellus',serif;font-size:1.1rem;color:#1a1a1a;}
+.${p}-reg .${p}-price-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#5a5a5a;margin-top:.15rem;}
+.${p}-reg .${p}-day-levels{display:flex;flex-direction:column;gap:.65rem;}
+.${p}-reg .${p}-day-level{background:#faf8f4;border-radius:6px;padding:.6rem .8rem;}
+.${p}-reg .${p}-day-level-row{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;}
+.${p}-reg .${p}-day-level-name{font-size:.85rem;font-weight:700;color:#1a1a1a;flex:1;}
+.${p}-reg .${p}-day-level-time{font-size:.78rem;color:#6b6b6b;}
+.${p}-reg .${p}-day-level-badge{font-size:.72rem;font-weight:700;text-transform:uppercase;background:#F5ECFF;color:#B564F7;border-radius:99px;padding:.15rem .55rem;}
+.${p}-reg .${p}-day-pricing{font-size:.75rem;color:#6b6b6b;margin-top:.3rem;}
+.${p}-reg .${p}-day-desc{border-top:1px solid #e4e0db;margin-top:.5rem;padding-top:.4rem;}
+.${p}-reg .${p}-day-level-teacher{font-size:.75rem;color:#666;margin-top:.2rem;}
+.${p}-reg .${p}-day-desc-sum{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#B564F7;cursor:pointer;list-style:none;padding:.1rem 0;}
+.${p}-reg .${p}-day-desc-sum::-webkit-details-marker{display:none;}
+.${p}-reg .${p}-day-desc-text{font-size:.8rem;color:#555;line-height:1.6;margin:.5rem 0 0;}
+.${p}-reg a.register-link,
+.${p}-reg a.register-link:link,
+.${p}-reg a.register-link:visited,
+.${p}-reg a.register-link:hover,
+.${p}-reg a.register-link:focus,
+.${p}-reg a.register-link:active{display:block!important;width:100%!important;box-sizing:border-box!important;padding:.75rem 1rem!important;background:#000!important;background-color:#000!important;background-image:none!important;color:#ffffff!important;text-align:center!important;text-decoration:none!important;font-size:.82rem!important;font-weight:700!important;letter-spacing:.08em!important;text-transform:uppercase!important;border-radius:8px!important;border:0!important;box-shadow:none!important;transition:background .15s!important;pointer-events:auto!important;cursor:pointer!important;}
+.${p}-reg a.register-link:hover{background:#B564F7!important;background-color:#B564F7!important;}
+.${p}-reg .spring-note{display:flex;align-items:center;gap:.5rem;font-size:.8rem;color:#5a3a7a;background:#f5ecff;border:1px solid #e0ccf8;border-radius:6px;padding:.55rem .9rem;margin-top:1.25rem;}
+.${p}-reg .spring-note a{color:#B564F7;text-decoration:none;font-weight:700;}
+.${p}-reg .spring-note a:hover{text-decoration:underline;}
+.${p}-reg .${p}-semester-only-note{font-size:.75rem;color:#6b6b6b;text-align:center;padding:.35rem 0 0;margin:0;}
+.${p}-reg .${p}-dropin-section{border-top:1.5px dashed #d4bef7;padding-top:1rem;margin-top:.25rem;display:flex;flex-direction:column;gap:.75rem;}
+.${p}-reg .${p}-dropin-label{font-size:.68rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#B564F7;margin:0 0 .35rem;}
+.${p}-reg .${p}-dropin-note{font-size:.78rem;color:#6b6b6b;margin:0;line-height:1.5;}
+.${p}-reg .${p}-dropin-packs{display:flex;gap:.65rem;}
+.${p}-reg .${p}-dropin-pack{flex:1;border:1.5px solid #d4bef7;border-radius:8px;padding:.7rem .75rem;text-align:center;background:#faf4ff;}
+.${p}-reg .${p}-dropin-sessions{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#B564F7;margin-bottom:.2rem;}
+.${p}-reg .${p}-dropin-price{font-family:'Marcellus',serif;font-size:1.2rem;color:#1a1a1a;}
+.${p}-reg a.dropin-register,
+.${p}-reg a.dropin-register:link,
+.${p}-reg a.dropin-register:visited,
+.${p}-reg a.dropin-register:hover,
+.${p}-reg a.dropin-register:focus,
+.${p}-reg a.dropin-register:active{display:block!important;text-align:center!important;background:transparent!important;background-color:transparent!important;background-image:none!important;color:#B564F7!important;font-family:'PT Serif',Georgia,serif!important;font-size:.85rem!important;font-weight:700!important;letter-spacing:.04em!important;text-decoration:none!important;border:1.5px solid #B564F7!important;border-radius:7px!important;padding:.6rem 1rem!important;box-shadow:none!important;outline:none!important;pointer-events:auto!important;cursor:pointer!important;}
+.${p}-reg a.dropin-register:hover{background:#B564F7!important;background-color:#B564F7!important;color:#fff!important;}
+.${p}-reg .${p}-partner-callout{display:flex;gap:.6rem;align-items:flex-start;background:#F5ECFF;border:1.5px solid #dbc5f8;border-radius:8px;padding:.7rem 1rem;margin-bottom:1.25rem;font-size:.83rem;color:#3a1a5c;line-height:1.55;}
+.${p}-reg .${p}-partner-callout strong{font-weight:700;}
+.${p}-reg .${p}-partner-callout a{color:#B564F7;text-decoration:none;}
+.${p}-reg .${p}-partner-callout a:hover{text-decoration:underline;}
+</style>
+<div class="${p}-reg">
+  ${isSingleCard ? `<div style="max-width:640px;margin:0 auto;">` : ''}
+  <h2 class="section-h">Levels &amp; registration</h2>
+  <div class="stat-row">
+    <div class="stat-item"><span class="stat-val">${_styleRunRange}</span><span class="stat-key">Semester</span></div>
+    <div class="stat-div"></div>
+    <div class="stat-item"><span class="stat-val">${Math.max(...levels.map(lv => lv.sessionCount || 16))} sessions</span><span class="stat-key">Classes</span></div>
+    <div class="stat-div"></div>
+    <div class="stat-item"><span class="stat-val">${semesterTagDays || '—'}</span><span class="stat-key">Schedule</span></div>
+    <div class="stat-div"></div>
+    <div class="stat-item"><span class="stat-val">${levels.length} ${levels.length === 1 ? 'level' : 'levels'}</span><span class="stat-key">Levels</span></div>
+  </div>
+  ${wsData && wsData.partnerRequired ? `<div class="${p}-partner-callout">
+    <span aria-hidden="true">&#128107;</span>
+    <span><strong>Partner required</strong> — please register together with your dance partner.${wsData.partnerForumUrl ? ` Looking for one? <a href="${wsData.partnerForumUrl}">Join the Shoonya Dance Forum →</a>` : ''}</span>
+  </div>` : ''}
+  <div class="level-cards">
+${cardsHtml}  </div>${dropinBelowHtml}
+  ${WS_SPRING_NOTE ? `<p class="spring-note"><span aria-hidden="true">&#127800;</span><span>${WS_SPRING_NOTE} — <a href="${WS_SPRING_SCHEDULE_URL}">view the spring schedule →</a></span></p>` : ''}
+  ${isSingleCard ? `</div>` : ''}
+</div>`;
+
+  return fullCss;
+}
+
+  return { render: wsLevelsHtml, styleData: WS_STYLE_DATA, computePrice: wsComputePrice,
+           classifyLayout: wsClassifyLayout, makePrefix: wsMakePrefix };
+  })();
+  // ─── END GENERATED ───
 
 })();
