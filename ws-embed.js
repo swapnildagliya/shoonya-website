@@ -72,12 +72,30 @@
     return null;
   }
 
+  // ONE shared in-flight promise for the whole page — both the calendar buttons and the
+  // Levels block read it. Never add a second fetch of this URL: two concurrent requests to
+  // the same Apps Script /exec get serialised per user and one of them comes back 404.
+  //
+  // Retry, because a single request is not reliable either: /exec 302s to
+  // script.googleusercontent.com and that hop intermittently 404s. A miss used to mean the
+  // Levels block silently rendered nothing (observed live on Kizomba, 2026-08-12), so a
+  // transient blip must not be indistinguishable from "no data". Three attempts, ~600ms
+  // apart; still resolves null if all fail, so a genuine outage degrades to "no block"
+  // rather than a broken page.
   function fetchSchedule() {
     if (_feedPromise) return _feedPromise;
-    _feedPromise = fetch(SCHED_FEED + '?action=publicSchedule&semester=' + encodeURIComponent(SCHED_SEMESTER))
-      .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (j) { return (j && j.ok && Array.isArray(j.slots)) ? j.slots : null; })
-      .catch(function () { return null; }); // offline / CORS → no button, no breakage
+    var url = SCHED_FEED + '?action=publicSchedule&semester=' + encodeURIComponent(SCHED_SEMESTER);
+    var attempt = function (n) {
+      return fetch(url)
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (j) { return (j && j.ok && Array.isArray(j.slots)) ? j.slots : null; })
+        .catch(function () { return null; })
+        .then(function (slots) {
+          if (slots || n >= 3) return slots;
+          return new Promise(function (res) { setTimeout(res, 600); }).then(function () { return attempt(n + 1); });
+        });
+    };
+    _feedPromise = attempt(1);
     return _feedPromise;
   }
 
@@ -800,63 +818,84 @@
   // semester-content-generator.html into the GENERATED region below by
   // scripts/build-ws-embed.mjs, so the generator stays the single source of truth.
   //
-  // ⚠️ This uses the BLOCK STUDIO feed (no `action` param), NOT `publicSchedule`.
-  // publicSchedule is a thinner projection: it omits level descriptions, uses raw sheet level
-  // labels, and returns no slotDates for 11 of the 24 styles. The Block Studio endpoint returns
-  // precisely the shape the renderer expects — levels[].slots[].dates, meta.descByLevel,
-  // displayLabel — so no field mapping is needed at all.
-  var WS_BS_SEMESTER = 'Sep 2026 – Jan 2027';
-  var _bsPromise = null;
-
-  function fetchBlockData() {
-    if (_bsPromise) return _bsPromise;
-    _bsPromise = fetch(SCHED_FEED + '?semester=' + encodeURIComponent(WS_BS_SEMESTER))
-      .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (j) { return (j && Array.isArray(j.styles)) ? j.styles : null; })
-      .catch(function () { return null; });   // offline / CORS → page unchanged
-    return _bsPromise;
+  // ⚠️ Reads `publicSchedule`, NOT the Block Studio feed. The Block Studio endpoint carries
+  // the same data in a friendlier shape, but it is served BY Apps Script and is therefore
+  // same-origin only — from www.shoonyadance.com it returns 404. That cost a blank block on
+  // a live page (2026-08-12). Any feed used here must be fetched from the page's own origin
+  // in a real browser before it is trusted; curl proves nothing about CORS.
+  // ⚠️ Delegates to fetchSchedule() — do NOT give this its own fetch again.
+  // It previously issued its own identical request, so init() fired TWO concurrent calls to
+  // the same /exec URL (one from injectCalendarButtons, one from injectLevelsBlock). Apps
+  // Script serialises concurrent executions per user: one request came back 200 and the other
+  // 404, non-deterministically. Whichever pass lost the race got null and bailed with
+  // "[ws-levels] publicSchedule feed unavailable", so the levels block rendered NOTHING.
+  // That race — not the feed shape — is what made the Kizomba block go blank (2026-08-12);
+  // it also explains why the same page rendered fine on one load and empty on the next.
+  // Both callers want the identical URL and the identical slot array, so they now share one
+  // in-flight promise. Reproduced and verified in a browser, not by curl.
+  function fetchPublicSlots() {
+    return fetchSchedule();
   }
 
-  // Same two rules the generator applies before rendering:
-  //  · excludeTeachers — a teacher moved to their own page must not appear here too
-  //  · mergeStyles     — one page may carry a second style's slots
-  function wsPrepareStyle(styleName, styles) {
+  var WS_DAY_LONG = { mon: 'Monday', tue: 'Tuesday', wed: 'Wednesday', thu: 'Thursday',
+                      fri: 'Friday', sat: 'Saturday', sun: 'Sunday' };
+
+  // publicSchedule is a FLAT slot list; the renderer wants
+  // { name, meta:{descByLevel}, levels:[{ level, sessionCount, slots:[…] }] }.
+  function wsStyleFromSlots(styleName, allSlots) {
     var ws = (WS_LEVELS.styleData && WS_LEVELS.styleData[styleName]) || {};
-    var style = null;
-    for (var i = 0; i < styles.length; i++) if (styles[i].name === styleName) { style = styles[i]; break; }
-    if (!style) return null;
+    var names = [styleName].concat(ws.mergeStyles || []);
+    var mine = allSlots.filter(function (s) { return names.indexOf(s.style) >= 0; });
 
-    var levels = (style.levels || []).map(function (lv) { return { level: lv.level, displayLabel: lv.displayLabel, sessionCount: lv.sessionCount, slots: (lv.slots || []).slice() }; });
-
+    // A teacher moved to their own page must not appear here too.
     if (ws.excludeTeachers && ws.excludeTeachers.length) {
-      levels = levels.map(function (lv) {
-        lv.slots = lv.slots.filter(function (sl) { return ws.excludeTeachers.indexOf(sl.teacher) < 0; });
-        return lv;
-      }).filter(function (lv) { return lv.slots.length; });
+      mine = mine.filter(function (s) { return ws.excludeTeachers.indexOf(s.teacher) < 0; });
     }
-    (ws.mergeStyles || []).forEach(function (other) {
-      for (var i = 0; i < styles.length; i++) {
-        if (styles[i].name === other) levels = levels.concat(styles[i].levels || []);
-      }
+    if (!mine.length) return null;
+
+    var byLevel = {}, order = [], descByLevel = {};
+    mine.forEach(function (s) {
+      var key = s.levelName || s.level || 'Open Level';
+      if (!byLevel[key]) { byLevel[key] = []; order.push(key); }
+      if (s.levelDescription && !descByLevel[key]) descByLevel[key] = s.levelDescription;
+      byLevel[key].push({
+        day: WS_DAY_LONG[s.day] || s.day,
+        start: s.start, end: s.end, duration: s.duration,
+        teacher: s.teacher,
+        // The renderer does `slot.coTeachers ? ' & ' + slot.coTeachers : ''` — it wants a
+        // STRING. publicSchedule already sends one; an array here would render a stray '&'.
+        coTeachers: (typeof s.coTeachers === 'string') ? s.coTeachers : (s.coTeachers || []).join(', '),
+        studio: s.studioName || s.studio,
+        dates: s.dates || s.slotDates || []
+      });
     });
-    if (!levels.length) return null;
-    return { name: style.name, meta: style.meta || {}, levels: levels };
+
+    var levels = order.map(function (key) {
+      var sl = byLevel[key];
+      // Multiple weekly slots for ONE level are alternate timings, not extra sessions:
+      // sessions = MAX across slots, never the sum. (CLAUDE.md, multi-slot rule.)
+      var counts = sl.map(function (x) { return (x.dates || []).length; });
+      return { level: key, sessionCount: Math.max.apply(null, counts.concat([0])), slots: sl };
+    });
+
+    return { name: styleName, meta: { descByLevel: descByLevel }, levels: levels };
   }
 
   function injectLevelsBlock() {
     var root = document.getElementById('ws-levels-root');
     if (!root || root.getAttribute('data-ws-done')) return;
-    // Every failure path says WHY. A silent catch is what let the first version fail invisibly.
     var warn = function (m) { try { console.warn('[ws-levels] ' + m); } catch (e) {} };
     var styleName = styleForPath((window.location.pathname || '').replace(/\/$/, '').toLowerCase());
     if (!styleName) return warn('no style mapped to ' + window.location.pathname);
-    fetchBlockData().then(function (styles) {
-      if (!styles) return warn('Block Studio feed unavailable');
+    fetchPublicSlots().then(function (allSlots) {
+      if (!allSlots) return warn('publicSchedule feed unavailable');
       try {
-        var style = wsPrepareStyle(styleName, styles);
-        if (!style) return warn('no levels in the feed for "' + styleName + '"');
+        var style = wsStyleFromSlots(styleName, allSlots);
+        if (!style) return warn('no slots in the feed for "' + styleName + '"');
         var ws = (WS_LEVELS.styleData && WS_LEVELS.styleData[styleName]) || {};
-        root.innerHTML = WS_LEVELS.render(style, style.meta.descByLevel || ws.descriptionsByLevel || null, ws);
+        var descs = Object.keys(style.meta.descByLevel).length
+          ? style.meta.descByLevel : (ws.descriptionsByLevel || null);
+        root.innerHTML = WS_LEVELS.render(style, descs, ws);
         root.setAttribute('data-ws-done', '1');
         if (typeof injectCalendarButtons === 'function') { _calDone = false; injectCalendarButtons(); }
       } catch (e) { warn('render failed: ' + (e && e.message)); }
