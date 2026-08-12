@@ -1610,9 +1610,14 @@ function wsLevelsHtml(style, descsByLevel, wsData) {
     const cards = [];
     levels.forEach((lv, i) => {
       const levelDesc = _descs[lv.level] || _descs['Level ' + (i + 1)] || '';
+      // This path renders ONE CARD PER SLOT, so a level taught on two days (Yoga Tue+Thu,
+      // Pilates Tue+Wed) produced the same description twice on one page. The description
+      // belongs to the level, not the slot — emit it on the first card only (D-024: each
+      // fact exactly once per surface).
+      let _descUsed = false;
       (lv.slots || []).forEach(s => {
         const isDropin = _dropinDays.includes(s.day);
-        cards.push(wsPerLevelCard(lv, i, meta, p, false, levelDesc, {
+        cards.push(wsPerLevelCard(lv, i, meta, p, false, _descUsed ? '' : levelDesc, {
           slotOverride: s,
           // Pass/merged pages carry more than one style, so the card title leads
           // with the level label; drop-in pages keep the plain "Monday morning".
@@ -1621,6 +1626,7 @@ function wsLevelsHtml(style, descsByLevel, wsData) {
           semesterOnly: (!_passCfg && !_multiDropin && !isDropin),
           passOnly: !!_passCfg
         }));
+        _descUsed = true;
       });
     });
     cardsHtml = cards.join('\n');
@@ -1640,7 +1646,11 @@ function wsLevelsHtml(style, descsByLevel, wsData) {
   } else if (layout === 'per-level') {
     cardsHtml = levels.map((lv, i) => {
       const isStarter = /starter/i.test(lv.level || '');
-      const levelDesc = _descs[lv.level] || _descs['Level ' + (i + 1)] || '';
+      // A starter series is NOT "level i+1". The positional fallback handed it whatever level
+      // happened to sit at that index, so the identical description rendered twice on one page
+      // — observed on Indian Semi-Classical 2026-08-12, where the Level 2 text repeated verbatim
+      // on the 4-Week Starter card. A starter card gets a description only if one is keyed to it.
+      const levelDesc = _descs[lv.level] || (isStarter ? '' : (_descs['Level ' + (i + 1)] || ''));
       return wsPerLevelCard(lv, i, meta, p, isStarter, levelDesc);
     }).join('\n');
   } else {
