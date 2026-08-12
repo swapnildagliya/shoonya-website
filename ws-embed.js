@@ -1,5 +1,11 @@
 // ws-embed.js — Shoonya style page embed
-// Served from: https://classes.shoonyadance.com/ws-embed.js
+// Served from: https://schooljaar.shoonyadance.com/ws-embed.js  ← the LIVE host.
+//   ⚠️ This line used to say classes.shoonyadance.com. It was wrong, and it cost a session:
+//   all 24 Squarespace style pages load the schooljaar copy. `classes` and `styles` serve
+//   older copies of this file that NOTHING loads. The classes URL is aspirational — left over
+//   from a subdomain rename that was prepared and REVERTED (truth/decisions.md §599: GitHub
+//   Pages 404s the old domain instead of redirecting, so there is no zero-downtime path with
+//   one repo). Deploy to `shoonya-website`; the other two repos are not load-bearing.
 // v6 · 2026-06-19 — inject Course/CourseInstance JSON-LD per style page from the
 //                   feed (style/level/day/time/dates/teacher/studio), so weekly
 //                   classes are machine-readable for search + answer engines.
@@ -906,10 +912,18 @@
     }
     if (!mine.length) return null;
 
-    var byLevel = {}, order = [], descByLevel = {};
+    // GROUP by levelName ("Level 1"), but DISPLAY the full label ("Level 1 — Flamenco &
+    // Sevillanas"). The feed splits "Level 1 — Foundation" into levelName + displayLabel; an
+    // earlier version of this adapter keyed and displayed on levelName only, which silently
+    // dropped the label — the block showed a bare "Level 1" while the pasted block and the
+    // add-to-calendar button both carried the full name. Grouping still uses the short key so
+    // alternate timings for one level merge correctly.
+    // descByLevel stays keyed on the SHORT name; the renderer falls back to
+    // descs['Level ' + n], so descriptions still resolve against the long display label.
+    var byLevel = {}, order = [], descByLevel = {}, displayByKey = {};
     mine.forEach(function (s) {
       var key = s.levelName || s.level || 'Open Level';
-      if (!byLevel[key]) { byLevel[key] = []; order.push(key); }
+      if (!byLevel[key]) { byLevel[key] = []; order.push(key); displayByKey[key] = s.level || key; }
       if (s.levelDescription && !descByLevel[key]) descByLevel[key] = s.levelDescription;
       byLevel[key].push({
         day: WS_DAY_LONG[s.day] || s.day,
@@ -928,7 +942,8 @@
       // Multiple weekly slots for ONE level are alternate timings, not extra sessions:
       // sessions = MAX across slots, never the sum. (CLAUDE.md, multi-slot rule.)
       var counts = sl.map(function (x) { return (x.dates || []).length; });
-      return { level: key, sessionCount: Math.max.apply(null, counts.concat([0])), slots: sl };
+      return { level: displayByKey[key] || key, _realLevel: key,
+               sessionCount: Math.max.apply(null, counts.concat([0])), slots: sl };
     });
 
     return { name: styleName, meta: { descByLevel: descByLevel }, levels: levels };
