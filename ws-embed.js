@@ -78,6 +78,16 @@
     return null;
   }
 
+  // Style names in the feed do not always match the SLUGS keys exactly. The sheet carries
+  // "Raqs Sharqi (bellydance)" while SLUGS says "Raqs Sharqi", and an exact lowercase compare
+  // silently produced NO add-to-calendar buttons on that page — for months, invisibly, because
+  // the page otherwise looks fine. Normalise by dropping any trailing parenthetical and
+  // collapsing whitespace before comparing. Fixes the class of bug, not just this one name.
+  function styleKey(s) {
+    return String(s || '').toLowerCase().replace(/\s*\([^)]*\)\s*$/, '').replace(/\s+/g, ' ').trim();
+  }
+  function sameStyle(a, b) { return styleKey(a) === styleKey(b); }
+
   // ONE shared in-flight promise for the whole page — both the calendar buttons and the
   // Levels block read it. Never add a second fetch of this URL: two concurrent requests to
   // the same Apps Script /exec get serialised per user and one of them comes back 404.
@@ -683,12 +693,12 @@
       var path = (window.location.pathname || '').replace(/\/$/, '').toLowerCase();
       var styleName = styleForPath(path);
       if (!styleName) return;
-      if (!document.querySelector('details[class*="-date-list"]')) return; // not in DOM yet
+      if (!document.querySelector('details[class*="date-list"]')) return; // not in DOM yet
       fetchSchedule().then(function (slots) {
         if (_calDone || !slots) return;
-        var anchors = [].slice.call(document.querySelectorAll('details[class*="-date-list"]'));
+        var anchors = [].slice.call(document.querySelectorAll('details[class*="date-list"]'));
         if (!anchors.length) return;
-        var mine = slots.filter(function (s) { return (s.style || '').toLowerCase() === styleName.toLowerCase(); });
+        var mine = slots.filter(function (s) { return sameStyle(s.style, styleName); });
         if (!mine.length) return;
         mine.sort(function (a, b) { return (DAY_ORDER[a.day] || 9) - (DAY_ORDER[b.day] || 9) || hhmm(a.start).localeCompare(hhmm(b.start)); });
         injectStyles();
@@ -748,7 +758,7 @@
       if (!styleName) return;
       fetchSchedule().then(function (slots) {
         if (_courseDone || document.getElementById('wsep-course-jsonld') || !slots) return;
-        var mine = slots.filter(function (s) { return (s.style || '').toLowerCase() === styleName.toLowerCase(); });
+        var mine = slots.filter(function (s) { return sameStyle(s.style, styleName); });
         if (!mine.length) return;
         mine.sort(function (a, b) { return (DAY_ORDER[a.day] || 9) - (DAY_ORDER[b.day] || 9) || hhmm(a.start).localeCompare(hhmm(b.start)); });
         var base = (location.origin + location.pathname).replace(/\/$/, '');
@@ -904,7 +914,12 @@
   function wsStyleFromSlots(styleName, allSlots) {
     var ws = (WS_LEVELS.styleData && WS_LEVELS.styleData[styleName]) || {};
     var names = [styleName].concat(ws.mergeStyles || []);
-    var mine = allSlots.filter(function (s) { return names.indexOf(s.style) >= 0; });
+    // Tolerant compare, same reason as injectCalendarButtons: the feed's "Raqs Sharqi
+    // (bellydance)" does not equal the SLUGS key "Raqs Sharqi".
+    var mine = allSlots.filter(function (s) {
+      for (var i = 0; i < names.length; i++) if (sameStyle(s.style, names[i])) return true;
+      return false;
+    });
 
     // A teacher moved to their own page must not appear here too.
     if (ws.excludeTeachers && ws.excludeTeachers.length) {
