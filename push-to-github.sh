@@ -21,6 +21,8 @@ fi
 
 echo "→ Staging all files..."
 git add -A
+# D-026: CNAME is managed by GitHub Pages settings — staging it resets SSL provisioning
+git restore --staged CNAME 2>/dev/null || true
 
 TIMESTAMP=$(date "+%Y-%m-%d %H:%M")
 echo "→ Committing: deploy $TIMESTAMP"
