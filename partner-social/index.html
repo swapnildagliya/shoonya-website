@@ -3,11 +3,22 @@
 <head>
   <meta charset="utf-8">
   <title>Redirecting…</title>
-  <link rel="canonical" href="https://styles.shoonyadance.com/#partner">
-  <meta http-equiv="refresh" content="0; url=https://styles.shoonyadance.com/#partner">
-  <script>window.location.replace('https://styles.shoonyadance.com/#partner');</script>
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="https://schedule.shoonyadance.com/styles/#partner">
+  <script>
+  (function () {
+    // A URL fragment never reaches the server, so a meta-refresh alone would drop it.
+    // Read it here and carry it across. This target has its own anchor, so an incoming hash is ignored.
+    var nl = (navigator.language || '').toLowerCase().indexOf('nl') === 0;
+    var to = nl ? "https://schedule.shoonyadance.com/nl/styles/#partner" : "https://schedule.shoonyadance.com/styles/#partner";
+    
+    location.replace(to);
+  })();
+  </script>
+  <!-- No-JS fallback. Cannot carry the fragment: a documented limitation, not an oversight. -->
+  <meta http-equiv="refresh" content="0; url=https://schedule.shoonyadance.com/styles/#partner">
 </head>
 <body>
-  <p><a href="https://styles.shoonyadance.com/#partner">Click here if not redirected automatically.</a></p>
+  <p><a href="https://schedule.shoonyadance.com/styles/#partner">Click here if not redirected automatically.</a></p>
 </body>
 </html>
