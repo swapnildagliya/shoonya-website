@@ -2069,12 +2069,12 @@ const WS_SEO = {
 // ─── Canonical price tiers (standard 16 sessions) ────────────────────────────
 // Source of truth: 6-tier pricing confirmed 2026-05-11
 const WS_PRICE_TIERS = {
-  30:  { full: 124, student: 110 },  // 10-session starter / miniseries baseline
-  60:  { full: 198, student: 175 },
-  70:  { full: 223, student: 197 },
-  75:  { full: 231, student: 204 },
-  90:  { full: 248, student: 219 },
-  105: { full: 272, student: 240 },
+  30:  { full: 124, student: 109.12 },  // 10-session starter / miniseries baseline
+  60:  { full: 198, student: 174.24 },
+  70:  { full: 223, student: 196.24 },
+  75:  { full: 231, student: 203.28 },
+  90:  { full: 248, student: 218.24 },
+  105: { full: 272, student: 239.36 },
 };
 const WS_STD_SESSIONS = 16;
 
@@ -2180,7 +2180,8 @@ function wsComputePrice(duration, sessionCount, fallbackFull, fallbackStudent) {
   if (!base || !base.full) return null;
   const isStd = sc === WS_STD_SESSIONS;
   const fp = isStd ? base.full    : Math.round(base.full    * sc / WS_STD_SESSIONS);
-  const sp = base.student ? (isStd ? base.student : Math.ceil(base.student * sc / WS_STD_SESSIONS)) : null;
+  // Student = exactly 12 % off the (prorated) full price, two decimals — what the app and Zoho charge (owner, 26 Oct 2026). Never round up.
+  const sp = base.student ? Math.round(fp * 88) / 100 : null;
   const up = Math.round(fp * 0.2 * 100) / 100;
   return { full: fp, student: sp, uitpas: up };
 }
