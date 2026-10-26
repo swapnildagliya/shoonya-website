@@ -48,7 +48,19 @@
     trialWeeks: [
       { start: '2026-09-14', end: '2026-09-19' },
       { start: '2027-02-15', end: '2027-02-20' }
-    ]
+    ],
+    // The current semester's timetable page. schedule.shoonyadance.com/ is a gateway, not
+    // the timetable, so there is no semester-stable URL — this slug turns over with the
+    // semester. build-trial-banner.mjs warns once semester.end has passed.
+    scheduleUrl: 'https://schedule.shoonyadance.com/schedule-sep-2026/',
+    // Calendar event page per date — keyed by open-door date, or by a trial week's START.
+    // The banner CTA points here when a programme exists; a date with no entry falls back
+    // to the schedule, so a future door can never link to a 404. Slugs are per-edition:
+    // add next season's line when its calendar event is published.
+    eventUrls: {
+      '2026-09-13': 'https://www.shoonyadance.com/calendar/opendeurdag-gratis-dansen-gent-13-september',
+      '2026-09-14': 'https://www.shoonyadance.com/calendar/free-trial-week-14-19-september'
+    }
   };
 
   var MF = {
@@ -80,6 +92,9 @@
   var UPCOMING_OD = CFG.openDoorDates.filter(function (iso) { return iso >= TODAY_ISO; });
   if (!UPCOMING_OD.length) UPCOMING_OD = CFG.openDoorDates.slice(-1); // never render blank
 
+  var UPCOMING_TW = CFG.trialWeeks.filter(function (w) { return w.end >= TODAY_ISO; });
+  if (!UPCOMING_TW.length) UPCOMING_TW = CFG.trialWeeks.slice(-1);
+
   var D = {};
   ['en', 'nl'].forEach(function(lang) {
     var d = {};
@@ -96,8 +111,10 @@
       ? d.open_door_1 + ' + ' + d.open_door_2
       : dmy(UPCOMING_OD[0], lang);
 
-    d.trial_week_short = twRange(sem.trialWeek, lang, false);
-    d.trial_week_long = twRange(sem.trialWeek, lang, true);
+    // Next trial week still ahead (self-expiring, like open_door_*); never render blank.
+    var tw = UPCOMING_TW[0];
+    d.trial_week_short = twRange(tw, lang, false);
+    d.trial_week_long = twRange(tw, lang, true);
 
     d.trial_weeks_all = CFG.trialWeeks.map(function(tw) {
       return twRange(tw, lang, false);
